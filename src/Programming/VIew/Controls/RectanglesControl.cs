@@ -1,0 +1,114 @@
+﻿using System;
+using System.Windows.Forms;
+using Programming.Model;
+using Rectangle = Programming.Model.Rectangle;
+
+namespace Programming.View.Controls
+{
+    public partial class RectanglesControl : UserControl
+    {
+        const int CountElements = 5;
+
+        private Rectangle[] _rectangles;
+
+        private Rectangle _currentRectangle;
+
+        public RectanglesControl()
+        {
+            InitializeComponent();
+
+            _rectangles = CreateRectangles();
+            RectangleListBox.SelectedIndex = 0;
+        }
+
+        private Rectangle[] CreateRectangles()
+        {
+            Rectangle[] rectangles = new Rectangle[CountElements];
+            for (int i = 0; i < CountElements; i++)
+            {
+                _currentRectangle = RectangleFactory.Randomize();
+                rectangles[i] = _currentRectangle;
+                RectangleListBox.Items.Add($"Rectangle {_currentRectangle.Id}");
+            }
+            return rectangles;
+        }
+
+        private int FindRectangleWithMaxWidth(Rectangle[] rectangles)
+        {
+            int maxWidthIndex = 0;
+            double maxValue = 0;
+            for (int i = 0; i < CountElements; i++)
+            {
+                if (rectangles[i].Width > maxValue)
+                {
+                    maxValue = rectangles[i].Width;
+                    maxWidthIndex = i;
+                }
+            }
+            return maxWidthIndex;
+        }
+
+        private void RectangleListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (RectangleListBox.SelectedIndex == -1) return;
+
+            int selectedIndexRectangle = RectangleListBox.SelectedIndex;
+            _currentRectangle = _rectangles[selectedIndexRectangle];
+            HeightRectangleTextBox.Text = _currentRectangle.Height.ToString();
+            WidthRectangleTextBox.Text = _currentRectangle.Width.ToString();
+            ColorRectangleTextBox.Text = _currentRectangle.Color;
+            XRectangleTextBox.Text = _currentRectangle.Center.X.ToString();
+            YRectangleTextBox.Text = _currentRectangle.Center.Y.ToString();
+            IdRectangleTextBox.Text = _currentRectangle.Id.ToString();
+        }
+
+        private void HeightRectangleTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (RectangleListBox.SelectedIndex == -1) return;
+
+            try
+            {
+                string currentLengthLength = HeightRectangleTextBox.Text;
+                int lengthRectangleValue = int.Parse(currentLengthLength);
+                _currentRectangle.Height = lengthRectangleValue;
+            }
+            catch
+            {
+                HeightRectangleTextBox.BackColor = AppColors.ErrorColor;
+                return;
+            }
+            HeightRectangleTextBox.BackColor = AppColors.CorrectColor;
+        }
+
+        private void WidthRectangleTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (RectangleListBox.SelectedIndex == -1) return;
+
+            try
+            {
+                string currentWidthRectangle = WidthRectangleTextBox.Text;
+                int widthRectangleValue = int.Parse(currentWidthRectangle);
+                _currentRectangle.Width = widthRectangleValue;
+            }
+            catch
+            {
+                WidthRectangleTextBox.BackColor = AppColors.ErrorColor;
+                return;
+            }
+            WidthRectangleTextBox.BackColor = AppColors.CorrectColor;
+        }
+
+        private void ColorRectangleTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string colorRectangleValue = ColorRectangleTextBox.Text;
+            _currentRectangle.Color = colorRectangleValue;
+        }
+
+        private void FindRectangleButton_Click(object sender, EventArgs e)
+        {
+            if (RectangleListBox.Items.Count == 0) return;
+            int findMaxWidthIndex = FindRectangleWithMaxWidth(_rectangles);
+            RectangleListBox.SelectedIndex = findMaxWidthIndex;
+        }
+    }
+}
