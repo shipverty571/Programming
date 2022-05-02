@@ -50,7 +50,6 @@ namespace Programming.View.Controls
             {
                 for (int j = i + 1; j < _rectangles.Count; j++)
                 {
-
                     if (CollisionManager.IsCollision(_rectangles[i], _rectangles[j]))
                     {
                         CanvasPanel.Controls[i].BackColor = AppColors.IsCollision;
