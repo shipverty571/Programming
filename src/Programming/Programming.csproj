@@ -61,7 +61,7 @@
     <Compile Include="Model\Route.cs" />
     <Compile Include="Model\Song.cs" />
     <Compile Include="Model\Time.cs" />
-    <Compile Include="Model\Geometry\Validator.cs" />
+    <Compile Include="Model\Validator.cs" />
     <Compile Include="View\Controls\EnumerationControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
