@@ -11,6 +11,7 @@
             }
         }
 
+
         public static void AssertOnPositiveValue(string nameProperty, double value)
         {
             if (value <= 0)

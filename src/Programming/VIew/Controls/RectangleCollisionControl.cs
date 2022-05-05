@@ -11,9 +11,9 @@ namespace Programming.View.Controls
     {
         private List<Rectangle> _rectangles;
 
-        private Rectangle _currentRectangle;
-
         private List<Panel> _rectanglePanels;
+
+        private Rectangle _currentRectangle;
 
         private int _heightCanvas;
 
