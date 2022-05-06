@@ -5,11 +5,21 @@ using Programming.Model;
 
 namespace Programming.View.Controls
 {
+    public class ColorSelectedEventArgs : EventArgs
+    {
+        public Color Color { get; set; }
+
+        public ColorSelectedEventArgs(Color color)
+        {
+            Color = color;
+        }
+    }
+
     public partial class SeasonHandleControl : UserControl
     {
-        public delegate void ChangeColor(Color color);
+        public Color CurrentColor { get; private set; }
 
-        public event ChangeColor SelectColor;
+        public event EventHandler<ColorSelectedEventArgs> ColorSelected;
 
         public SeasonHandleControl()
         {
@@ -28,23 +38,24 @@ namespace Programming.View.Controls
             switch (SeasonNamesComboBox.SelectedItem)
             {
                 case Season.Winter:
-                    SelectColor?.Invoke(AppColors.Winter);
+                    CurrentColor = AppColors.Winter;
+                    ColorSelected?.Invoke(this, new ColorSelectedEventArgs(AppColors.Winter));
                     break;
                 case Season.Summer:
-                    SelectColor?.Invoke(AppColors.Summer);
+                    ColorSelected?.Invoke(this, new ColorSelectedEventArgs(AppColors.Summer));
                     break;
                 case Season.Spring:
-                    SelectColor?.Invoke(AppColors.Spring);
+                    ColorSelected?.Invoke(this, new ColorSelectedEventArgs(AppColors.Spring));
                     break;
                 case Season.Autumn:
-                    SelectColor?.Invoke(AppColors.Autumn);
+                    ColorSelected?.Invoke(this, new ColorSelectedEventArgs(AppColors.Autumn));
                     break;
             }
         }
 
         private void ClearColorButton_Click(object sender, EventArgs e)
         {
-            SelectColor?.Invoke(DefaultBackColor);
+            ColorSelected?.Invoke(this, new ColorSelectedEventArgs(DefaultBackColor));
         }
     }
 }

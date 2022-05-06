@@ -171,6 +171,7 @@ namespace Programming.View.Controls
                 XSelectedRectangleTextBox.BackColor = AppColors.ErrorColor;
                 return;
             }
+
             XSelectedRectangleTextBox.BackColor = AppColors.CorrectColor;
         }
 
@@ -192,6 +193,7 @@ namespace Programming.View.Controls
                 YSelectedRectangleTextBox.BackColor = AppColors.ErrorColor;
                 return;
             }
+
             YSelectedRectangleTextBox.BackColor = AppColors.CorrectColor;
         }
 

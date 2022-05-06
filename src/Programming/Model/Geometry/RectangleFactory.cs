@@ -4,8 +4,10 @@ namespace Programming.Model
 {
     public static class RectangleFactory
     {
-        private static Random _random;
+        private const int Margin = 15;
 
+        private static Random _random;
+        
         static RectangleFactory()
         {
             _random = new Random();
@@ -15,9 +17,10 @@ namespace Programming.Model
         {
             var colors = Enum.GetValues(typeof(Colors));
             Rectangle rectangle = new Rectangle();
-            rectangle.Center = new Point2D(_random.Next(1, widthCanvas - 100 - 15), _random.Next(1, heightCanvas - 100 + 15));
             rectangle.Width = _random.Next(30, 100);
             rectangle.Height = _random.Next(30, 100);
+            rectangle.Center = new Point2D(_random.Next(Margin, widthCanvas - rectangle.Width - Margin),
+                                           _random.Next(Margin, heightCanvas - rectangle.Height - Margin));
             rectangle.Color = colors.GetValue(_random.Next(0, colors.Length)).ToString();
             return rectangle;
         }
