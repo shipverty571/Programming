@@ -12,12 +12,12 @@ namespace Programming.Model
 
         public static Color IsNotCollision = Color.FromArgb(127, 127, 255, 127);
 
-        public static Color Spring = ColorTranslator.FromHtml("#e2d745");
+        public static Color Spring = Color.FromArgb(226, 215, 69);
 
-        public static Color Autumn = ColorTranslator.FromHtml("#e29c45");
+        public static Color Autumn = Color.FromArgb(226, 156, 69);
 
-        public static Color Winter = ColorTranslator.FromHtml("#4553e2");
+        public static Color Winter = Color.FromArgb(69, 83, 226);
 
-        public static Color Summer = ColorTranslator.FromHtml("#559c45");
+        public static Color Summer = Color.FromArgb(85, 156, 69);
     }
 }

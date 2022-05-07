@@ -1,6 +1,5 @@
-﻿using Programming.View.Controls;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using Programming.View.Controls;
 
 namespace Programming.View
 {
