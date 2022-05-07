@@ -17,8 +17,6 @@ namespace Programming.View.Controls
 
     public partial class SeasonHandleControl : UserControl
     {
-        public Color CurrentColor { get; private set; }
-
         public event EventHandler<ColorSelectedEventArgs> ColorSelected;
 
         public SeasonHandleControl()
@@ -38,7 +36,6 @@ namespace Programming.View.Controls
             switch (SeasonNamesComboBox.SelectedItem)
             {
                 case Season.Winter:
-                    CurrentColor = AppColors.Winter;
                     ColorSelected?.Invoke(this, new ColorSelectedEventArgs(AppColors.Winter));
                     break;
                 case Season.Summer:

@@ -10,12 +10,11 @@ namespace Programming.View
         {
             InitializeComponent();
 
-            seasonHandleControl1.ColorSelected += SeasonHandleControl_ColorSelected;
+            SeasonHandleControl.ColorSelected += SeasonHandleControl_ColorSelected;
         }
 
         public void SeasonHandleControl_ColorSelected(object sender, ColorSelectedEventArgs args)
         {
-            BackColor = seasonHandleControl1.CurrentColor;
             BackColor = args.Color;
         }
     }
