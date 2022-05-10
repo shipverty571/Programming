@@ -26,37 +26,22 @@ namespace Programming.Model
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = AssertStringContainsOnlyLetters(nameof(Name), value);
-            }
+            get => _name;
+            set => _name = AssertStringContainsOnlyLetters(nameof(Name), value);
         }
 
         public string Surname
         {
-            get
-            {
-                return _surname;
-            }
-            set
-            {
-                _surname = AssertStringContainsOnlyLetters(nameof(Surname), value);
-            }
+            get => _surname;
+            set => _surname = AssertStringContainsOnlyLetters(nameof(Surname), value);
         }
 
         public string Number
         {
-            get
-            {
-                return _number;
-            }
+            get => _number;
             set
             {
-                if (!long.TryParse(value, out long num))
+                if (!long.TryParse(value, out var num))
                 {
                     throw new System.ArgumentException(
                         $"the value of the {nameof(Number)} field must consist of digits only");

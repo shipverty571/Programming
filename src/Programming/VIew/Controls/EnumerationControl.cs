@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Programming.Model;
+using Programming.Model.Enums;
 
 namespace Programming.View.Controls
 {
@@ -10,7 +11,7 @@ namespace Programming.View.Controls
         {
             InitializeComponent();
 
-            Array allEnums = Enum.GetValues(typeof(Enums));
+            var allEnums = Enum.GetValues(typeof(Enums));
             foreach (Enums value in allEnums)
             {
                 EnumListBox.Items.Add(value);
@@ -53,10 +54,8 @@ namespace Programming.View.Controls
 
         private void ValueListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!(ValueListBox.SelectedItem == null))
-            {
+            if (ValueListBox.SelectedItem != null)
                 IntValueTextBox.Text = ((int)ValueListBox.SelectedItem).ToString();
-            }
         }
     }
 }

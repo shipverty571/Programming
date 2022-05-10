@@ -1,6 +1,7 @@
 ﻿using System;
+using Programming.Model.Enums;
 
-namespace Programming.Model
+namespace Programming.Model.Geometry
 {
     public static class RectangleFactory
     {

@@ -24,10 +24,7 @@
 
         public int AmountHours
         {
-            get
-            {
-                return _amountHours;
-            }
+            get => _amountHours;
             set
             {
                 Validator.AssertOnPositiveValue(nameof(AmountHours), value);
@@ -37,10 +34,7 @@
 
         public int Mark
         {
-            get
-            {
-                return _mark;
-            }
+            get => _mark;
             set
             {
                 Validator.AssertValueInRange(nameof(Mark), value, 0, 5);

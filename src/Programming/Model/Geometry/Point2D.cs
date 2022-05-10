@@ -1,4 +1,4 @@
-﻿namespace Programming.Model
+﻿namespace Programming.Model.Geometry
 {
     public class Point2D
     {
@@ -14,10 +14,7 @@
 
         public int X
         {
-            get
-            {
-                return _x;
-            }
+            get => _x;
             set
             {
                 Validator.AssertOnPositiveValue(nameof(X), value);
@@ -27,10 +24,7 @@
 
         public int Y
         {
-            get
-            {
-                return _y;
-            }
+            get => _y;
             set
             {
                 Validator.AssertOnPositiveValue(nameof(Y), value);

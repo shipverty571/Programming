@@ -1,19 +1,15 @@
-﻿namespace Programming.Model
+﻿namespace Programming.Model.Geometry
 {
     public class Rectangle
     {
-        private static int _allRectanglesCount;
-
         private int _height;
 
         private int _width;
 
-        private int _id;
-
         public Rectangle()
         {
-            _allRectanglesCount++;
-            _id = _allRectanglesCount;
+            AllRectanglesCount++;
+            Id = AllRectanglesCount;
         }
 
         public Rectangle(int height,
@@ -25,24 +21,21 @@
             Width = width;
             Color = color;
             Center = center;
-            _allRectanglesCount++;
-            _id = _allRectanglesCount;
+            AllRectanglesCount++;
+            Id = AllRectanglesCount;
         }
 
         public Point2D Center { get; set; }
 
         public string Color { get; set; }
 
-        public int Id => _id;
+        public int Id { get; }
 
-        public static int AllRectanglesCount => _allRectanglesCount;
+        public static int AllRectanglesCount { get; private set; }
 
         public int Height
         {
-            get
-            {
-                return _height;
-            }
+            get => _height;
             set
             {
                 Validator.AssertOnPositiveValue(nameof(Height), value);
@@ -52,10 +45,7 @@
 
         public int Width
         {
-            get
-            {
-                return _width;
-            }
+            get => _width;
             set
             {
                 Validator.AssertOnPositiveValue(nameof(Width), value);

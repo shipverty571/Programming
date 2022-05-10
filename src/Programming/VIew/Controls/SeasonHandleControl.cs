@@ -2,19 +2,10 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Programming.Model;
+using Programming.Model.Enums;
 
 namespace Programming.View.Controls
 {
-    public class ColorSelectedEventArgs : EventArgs
-    {
-        public Color Color { get; set; }
-
-        public ColorSelectedEventArgs(Color color)
-        {
-            Color = color;
-        }
-    }
-
     public partial class SeasonHandleControl : UserControl
     {
         public event EventHandler<ColorSelectedEventArgs> ColorSelected;
@@ -23,7 +14,7 @@ namespace Programming.View.Controls
         {
             InitializeComponent();
 
-            Array seasonValues = Enum.GetValues(typeof(Season));
+            var seasonValues = Enum.GetValues(typeof(Season));
             foreach (Season value in seasonValues)
             {
                 SeasonNamesComboBox.Items.Add(value);
@@ -53,6 +44,16 @@ namespace Programming.View.Controls
         private void ClearColorButton_Click(object sender, EventArgs e)
         {
             ColorSelected?.Invoke(this, new ColorSelectedEventArgs(DefaultBackColor));
+        }
+    }
+
+    public class ColorSelectedEventArgs : EventArgs
+    {
+        public Color Color { get; set; }
+
+        public ColorSelectedEventArgs(Color color)
+        {
+            Color = color;
         }
     }
 }

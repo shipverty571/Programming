@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Programming.Model;
+using Programming.Model.Enums;
 
 namespace Programming.View.Controls
 {
@@ -10,19 +11,15 @@ namespace Programming.View.Controls
         {
             InitializeComponent();
         }
+
         private void ParseWeekdayButton_Click(object sender, EventArgs e)
         {
             string textWeekdayTextBox = WeekdayTextBox.Text;
-            Weekday value;
 
-            if (Enum.TryParse(textWeekdayTextBox, out value))
-            {
-                OutputWeekdayLabel.Text = $"Это день недели ({value} - {(int)value})";
-            }
+            if (Enum.TryParse(textWeekdayTextBox, out Weekday valueTextBox))
+                OutputWeekdayLabel.Text = $"Это день недели ({valueTextBox} - {(int)valueTextBox})";
             else
-            {
                 OutputWeekdayLabel.Text = "Нет такого дня недели";
-            }
         }
     }
 }

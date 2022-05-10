@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Programming.Model;
+using Programming.Model.Enums;
 
 namespace Programming.View.Controls
 {
     public partial class MoviesControl : UserControl
     {
-        const int CountElements = 5;
+        private const int CountElements = 5;
 
         private Movie _currentMovie;
 
@@ -74,6 +75,8 @@ namespace Programming.View.Controls
 
         private void YearReleaseMovieTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (MovieListBox.SelectedIndex == -1) return;
+
             try
             {
                 string currentYearRelease = YearReleaseMovieTextBox.Text;
@@ -90,6 +93,8 @@ namespace Programming.View.Controls
 
         private void DurationMinutesMovieTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (MovieListBox.SelectedIndex == -1) return;
+
             try
             {
                 string currentDurationMinutes = DurationMinutesMovieTextBox.Text;
@@ -106,6 +111,8 @@ namespace Programming.View.Controls
 
         private void RatingMovieTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (MovieListBox.SelectedIndex == -1) return;
+
             try
             {
                 string currentRating = RatingMovieTextBox.Text;

@@ -24,10 +24,7 @@
 
         public int Hours
         {
-            get
-            {
-                return _hours;
-            }
+            get => _hours;
             set
             {
                 Validator.AssertValueInRange(nameof(Hours), value, 0, 23);
@@ -37,10 +34,7 @@
 
         public int Minutes
         {
-            get
-            {
-                return _minutes;
-            }
+            get => _minutes;
             set
             {
                 Validator.AssertValueInRange(nameof(Minutes), value, 0, 59);
@@ -50,10 +44,7 @@
 
         public int Seconds
         {
-            get
-            {
-                return _seconds;
-            }
+            get => _seconds;
             set
             {
                 Validator.AssertValueInRange(nameof(Seconds), value, 0, 59);

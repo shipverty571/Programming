@@ -24,10 +24,7 @@
 
         public int DurationSeconds
         {
-            get
-            {
-                return _durationSeconds;
-            }
+            get => _durationSeconds;
             set
             {
                 Validator.AssertOnPositiveValue(nameof(DurationSeconds), value);

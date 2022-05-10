@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 using Programming.Model;
-using Rectangle = Programming.Model.Rectangle;
+using Programming.Model.Geometry;
+using Rectangle = Programming.Model.Geometry.Rectangle;
 
 namespace Programming.View.Controls
 {
     public partial class RectanglesControl : UserControl
     {
-        const int CountElements = 5;
+        private const int CountElements = 5;
 
         private Rectangle[] _rectangles;
 
@@ -39,11 +40,10 @@ namespace Programming.View.Controls
             double maxValue = 0;
             for (int i = 0; i < CountElements; i++)
             {
-                if (rectangles[i].Width > maxValue)
-                {
-                    maxValue = rectangles[i].Width;
-                    maxWidthIndex = i;
-                }
+                if (!(rectangles[i].Width > maxValue)) continue;
+
+                maxValue = rectangles[i].Width;
+                maxWidthIndex = i;
             }
             return maxWidthIndex;
         }
@@ -107,6 +107,7 @@ namespace Programming.View.Controls
         private void FindRectangleButton_Click(object sender, EventArgs e)
         {
             if (RectangleListBox.Items.Count == 0) return;
+
             int findMaxWidthIndex = FindRectangleWithMaxWidth(_rectangles);
             RectangleListBox.SelectedIndex = findMaxWidthIndex;
         }

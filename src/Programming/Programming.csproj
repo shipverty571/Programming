@@ -86,7 +86,9 @@
     <Compile Include="View\Controls\RectanglesControl.Designer.cs">
       <DependentUpon>RectanglesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Controls\SeasonHandleControl.cs" />
+    <Compile Include="View\Controls\SeasonHandleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="View\Controls\SeasonHandleControl.Designer.cs">
       <DependentUpon>SeasonHandleControl.cs</DependentUpon>
     </Compile>

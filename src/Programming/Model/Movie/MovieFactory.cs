@@ -1,4 +1,5 @@
 ﻿using System;
+using Programming.Model.Enums;
 
 namespace Programming.Model
 {

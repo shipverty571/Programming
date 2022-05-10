@@ -4,9 +4,9 @@ namespace Programming.Model
 {
     public static class AppColors
     {
-        public static Color CorrectColor = Color.White;
+        public static Color CorrectColor = Color.FromArgb(255, 255, 255);
 
-        public static Color ErrorColor = Color.LightPink;
+        public static Color ErrorColor = Color.FromArgb(255, 182, 193);
 
         public static Color IsCollision = Color.FromArgb(127, 255, 127, 127);
 

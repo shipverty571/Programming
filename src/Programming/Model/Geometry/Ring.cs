@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Programming.Model
+namespace Programming.Model.Geometry
 {
     public class Ring
     {
@@ -22,10 +22,7 @@ namespace Programming.Model
 
         public double OuterRadius
         {
-            get
-            {
-                return _outerRadius;
-            }
+            get => _outerRadius;
             private set
             {
                 Validator.AssertOnPositiveValue(nameof(OuterRadius), value);
@@ -36,10 +33,7 @@ namespace Programming.Model
 
         public double InnerRadius
         {
-            get
-            {
-                return _innerRadius;
-            }
+            get => _innerRadius;
             private set
             {
                 Validator.AssertOnPositiveValue(nameof(InnerRadius), value);
