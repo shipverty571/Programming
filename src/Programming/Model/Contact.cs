@@ -2,19 +2,41 @@
 
 namespace Programming.Model
 {
+    /// <summary>
+    /// Хранит данные о контактных данных человека.
+    /// </summary>
     public class Contact
     {
+        /// <summary>
+        /// Номер.
+        /// </summary>
         private string _number;
 
+        /// <summary>
+        /// Имя.
+        /// </summary>
         private string _name;
 
+        /// <summary>
+        /// Фамилия.
+        /// </summary>
         private string _surname;
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Contact"/>.
+        /// </summary>
         public Contact()
         {
 
         }
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Contact"/>.
+        /// </summary>
+        /// <param name="name">Имя. Должно состоять только из букв английского алфавита.</param>
+        /// <param name="surname">Фамилия. Должна состоять только из букв английского алфавита.</param>
+        /// <param name="number">Номер. Должен состоять только из цифр.
+        /// Должен иметь одиннадцать символов.</param>
         public Contact(string name,
                        string surname,
                        string number)
@@ -24,48 +46,45 @@ namespace Programming.Model
             Number = number;
         }
 
+        /// <summary>
+        /// Возвращает и задаёт имя контакта. Должно состоять только из букв английского алфавита.
+        /// </summary>
         public string Name
         {
             get => _name;
-            set => _name = AssertStringContainsOnlyLetters(nameof(Name), value);
+            set
+            {
+                Validator.AssertStringContainsOnlyLetters(nameof(Name), value);
+                _name = value;
+            }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт фамилию контакта. Должна состоять только из букв английского алфавита.
+        /// </summary>
         public string Surname
         {
             get => _surname;
-            set => _surname = AssertStringContainsOnlyLetters(nameof(Surname), value);
+            set
+            {
+                Validator.AssertStringContainsOnlyLetters(nameof(Surname), value);
+                _surname = value;
+            }
         }
 
+        /// <summary>
+        /// Возвращает и задает номер контакта. Должен состоять только из цифр.
+        /// Должен иметь одиннадцать символов.
+        /// </summary>
         public string Number
         {
             get => _number;
             set
             {
-                if (!long.TryParse(value, out var num))
-                {
-                    throw new System.ArgumentException(
-                        $"the value of the {nameof(Number)} field must consist of digits only");
-                }
-
-                if (value.Length != 11)
-                {
-                    throw new System.ArgumentException(
-                        $"the value of the {nameof(Number)} field must consist of 11 digits");
-                }
-
+                Validator.AssertValueContainsOnlyDigits(nameof(Number), value);
+                Validator.AssertNumberContainsElevenDigit(nameof(Number), value);
                 _number = value;
             }
-        }
-
-        private string AssertStringContainsOnlyLetters(string nameProperty, string value)
-        {
-            if (!Regex.IsMatch(value, @"^[a-zA-Z]+$"))
-            {
-                throw new System.ArgumentException(
-                    $"the value of the {nameProperty} field should consist only of English letters.");
-            }
-
-            return value;
         }
     }
 }

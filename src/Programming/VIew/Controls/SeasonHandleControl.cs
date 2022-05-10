@@ -6,10 +6,19 @@ using Programming.Model.Enums;
 
 namespace Programming.View.Controls
 {
+    /// <summary>
+    /// Наследуется от класса UserControl.
+    /// </summary>
     public partial class SeasonHandleControl : UserControl
     {
+        /// <summary>
+        /// Событие при изменении цвета.
+        /// </summary>
         public event EventHandler<ColorSelectedEventArgs> ColorSelected;
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="SeasonHandleControl"/>.
+        /// </summary>
         public SeasonHandleControl()
         {
             InitializeComponent();
@@ -47,13 +56,23 @@ namespace Programming.View.Controls
         }
     }
 
+    /// <summary>
+    /// Наследуется от базового класса EventArgs.
+    /// </summary>
     public class ColorSelectedEventArgs : EventArgs
     {
-        public Color Color { get; set; }
-
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="ColorSelectedEventArgs"/>.
+        /// </summary>
+        /// <param name="color">Цвет.</param>
         public ColorSelectedEventArgs(Color color)
         {
             Color = color;
         }
+
+        /// <summary>
+        /// Возвращает и задаёт цвет.
+        /// </summary>
+        public Color Color { get; set; }
     }
 }

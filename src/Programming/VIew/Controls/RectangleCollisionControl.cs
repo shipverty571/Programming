@@ -9,18 +9,39 @@ using Rectangle = Programming.Model.Geometry.Rectangle;
 
 namespace Programming.View.Controls
 {
+    /// <summary>
+    /// Наследуется от класса UserControl.
+    /// </summary>
     public partial class RectangleCollisionControl : UserControl
     {
+        /// <summary>
+        /// Коллекция прямоугольников
+        /// </summary>
         private List<Rectangle> _rectangles;
 
+        /// <summary>
+        /// Коллекция отображаемых прямоугольников.
+        /// </summary>
         private List<Panel> _rectanglePanels;
 
+        /// <summary>
+        /// Выбранный прямоугольник.
+        /// </summary>
         private Rectangle _currentRectangle;
 
+        /// <summary>
+        /// Высота элемента размещения.
+        /// </summary>
         private int _heightCanvas;
 
+        /// <summary>
+        /// Ширина элемента размещения.
+        /// </summary>
         private int _widthCanvas;
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="RectangleCollisionControl"/>.
+        /// </summary>
         public RectangleCollisionControl()
         {
             InitializeComponent();
@@ -32,6 +53,11 @@ namespace Programming.View.Controls
             _heightCanvas = CanvasPanel.Height;
         }
 
+        /// <summary>
+        /// Из данных прямоугольника преобразует форматированный текст.
+        /// </summary>
+        /// <param name="rectangle">Прямоугольник.</param>
+        /// <returns>Возвращает форматированный текст</returns>
         private string FormattedText(Rectangle rectangle)
         {
             return $"{rectangle.Id}: " +
@@ -41,6 +67,9 @@ namespace Programming.View.Controls
                    $" H: {rectangle.Height})";
         }
 
+        /// <summary>
+        /// Находит пересекающиеся прямоугольники и перекрашивает их.
+        /// </summary>
         private void FindCollisions()
         {
             for (int i = 0; i < _rectanglePanels.Count; i++)
@@ -60,6 +89,9 @@ namespace Programming.View.Controls
             }
         }
 
+        /// <summary>
+        /// Очищает информацию с текстовых полей и со списка.
+        /// </summary>
         private void ClearRectangleInfo()
         {
             RectanglesListBox.Items.Clear();
@@ -70,6 +102,10 @@ namespace Programming.View.Controls
             HeightSelectedRectangleTextBox.Clear();
         }
 
+        /// <summary>
+        /// Обновляет информацию в списке.
+        /// </summary>
+        /// <param name="rectangle">Прямоугольник.</param>
         private void UpdateRectangleInfo(Rectangle rectangle)
         {
             int ind = RectanglesListBox.FindString(rectangle.Id.ToString());

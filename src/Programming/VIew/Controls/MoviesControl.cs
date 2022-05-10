@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Programming.Model;
 using Programming.Model.Enums;
+using Programming.Model.Movie;
 
 namespace Programming.View.Controls
 {
+    /// <summary>
+    /// Наследуется от класса UserControl.
+    /// </summary>
     public partial class MoviesControl : UserControl
     {
+        /// <summary>
+        /// Количество элементов.
+        /// </summary>
         private const int CountElements = 5;
 
+        /// <summary>
+        /// Выбранный фильм.
+        /// </summary>
         private Movie _currentMovie;
 
+        /// <summary>
+        /// Коллекция фильмов.
+        /// </summary>
         private List<Movie> _movies;  
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="MoviesControl"/>.
+        /// </summary>
         public MoviesControl()
         {
             InitializeComponent();
@@ -22,6 +38,10 @@ namespace Programming.View.Controls
             MovieListBox.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Инициализирует коллекцию фильмов.
+        /// </summary>
+        /// <returns>Возвращает коллекцию фильмов.</returns>
         private List<Movie> CreateMovies()
         {
             List<Movie> movies = new List<Movie>();
@@ -35,6 +55,11 @@ namespace Programming.View.Controls
             return movies;
         }
 
+        /// <summary>
+        /// Находит фильм, чей рейтинг больше остальных.
+        /// </summary>
+        /// <param name="films">Коллекция фильмов.</param>
+        /// <returns>Возвращает индекс элемента коллекции, чей рейтинг больше остальных.</returns>
         private int FindFilmWithMaxRating(List<Movie> films)
         {
             int maxRatingIndex = 0;
