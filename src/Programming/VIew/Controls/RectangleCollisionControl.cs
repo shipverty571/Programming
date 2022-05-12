@@ -30,16 +30,6 @@ namespace Programming.View.Controls
         private Rectangle _currentRectangle;
 
         /// <summary>
-        /// Высота элемента размещения.
-        /// </summary>
-        private int _heightCanvas;
-
-        /// <summary>
-        /// Ширина элемента размещения.
-        /// </summary>
-        private int _widthCanvas;
-
-        /// <summary>
         /// Создаёт экземпляр класса <see cref="RectangleCollisionControl"/>.
         /// </summary>
         public RectangleCollisionControl()
@@ -48,9 +38,6 @@ namespace Programming.View.Controls
 
             _rectangles = new List<Rectangle>();
             _rectanglePanels = new List<Panel>();
-
-            _widthCanvas = CanvasPanel.Width;
-            _heightCanvas = CanvasPanel.Height;
         }
 
         /// <summary>
@@ -141,7 +128,7 @@ namespace Programming.View.Controls
 
         private void AddRectangleButton_Click(object sender, EventArgs e)
         {
-            _currentRectangle = RectangleFactory.Randomize(_widthCanvas, _heightCanvas);
+            _currentRectangle = RectangleFactory.Randomize(CanvasPanel.Width, CanvasPanel.Height);
             _rectangles.Add(_currentRectangle);
             RectanglesListBox.Items.Add(FormattedText(_currentRectangle));
             Panel rectanglePanel = new Panel();
@@ -275,12 +262,6 @@ namespace Programming.View.Controls
                 return;
             }
             HeightSelectedRectangleTextBox.BackColor = AppColors.CorrectColor;
-        }
-
-        private void CanvasPanel_Resize(object sender, EventArgs e)
-        {
-            _heightCanvas = CanvasPanel.Height;
-            _widthCanvas = CanvasPanel.Width;
         }
     }
 }

@@ -57,7 +57,6 @@
             this.CanvasPanel.Name = "CanvasPanel";
             this.CanvasPanel.Size = new System.Drawing.Size(470, 345);
             this.CanvasPanel.TabIndex = 47;
-            this.CanvasPanel.Resize += new System.EventHandler(this.CanvasPanel_Resize);
             // 
             // HeightSelectedRectangleTextBox
             // 
