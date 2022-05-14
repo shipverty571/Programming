@@ -18,7 +18,7 @@ namespace Programming.Model.Geometry
         private double _innerRadius;
 
         /// <summary>
-        /// Создаёт экземпляр класса <see cref="Ring"/>
+        /// Создаёт экземпляр класса <see cref="Ring"/>.
         /// </summary>
         /// <param name="center">Координаты центра.</param>
         /// <param name="outerRadius">Внешний радиус. Должен быть положительным числом.

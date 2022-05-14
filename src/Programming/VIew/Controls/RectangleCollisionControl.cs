@@ -10,12 +10,12 @@ using Rectangle = Programming.Model.Geometry.Rectangle;
 namespace Programming.View.Controls
 {
     /// <summary>
-    /// Наследуется от класса UserControl.
+    /// Предоставляет реализацию по представлению прямоугольников.
     /// </summary>
     public partial class RectangleCollisionControl : UserControl
     {
         /// <summary>
-        /// Коллекция прямоугольников
+        /// Коллекция прямоугольников.
         /// </summary>
         private List<Rectangle> _rectangles;
 
@@ -44,7 +44,7 @@ namespace Programming.View.Controls
         /// Из данных прямоугольника преобразует форматированный текст.
         /// </summary>
         /// <param name="rectangle">Прямоугольник.</param>
-        /// <returns>Возвращает форматированный текст</returns>
+        /// <returns>Возвращает форматированный текст.</returns>
         private string FormattedText(Rectangle rectangle)
         {
             return $"{rectangle.Id}: " +
@@ -89,6 +89,17 @@ namespace Programming.View.Controls
             HeightSelectedRectangleTextBox.Clear();
         }
 
+        private Panel CreatePanel()
+        {
+            Panel panel = new Panel();
+            panel.Width = _currentRectangle.Width;
+            panel.Height = _currentRectangle.Height;
+            panel.Location = new Point(_currentRectangle.Center.X, _currentRectangle.Center.Y);
+            panel.BackColor = AppColors.IsNotCollision;
+
+            return panel;
+        }
+
         /// <summary>
         /// Обновляет информацию в списке.
         /// </summary>
@@ -99,11 +110,7 @@ namespace Programming.View.Controls
 
             if (ind == -1) return;
 
-            RectanglesListBox.Items[ind] = $"{rectangle.Id}: " +
-                                                  $"(X: {rectangle.Center.X};" +
-                                                  $" Y: {rectangle.Center.Y};" +
-                                                  $" W: {rectangle.Width};" +
-                                                  $" H: {rectangle.Height})";
+            RectanglesListBox.Items[ind] = FormattedText(rectangle);
         }
 
         private void AddRectangleButton_MouseEnter(object sender, EventArgs e)
@@ -131,11 +138,8 @@ namespace Programming.View.Controls
             _currentRectangle = RectangleFactory.Randomize(CanvasPanel.Width, CanvasPanel.Height);
             _rectangles.Add(_currentRectangle);
             RectanglesListBox.Items.Add(FormattedText(_currentRectangle));
-            Panel rectanglePanel = new Panel();
-            rectanglePanel.Width = _currentRectangle.Width;
-            rectanglePanel.Height = _currentRectangle.Height;
-            rectanglePanel.Location = new Point(_currentRectangle.Center.X, _currentRectangle.Center.Y);
-            rectanglePanel.BackColor = AppColors.IsNotCollision;
+
+            Panel rectanglePanel = CreatePanel();
             _rectanglePanels.Add(rectanglePanel);
             CanvasPanel.Controls.Add(rectanglePanel);
             FindCollisions();
@@ -153,7 +157,6 @@ namespace Programming.View.Controls
             YSelectedRectangleTextBox.Text = _currentRectangle.Center.Y.ToString();
             WidthSelectedRectangleTextBox.Text = _currentRectangle.Width.ToString();
             HeightSelectedRectangleTextBox.Text = _currentRectangle.Height.ToString();
-            
         }
 
         private void RemoveRectangleButton_Click(object sender, EventArgs e)

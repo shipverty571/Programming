@@ -24,7 +24,7 @@ namespace Programming.Model.Movie
         /// <summary>
         /// Создаёт фильм со случайными значениями жанра, рейтинга, года релиза, названия и продолжительности в минутах.
         /// </summary>
-        /// <returns>Возвращает объект Movie</returns>
+        /// <returns>Возвращает объект Movie.</returns>
         public static Movie Randomize()
         {
             var genres = Enum.GetValues(typeof(Genre));

@@ -28,22 +28,22 @@ namespace Programming.Model
         public static Color IsNotCollision = Color.FromArgb(127, 127, 255, 127);
 
         /// <summary>
-        /// Цвет при выборе Spring из списка
+        /// Цвет при выборе Spring из списка.
         /// </summary>
         public static Color Spring = Color.FromArgb(226, 215, 69);
 
         /// <summary>
-        /// Цвет при выборе Autumn из списка
+        /// Цвет при выборе Autumn из списка.
         /// </summary>
         public static Color Autumn = Color.FromArgb(226, 156, 69);
 
         /// <summary>
-        /// Цвет при выборе Winter из списка
+        /// Цвет при выборе Winter из списка.
         /// </summary>
         public static Color Winter = Color.FromArgb(69, 83, 226);
 
         /// <summary>
-        /// Цвет при выборе Summer из списка
+        /// Цвет при выборе Summer из списка.
         /// </summary>
         public static Color Summer = Color.FromArgb(85, 156, 69);
     }

@@ -1,10 +1,10 @@
 ﻿using System.Windows.Forms;
-using Programming.View.Controls;
+using Programming.Model;
 
 namespace Programming.View
 {
     /// <summary>
-    /// Наследуется от класса Form.
+    /// Предоставляет реализацию расположения элементов на форме.
     /// </summary>
     public partial class MainForm : Form
     {

@@ -1,7 +1,7 @@
 ﻿namespace Programming.Model.Enums
 {
     /// <summary>
-    /// Хранит перечиление производителей смартфонов.
+    /// Хранит перечисление производителей смартфонов.
     /// </summary>
     public enum Manufacture
     {

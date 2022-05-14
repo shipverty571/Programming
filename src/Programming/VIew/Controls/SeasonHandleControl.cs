@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Programming.Model;
 using Programming.Model.Enums;
@@ -7,7 +6,7 @@ using Programming.Model.Enums;
 namespace Programming.View.Controls
 {
     /// <summary>
-    /// Наследуется от класса UserControl.
+    /// Предоставляет реализацию по изменению цвета фона главного окна.
     /// </summary>
     public partial class SeasonHandleControl : UserControl
     {
@@ -54,25 +53,5 @@ namespace Programming.View.Controls
         {
             ColorSelected?.Invoke(this, new ColorSelectedEventArgs(DefaultBackColor));
         }
-    }
-
-    /// <summary>
-    /// Наследуется от базового класса EventArgs.
-    /// </summary>
-    public class ColorSelectedEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Создаёт экземпляр класса <see cref="ColorSelectedEventArgs"/>.
-        /// </summary>
-        /// <param name="color">Цвет.</param>
-        public ColorSelectedEventArgs(Color color)
-        {
-            Color = color;
-        }
-
-        /// <summary>
-        /// Возвращает и задаёт цвет.
-        /// </summary>
-        public Color Color { get; set; }
     }
 }

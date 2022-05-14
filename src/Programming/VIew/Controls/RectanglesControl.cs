@@ -7,7 +7,7 @@ using Rectangle = Programming.Model.Geometry.Rectangle;
 namespace Programming.View.Controls
 {
     /// <summary>
-    /// Наследуется от класса UserControl.
+    /// Представляет реализацию по представлению прямоугольников, генерируемых программой.
     /// </summary>
     public partial class RectanglesControl : UserControl
     {
