@@ -143,7 +143,6 @@ namespace Programming.View.Controls
             _rectanglePanels.Add(rectanglePanel);
             CanvasPanel.Controls.Add(rectanglePanel);
             FindCollisions();
-
         }
 
         private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
