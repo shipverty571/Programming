@@ -21,7 +21,7 @@ namespace Programming.View.Controls
         public SeasonHandleControl()
         {
             InitializeComponent();
-
+            
             var seasonValues = Enum.GetValues(typeof(Season));
             foreach (Season value in seasonValues)
             {

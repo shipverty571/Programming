@@ -60,8 +60,9 @@ namespace Programming.View.Controls
 
         private void ValueListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ValueListBox.SelectedItem != null)
-                IntValueTextBox.Text = ((int)ValueListBox.SelectedItem).ToString();
+            if (ValueListBox.SelectedItem == null) return;
+
+            IntValueTextBox.Text = ((int)ValueListBox.SelectedItem).ToString();
         }
     }
 }

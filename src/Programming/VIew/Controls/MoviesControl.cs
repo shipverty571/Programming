@@ -52,6 +52,7 @@ namespace Programming.View.Controls
                 movies.Add(_currentMovie);
                 MovieListBox.Items.Add($"Film {_currentMovie.Id}");
             }
+
             return movies;
         }
 
@@ -72,6 +73,7 @@ namespace Programming.View.Controls
                     maxRatingIndex = i;
                 }
             }
+
             return maxRatingIndex;
         }
 
