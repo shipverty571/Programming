@@ -1,22 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PlaylistOfSongs.Model;
 
 namespace PlaylistOfSongs.View
 {
+    /// <summary>
+    /// Предоставляет реализацию по представлению дочернего окна.
+    /// </summary>
     public partial class AddSongForm : Form
     {
+        /// <summary>
+        /// Событие при добавлении песни.
+        /// </summary>
         public event EventHandler<SongAddedEventArgs> SongAdded;
 
+        /// <summary>
+        /// Песня.
+        /// </summary>
         private Song song;
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="AddSongForm"/>.
+        /// </summary>
         public AddSongForm()
         {
             InitializeComponent();

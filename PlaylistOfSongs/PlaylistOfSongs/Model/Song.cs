@@ -40,46 +40,23 @@
         }
 
         /// <summary>
-        /// Создаёт экземпляр класса <see cref="Song"/>.
+        /// Возвращает и задаёт изображение в кодировке Base64.
         /// </summary>
-        /// <param name="songName">Название песни. Должно быть не более 55 символов.</param>
-        /// <param name="artistName">Имя исполнителя. Должно быть не более 50 символов.</param>
-        /// <param name="durationSeconds">Продолжительность в секундах. Должно быть не более 7200.</param>
-        /// <param name="genre">Жанр песни.</param>
-        public Song(string songName,
-            string artistName,
-            int durationSeconds,
-            Genre genre)
-        {
-            SongName = songName;
-            ArtistName = artistName;
-            DurationSeconds = durationSeconds;
-            Genre = genre;
-            _allSongsCount++;
-            _id = _allSongsCount;
-        }
-
-        public Song(string songName,
-            string artistName,
-            int durationSeconds,
-            Genre genre,
-            string imageBase64)
-        {
-            SongName = songName;
-            ArtistName = artistName;
-            DurationSeconds = durationSeconds;
-            Genre = genre;
-            ImageBase64 = imageBase64;
-            _allSongsCount++;
-            _id = _allSongsCount;
-        }
-
         public string ImageBase64 { get; set; }
 
+        /// <summary>
+        /// Возвращает уникальный идентификатор песни.
+        /// </summary>
         public int Id => _id;
 
+        /// <summary>
+        /// Возвращает и задаёт жанр песни.
+        /// </summary>
         public Genre Genre { get; set; }
 
+        /// <summary>
+        /// Возвращает и задаёт продолжительность песни в секундах. Должно быть не более 7200 секунд.
+        /// </summary>
         public int DurationSeconds
         {
             get => _durationSeconds;
@@ -89,6 +66,10 @@
                 _durationSeconds = value;
             }
         }
+
+        /// <summary>
+        /// Возвращает и задаёт имя исполнителя. Должно быть не более 50 символов.
+        /// </summary>
         public string ArtistName
         {
             get => _artistName;
@@ -99,6 +80,9 @@
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт название песни. Должно быть не более 55 символов.
+        /// </summary>
         public string SongName
         {
             get => _songName;

@@ -10,14 +10,29 @@ using PlaylistOfSongs.Properties;
 
 namespace PlaylistOfSongs.View
 {
+    /// <summary>
+    /// Предоставляет реализацию по представлению главного окна.
+    /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Дочернее окно добавления песни.
+        /// </summary>
         private AddSongForm _songForm;
 
+        /// <summary>
+        /// Выбранная песня.
+        /// </summary>
         private Song _currentSong;
 
+        /// <summary>
+        /// Коллекция песен.
+        /// </summary>
         private List<Song> _songs;
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="MainForm"/>.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -32,6 +47,10 @@ namespace PlaylistOfSongs.View
             UpdateListBox(0);
         }
 
+        /// <summary>
+        /// Проводит десериализацию данных.
+        /// </summary>
+        /// <returns>Возвращает коллекцию песен.</returns>
         private List<Song> Deserialize()
         {
             var songs = new List<Song>();
@@ -44,6 +63,9 @@ namespace PlaylistOfSongs.View
             return songs;
         }
 
+        /// <summary>
+        /// Проводит сериализацию данных.
+        /// </summary>
         private void Serialize()
         {
             using (StreamWriter writer = new StreamWriter(@"Serialize.json"))
@@ -52,6 +74,10 @@ namespace PlaylistOfSongs.View
             }
         }
 
+        /// <summary>
+        /// Ищет индекс элемента по уникальному идентификатору.
+        /// </summary>
+        /// <returns>Возвращает индекс найденного элемента.</returns>
         private int FindingIndexItemById()
         {
             var orderedListSongs = from song in _songs
@@ -76,6 +102,10 @@ namespace PlaylistOfSongs.View
             return index;
         }
 
+        /// <summary>
+        /// Обновляет данные в списке ListBox.
+        /// </summary>
+        /// <param name="selectedIndex">Индекс выбранного элемента.</param>
         private void UpdateListBox(int selectedIndex)
         {
             SongListBox.Items.Clear();
