@@ -44,7 +44,19 @@ namespace PlaylistOfSongs.View
 
             _songs = Deserialize();
 
-            UpdateListBox(0);
+            UpdateListBox(-1);
+        }
+
+        
+        /// <summary>
+        /// Очищает поля для вывода данных.
+        /// </summary>
+        private void ClearFields()
+        {
+            SongNameTextBox.Clear();
+            ArtistNameTextBox.Clear();
+            DurationSecondsTextBox.Clear();
+            GenreComboBox.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -59,6 +71,8 @@ namespace PlaylistOfSongs.View
             {
                 songs = JsonConvert.DeserializeObject<List<Song>>(reader.ReadToEnd());
             }
+
+            if (songs == null) songs = new List<Song>();
 
             return songs;
         }
@@ -121,6 +135,8 @@ namespace PlaylistOfSongs.View
                 SongListBox.Items.Add($"{song.ArtistName} - {song.SongName}");
             }
 
+            if (selectedIndex == -1) return;
+
             SongListBox.SelectedIndex = selectedIndex;
         }
 
@@ -140,7 +156,11 @@ namespace PlaylistOfSongs.View
 
         private void SongListBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            _currentSong = _songs[SongListBox.SelectedIndex];
+            int index = SongListBox.SelectedIndex;
+
+            if (index == -1) return;
+
+            _currentSong = _songs[index];
             SongNameTextBox.Text = _currentSong.SongName;
             ArtistNameTextBox.Text = _currentSong.ArtistName;
             DurationSecondsTextBox.Text = _currentSong.DurationSeconds.ToString();
@@ -154,10 +174,10 @@ namespace PlaylistOfSongs.View
 
         private void SongNameTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (SongListBox.SelectedIndex == -1) return;
+
             try
             {
-                if (SongListBox.SelectedIndex == -1) return;
-
                 string songNameText = SongNameTextBox.Text;
                 _currentSong.SongName = songNameText;
                 int index = FindingIndexItemById();
@@ -175,10 +195,10 @@ namespace PlaylistOfSongs.View
 
         private void ArtistNameTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (SongListBox.SelectedIndex == -1) return;
+
             try
             {
-                if (SongListBox.SelectedIndex == -1) return;
-
                 string artistNameText = ArtistNameTextBox.Text;
                 _currentSong.ArtistName = artistNameText;
                 int index = FindingIndexItemById();
@@ -196,10 +216,10 @@ namespace PlaylistOfSongs.View
 
         private void DurationSecondsTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (SongListBox.SelectedIndex == -1) return;
+
             try
             {
-                if (SongListBox.SelectedIndex == -1) return;
-
                 string durationSecondsText = DurationSecondsTextBox.Text;
                 int durationSecondsValue = int.Parse(durationSecondsText);
                 _currentSong.DurationSeconds = durationSecondsValue;
@@ -242,9 +262,11 @@ namespace PlaylistOfSongs.View
             int index = SongListBox.SelectedIndex;
 
             if (index == -1) return;
-
             _songs.RemoveAt(index);
-            UpdateListBox(0);
+            Serialize();
+            UpdateListBox(-1);
+            ClearFields();
+            
         }
 
         private void AddSongButton_MouseEnter(object sender, EventArgs e)
