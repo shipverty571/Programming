@@ -44,7 +44,15 @@ namespace PlaylistOfSongs.View
 
             _songs = Deserialize();
 
-            UpdateListBox(0);
+            UpdateListBox(-1);
+        }
+
+        private void ClearFields()
+        {
+            SongNameTextBox.Clear();
+            ArtistNameTextBox.Clear();
+            DurationSecondsTextBox.Clear();
+            GenreComboBox.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -60,7 +68,7 @@ namespace PlaylistOfSongs.View
                 songs = JsonConvert.DeserializeObject<List<Song>>(reader.ReadToEnd());
             }
 
-            return songs;
+            return songs.ToList();
         }
 
         /// <summary>
@@ -131,6 +139,19 @@ namespace PlaylistOfSongs.View
             _songForm.ShowDialog();
         }
 
+        private void DeleteSongButton_Click(object sender, EventArgs e)
+        {
+            int index = SongListBox.SelectedIndex;
+
+            if (index == -1) return;
+
+            _songs.RemoveAt(index);
+
+            UpdateListBox(-1);
+            ClearFields();
+            Serialize();
+        }
+
         public void AddSongForm_SongAdded(object sender, SongAddedEventArgs args)
         {
             _songs.Add(args.Song);
@@ -140,7 +161,11 @@ namespace PlaylistOfSongs.View
 
         private void SongListBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            _currentSong = _songs[SongListBox.SelectedIndex];
+            int index = SongListBox.SelectedIndex;
+
+            if (index == -1) return;
+
+            _currentSong = _songs[index];
             SongNameTextBox.Text = _currentSong.SongName;
             ArtistNameTextBox.Text = _currentSong.ArtistName;
             DurationSecondsTextBox.Text = _currentSong.DurationSeconds.ToString();
@@ -154,10 +179,10 @@ namespace PlaylistOfSongs.View
 
         private void SongNameTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (SongListBox.SelectedIndex == -1) return;
+
             try
             {
-                if (SongListBox.SelectedIndex == -1) return;
-
                 string songNameText = SongNameTextBox.Text;
                 _currentSong.SongName = songNameText;
                 int index = FindingIndexItemById();
@@ -175,10 +200,10 @@ namespace PlaylistOfSongs.View
 
         private void ArtistNameTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (SongListBox.SelectedIndex == -1) return;
+
             try
             {
-                if (SongListBox.SelectedIndex == -1) return;
-
                 string artistNameText = ArtistNameTextBox.Text;
                 _currentSong.ArtistName = artistNameText;
                 int index = FindingIndexItemById();
@@ -196,10 +221,10 @@ namespace PlaylistOfSongs.View
 
         private void DurationSecondsTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (SongListBox.SelectedIndex == -1) return;
+
             try
             {
-                if (SongListBox.SelectedIndex == -1) return;
-
                 string durationSecondsText = DurationSecondsTextBox.Text;
                 int durationSecondsValue = int.Parse(durationSecondsText);
                 _currentSong.DurationSeconds = durationSecondsValue;
@@ -234,17 +259,9 @@ namespace PlaylistOfSongs.View
                 _currentSong.ImageBase64 = Convert.ToBase64String(imageArray);
 
                 ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
+
+                Serialize();
             }
-        }
-
-        private void DeleteSongButton_Click(object sender, EventArgs e)
-        {
-            int index = SongListBox.SelectedIndex;
-
-            if (index == -1) return;
-
-            _songs.RemoveAt(index);
-            UpdateListBox(0);
         }
 
         private void AddSongButton_MouseEnter(object sender, EventArgs e)
@@ -265,6 +282,25 @@ namespace PlaylistOfSongs.View
         private void DeleteSongButton_MouseLeave(object sender, EventArgs e)
         {
             DeleteSongButton.Image = Resources.remove_24x24_uncolor;
+        }
+
+        private void DeleteImageButton_Click(object sender, EventArgs e)
+        {
+            if (SongListBox.SelectedIndex == -1) return;
+
+            if (_currentSong.ImageBase64 == null) return;
+
+            DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить изображение?",
+                "Удаление изображения",
+                MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                _currentSong.ImageBase64 = null;
+                ArtistPictureBox.Image = null;
+
+                Serialize();
+            }
         }
     }
 }

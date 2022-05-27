@@ -44,6 +44,7 @@
             this.SongNameLabel = new System.Windows.Forms.Label();
             this.AddSongButton = new System.Windows.Forms.Button();
             this.DeleteSongButton = new System.Windows.Forms.Button();
+            this.DeleteImageButton = new System.Windows.Forms.Button();
             this.SelectedSongGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ArtistPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +64,7 @@
             // 
             this.SelectedSongGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.SelectedSongGroupBox.Controls.Add(this.DeleteImageButton);
             this.SelectedSongGroupBox.Controls.Add(this.OpenImageButton);
             this.SelectedSongGroupBox.Controls.Add(this.ImageLabel);
             this.SelectedSongGroupBox.Controls.Add(this.ArtistPictureBox);
@@ -85,7 +87,7 @@
             // 
             this.OpenImageButton.Location = new System.Drawing.Point(118, 121);
             this.OpenImageButton.Name = "OpenImageButton";
-            this.OpenImageButton.Size = new System.Drawing.Size(150, 23);
+            this.OpenImageButton.Size = new System.Drawing.Size(72, 23);
             this.OpenImageButton.TabIndex = 20;
             this.OpenImageButton.Text = "Open";
             this.OpenImageButton.UseVisualStyleBackColor = true;
@@ -212,6 +214,16 @@
             this.DeleteSongButton.MouseEnter += new System.EventHandler(this.DeleteSongButton_MouseEnter);
             this.DeleteSongButton.MouseLeave += new System.EventHandler(this.DeleteSongButton_MouseLeave);
             // 
+            // DeleteImageButton
+            // 
+            this.DeleteImageButton.Location = new System.Drawing.Point(197, 121);
+            this.DeleteImageButton.Name = "DeleteImageButton";
+            this.DeleteImageButton.Size = new System.Drawing.Size(72, 23);
+            this.DeleteImageButton.TabIndex = 21;
+            this.DeleteImageButton.Text = "Delete";
+            this.DeleteImageButton.UseVisualStyleBackColor = true;
+            this.DeleteImageButton.Click += new System.EventHandler(this.DeleteImageButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,6 +261,7 @@
         private System.Windows.Forms.PictureBox ArtistPictureBox;
         private System.Windows.Forms.Button OpenImageButton;
         private System.Windows.Forms.Label ImageLabel;
+        private System.Windows.Forms.Button DeleteImageButton;
     }
 }
 
