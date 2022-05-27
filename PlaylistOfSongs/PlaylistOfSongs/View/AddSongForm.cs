@@ -28,11 +28,9 @@ namespace PlaylistOfSongs.View
             InitializeComponent();
 
             song = new Song();
-
             SongNameTextBox.Text = "Song name";
             ArtistNameTextBox.Text = "Artist name";
             DurationSecondsTextBox.Text = "100";
-
             var genre = Enum.GetValues(typeof(Genre));
 
             foreach (var value in genre)
@@ -102,6 +100,7 @@ namespace PlaylistOfSongs.View
                     DurationSecondsTextBox))
             {
                 SongAdded?.Invoke(this, new SongAddedEventArgs(song));
+
                 Close();
             }
             else
@@ -115,15 +114,28 @@ namespace PlaylistOfSongs.View
         private void OpenImageButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-
             openFileDialog.Filter = "(*.jpg;*.png;*.jpeg)|*.JPG;*.PNG;*.JPEG";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 byte[] imageArray = System.IO.File.ReadAllBytes(openFileDialog.FileName);
                 song.ImageBase64 = Convert.ToBase64String(imageArray);
-
                 ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
+            }
+        }
+
+        private void DeleteImageButton_Click(object sender, EventArgs e)
+        {
+            if (song.ImageBase64 == null) return;
+
+            DialogResult dialogResult = MessageBox.Show("Do you really want to delete the image?",
+                "Deleting an image",
+                MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                song.ImageBase64 = null;
+                ArtistPictureBox.Image = null;
             }
         }
     }

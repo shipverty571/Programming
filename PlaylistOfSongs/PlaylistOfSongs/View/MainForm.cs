@@ -47,11 +47,15 @@ namespace PlaylistOfSongs.View
             UpdateListBox(-1);
         }
 
+        /// <summary>
+        /// Очищает поля для вывода информации.
+        /// </summary>
         private void ClearFields()
         {
             SongNameTextBox.Clear();
             ArtistNameTextBox.Clear();
             DurationSecondsTextBox.Clear();
+            ArtistPictureBox.Image = null;
             GenreComboBox.SelectedIndex = -1;
         }
 
@@ -93,20 +97,16 @@ namespace PlaylistOfSongs.View
             var orderedListSongs = from song in _songs
                 orderby song.ArtistName, song.SongName
                 select song;
-
             _songs = orderedListSongs.ToList();
-
             int currentSongId = _currentSong.Id;
-
             int index = -1;
 
             for (int i = 0; i < _songs.Count; i++)
             {
-                if (_songs[i].Id == currentSongId)
-                {
-                    index = i;
-                    break;
-                }
+                if (_songs[i].Id != currentSongId) continue;
+                
+                index = i;
+                break;
             }
 
             return index;
@@ -119,15 +119,9 @@ namespace PlaylistOfSongs.View
         private void UpdateListBox(int selectedIndex)
         {
             SongListBox.Items.Clear();
-
             var orderedListSongs = from song in _songs
                                                        orderby song.ArtistName, song.SongName
                                                        select song;
-
-            //_songs = new List<Song>();
-
-            //if (orderedListSongs != null) _songs = orderedListSongs.ToList();
-
             _songs = orderedListSongs.ToList();
 
             foreach (Song song in _songs)
@@ -258,14 +252,12 @@ namespace PlaylistOfSongs.View
             if (SongListBox.SelectedIndex == -1) return;
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
-
             openFileDialog.Filter = "(*.jpg;*.png;*.jpeg)|*.JPG;*.PNG;*.JPEG";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 byte[] imageArray = File.ReadAllBytes(openFileDialog.FileName);
                 _currentSong.ImageBase64 = Convert.ToBase64String(imageArray);
-
                 ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
 
                 Serialize();

@@ -42,6 +42,7 @@
             this.ImageLabel = new System.Windows.Forms.Label();
             this.OpenImageButton = new System.Windows.Forms.Button();
             this.ArtistPictureBox = new System.Windows.Forms.PictureBox();
+            this.DeleteImageButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ArtistPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -148,7 +149,7 @@
             // 
             this.OpenImageButton.Location = new System.Drawing.Point(326, 111);
             this.OpenImageButton.Name = "OpenImageButton";
-            this.OpenImageButton.Size = new System.Drawing.Size(150, 23);
+            this.OpenImageButton.Size = new System.Drawing.Size(72, 23);
             this.OpenImageButton.TabIndex = 18;
             this.OpenImageButton.Text = "Open";
             this.OpenImageButton.UseVisualStyleBackColor = true;
@@ -164,11 +165,22 @@
             this.ArtistPictureBox.TabIndex = 19;
             this.ArtistPictureBox.TabStop = false;
             // 
+            // DeleteImageButton
+            // 
+            this.DeleteImageButton.Location = new System.Drawing.Point(404, 111);
+            this.DeleteImageButton.Name = "DeleteImageButton";
+            this.DeleteImageButton.Size = new System.Drawing.Size(72, 23);
+            this.DeleteImageButton.TabIndex = 20;
+            this.DeleteImageButton.Text = "Delete";
+            this.DeleteImageButton.UseVisualStyleBackColor = true;
+            this.DeleteImageButton.Click += new System.EventHandler(this.DeleteImageButton_Click);
+            // 
             // AddSongForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 241);
+            this.Controls.Add(this.DeleteImageButton);
             this.Controls.Add(this.ArtistPictureBox);
             this.Controls.Add(this.OpenImageButton);
             this.Controls.Add(this.ImageLabel);
@@ -208,5 +220,6 @@
         private System.Windows.Forms.Label ImageLabel;
         private System.Windows.Forms.Button OpenImageButton;
         private System.Windows.Forms.PictureBox ArtistPictureBox;
+        private System.Windows.Forms.Button DeleteImageButton;
     }
 }
