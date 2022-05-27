@@ -255,6 +255,8 @@ namespace PlaylistOfSongs.View
 
         private void OpenImageButton_Click(object sender, EventArgs e)
         {
+            if (SongListBox.SelectedIndex == -1) return;
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             openFileDialog.Filter = "(*.jpg;*.png;*.jpeg)|*.JPG;*.PNG;*.JPEG";
@@ -265,6 +267,25 @@ namespace PlaylistOfSongs.View
                 _currentSong.ImageBase64 = Convert.ToBase64String(imageArray);
 
                 ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
+
+                Serialize();
+            }
+        }
+
+        private void DeleteImageButton_Click(object sender, EventArgs e)
+        {
+            if (SongListBox.SelectedIndex == -1) return;
+
+            if (_currentSong.ImageBase64 == null) return;
+
+            DialogResult dialogResult = MessageBox.Show("Do you really want to delete the image?",
+                "Deleting an image",
+                MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                _currentSong.ImageBase64 = null;
+                ArtistPictureBox.Image = null;
 
                 Serialize();
             }
@@ -288,25 +309,6 @@ namespace PlaylistOfSongs.View
         private void DeleteSongButton_MouseLeave(object sender, EventArgs e)
         {
             DeleteSongButton.Image = Resources.remove_24x24_uncolor;
-        }
-
-        private void DeleteImageButton_Click(object sender, EventArgs e)
-        {
-            if (SongListBox.SelectedIndex == -1) return;
-
-            if (_currentSong.ImageBase64 == null) return;
-
-            DialogResult dialogResult = MessageBox.Show("Вы действительно хотите удалить изображение?",
-                "Удаление изображения",
-                MessageBoxButtons.YesNo);
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                _currentSong.ImageBase64 = null;
-                ArtistPictureBox.Image = null;
-
-                Serialize();
-            }
         }
     }
 }
