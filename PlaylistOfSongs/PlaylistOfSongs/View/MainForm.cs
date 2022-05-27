@@ -263,7 +263,7 @@ namespace PlaylistOfSongs.View
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                byte[] imageArray = System.IO.File.ReadAllBytes(openFileDialog.FileName);
+                byte[] imageArray = File.ReadAllBytes(openFileDialog.FileName);
                 _currentSong.ImageBase64 = Convert.ToBase64String(imageArray);
 
                 ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
