@@ -104,6 +104,8 @@
             // 
             // ArtistPictureBox
             // 
+            this.ArtistPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ArtistPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ArtistPictureBox.Location = new System.Drawing.Point(356, 16);
             this.ArtistPictureBox.Name = "ArtistPictureBox";
