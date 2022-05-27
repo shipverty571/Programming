@@ -68,7 +68,9 @@ namespace PlaylistOfSongs.View
                 songs = JsonConvert.DeserializeObject<List<Song>>(reader.ReadToEnd());
             }
 
-            return songs.ToList();
+            if (songs == null) songs = new List<Song>();
+
+            return songs;
         }
 
         /// <summary>
@@ -121,6 +123,10 @@ namespace PlaylistOfSongs.View
             var orderedListSongs = from song in _songs
                                                        orderby song.ArtistName, song.SongName
                                                        select song;
+
+            //_songs = new List<Song>();
+
+            //if (orderedListSongs != null) _songs = orderedListSongs.ToList();
 
             _songs = orderedListSongs.ToList();
 
