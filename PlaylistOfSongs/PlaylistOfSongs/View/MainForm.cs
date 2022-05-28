@@ -67,11 +67,18 @@ namespace PlaylistOfSongs.View
         {
             var songs = new List<Song>();
 
-            using (StreamReader reader = new StreamReader(@"Serialize.json"))
+            try
             {
-                songs = JsonConvert.DeserializeObject<List<Song>>(reader.ReadToEnd());
+                using (StreamReader reader = new StreamReader(Application.UserAppDataPath + @"\Serialize.json"))
+                {
+                    songs = JsonConvert.DeserializeObject<List<Song>>(reader.ReadToEnd());
+                }
             }
-
+            catch
+            {
+                return songs;
+            }
+            
             if (songs == null) songs = new List<Song>();
 
             return songs;
@@ -82,7 +89,7 @@ namespace PlaylistOfSongs.View
         /// </summary>
         private void Serialize()
         {
-            using (StreamWriter writer = new StreamWriter(@"Serialize.json"))
+            using (StreamWriter writer = new StreamWriter(Application.UserAppDataPath + @"\Serialize.json"))
             {
                 writer.Write(JsonConvert.SerializeObject(_songs));
             }
