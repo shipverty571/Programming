@@ -118,6 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="DeleteImageButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAALAAAACwARRqq2kAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        AAAAv0lEQVRIS+2WSwrCQBBEZ6UncBtv4AlciLdST+bnQm50qyut10FQGNMNToOLPCjonglVSUjoKWIu
+        naS79GgkvI5SJ5n5RprQNAKvrXSgIa2l+YuphLc9UhbmPQYM4QbMpEVfVmGPa77hBmBwllbWfcIae0M3
+        4AbAUsJobV1Pba1GKADeDaPmEA4AjC/SVYqYw/8EpL6immE0xA1I/0zTf7RfGQNczDtzZN4omP4M6NZD
+        fyfZ0OfYQtH62LIvpXRP07BuP3Je23YAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="OpenImageButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        rwAAAK8BK7AVuQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAClSURBVEhL7Zax
+        DoMgFEWZ6l/o7+nQoZNRF0d/ybajH6WTvZfgQghC8hionuQkQMi7MQYeClTwCze4C8laH1hCXbyDD06E
+        YK0evjlhmmTxgwKytv6kVOja1wp4GkOJDhiNodwBp3gDGtha8vhTe72GLrwBLzhZLkZ7nXtdeANc5PUP
+        XOQfkPyqiOVPAlK2zJUDHn02aOmmP0Dd9Pls4UD62TIrpcof1DZuRjgGVGMAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAQEAAAAEAIAAoQgAAFgAAACgAAABAAAAAgAAAAAEAIAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAA

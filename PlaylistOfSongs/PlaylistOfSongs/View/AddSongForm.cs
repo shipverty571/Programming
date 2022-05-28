@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using PlaylistOfSongs.Model;
+using PlaylistOfSongs.Properties;
 
 namespace PlaylistOfSongs.View
 {
@@ -13,12 +14,17 @@ namespace PlaylistOfSongs.View
         /// <summary>
         /// Событие при добавлении песни.
         /// </summary>
-        public event EventHandler<SongAddedEventArgs> SongAdded;
+        public event EventHandler<SongAddedEventArgs> _songAdded;
 
         /// <summary>
         /// Песня.
         /// </summary>
-        private Song song;
+        private Song _song;
+
+        /// <summary>
+        /// Фильтр
+        /// </summary>
+        private string _filter = "(*.jpg;*.png;*.jpeg)|*.JPG;*.PNG;*.JPEG";
 
         /// <summary>
         /// Создаёт экземпляр класса <see cref="AddSongForm"/>.
@@ -27,7 +33,7 @@ namespace PlaylistOfSongs.View
         {
             InitializeComponent();
 
-            song = new Song();
+            _song = new Song();
             SongNameTextBox.Text = "Song name";
             ArtistNameTextBox.Text = "Artist name";
             DurationSecondsTextBox.Text = "100";
@@ -44,7 +50,7 @@ namespace PlaylistOfSongs.View
             try
             {
                 string songNameText = SongNameTextBox.Text;
-                song.SongName = songNameText;
+                _song.SongName = songNameText;
             }
             catch
             {
@@ -60,7 +66,7 @@ namespace PlaylistOfSongs.View
             try
             {
                 string artistNameText = ArtistNameTextBox.Text;
-                song.ArtistName = artistNameText;
+                _song.ArtistName = artistNameText;
             }
             catch
             {
@@ -77,7 +83,7 @@ namespace PlaylistOfSongs.View
             {
                 string durationSecondsText = DurationSecondsTextBox.Text;
                 int durationSecondsValue = int.Parse(durationSecondsText);
-                song.DurationSeconds = durationSecondsValue;
+                _song.DurationSeconds = durationSecondsValue;
             }
             catch
             {
@@ -90,16 +96,16 @@ namespace PlaylistOfSongs.View
 
         private void GenreComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            song.Genre = (Genre)GenreComboBox.SelectedItem;
+            _song.Genre = (Genre)GenreComboBox.SelectedItem;
         }
 
-        private void AddButton_Click(object sender, EventArgs e)
+        private void OKButton_Click(object sender, EventArgs e)
         {
             if (CorrectTextManager.IsCorrection(SongNameTextBox,
                     ArtistNameTextBox,
                     DurationSecondsTextBox))
             {
-                SongAdded?.Invoke(this, new SongAddedEventArgs(song));
+                _songAdded?.Invoke(this, new SongAddedEventArgs(_song));
 
                 Close();
             }
@@ -114,19 +120,19 @@ namespace PlaylistOfSongs.View
         private void OpenImageButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "(*.jpg;*.png;*.jpeg)|*.JPG;*.PNG;*.JPEG";
+            openFileDialog.Filter = _filter;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 byte[] imageArray = System.IO.File.ReadAllBytes(openFileDialog.FileName);
-                song.ImageBase64 = Convert.ToBase64String(imageArray);
+                _song.ImageBase64 = Convert.ToBase64String(imageArray);
                 ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
             }
         }
 
         private void DeleteImageButton_Click(object sender, EventArgs e)
         {
-            if (song.ImageBase64 == null) return;
+            if (_song.ImageBase64 == null) return;
 
             DialogResult dialogResult = MessageBox.Show("Do you really want to delete the image?",
                 "Deleting an image",
@@ -134,9 +140,29 @@ namespace PlaylistOfSongs.View
 
             if (dialogResult == DialogResult.Yes)
             {
-                song.ImageBase64 = null;
+                _song.ImageBase64 = null;
                 ArtistPictureBox.Image = null;
             }
+        }
+
+        private void OpenImageButton_MouseEnter(object sender, EventArgs e)
+        {
+            OpenImageButton.Image = Resources.addImage_24x24;
+        }
+
+        private void OpenImageButton_MouseLeave(object sender, EventArgs e)
+        {
+            OpenImageButton.Image = Resources.addImage_24x24_uncolor;
+        }
+
+        private void DeleteImageButton_MouseEnter(object sender, EventArgs e)
+        {
+            DeleteImageButton.Image = Resources.deleteImage_24x24;
+        }
+
+        private void DeleteImageButton_MouseLeave(object sender, EventArgs e)
+        {
+            DeleteImageButton.Image = Resources.deleteImage_24x24_uncolor;
         }
     }
 }

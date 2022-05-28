@@ -80,9 +80,15 @@
     <Compile Include="Model\AppColors.cs" />
     <Compile Include="Model\CorrectTextManager.cs" />
     <Compile Include="Model\Genre.cs" />
+    <Compile Include="Model\Serializer.cs" />
     <Compile Include="Model\Song.cs" />
-    <Compile Include="Model\SongAdded.cs" />
+    <Compile Include="Model\SongAddedEventArgs.cs" />
     <Compile Include="Model\Validator.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="View\AddSongForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,14 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -130,8 +131,13 @@
   <ItemGroup>
     <Content Include="Resources\add_24x24.png" />
     <Content Include="Resources\add_24x24_uncolor.png" />
-    <Content Include="Resources\musicsocialnetworkbrandlogo_24x24.ico" />
+    <Content Include="Resources\edit_24x24.png" />
+    <Content Include="Resources\edit_24x24_uncolor.png" />
+    <Content Include="Resources\deleteImage_24x24.png" />
+    <Content Include="Resources\deleteImage_24x24_uncolor.png" />
     <Content Include="Resources\music_folder_64x64.ico" />
+    <Content Include="Resources\addImage_24x24.png" />
+    <Content Include="Resources\addImage_24x24_uncolor.png" />
     <Content Include="Resources\remove_24x24.png" />
     <Content Include="Resources\remove_24x24_uncolor.png" />
   </ItemGroup>

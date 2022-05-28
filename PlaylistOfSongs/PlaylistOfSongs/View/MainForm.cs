@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PlaylistOfSongs.Model;
-using Newtonsoft.Json;
 using System.IO;
 using PlaylistOfSongs.Properties;
 
@@ -15,6 +14,11 @@ namespace PlaylistOfSongs.View
     /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Путь до AppData
+        /// </summary>
+        private string AppdataPath = Application.UserAppDataPath;
+
         /// <summary>
         /// Дочернее окно добавления песни.
         /// </summary>
@@ -42,7 +46,7 @@ namespace PlaylistOfSongs.View
             foreach (var value in genre)
                 GenreComboBox.Items.Add(value);
 
-            _songs = Deserialize();
+            _songs = Serializer.Deserialize(AppdataPath);
 
             UpdateListBox(-1);
         }
@@ -60,46 +64,10 @@ namespace PlaylistOfSongs.View
         }
 
         /// <summary>
-        /// Проводит десериализацию данных.
-        /// </summary>
-        /// <returns>Возвращает коллекцию песен.</returns>
-        private List<Song> Deserialize()
-        {
-            var songs = new List<Song>();
-
-            try
-            {
-                using (StreamReader reader = new StreamReader(Application.UserAppDataPath + @"\Serialize.json"))
-                {
-                    songs = JsonConvert.DeserializeObject<List<Song>>(reader.ReadToEnd());
-                }
-
-                if (songs == null) songs = new List<Song>();
-            }
-            catch
-            {
-                return songs;
-            }
-
-            return songs;
-        }
-
-        /// <summary>
-        /// Проводит сериализацию данных.
-        /// </summary>
-        private void Serialize()
-        {
-            using (StreamWriter writer = new StreamWriter(Application.UserAppDataPath + @"\Serialize.json"))
-            {
-                writer.Write(JsonConvert.SerializeObject(_songs));
-            }
-        }
-
-        /// <summary>
         /// Ищет индекс элемента по уникальному идентификатору.
         /// </summary>
         /// <returns>Возвращает индекс найденного элемента.</returns>
-        private int FindingIndexItemById()
+        private int FindIndexItemById()
         {
             var orderedListSongs = from song in _songs
                 orderby song.ArtistName, song.SongName
@@ -142,7 +110,7 @@ namespace PlaylistOfSongs.View
         private void AddSongButton_Click(object sender, System.EventArgs e)
         {
             _songForm = new AddSongForm();
-            _songForm.SongAdded += AddSongForm_SongAdded;
+            _songForm._songAdded += AddSongForm_SongAdded;
             _songForm.ShowDialog();
         }
 
@@ -156,13 +124,13 @@ namespace PlaylistOfSongs.View
 
             UpdateListBox(-1);
             ClearFields();
-            Serialize();
+            Serializer.Serialize(AppdataPath, _songs);
         }
 
         public void AddSongForm_SongAdded(object sender, SongAddedEventArgs args)
         {
             _songs.Add(args.Song);
-            Serialize();
+            Serializer.Serialize(AppdataPath, _songs);
             UpdateListBox(0);
         }
 
@@ -192,9 +160,9 @@ namespace PlaylistOfSongs.View
             {
                 string songNameText = SongNameTextBox.Text;
                 _currentSong.SongName = songNameText;
-                int index = FindingIndexItemById();
+                int index = FindIndexItemById();
                 UpdateListBox(index);
-                Serialize();
+                Serializer.Serialize(AppdataPath, _songs);
             }
             catch
             {
@@ -213,9 +181,9 @@ namespace PlaylistOfSongs.View
             {
                 string artistNameText = ArtistNameTextBox.Text;
                 _currentSong.ArtistName = artistNameText;
-                int index = FindingIndexItemById();
+                int index = FindIndexItemById();
                 UpdateListBox(index);
-                Serialize();
+                Serializer.Serialize(AppdataPath, _songs);
             }
             catch
             {
@@ -235,7 +203,7 @@ namespace PlaylistOfSongs.View
                 string durationSecondsText = DurationSecondsTextBox.Text;
                 int durationSecondsValue = int.Parse(durationSecondsText);
                 _currentSong.DurationSeconds = durationSecondsValue;
-                Serialize();
+                Serializer.Serialize(AppdataPath, _songs);
             }
             catch
             {
@@ -251,7 +219,7 @@ namespace PlaylistOfSongs.View
             if (SongListBox.SelectedIndex == -1) return;
 
             _currentSong.Genre = (Genre)GenreComboBox.SelectedItem;
-            Serialize();
+            Serializer.Serialize(AppdataPath, _songs);
         }
 
         private void OpenImageButton_Click(object sender, EventArgs e)
@@ -267,7 +235,7 @@ namespace PlaylistOfSongs.View
                 _currentSong.ImageBase64 = Convert.ToBase64String(imageArray);
                 ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
 
-                Serialize();
+                Serializer.Serialize(AppdataPath, _songs);
             }
         }
 
@@ -286,7 +254,7 @@ namespace PlaylistOfSongs.View
                 _currentSong.ImageBase64 = null;
                 ArtistPictureBox.Image = null;
 
-                Serialize();
+                Serializer.Serialize(AppdataPath, _songs);
             }
         }
 
@@ -308,6 +276,36 @@ namespace PlaylistOfSongs.View
         private void DeleteSongButton_MouseLeave(object sender, EventArgs e)
         {
             DeleteSongButton.Image = Resources.remove_24x24_uncolor;
+        }
+
+        private void EditSongButton_MouseEnter(object sender, EventArgs e)
+        {
+            EditSongButton.Image = Resources.edit_24x24;
+        }
+
+        private void EditSongButton_MouseLeave(object sender, EventArgs e)
+        {
+            EditSongButton.Image = Resources.edit_24x24_uncolor;
+        }
+
+        private void OpenImageButton_MouseEnter(object sender, EventArgs e)
+        {
+            OpenImageButton.Image = Resources.addImage_24x24;
+        }
+
+        private void OpenImageButton_MouseLeave(object sender, EventArgs e)
+        {
+            OpenImageButton.Image = Resources.addImage_24x24_uncolor;
+        }
+
+        private void DeleteImageButton_MouseEnter(object sender, EventArgs e)
+        {
+            DeleteImageButton.Image = Resources.deleteImage_24x24;
+        }
+
+        private void DeleteImageButton_MouseLeave(object sender, EventArgs e)
+        {
+            DeleteImageButton.Image = Resources.deleteImage_24x24_uncolor;
         }
     }
 }
