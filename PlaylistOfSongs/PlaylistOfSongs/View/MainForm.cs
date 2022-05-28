@@ -73,13 +73,13 @@ namespace PlaylistOfSongs.View
                 {
                     songs = JsonConvert.DeserializeObject<List<Song>>(reader.ReadToEnd());
                 }
+
+                if (songs == null) songs = new List<Song>();
             }
             catch
             {
                 return songs;
             }
-            
-            if (songs == null) songs = new List<Song>();
 
             return songs;
         }
