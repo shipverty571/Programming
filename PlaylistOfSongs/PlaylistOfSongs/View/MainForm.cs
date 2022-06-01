@@ -22,7 +22,12 @@ namespace PlaylistOfSongs.View
         /// <summary>
         /// Дочернее окно добавления песни.
         /// </summary>
-        private AddSongForm _songForm;
+        private AddSongForm _addSongForm;
+
+        /// <summary>
+        /// Дочернее окно редактирования.
+        /// </summary>
+        private SongForm _songForm;
 
         /// <summary>
         /// Выбранная песня.
@@ -41,13 +46,7 @@ namespace PlaylistOfSongs.View
         {
             InitializeComponent();
 
-            var genre = Enum.GetValues(typeof(Genre));
-
-            foreach (var value in genre)
-                GenreComboBox.Items.Add(value);
-
             _songs = Serializer.Deserialize(AppdataPath);
-
             UpdateListBox(-1);
         }
 
@@ -59,8 +58,8 @@ namespace PlaylistOfSongs.View
             SongNameTextBox.Clear();
             ArtistNameTextBox.Clear();
             DurationSecondsTextBox.Clear();
+            GenreTextBox.Clear();
             ArtistPictureBox.Image = null;
-            GenreComboBox.SelectedIndex = -1;
         }
 
         /// <summary>
@@ -107,11 +106,15 @@ namespace PlaylistOfSongs.View
             SongListBox.SelectedIndex = selectedIndex;
         }
 
-        private void AddSongButton_Click(object sender, System.EventArgs e)
+        private void AddSongButton_Click(object sender, EventArgs e)
         {
-            _songForm = new AddSongForm();
-            _songForm._songAdded += AddSongForm_SongAdded;
-            _songForm.ShowDialog();
+            _addSongForm = new AddSongForm();
+
+            if (_addSongForm.ShowDialog() != DialogResult.OK) return;
+
+            _songs.Add(FormData.Song);
+            Serializer.Serialize(AppdataPath, _songs);
+            UpdateListBox(0);
         }
 
         private void DeleteSongButton_Click(object sender, EventArgs e)
@@ -127,14 +130,7 @@ namespace PlaylistOfSongs.View
             Serializer.Serialize(AppdataPath, _songs);
         }
 
-        public void AddSongForm_SongAdded(object sender, SongAddedEventArgs args)
-        {
-            _songs.Add(args.Song);
-            Serializer.Serialize(AppdataPath, _songs);
-            UpdateListBox(0);
-        }
-
-        private void SongListBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void SongListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = SongListBox.SelectedIndex;
 
@@ -144,118 +140,13 @@ namespace PlaylistOfSongs.View
             SongNameTextBox.Text = _currentSong.SongName;
             ArtistNameTextBox.Text = _currentSong.ArtistName;
             DurationSecondsTextBox.Text = _currentSong.DurationSeconds.ToString();
-            GenreComboBox.SelectedIndex = (int) _currentSong.Genre;
+            GenreTextBox.Text = _currentSong.Genre.ToString();
 
             if (_currentSong.ImageBase64 != null)
-                ArtistPictureBox.Image = Image.FromStream(new MemoryStream(Convert.FromBase64String(_currentSong.ImageBase64)));
+                ArtistPictureBox.Image = Image.FromStream(new MemoryStream(
+                    Convert.FromBase64String(_currentSong.ImageBase64)));
             else
                 ArtistPictureBox.Image = null;
-        }
-
-        private void SongNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (SongListBox.SelectedIndex == -1) return;
-
-            try
-            {
-                string songNameText = SongNameTextBox.Text;
-                _currentSong.SongName = songNameText;
-                int index = FindIndexItemById();
-                UpdateListBox(index);
-                Serializer.Serialize(AppdataPath, _songs);
-            }
-            catch
-            {
-                SongNameTextBox.BackColor = AppColors.ErrorColor;
-                return;
-            }
-
-            SongNameTextBox.BackColor = AppColors.CorrectColor;
-        }
-
-        private void ArtistNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (SongListBox.SelectedIndex == -1) return;
-
-            try
-            {
-                string artistNameText = ArtistNameTextBox.Text;
-                _currentSong.ArtistName = artistNameText;
-                int index = FindIndexItemById();
-                UpdateListBox(index);
-                Serializer.Serialize(AppdataPath, _songs);
-            }
-            catch
-            {
-                ArtistNameTextBox.BackColor = AppColors.ErrorColor;
-                return;
-            }
-
-            ArtistNameTextBox.BackColor = AppColors.CorrectColor;
-        }
-
-        private void DurationSecondsTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (SongListBox.SelectedIndex == -1) return;
-
-            try
-            {
-                string durationSecondsText = DurationSecondsTextBox.Text;
-                int durationSecondsValue = int.Parse(durationSecondsText);
-                _currentSong.DurationSeconds = durationSecondsValue;
-                Serializer.Serialize(AppdataPath, _songs);
-            }
-            catch
-            {
-                DurationSecondsTextBox.BackColor = AppColors.ErrorColor;
-                return;
-            }
-
-            DurationSecondsTextBox.BackColor = AppColors.CorrectColor;
-        }
-
-        private void GenreComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (SongListBox.SelectedIndex == -1) return;
-
-            _currentSong.Genre = (Genre)GenreComboBox.SelectedItem;
-            Serializer.Serialize(AppdataPath, _songs);
-        }
-
-        private void OpenImageButton_Click(object sender, EventArgs e)
-        {
-            if (SongListBox.SelectedIndex == -1) return;
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "(*.jpg;*.png;*.jpeg)|*.JPG;*.PNG;*.JPEG";
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                byte[] imageArray = File.ReadAllBytes(openFileDialog.FileName);
-                _currentSong.ImageBase64 = Convert.ToBase64String(imageArray);
-                ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
-
-                Serializer.Serialize(AppdataPath, _songs);
-            }
-        }
-
-        private void DeleteImageButton_Click(object sender, EventArgs e)
-        {
-            if (SongListBox.SelectedIndex == -1) return;
-
-            if (_currentSong.ImageBase64 == null) return;
-
-            DialogResult dialogResult = MessageBox.Show("Do you really want to delete the image?",
-                "Deleting an image",
-                MessageBoxButtons.YesNo);
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                _currentSong.ImageBase64 = null;
-                ArtistPictureBox.Image = null;
-
-                Serializer.Serialize(AppdataPath, _songs);
-            }
         }
 
         private void AddSongButton_MouseEnter(object sender, EventArgs e)
@@ -288,24 +179,21 @@ namespace PlaylistOfSongs.View
             EditSongButton.Image = Resources.edit_24x24_uncolor;
         }
 
-        private void OpenImageButton_MouseEnter(object sender, EventArgs e)
+        private void EditSongButton_Click(object sender, EventArgs e)
         {
-            OpenImageButton.Image = Resources.addImage_24x24;
-        }
+            if (SongListBox.SelectedIndex == -1) return;
 
-        private void OpenImageButton_MouseLeave(object sender, EventArgs e)
-        {
-            OpenImageButton.Image = Resources.addImage_24x24_uncolor;
-        }
+            FormData.Song = _currentSong;
 
-        private void DeleteImageButton_MouseEnter(object sender, EventArgs e)
-        {
-            DeleteImageButton.Image = Resources.deleteImage_24x24;
-        }
+            _songForm = new SongForm();
 
-        private void DeleteImageButton_MouseLeave(object sender, EventArgs e)
-        {
-            DeleteImageButton.Image = Resources.deleteImage_24x24_uncolor;
+            if (_songForm.ShowDialog() != DialogResult.OK) return;
+
+            _currentSong = FormData.Song;
+
+            int index = FindIndexItemById();
+            UpdateListBox(index);
+            Serializer.Serialize(AppdataPath, _songs);
         }
     }
 }

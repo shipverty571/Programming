@@ -1,43 +1,95 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using PlaylistOfSongs.Model;
 using PlaylistOfSongs.Properties;
 
 namespace PlaylistOfSongs.View
 {
-    /// <summary>
-    /// Предоставляет реализацию по представлению дочернего окна.
-    /// </summary>
-    public partial class AddSongForm : Form
+    public partial class SongForm : Form
     {
-        /// <summary>
-        /// Песня.
-        /// </summary>
-        private Song _song;
-
-        /// <summary>
-        /// Фильтр
-        /// </summary>
         private string _filter = "(*.jpg;*.png;*.jpeg)|*.JPG;*.PNG;*.JPEG";
 
-        /// <summary>
-        /// Создаёт экземпляр класса <see cref="AddSongForm"/>.
-        /// </summary>
-        public AddSongForm()
+        private Song _song;
+
+        public SongForm()
         {
             InitializeComponent();
 
-            _song = new Song();
-            SongNameTextBox.Text = "Song name";
-            ArtistNameTextBox.Text = "Artist name";
-            DurationSecondsTextBox.Text = "100";
             var genre = Enum.GetValues(typeof(Genre));
 
             foreach (var value in genre)
                 GenreComboBox.Items.Add(value);
 
-            GenreComboBox.SelectedIndex = 0;
+            _song = FormData.Song;
+
+            InsertInformationTextboxes(_song);
+        }
+
+        private void InsertInformationTextboxes(Song song)
+        {
+            SongNameTextBox.Text = song.SongName;
+            ArtistNameTextBox.Text = song.ArtistName;
+            DurationSecondsTextBox.Text = song.DurationSeconds.ToString();
+            GenreComboBox.SelectedItem = song.Genre;
+
+            if (song.ImageBase64 != null)
+                ArtistPictureBox.Image = Image.FromStream(new MemoryStream(
+                    Convert.FromBase64String(song.ImageBase64)));
+            else
+                ArtistPictureBox.Image = null;
+        }
+
+        private void OKButton_Click(object sender, EventArgs e)
+        {
+            if (CorrectTextManager.IsCorrection(SongNameTextBox,
+                    ArtistNameTextBox,
+                    DurationSecondsTextBox))
+            {
+                FormData.Song = _song;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Incorrect values have been entered. Fix it and try again.", "Error");
+            }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e) => Close();
+
+        private void OpenImageButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = _filter;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                byte[] imageArray = System.IO.File.ReadAllBytes(openFileDialog.FileName);
+                _song.ImageBase64 = Convert.ToBase64String(imageArray);
+                ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
+            }
+        }
+
+        private void DeleteImageButton_Click(object sender, EventArgs e)
+        {
+            if (_song.ImageBase64 == null) return;
+
+            DialogResult dialogResult = MessageBox.Show("Do you really want to delete the image?",
+                "Deleting an image",
+                MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                _song.ImageBase64 = null;
+                ArtistPictureBox.Image = null;
+            }
         }
 
         private void SongNameTextBox_TextChanged(object sender, EventArgs e)
@@ -92,52 +144,6 @@ namespace PlaylistOfSongs.View
         private void GenreComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _song.Genre = (Genre)GenreComboBox.SelectedItem;
-        }
-
-        private void OKButton_Click(object sender, EventArgs e)
-        {
-            if (CorrectTextManager.IsCorrection(SongNameTextBox,
-                    ArtistNameTextBox,
-                    DurationSecondsTextBox))
-            {
-                FormData.Song = _song;
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-            else
-            {
-                MessageBox.Show("Incorrect values have been entered. Fix it and try again.", "Error");
-            }
-        }
-
-        private void CancelButton_Click(object sender, EventArgs e) => Close();
-
-        private void OpenImageButton_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = _filter;
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                byte[] imageArray = System.IO.File.ReadAllBytes(openFileDialog.FileName);
-                _song.ImageBase64 = Convert.ToBase64String(imageArray);
-                ArtistPictureBox.Image = new Bitmap(openFileDialog.FileName);
-            }
-        }
-
-        private void DeleteImageButton_Click(object sender, EventArgs e)
-        {
-            if (_song.ImageBase64 == null) return;
-
-            DialogResult dialogResult = MessageBox.Show("Do you really want to delete the image?",
-                "Deleting an image",
-                MessageBoxButtons.YesNo);
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                _song.ImageBase64 = null;
-                ArtistPictureBox.Image = null;
-            }
         }
 
         private void OpenImageButton_MouseEnter(object sender, EventArgs e)
