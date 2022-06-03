@@ -32,7 +32,6 @@
             this.SongListBox = new System.Windows.Forms.ListBox();
             this.SelectedSongGroupBox = new System.Windows.Forms.GroupBox();
             this.GenreTextBox = new System.Windows.Forms.TextBox();
-            this.ArtistPictureBox = new System.Windows.Forms.PictureBox();
             this.GenreLabel = new System.Windows.Forms.Label();
             this.DurationSecondsTextBox = new System.Windows.Forms.TextBox();
             this.DurationSecondsLabel = new System.Windows.Forms.Label();
@@ -44,6 +43,7 @@
             this.EditSongButton = new System.Windows.Forms.Button();
             this.DeleteSongButton = new System.Windows.Forms.Button();
             this.AddSongButton = new System.Windows.Forms.Button();
+            this.ArtistPictureBox = new System.Windows.Forms.PictureBox();
             this.SelectedSongGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ArtistPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -87,18 +87,6 @@
             this.GenreTextBox.ReadOnly = true;
             this.GenreTextBox.Size = new System.Drawing.Size(150, 20);
             this.GenreTextBox.TabIndex = 22;
-            // 
-            // ArtistPictureBox
-            // 
-            this.ArtistPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ArtistPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ArtistPictureBox.Location = new System.Drawing.Point(356, 16);
-            this.ArtistPictureBox.Name = "ArtistPictureBox";
-            this.ArtistPictureBox.Size = new System.Drawing.Size(200, 200);
-            this.ArtistPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ArtistPictureBox.TabIndex = 7;
-            this.ArtistPictureBox.TabStop = false;
             // 
             // GenreLabel
             // 
@@ -223,6 +211,18 @@
             this.AddSongButton.Click += new System.EventHandler(this.AddSongButton_Click);
             this.AddSongButton.MouseEnter += new System.EventHandler(this.AddSongButton_MouseEnter);
             this.AddSongButton.MouseLeave += new System.EventHandler(this.AddSongButton_MouseLeave);
+            // 
+            // ArtistPictureBox
+            // 
+            this.ArtistPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ArtistPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ArtistPictureBox.Location = new System.Drawing.Point(356, 16);
+            this.ArtistPictureBox.Name = "ArtistPictureBox";
+            this.ArtistPictureBox.Size = new System.Drawing.Size(200, 200);
+            this.ArtistPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ArtistPictureBox.TabIndex = 7;
+            this.ArtistPictureBox.TabStop = false;
             // 
             // MainForm
             // 

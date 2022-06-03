@@ -1,22 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PlaylistOfSongs.Model;
 using PlaylistOfSongs.Properties;
 
 namespace PlaylistOfSongs.View
 {
+    /// <summary>
+    /// Предоставляет реализацию по представлению дочернего окна.
+    /// </summary>
     public partial class SongForm : Form
     {
+        /// <summary>
+        /// Фильтр для диалогового окна.
+        /// </summary>
         private string _filter = "(*.jpg;*.png;*.jpeg)|*.JPG;*.PNG;*.JPEG";
 
+        /// <summary>
+        /// Песня.
+        /// </summary>
         private Song _song;
 
         public SongForm()

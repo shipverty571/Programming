@@ -45,6 +45,7 @@ namespace PlaylistOfSongs.View
         public MainForm()
         {
             InitializeComponent();
+            ArtistNameTextBox.Text = AppdataPath;
 
             _songs = Serializer.Deserialize(AppdataPath);
             UpdateListBox(-1);
