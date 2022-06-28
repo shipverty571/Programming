@@ -91,11 +91,13 @@ namespace Programming.View.Controls
 
         private Panel CreatePanel()
         {
-            Panel panel = new Panel();
-            panel.Width = _currentRectangle.Width;
-            panel.Height = _currentRectangle.Height;
-            panel.Location = new Point(_currentRectangle.Center.X, _currentRectangle.Center.Y);
-            panel.BackColor = AppColors.IsNotCollision;
+            Panel panel = new Panel
+            {
+                Width = _currentRectangle.Width,
+                Height = _currentRectangle.Height,
+                Location = new Point(_currentRectangle.Center.X, _currentRectangle.Center.Y),
+                BackColor = AppColors.IsNotCollision
+            };
 
             return panel;
         }
@@ -113,37 +115,6 @@ namespace Programming.View.Controls
             RectanglesListBox.Items[ind] = FormattedText(rectangle);
         }
 
-        private void AddRectangleButton_MouseEnter(object sender, EventArgs e)
-        {
-            AddRectangleButton.Image = Resources.rectangle_add_24x24;
-        }
-
-        private void AddRectangleButton_MouseLeave(object sender, EventArgs e)
-        {
-            AddRectangleButton.Image = Resources.rectangle_add_24x24_uncolor;
-        }
-
-        private void RemoveRectangleButton_MouseEnter(object sender, EventArgs e)
-        {
-            RemoveRectangleButton.Image = Resources.rectangle_remove_24x24;
-        }
-
-        private void RemoveRectangleButton_MouseLeave(object sender, EventArgs e)
-        {
-            RemoveRectangleButton.Image = Resources.rectangle_remove_24x24_uncolor;
-        }
-
-        private void AddRectangleButton_Click(object sender, EventArgs e)
-        {
-            _currentRectangle = RectangleFactory.Randomize(CanvasPanel.Width, CanvasPanel.Height);
-            _rectangles.Add(_currentRectangle);
-            RectanglesListBox.Items.Add(FormattedText(_currentRectangle));
-
-            Panel rectanglePanel = CreatePanel();
-            _rectanglePanels.Add(rectanglePanel);
-            CanvasPanel.Controls.Add(rectanglePanel);
-            FindCollisions();
-        }
 
         private void RectanglesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -156,6 +127,18 @@ namespace Programming.View.Controls
             YSelectedRectangleTextBox.Text = _currentRectangle.Center.Y.ToString();
             WidthSelectedRectangleTextBox.Text = _currentRectangle.Width.ToString();
             HeightSelectedRectangleTextBox.Text = _currentRectangle.Height.ToString();
+        }
+
+        private void AddRectangleButton_Click(object sender, EventArgs e)
+        {
+            _currentRectangle = RectangleFactory.Randomize(CanvasPanel.Width, CanvasPanel.Height);
+            _rectangles.Add(_currentRectangle);
+            RectanglesListBox.Items.Add(FormattedText(_currentRectangle));
+
+            Panel rectanglePanel = CreatePanel();
+            _rectanglePanels.Add(rectanglePanel);
+            CanvasPanel.Controls.Add(rectanglePanel);
+            FindCollisions();
         }
 
         private void RemoveRectangleButton_Click(object sender, EventArgs e)
@@ -264,6 +247,26 @@ namespace Programming.View.Controls
                 return;
             }
             HeightSelectedRectangleTextBox.BackColor = AppColors.CorrectColor;
+        }
+
+        private void AddRectangleButton_MouseEnter(object sender, EventArgs e)
+        {
+            AddRectangleButton.Image = Resources.rectangle_add_24x24;
+        }
+
+        private void AddRectangleButton_MouseLeave(object sender, EventArgs e)
+        {
+            AddRectangleButton.Image = Resources.rectangle_add_24x24_uncolor;
+        }
+
+        private void RemoveRectangleButton_MouseEnter(object sender, EventArgs e)
+        {
+            RemoveRectangleButton.Image = Resources.rectangle_remove_24x24;
+        }
+
+        private void RemoveRectangleButton_MouseLeave(object sender, EventArgs e)
+        {
+            RemoveRectangleButton.Image = Resources.rectangle_remove_24x24_uncolor;
         }
     }
 }

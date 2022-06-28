@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Programming.Model
+﻿namespace Programming.Model
 {
     /// <summary>
     /// Хранит данные о контактных данных человека.

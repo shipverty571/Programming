@@ -23,10 +23,12 @@ namespace Programming.View.Controls
             InitializeComponent();
             
             var seasonValues = Enum.GetValues(typeof(Season));
+
             foreach (Season value in seasonValues)
             {
                 SeasonNamesComboBox.Items.Add(value);
             }
+
             SeasonNamesComboBox.SelectedIndex = 0;
         }
 

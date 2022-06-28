@@ -15,7 +15,7 @@ namespace PlaylistOfSongs.View
     public partial class MainForm : Form
     {
         /// <summary>
-        /// Путь до AppData
+        /// Путь до AppData.
         /// </summary>
         private string AppdataPath = Application.UserAppDataPath;
 
@@ -45,7 +45,6 @@ namespace PlaylistOfSongs.View
         public MainForm()
         {
             InitializeComponent();
-            ArtistNameTextBox.Text = AppdataPath;
 
             _songs = Serializer.Deserialize(AppdataPath);
             UpdateListBox(-1);
