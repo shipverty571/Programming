@@ -1,4 +1,5 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using System.Collections.Generic;
+using ObjectOrientedPractics.Services;
 using ObjectOrientedPractics.Model;
 
 namespace ObjectOrientedPractics.Model
@@ -33,6 +34,12 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         private static int _allCustomersCount;
 
+
+        /// <summary>
+        /// Коллекция заказов.
+        /// </summary>
+        private List<Order> _orders;
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Customer"/>.
         /// </summary>
@@ -41,6 +48,7 @@ namespace ObjectOrientedPractics.Model
             _allCustomersCount++;
             _id = _allCustomersCount;
             Cart = new Cart();
+            Orders = new List<Order>();
         }
 
         /// <summary>
@@ -48,11 +56,12 @@ namespace ObjectOrientedPractics.Model
         /// </summary>
         /// <param name="fullname">Полное имя. Должно быть не более 200 символов.</param>
         /// <param name="address">Адрес. Должен быть не более 500 символов.</param>
-        public Customer(string fullname, Address address, Cart cart)
+        public Customer(string fullname, Address address, Cart cart, List<Order> orders)
         {
             Fullname = fullname;
             Address = address;
             Cart = cart;
+            Orders = orders;
             _allCustomersCount++;
             _id = _allCustomersCount;
         }
@@ -69,6 +78,21 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 _cart = value;
+            }
+        }
+
+        /// <summary>
+        /// Возвращает и задает коллекцию заказов.
+        /// </summary>
+        public List<Order> Orders
+        {
+            get
+            {
+                return _orders;
+            }
+            set
+            {
+                _orders = value;
             }
         }
 

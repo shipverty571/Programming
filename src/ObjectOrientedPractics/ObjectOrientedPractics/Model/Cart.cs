@@ -33,7 +33,7 @@ namespace ObjectOrientedPractics.Model
 
                 foreach (var item in _items)
                 {
-                    _amount += item.Amount;
+                    _amount += item.Cost;
                 }
 
                 return _amount;
