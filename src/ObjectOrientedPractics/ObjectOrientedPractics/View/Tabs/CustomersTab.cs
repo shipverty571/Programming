@@ -65,6 +65,8 @@ namespace ObjectOrientedPractics.View.Tabs
                 CustomersListBox.Items.Add(FormattedText(customer));
             }
 
+            if (selectedIndex == -1) AddressControl.Enabled = false;
+
             CustomersListBox.SelectedIndex = selectedIndex;
         }
 
@@ -136,8 +138,13 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             int index = CustomersListBox.SelectedIndex;
 
-            if (index == -1) return;
+            if (index == -1)
+            {
+                AddressControl.Enabled = false;
+                return;
+            }
 
+            AddressControl.Enabled = true;
             _currentCustomer = _customers[index];
 
             IDTextBox.Text = _currentCustomer.Id.ToString();

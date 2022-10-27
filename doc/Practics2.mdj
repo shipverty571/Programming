@@ -2299,16 +2299,16 @@
 										"$ref": "AAAAAAGD2pOMyI9x24E="
 									},
 									"font": "Arial;13;0",
-									"left": 513,
-									"top": 839,
+									"left": 512,
+									"top": 838,
 									"width": 7.22998046875,
 									"height": 13,
-									"alpha": 0.5235987755982988,
-									"distance": 25,
+									"alpha": 0.4825135124378841,
+									"distance": 23.706539182259394,
 									"hostEdge": {
 										"$ref": "AAAAAAGD2pOMyY9z9Ns="
 									},
-									"text": "1"
+									"text": "*"
 								},
 								{
 									"_type": "UMLQualifierCompartmentView",
@@ -2579,7 +2579,7 @@
 									"hostEdge": {
 										"$ref": "AAAAAAGD2pQ5/qoVgLs="
 									},
-									"text": "1"
+									"text": "*"
 								},
 								{
 									"_type": "UMLQualifierCompartmentView",
@@ -3940,7 +3940,7 @@
 									"$ref": "AAAAAAGDeP5TYCA5kb0="
 								},
 								"aggregation": "composite",
-								"multiplicity": "1"
+								"multiplicity": "*"
 							}
 						},
 						{
@@ -3970,7 +3970,7 @@
 									"$ref": "AAAAAAGDeP5TYCA5kb0="
 								},
 								"aggregation": "composite",
-								"multiplicity": "1"
+								"multiplicity": "*"
 							}
 						}
 					],
