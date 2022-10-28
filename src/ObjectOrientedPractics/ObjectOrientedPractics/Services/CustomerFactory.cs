@@ -89,6 +89,7 @@ namespace ObjectOrientedPractics.Services
             Customer customer = new Customer();
             customer.Fullname = fullName;
             customer.Address = address;
+            customer.Cart = new Cart();
 
             return customer;
         }

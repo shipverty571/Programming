@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ObjectOrientedPractics.Model
 {
@@ -44,6 +45,7 @@ namespace ObjectOrientedPractics.Model
         {
             _allOrdersCount++;
             _id = _allOrdersCount;
+            _dateOfCreate = DateTime.Today.ToString();
         }
 
         /// <summary>
@@ -54,7 +56,18 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает дату создания заказа.
         /// </summary>
-        public string DateOfCreate { get; }
+        public string DateOfCreate
+        {
+            get
+            {
+                return _dateOfCreate;
+            }
+        }
+
+        /// <summary>
+        /// Возвращает и задает статус заказа.
+        /// </summary>
+        public OrderStatus Status { get; set; }
 
         /// <summary>
         /// Возвращает и задает адрес доставки заказа.
