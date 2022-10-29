@@ -61,6 +61,14 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        public void RefreshData()
+        {
+            OrdersDataGridView.Rows.Clear();
+            _orders = new List<Order>();
+            UpdateOrders();
+
+        }
+
         private void UpdateOrders()
         {
             foreach (var customer in _customers)

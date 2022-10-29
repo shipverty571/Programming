@@ -43,6 +43,11 @@ namespace ObjectOrientedPractics.View
                 CartsTab.Customers = CustomersTab.Customers;
                 CartsTab.RefreshData();
             }
+            else if (TabControl.SelectedIndex == 3)
+            {
+                OrdersTab.Customers = CartsTab.Customers;
+                OrdersTab.RefreshData();
+            }
         }
     }
 }

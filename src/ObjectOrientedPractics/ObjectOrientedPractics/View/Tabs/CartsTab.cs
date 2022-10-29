@@ -148,6 +148,8 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             CartListBox.SelectedIndex = selectedIndex;
+
+            CreateOrderButton.Enabled = false;
         }
 
         /// <summary>
@@ -186,6 +188,7 @@ namespace ObjectOrientedPractics.View.Tabs
             AmountDigitLabel.Text = CurrentCustomer.Cart.Amount.ToString();
 
             UpdateCartListBox(-1);
+            CreateOrderButton.Enabled = true;
         }
 
         private void RemoveItemButton_Click(object sender, EventArgs e)
@@ -218,6 +221,7 @@ namespace ObjectOrientedPractics.View.Tabs
             CurrentCustomer.Cart = new Cart();
             UpdateCartListBox(-1);
             AmountDigitLabel.Text = CurrentCustomer.Cart.Amount.ToString();
+            CreateOrderButton.Enabled = false;
         }
     }
 }

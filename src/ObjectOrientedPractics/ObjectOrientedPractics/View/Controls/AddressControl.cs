@@ -7,10 +7,19 @@ namespace ObjectOrientedPractics.View.Controls
 {
     public partial class AddressControl : UserControl
     {
+        /// <summary>
+        /// Адрес.
+        /// </summary>
         private Address _address;
 
+        /// <summary>
+        /// Только для чтения.
+        /// </summary>
         private bool _readOnly;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="AddressControl"/>.
+        /// </summary>
         public AddressControl()
         {
             _address = new Address();
@@ -18,6 +27,9 @@ namespace ObjectOrientedPractics.View.Controls
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Возвращает и задает поле ReadOnly.
+        /// </summary>
         public bool ReadOnly
         {
             get
@@ -40,6 +52,9 @@ namespace ObjectOrientedPractics.View.Controls
             }
         }
 
+        /// <summary>
+        /// Возвращает и задает адрес.
+        /// </summary>
         public Address Address
         {
             get
@@ -53,6 +68,9 @@ namespace ObjectOrientedPractics.View.Controls
             }
         }
 
+        /// <summary>
+        /// Устанавливает 
+        /// </summary>
         private void SetValuesTextBoxes()
         {
             if (Address.Country == null) return;
