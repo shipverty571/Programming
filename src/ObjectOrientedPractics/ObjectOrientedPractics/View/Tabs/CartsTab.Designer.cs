@@ -35,13 +35,13 @@
             this.CustomerPanel = new System.Windows.Forms.Panel();
             this.RemoveItemButton = new System.Windows.Forms.Button();
             this.ClearCartButton = new System.Windows.Forms.Button();
-            this.AmountDigitLabel = new System.Windows.Forms.Label();
             this.AmountLabel = new System.Windows.Forms.Label();
             this.CreateOrderButton = new System.Windows.Forms.Button();
             this.CartListBox = new System.Windows.Forms.ListBox();
             this.CartLabel = new System.Windows.Forms.Label();
             this.CustomerComboBox = new System.Windows.Forms.ComboBox();
             this.CustomerLabel = new System.Windows.Forms.Label();
+            this.AmountDigitLabel = new System.Windows.Forms.Label();
             this.ItemsPanel.SuspendLayout();
             this.CustomerPanel.SuspendLayout();
             this.SuspendLayout();
@@ -95,9 +95,9 @@
             this.CustomerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.CustomerPanel.Controls.Add(this.AmountDigitLabel);
             this.CustomerPanel.Controls.Add(this.RemoveItemButton);
             this.CustomerPanel.Controls.Add(this.ClearCartButton);
-            this.CustomerPanel.Controls.Add(this.AmountDigitLabel);
             this.CustomerPanel.Controls.Add(this.AmountLabel);
             this.CustomerPanel.Controls.Add(this.CreateOrderButton);
             this.CustomerPanel.Controls.Add(this.CartListBox);
@@ -130,17 +130,6 @@
             this.ClearCartButton.Text = "Clear Cart";
             this.ClearCartButton.UseVisualStyleBackColor = true;
             this.ClearCartButton.Click += new System.EventHandler(this.ClearCartButton_Click);
-            // 
-            // AmountDigitLabel
-            // 
-            this.AmountDigitLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AmountDigitLabel.AutoSize = true;
-            this.AmountDigitLabel.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AmountDigitLabel.Location = new System.Drawing.Point(345, 241);
-            this.AmountDigitLabel.Name = "AmountDigitLabel";
-            this.AmountDigitLabel.Size = new System.Drawing.Size(0, 23);
-            this.AmountDigitLabel.TabIndex = 7;
-            this.AmountDigitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AmountLabel
             // 
@@ -203,6 +192,16 @@
             this.CustomerLabel.TabIndex = 0;
             this.CustomerLabel.Text = "Customer:";
             // 
+            // AmountDigitLabel
+            // 
+            this.AmountDigitLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.AmountDigitLabel.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AmountDigitLabel.Location = new System.Drawing.Point(6, 241);
+            this.AmountDigitLabel.Name = "AmountDigitLabel";
+            this.AmountDigitLabel.Size = new System.Drawing.Size(435, 24);
+            this.AmountDigitLabel.TabIndex = 14;
+            this.AmountDigitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // CartsTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,12 +227,12 @@
         private System.Windows.Forms.Panel CustomerPanel;
         private System.Windows.Forms.Button RemoveItemButton;
         private System.Windows.Forms.Button ClearCartButton;
-        private System.Windows.Forms.Label AmountDigitLabel;
         private System.Windows.Forms.Label AmountLabel;
         private System.Windows.Forms.Button CreateOrderButton;
         private System.Windows.Forms.ListBox CartListBox;
         private System.Windows.Forms.Label CartLabel;
         private System.Windows.Forms.ComboBox CustomerComboBox;
         private System.Windows.Forms.Label CustomerLabel;
+        private System.Windows.Forms.Label AmountDigitLabel;
     }
 }

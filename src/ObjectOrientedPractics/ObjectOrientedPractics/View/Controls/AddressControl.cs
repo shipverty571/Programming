@@ -9,11 +9,35 @@ namespace ObjectOrientedPractics.View.Controls
     {
         private Address _address;
 
+        private bool _readOnly;
+
         public AddressControl()
         {
             _address = new Address();
             
             InitializeComponent();
+        }
+
+        public bool ReadOnly
+        {
+            get
+            { 
+                return _readOnly;
+            }
+            set
+            {
+                _readOnly = value;
+
+                if (value)
+                {
+                    PostIndexTextBox.ReadOnly = true;
+                    CountryTextBox.ReadOnly = true;
+                    CityTextBox.ReadOnly = true;
+                    StreetTextBox.ReadOnly = true;
+                    BuildingTextBox.ReadOnly = true;
+                    ApartmentTextBox.ReadOnly = true;
+                }
+            }
         }
 
         public Address Address
@@ -31,6 +55,8 @@ namespace ObjectOrientedPractics.View.Controls
 
         private void SetValuesTextBoxes()
         {
+            if (Address.Country == null) return;
+            
             PostIndexTextBox.Text = _address.Index.ToString();
             CountryTextBox.Text = _address.Country;
             CityTextBox.Text = _address.City;

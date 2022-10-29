@@ -51,7 +51,13 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает уникальный идентификатор заказа.
         /// </summary>
-        public int Id { get; }
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+        }
 
         /// <summary>
         /// Возвращает дату создания заказа.
@@ -106,7 +112,9 @@ namespace ObjectOrientedPractics.Model
         {
             get
             {
-                if (_items == null) return _amount = 0;
+                _amount = 0;
+
+                if (_items == null) return _amount;
 
                 foreach (var item in _items)
                 {
