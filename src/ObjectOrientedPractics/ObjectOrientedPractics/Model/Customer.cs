@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using ObjectOrientedPractics.Services;
-using ObjectOrientedPractics.Model;
-
 namespace ObjectOrientedPractics.Model
 {
     /// <summary>
