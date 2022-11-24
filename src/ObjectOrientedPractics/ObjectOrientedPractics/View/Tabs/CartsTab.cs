@@ -213,7 +213,16 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void CreateOrderButton_Click(object sender, EventArgs e)
         {
-            Order order = new Order();
+            Order order;
+            if (CurrentCustomer.IsPriority)
+            {
+                order = new PriorityOrder();
+            }
+            else
+            {
+                order = new Order();
+            }
+            
             order.Address = CurrentCustomer.Address;
             order.Items = CurrentCustomer.Cart.Items;
             order.Status = OrderStatus.New;

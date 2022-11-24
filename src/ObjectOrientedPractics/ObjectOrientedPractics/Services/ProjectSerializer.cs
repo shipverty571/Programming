@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -19,7 +20,9 @@ namespace ObjectOrientedPractics.Model
         {
             using (StreamWriter writer = new StreamWriter(AppDataPath + @"\StoreSerialize.json"))
             {
-                writer.Write(JsonConvert.SerializeObject(store));
+                JsonSerializerSettings settings = new JsonSerializerSettings();
+                settings.TypeNameHandling = TypeNameHandling.All;
+                writer.Write(JsonConvert.SerializeObject(store, settings));
             }
         }
 
@@ -35,7 +38,9 @@ namespace ObjectOrientedPractics.Model
             {
                 using (StreamReader reader = new StreamReader(AppDataPath + @"\StoreSerialize.json"))
                 {
-                    store = JsonConvert.DeserializeObject<Store>(reader.ReadToEnd());
+                    JsonSerializerSettings settings = new JsonSerializerSettings();
+                    settings.TypeNameHandling = TypeNameHandling.All;
+                    store = JsonConvert.DeserializeObject<Store>(reader.ReadToEnd(), settings);
                 }
 
                 if (store == null) store = new Store();

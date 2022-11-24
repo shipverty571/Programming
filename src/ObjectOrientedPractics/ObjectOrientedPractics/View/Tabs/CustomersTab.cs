@@ -28,6 +28,8 @@ namespace ObjectOrientedPractics.View.Tabs
         public CustomersTab()
         {
             InitializeComponent();
+
+            IsPriorityCheckBox.Enabled = false;
         }
 
         /// <summary>
@@ -103,6 +105,7 @@ namespace ObjectOrientedPractics.View.Tabs
             IDTextBox.Clear();
             FullNameTextBox.Clear();
             AddressControl.Clear();
+            IsPriorityCheckBox.Checked = false;
         }
 
         /// <summary>
@@ -141,11 +144,15 @@ namespace ObjectOrientedPractics.View.Tabs
             if (index == -1)
             {
                 AddressControl.Enabled = false;
+                IsPriorityCheckBox.Enabled = false;
                 return;
             }
 
             AddressControl.Enabled = true;
+            IsPriorityCheckBox.Enabled = true;
+            
             _currentCustomer = _customers[index];
+            IsPriorityCheckBox.Checked = _currentCustomer.IsPriority;
 
             IDTextBox.Text = _currentCustomer.Id.ToString();
             FullNameTextBox.Text = _currentCustomer.Fullname;
@@ -172,6 +179,11 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             FullNameTextBox.BackColor = AppColor.CorrectColor;
+        }
+
+        private void IsPriorityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentCustomer.IsPriority = IsPriorityCheckBox.Checked;
         }
     }
 }

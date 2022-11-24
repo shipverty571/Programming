@@ -73,8 +73,6 @@ namespace ObjectOrientedPractics.View.Controls
         /// </summary>
         private void SetValuesTextBoxes()
         {
-            if (Address.Country == null) return;
-            
             PostIndexTextBox.Text = _address.Index.ToString();
             CountryTextBox.Text = _address.Country;
             CityTextBox.Text = _address.City;
