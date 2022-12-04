@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 
 namespace ObjectOrientedPractics.View
@@ -19,7 +20,6 @@ namespace ObjectOrientedPractics.View
         public MainForm()
         {
             InitializeComponent();
-
             _store = ProjectSerializer.Deserialize();
             ItemsTab.Items = _store.Items;
             CustomersTab.Customers = _store.Customers;
