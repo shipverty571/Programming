@@ -56,7 +56,6 @@ namespace ObjectOrientedPractics.Model
             Orders = new List<Order>();
             IsPriority = false;
             Discounts = new List<IDiscount>();
-            Discounts.Add(new PointsDiscount());
         }
 
         /// <summary>

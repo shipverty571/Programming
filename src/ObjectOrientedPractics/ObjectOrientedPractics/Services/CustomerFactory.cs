@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Discounts;
 
 namespace ObjectOrientedPractics.Services
 {
@@ -90,6 +91,7 @@ namespace ObjectOrientedPractics.Services
             customer.Fullname = fullName;
             customer.Address = address;
             customer.Cart = new Cart();
+            customer.Discounts.Add(new PointsDiscount());
 
             return customer;
         }
