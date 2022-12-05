@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.Model.Orders;
+using ObjectOrientedPractics.Model.Discounts;
+
 namespace ObjectOrientedPractics.Model
 {
     /// <summary>
@@ -52,6 +55,8 @@ namespace ObjectOrientedPractics.Model
             Cart = new Cart();
             Orders = new List<Order>();
             IsPriority = false;
+            Discounts = new List<IDiscount>();
+            Discounts.Add(new PointsDiscount());
         }
 
         /// <summary>
@@ -68,7 +73,11 @@ namespace ObjectOrientedPractics.Model
             _allCustomersCount++;
             _id = _allCustomersCount;
             IsPriority = isPriority;
+            Discounts = new List<IDiscount>();
+            Discounts.Add(new PointsDiscount());
         }
+
+        public List<IDiscount> Discounts { get; set; }
 
         /// <summary>
         /// Возвращает и задает булевое значение, является ли покупатель приоритетным или нет.

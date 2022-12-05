@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using ObjectOrientedPractics.Model.Enums;
 using Newtonsoft.Json;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Представляет реализацию по представлению приоритетных заказов.

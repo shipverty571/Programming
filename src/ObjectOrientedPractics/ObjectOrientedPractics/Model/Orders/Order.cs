@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ObjectOrientedPractics.Model.Enums;
 
-namespace ObjectOrientedPractics.Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Представляет реализацию по оформлению заказа.
@@ -56,6 +57,16 @@ namespace ObjectOrientedPractics.Model
             _allOrdersCount++;
             _id = _allOrdersCount;
             _dateOfCreate = DateTime.Today.ToString();
+        }
+
+        public double DiscountAmount { get; set; }
+
+        public double Total
+        {
+            get
+            {
+                return Amount - DiscountAmount;
+            }
         }
 
         /// <summary>

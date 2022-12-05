@@ -51,15 +51,15 @@
   <ItemGroup>
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Cart.cs" />
-    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Enums\Category.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\IDiscount.cs" />
     <Compile Include="Model\Item.cs" />
-    <Compile Include="Model\Order.cs" />
-    <Compile Include="Model\OrderStatus.cs" />
-    <Compile Include="Model\PercentDiscount.cs" />
-    <Compile Include="Model\PointsDiscount.cs" />
-    <Compile Include="Model\PriorityOrder.cs" />
+    <Compile Include="Model\Orders\Order.cs" />
+    <Compile Include="Model\Enums\OrderStatus.cs" />
+    <Compile Include="Model\Discounts\PercentDiscount.cs" />
+    <Compile Include="Model\Discounts\PointsDiscount.cs" />
+    <Compile Include="Model\Orders\PriorityOrder.cs" />
     <Compile Include="Model\Store.cs" />
     <Compile Include="Services\AppColor.cs" />
     <Compile Include="Services\CustomerFactory.cs" />
