@@ -49,6 +49,10 @@ namespace ObjectOrientedPractics.View
                 OrdersTab.Customers = CartsTab.Customers;
                 OrdersTab.RefreshData();
             }
+            else if (TabControl.SelectedIndex == 5)
+            {
+                DiscountsTab.Items = ItemsTab.Items;
+            }
         }
     }
 }

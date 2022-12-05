@@ -53,9 +53,12 @@
     <Compile Include="Model\Cart.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\IDiscount.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\OrderStatus.cs" />
+    <Compile Include="Model\PercentDiscount.cs" />
+    <Compile Include="Model\PointsDiscount.cs" />
     <Compile Include="Model\PriorityOrder.cs" />
     <Compile Include="Model\Store.cs" />
     <Compile Include="Services\AppColor.cs" />
@@ -88,6 +91,12 @@
     </Compile>
     <Compile Include="View\Tabs\CustomersTab.Designer.cs">
       <DependentUpon>CustomersTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tabs\DiscountsTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Tabs\DiscountsTab.Designer.cs">
+      <DependentUpon>DiscountsTab.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Tabs\ItemsTab.cs">
       <SubType>UserControl</SubType>
@@ -127,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Tabs\CustomersTab.resx">
       <DependentUpon>CustomersTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Tabs\DiscountsTab.resx">
+      <DependentUpon>DiscountsTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Tabs\ItemsTab.resx">
       <DependentUpon>ItemsTab.cs</DependentUpon>

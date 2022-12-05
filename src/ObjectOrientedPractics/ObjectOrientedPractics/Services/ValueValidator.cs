@@ -8,6 +8,21 @@ namespace ObjectOrientedPractics.Services
     public static class ValueValidator
     {
         /// <summary>
+        /// Проверяет, что число является положительным.
+        /// </summary>
+        /// <param name="nameProperty">Имя свойства, откуда был вызван метод.</param>
+        /// <param name="value">Число.</param>
+        /// <exception cref="System.ArgumentException">Выбрасывается, когда число меньше или равно нулю.</exception>
+        public static void AssertOnPositiveValue(string nameProperty, double value)
+        {
+            if (value <= 0)
+            {
+                throw new System.ArgumentException(
+                    $"the value of the {nameProperty} field must be positive");
+            }
+        }
+
+        /// <summary>
         /// Проверяет, что число находится в определённом диапазоне.
         /// </summary>
         /// <param name="propertyName">Имя свойства, откуда был вызван метод.</param>
