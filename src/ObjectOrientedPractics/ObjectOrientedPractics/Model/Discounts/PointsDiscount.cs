@@ -8,25 +8,40 @@ using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model.Discounts
 {
+    /// <summary>
+    /// Представляет реализацию по представлению накопительной скидки.
+    /// </summary>
     public class PointsDiscount : IDiscount
     {
+        /// <summary>
+        /// Накопительная скидка.
+        /// </summary>
         private int _points;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="PointsDiscount"/>
+        /// </summary>
         public PointsDiscount()
         {
 
         }
 
+        /// <summary>
+        /// Возвращает и задает накопительную скидку. Должно быть не меньше нуля.
+        /// </summary>
         public int Points
         {
             get => _points;
-            private set
+            set
             {
                 ValueValidator.AssertOnPositiveValue(nameof(Points), value);
                 _points = value;
             }
         }
 
+        /// <summary>
+        /// Возвращает информацию по накопительной скидке.
+        /// </summary>
         public string Info
         {
             get
@@ -35,6 +50,11 @@ namespace ObjectOrientedPractics.Model.Discounts
             }
         }
 
+        /// <summary>
+        /// Высчитывает скидку для товаров.
+        /// </summary>
+        /// <param name="items">Товары.</param>
+        /// <returns>Возвращает общую стоимость товаров с учетом скидки.</returns>
         public double Calculate(List<Item> items)
         {
             double amount = 0;
@@ -54,6 +74,11 @@ namespace ObjectOrientedPractics.Model.Discounts
             return 0;
         }
 
+        /// <summary>
+        /// Применяет скидку к товарам.
+        /// </summary>
+        /// <param name="items">Товары.</param>
+        /// <returns>Возвращает скидку.</returns>
         public double Apply(List<Item> items)
         {
             double discount = Calculate(items);
@@ -61,6 +86,10 @@ namespace ObjectOrientedPractics.Model.Discounts
             return discount;
         }
 
+        /// <summary>
+        /// Накапливает скидку.
+        /// </summary>
+        /// <param name="items">Товары.</param>
         public void Update(List<Item> items)
         {
             double amount = 0;

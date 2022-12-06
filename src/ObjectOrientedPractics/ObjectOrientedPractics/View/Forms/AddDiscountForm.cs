@@ -23,6 +23,7 @@ namespace ObjectOrientedPractics.View.Forms
             {
                 CategoryComboBox.Items.Add(value);
             }
+            CategoryComboBox.SelectedIndex = 0;
         }
 
         public PercentDiscount PercentDiscount {get; set; }

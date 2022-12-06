@@ -15,7 +15,7 @@ namespace ObjectOrientedPractics.Services
         /// <exception cref="System.ArgumentException">Выбрасывается, когда число меньше или равно нулю.</exception>
         public static void AssertOnPositiveValue(string nameProperty, double value)
         {
-            if (value <= 0)
+            if (value < 0)
             {
                 throw new System.ArgumentException(
                     $"the value of the {nameProperty} field must be positive");

@@ -26,7 +26,6 @@ namespace ObjectOrientedPractics.View
             CartsTab.Items = _store.Items;
             CartsTab.Customers = _store.Customers;
             OrdersTab.Customers = _store.Customers;
-            PriorityOrdersTab.Items = _store.Items;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -49,10 +48,10 @@ namespace ObjectOrientedPractics.View
                 OrdersTab.Customers = CartsTab.Customers;
                 OrdersTab.RefreshData();
             }
-            else if (TabControl.SelectedIndex == 5)
-            {
-                DiscountsTab.Items = ItemsTab.Items;
-            }
+            //else if (TabControl.SelectedIndex == 5)
+            //{
+            //    DiscountsTab.Items = ItemsTab.Items;
+            //}
         }
     }
 }

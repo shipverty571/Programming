@@ -31,6 +31,7 @@
             ObjectOrientedPractics.Model.Address address1 = new ObjectOrientedPractics.Model.Address();
             this.OrdersDataGridView = new System.Windows.Forms.DataGridView();
             this.IDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderStatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CustomerFullNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +54,8 @@
             this.DeliveryTimeComboBox = new System.Windows.Forms.ComboBox();
             this.DeliveryTimeLabel = new System.Windows.Forms.Label();
             this.AddressControl = new ObjectOrientedPractics.View.Controls.AddressControl();
+            this.TotalAmountDigitLabel = new System.Windows.Forms.Label();
+            this.TotalAmountLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.OrdersDataGridView)).BeginInit();
             this.PriorityOptionsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +71,7 @@
             this.OrdersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OrdersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IDColumn,
+            this.TotalColumn,
             this.CreatedColumn,
             this.OrderStatusColumn,
             this.CustomerFullNameColumn,
@@ -89,6 +93,11 @@
             this.IDColumn.Name = "IDColumn";
             this.IDColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.IDColumn.Width = 40;
+            // 
+            // TotalColumn
+            // 
+            this.TotalColumn.HeaderText = "Total";
+            this.TotalColumn.Name = "TotalColumn";
             // 
             // CreatedColumn
             // 
@@ -299,10 +308,34 @@
             this.AddressControl.Size = new System.Drawing.Size(394, 110);
             this.AddressControl.TabIndex = 9;
             // 
+            // TotalAmountDigitLabel
+            // 
+            this.TotalAmountDigitLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalAmountDigitLabel.Font = new System.Drawing.Font("Roboto Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TotalAmountDigitLabel.Location = new System.Drawing.Point(406, 417);
+            this.TotalAmountDigitLabel.Name = "TotalAmountDigitLabel";
+            this.TotalAmountDigitLabel.Size = new System.Drawing.Size(385, 24);
+            this.TotalAmountDigitLabel.TabIndex = 16;
+            this.TotalAmountDigitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // TotalAmountLabel
+            // 
+            this.TotalAmountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TotalAmountLabel.AutoSize = true;
+            this.TotalAmountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TotalAmountLabel.Location = new System.Drawing.Point(711, 401);
+            this.TotalAmountLabel.Name = "TotalAmountLabel";
+            this.TotalAmountLabel.Size = new System.Drawing.Size(86, 13);
+            this.TotalAmountLabel.TabIndex = 15;
+            this.TotalAmountLabel.Text = "Total Amount:";
+            // 
             // OrdersTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.TotalAmountDigitLabel);
+            this.Controls.Add(this.TotalAmountLabel);
             this.Controls.Add(this.PriorityOptionsPanel);
             this.Controls.Add(this.AmountDigitLabel);
             this.Controls.Add(this.AmountLabel);
@@ -344,15 +377,18 @@
         private System.Windows.Forms.ListBox OrderItemsListBox;
         private System.Windows.Forms.Label AmountDigitLabel;
         private System.Windows.Forms.Label AmountLabel;
+        private System.Windows.Forms.Panel PriorityOptionsPanel;
+        private System.Windows.Forms.Label PriorityOptionsLabel;
+        private System.Windows.Forms.ComboBox DeliveryTimeComboBox;
+        private System.Windows.Forms.Label DeliveryTimeLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderStatusColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CustomerFullNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryAddressColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn AmountColumn;
-        private System.Windows.Forms.Panel PriorityOptionsPanel;
-        private System.Windows.Forms.Label PriorityOptionsLabel;
-        private System.Windows.Forms.ComboBox DeliveryTimeComboBox;
-        private System.Windows.Forms.Label DeliveryTimeLabel;
+        private System.Windows.Forms.Label TotalAmountDigitLabel;
+        private System.Windows.Forms.Label TotalAmountLabel;
     }
 }

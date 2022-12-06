@@ -30,8 +30,7 @@ namespace ObjectOrientedPractics.View.Tabs
         public CustomersTab()
         {
             InitializeComponent();
-
-            IsPriorityCheckBox.Enabled = false;
+            EnabledField(false);
             
         }
 
@@ -60,6 +59,16 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 DiscountsListBox.Items.Add(discount.Info);
             }
+        }
+
+        void EnabledField(bool enabled)
+        {
+            AddressControl.Enabled = enabled;
+            IsPriorityCheckBox.Enabled = enabled;
+            FullNameTextBox.Enabled = enabled;
+            DiscountsListBox.Enabled = enabled;
+            AddDiscountButton.Enabled = enabled;
+            RemoveDiscountButton.Enabled = enabled;
         }
 
         /// <summary>
@@ -118,7 +127,7 @@ namespace ObjectOrientedPractics.View.Tabs
             IDTextBox.Clear();
             FullNameTextBox.Clear();
             AddressControl.Clear();
-            IsPriorityCheckBox.Checked = false;
+            DiscountsListBox.Items.Clear();
         }
 
         /// <summary>
@@ -148,6 +157,7 @@ namespace ObjectOrientedPractics.View.Tabs
             _customers.RemoveAt(index);
             UpdateListBox(-1);
             ClearCustomersInfo();
+            EnabledField(false);
         }
 
         private void CustomersListBox_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -156,14 +166,11 @@ namespace ObjectOrientedPractics.View.Tabs
 
             if (index == -1)
             {
-                AddressControl.Enabled = false;
-                IsPriorityCheckBox.Enabled = false;
+                EnabledField(false);
                 return;
             }
+            EnabledField(true);
 
-            AddressControl.Enabled = true;
-            IsPriorityCheckBox.Enabled = true;
-            
             _currentCustomer = _customers[index];
             IsPriorityCheckBox.Checked = _currentCustomer.IsPriority;
 
@@ -205,6 +212,12 @@ namespace ObjectOrientedPractics.View.Tabs
             AddDiscountForm addDiscountForm = new AddDiscountForm();
             if (addDiscountForm.ShowDialog() == DialogResult.OK)
             {
+                foreach (var discount in _currentCustomer.Discounts)
+                {
+                    if (discount is PointsDiscount) continue;
+                    if (((PercentDiscount)discount).Category == 
+                        addDiscountForm.PercentDiscount.Category) return;
+                }
                 _currentCustomer.Discounts.Add(addDiscountForm.PercentDiscount);
                 UpdateDiscountsListBox();
             }

@@ -49,6 +49,12 @@ namespace ObjectOrientedPractics.Model.Orders
             _dateOfCreate = DateTime.Today.ToString();
         }
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="Order"/>. 
+        /// </summary>
+        /// <param name="status">Статус заказа.</param>
+        /// <param name="address">Адрес.</param>
+        /// <param name="items">Товары.</param>
         public Order(OrderStatus status, Address address, List<Item> items)
         {
             Status = status;
@@ -59,8 +65,14 @@ namespace ObjectOrientedPractics.Model.Orders
             _dateOfCreate = DateTime.Today.ToString();
         }
 
+        /// <summary>
+        /// Возвращает и задает скидку на товары.
+        /// </summary>
         public double DiscountAmount { get; set; }
 
+        /// <summary>
+        /// Возвращает итоговую стоимость заказа.
+        /// </summary>
         public double Total
         {
             get

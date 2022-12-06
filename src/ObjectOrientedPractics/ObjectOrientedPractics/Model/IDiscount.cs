@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ObjectOrientedPractics.Model
 {
+    /// <summary>
+    /// Реализует интерфейс скидки.
+    /// </summary>
     public interface IDiscount
     {
         string Info { get; }
