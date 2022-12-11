@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using ObjectOrientedPractics.Model.Enums;
 
 namespace ObjectOrientedPractics.Model.Discounts
@@ -6,7 +8,7 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Представляет реализацию по представлению процентной скидки.
     /// </summary>
-    public class PercentDiscount : IDiscount
+    public class PercentDiscount : IDiscount, IComparable
     {
         /// <summary>
         /// Создает экземпляр класса <see cref="PercentDiscount"/>.
@@ -96,6 +98,21 @@ namespace ObjectOrientedPractics.Model.Discounts
             {
                 CurrentPercentDiscount = 10;
             }
+        }
+
+        public int CompareTo(PercentDiscount other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            return CurrentPercentDiscount.CompareTo(other.CurrentPercentDiscount);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return 1;
+            if (ReferenceEquals(this, obj)) return 0;
+            if (obj is PercentDiscount other) return CompareTo(other);
+            else throw new ArgumentException($"Object must be of type {nameof(PercentDiscount)}");
         }
     }
 }

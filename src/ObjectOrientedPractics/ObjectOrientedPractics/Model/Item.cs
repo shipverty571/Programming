@@ -1,4 +1,6 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using System;
+using System.Collections.Generic;
+using ObjectOrientedPractics.Services;
 using ObjectOrientedPractics.Model.Enums;
 
 namespace ObjectOrientedPractics.Model
@@ -6,12 +8,12 @@ namespace ObjectOrientedPractics.Model
     /// <summary>
     /// Хранит данные о товаре.
     /// </summary>
-    public class Item
+    public class Item : ICloneable, IEquatable<Item>, IComparable, IComparable<Item>
     {
         /// <summary>
         /// Уникальный идентификатор для всех объектов данного класса.
         /// </summary>
-        private readonly int _id;
+        private int _id;
 
         /// <summary>
         /// Название товара.
@@ -67,7 +69,17 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Возвращает уникальный идентификатор песни.
         /// </summary>
-        public int Id => _id;
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
+            private set
+            {
+                _id = value;
+            }
+        }
 
         /// <summary>
         /// Возвращает и задаёт название товара. Должно быть не более 200 символов.
@@ -106,6 +118,81 @@ namespace ObjectOrientedPractics.Model
                 ValueValidator.AssertValueInRange(nameof(Cost), value, 0, 100000);
                 _cost = value;
             }
+        }
+
+        public object Clone()
+        {
+            Item newItem = new Item();
+            newItem.Name = Name;
+            newItem.Info = Info;
+            newItem.Cost = Cost;
+            newItem.Category = Category;
+            newItem.Id = Id;
+            return newItem;
+        }
+
+        public bool Equals(Item other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Name == other.Name &&
+                   Info == other.Info &&
+                   Cost == other.Cost &&
+                   Category == other.Category &&
+                   Id == other.Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == this.GetType() &&
+                   Equals((Item) obj);
+        }
+
+        public int CompareTo(Item obj)
+        {
+            if (ReferenceEquals(this, obj)) return 0;
+            if (ReferenceEquals(null, obj)) return 1;
+            else return _cost.CompareTo(obj._cost);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (ReferenceEquals(this, obj)) return 0;
+            if (ReferenceEquals(null, obj)) return 1;
+            if (obj is Item other) return CompareTo((Item)obj);
+            else throw new ArgumentException($"Object must be of type {nameof(Item)}");
+        }
+
+        public static bool operator ==(Item left, Item right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Item left, Item right)
+        {
+            return !Equals(left, right);
+        }
+
+        public static bool operator <(Item left, Item right)
+        {
+            return Comparer<Item>.Default.Compare(left, right) < 0;
+        }
+
+        public static bool operator >(Item left, Item right)
+        {
+            return Comparer<Item>.Default.Compare(left, right) > 0;
+        }
+
+        public static bool operator <=(Item left, Item right)
+        {
+            return Comparer<Item>.Default.Compare(left, right) <= 0;
+        }
+
+        public static bool operator >=(Item left, Item right)
+        {
+            return Comparer<Item>.Default.Compare(left, right) >= 0;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
 
@@ -7,7 +9,7 @@ namespace ObjectOrientedPractics.Model
     /// <summary>
     /// Хранит данные об адресе. 
     /// </summary>
-    public class Address
+    public class Address : ICloneable, IEquatable<Address>
     {
         /// <summary>
         /// Почтовый индекс.
@@ -197,6 +199,48 @@ namespace ObjectOrientedPractics.Model
                 ValueValidator.AssertStringOnLength(nameof(Apartment), value, _maxCountSymbolsInApartment);
                 _apartment = value;
             }
+        }
+
+        public object Clone()
+        {
+            Address newAddress = new Address();
+            newAddress.Index = Index;
+            newAddress.Country = Country;
+            newAddress.City = City;
+            newAddress.Street = Street;
+            newAddress.Building = Building;
+            newAddress.Apartment = Apartment;
+            return newAddress;
+        }
+
+        public bool Equals(Address other)
+        {
+            if(ReferenceEquals(null, other)) return false;
+            if(ReferenceEquals(this, other)) return true;
+            return _index == other._index &&
+                   _country == other._country &&
+                   _city == other._city &&
+                   _street == other._street &&
+                   _building == other._building &&
+                   _apartment == other._apartment;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == this.GetType() &&
+                   Equals((Address)obj);
+        }
+
+        public static bool operator ==(Address left, Address right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Address left, Address right)
+        {
+            return !Equals(left, right);
         }
     }
 }

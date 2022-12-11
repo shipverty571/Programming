@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Представляет реализацию по представлению накопительной скидки.
     /// </summary>
-    public class PointsDiscount : IDiscount
+    public class PointsDiscount : IDiscount, IComparable
     {
         /// <summary>
         /// Накопительная скидка.
@@ -99,6 +100,21 @@ namespace ObjectOrientedPractics.Model.Discounts
             }
 
             _points += (int)Math.Ceiling(amount * 0.1);
+        }
+
+        public int CompareTo(PointsDiscount other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            return Points.CompareTo(other.Points);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return 1;
+            if (ReferenceEquals(this, obj)) return 0;
+            if (obj is PointsDiscount other) return CompareTo(other);
+            else throw new ArgumentException($"Object must be of type {nameof(PointsDiscount)}");
         }
     }
 }
