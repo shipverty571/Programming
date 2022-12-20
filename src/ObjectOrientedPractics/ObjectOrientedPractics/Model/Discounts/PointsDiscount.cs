@@ -12,7 +12,7 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Представляет реализацию по представлению накопительной скидки.
     /// </summary>
-    public class PointsDiscount : IDiscount, IComparable
+    public class PointsDiscount : IDiscount, IComparable, IComparable<PointsDiscount>
     {
         /// <summary>
         /// Накопительная скидка.

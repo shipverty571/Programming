@@ -1,6 +1,6 @@
 ﻿using System;
+using static System.String;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
@@ -24,6 +24,11 @@ namespace ObjectOrientedPractics.View.Tabs
         private Item _currentItem;
 
         /// <summary>
+        /// Коллекция товаров по введенной подстроке.
+        /// </summary>
+        private List<Item> _displayItems;
+
+        /// <summary>
         /// Создает экземпляр класса <see cref="ItemsTab"/>
         /// </summary>
         public ItemsTab()
@@ -34,6 +39,13 @@ namespace ObjectOrientedPractics.View.Tabs
 
             foreach (var value in category)
                 CategoryComboBox.Items.Add(value);
+
+            OrderByComboBox.Items.AddRange(new string[]
+            {
+                "Name (Ascending)",
+                "Cost (Ascending)",
+                "Cost (Descending)"
+            });
         }
 
         /// <summary>
@@ -45,10 +57,11 @@ namespace ObjectOrientedPractics.View.Tabs
             set
             {
                 _items = value;
-
+                _displayItems = value;
                 if (_items != null)
                 {
-                    UpdateListBox(-1);
+                    UpdateListBox(_displayItems, -1);
+                    OrderByComboBox.SelectedIndex = 0;
                 }
             }
         }
@@ -68,17 +81,11 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Обновляет данные в ListBox.
         /// </summary>
         /// <param name="selectedIndex">Выбранный элемент.</param>
-        private void UpdateListBox(int selectedIndex)
+        private void UpdateListBox(List<Item> currentListItems, int selectedIndex)
         {
-            ItemsListBox.Items.Clear()
-                ;
-            var orderedListItems = from item in _items
-                orderby item.Name
-                select item;
+            ItemsListBox.Items.Clear();
 
-            _items = orderedListItems.ToList();
-
-            foreach (Item item in _items)
+            foreach (Item item in currentListItems)
             {
                 ItemsListBox.Items.Add(FormattedText(item));
             }
@@ -92,17 +99,17 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <returns>Возвращает индекс найденного элемента.</returns>
         private int FindIndexItemById()
         {
-            var orderedListItems = from item in _items
-                orderby item.Name
-                select item;
+            //var orderedListItems = from item in _items
+            //    orderby item.Name
+            //    select item;
 
-            _items = orderedListItems.ToList();
+            //_items = orderedListItems.ToList();
             int currentItemId = _currentItem.Id;
             int index = -1;
 
-            for (int i = 0; i < _items.Count; i++)
+            for (int i = 0; i < _displayItems.Count; i++)
             {
-                if (_items[i].Id != currentItemId) continue;
+                if (_displayItems[i].Id != currentItemId) continue;
 
                 index = i;
                 break;
@@ -126,7 +133,8 @@ namespace ObjectOrientedPractics.View.Tabs
             Item item = ItemFactory.Randomize();
             _currentItem = item;
             _items.Add(item);
-            UpdateListBox(0);
+            _displayItems = _items;
+            UpdateListBox(_displayItems, 0);
         }
 
         private void RemoveButton_Click(object sender, System.EventArgs e)
@@ -136,7 +144,8 @@ namespace ObjectOrientedPractics.View.Tabs
             if (index == -1) return;
 
             _items.RemoveAt(index);
-            UpdateListBox(-1);
+            _displayItems = _items;
+            UpdateListBox(_displayItems, -1);
 
             ClearItemsInfo();
         }
@@ -147,7 +156,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
             if (index == -1) return;
 
-            _currentItem = _items[index];
+            _currentItem = _displayItems[index];
 
             IDTextBox.Text = _currentItem.Id.ToString();
             CostTextBox.Text = _currentItem.Cost.ToString();
@@ -188,8 +197,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 _currentItem.Name = name;
 
                 int indexItem = FindIndexItemById();
-                UpdateListBox(indexItem);
-                //UpdateItemInfo(_currentItem);
+                UpdateListBox(_displayItems, indexItem);
             }
             catch
             {
@@ -228,6 +236,51 @@ namespace ObjectOrientedPractics.View.Tabs
             if ((indexCategory == -1) || (indexListBox == -1)) return;
 
             _currentItem.Category = (Category) CategoryComboBox.SelectedItem;
+        }
+
+        private void ItemsFindTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string findText = ItemsFindTextBox.Text;
+            if (findText != "")
+            {
+                SelectedItemPanel.Enabled = false;
+                ButtonsPanel.Enabled = false;
+                _displayItems = DataTools.FindByPredicate(
+                    _items, item => item.Name.ToLower().Contains(findText.ToLower()));
+                UpdateListBox(_displayItems, -1);
+            }
+            else
+            {
+                SelectedItemPanel.Enabled = true;
+                ButtonsPanel.Enabled = true;
+                _displayItems = _items;
+                UpdateListBox(_displayItems, -1);
+            }
+            
+        }
+
+        private void OrderByComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = OrderByComboBox.SelectedIndex;
+
+            switch (index)
+            {
+                case 0:
+                    DataTools.Sort(_items, (item, item1) =>
+                        Compare(item.Name, item1.Name, StringComparison.Ordinal) <= 0);
+                    break;
+                case 1:
+                    DataTools.Sort(_items, (item, item1) =>
+                        item.CompareTo(item1) <= 0);
+                    break;
+                case 2:
+                    DataTools.Sort(_items, (item, item1) =>
+                        item.CompareTo(item1) >= 0);
+                    break;
+            }
+
+            _displayItems = _items;
+            UpdateListBox(_displayItems, -1);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Представляет реализацию по представлению процентной скидки.
     /// </summary>
-    public class PercentDiscount : IDiscount, IComparable
+    public class PercentDiscount : IDiscount, IComparable, IComparable<PercentDiscount>
     {
         /// <summary>
         /// Создает экземпляр класса <see cref="PercentDiscount"/>.

@@ -63,6 +63,7 @@
     <Compile Include="Model\Store.cs" />
     <Compile Include="Services\AppColor.cs" />
     <Compile Include="Services\CustomerFactory.cs" />
+    <Compile Include="Services\DataTools.cs" />
     <Compile Include="Services\ItemFactory.cs" />
     <Compile Include="Services\ProjectSerializer.cs" />
     <Compile Include="Services\ValueValidator.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using ObjectOrientedPractics.Model.Enums;
 
 namespace ObjectOrientedPractics.Model.Orders
@@ -7,7 +8,7 @@ namespace ObjectOrientedPractics.Model.Orders
     /// <summary>
     /// Представляет реализацию по оформлению заказа.
     /// </summary>
-    public class Order
+    public class Order : IEquatable<Order>
     {
         /// <summary>
         /// Уникальный идентификатор для всех объектов данного класса.
@@ -156,6 +157,24 @@ namespace ObjectOrientedPractics.Model.Orders
 
                 return _amount;
             }
+        }
+
+        public bool Equals(Order other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Status == other.Status &&
+                   Address == other.Address &&
+                   Items == other.Items &&
+                   Id == other.Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == this.GetType() &&
+                   Equals((Order)obj);
         }
     }
 }
