@@ -11,6 +11,8 @@ namespace ObjectOrientedPractics.Model
     /// </summary>
     public class Address : ICloneable, IEquatable<Address>
     {
+        public EventHandler<EventArgs> AddressChanged;
+
         /// <summary>
         /// Почтовый индекс.
         /// </summary>
@@ -112,7 +114,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 ValueValidator.AssertStringLength(nameof(Index), value, _numberDigitsInIndex);
-                _index = value;
+                if (_index != value)
+                {
+                    _index = value;
+                    AddressChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -129,7 +135,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 ValueValidator.AssertStringOnLength(nameof(Country), value, _maxCountSymbolsInCountry);
-                _country = value;
+                if (_country != value)
+                {
+                    _country = value;
+                    AddressChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -146,7 +156,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 ValueValidator.AssertStringOnLength(nameof(City), value, _maxCountSymbolsInCity);
-                _city = value;
+                if (_city != value)
+                {
+                    _city = value;
+                    AddressChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -163,7 +177,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 ValueValidator.AssertStringOnLength(nameof(Street), value, _maxCountSymbolsInStreet);
-                _street = value;
+                if (_street != value)
+                {
+                    _street = value;
+                    AddressChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -180,7 +198,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 ValueValidator.AssertStringOnLength(nameof(Building), value, _maxCountSymbolsInBuilding);
-                _building = value;
+                if (_building != value)
+                {
+                    _building = value;
+                    AddressChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -197,7 +219,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 ValueValidator.AssertStringOnLength(nameof(Apartment), value, _maxCountSymbolsInApartment);
-                _apartment = value;
+                if (_apartment != value)
+                {
+                    _apartment = value;
+                    AddressChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 

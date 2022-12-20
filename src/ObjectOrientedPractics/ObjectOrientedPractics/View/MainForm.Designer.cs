@@ -138,7 +138,6 @@
             this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(784, 561);
             this.TabControl.TabIndex = 0;
-            this.TabControl.SelectedIndexChanged += new System.EventHandler(this.TabControl_SelectedIndexChanged);
             // 
             // MainForm
             // 

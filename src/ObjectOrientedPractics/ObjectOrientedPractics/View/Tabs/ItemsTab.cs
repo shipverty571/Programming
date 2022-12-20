@@ -13,6 +13,8 @@ namespace ObjectOrientedPractics.View.Tabs
     /// </summary>
     public partial class ItemsTab : UserControl
     {
+        public event EventHandler<EventArgs> ItemsChanged; 
+
         /// <summary>
         /// Коллекция товаров.
         /// </summary>
@@ -135,29 +137,27 @@ namespace ObjectOrientedPractics.View.Tabs
             _items.Add(item);
             _displayItems = _items;
             UpdateListBox(_displayItems, 0);
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void RemoveButton_Click(object sender, System.EventArgs e)
         {
             int index = ItemsListBox.SelectedIndex;
-
             if (index == -1) return;
 
             _items.RemoveAt(index);
             _displayItems = _items;
             UpdateListBox(_displayItems, -1);
-
             ClearItemsInfo();
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void ItemsListBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             int index = ItemsListBox.SelectedIndex;
-
             if (index == -1) return;
 
             _currentItem = _displayItems[index];
-
             IDTextBox.Text = _currentItem.Id.ToString();
             CostTextBox.Text = _currentItem.Cost.ToString();
             NameTextBox.Text = _currentItem.Name;
@@ -175,6 +175,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 int cost = Convert.ToInt32(CostTextBox.Text);
                 _currentItem.Cost = cost;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch
             {
@@ -198,6 +199,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
                 int indexItem = FindIndexItemById();
                 UpdateListBox(_displayItems, indexItem);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch
             {
@@ -218,6 +220,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 string info = DescriptionTextBox.Text;
                 _currentItem.Info = info;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch
             {
@@ -236,6 +239,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if ((indexCategory == -1) || (indexListBox == -1)) return;
 
             _currentItem.Category = (Category) CategoryComboBox.SelectedItem;
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void ItemsFindTextBox_TextChanged(object sender, EventArgs e)

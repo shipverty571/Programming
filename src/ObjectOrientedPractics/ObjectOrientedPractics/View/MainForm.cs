@@ -26,6 +26,7 @@ namespace ObjectOrientedPractics.View
             CartsTab.Items = _store.Items;
             CartsTab.Customers = _store.Customers;
             OrdersTab.Customers = _store.Customers;
+            ItemsTab.ItemsChanged += ItemsTab_ItemsChanged;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -35,23 +36,32 @@ namespace ObjectOrientedPractics.View
             ProjectSerializer.Serialize(_store);
         }
 
-        private void TabControl_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void ItemsTab_ItemsChanged(object sender, System.EventArgs args)
         {
-            if (TabControl.SelectedIndex == 2)
-            {
-                CartsTab.Items = ItemsTab.Items;
-                CartsTab.Customers = CustomersTab.Customers;
-                CartsTab.RefreshData();
-            }
-            else if (TabControl.SelectedIndex == 3)
-            {
-                OrdersTab.Customers = CartsTab.Customers;
-                OrdersTab.RefreshData();
-            }
-            //else if (TabControl.SelectedIndex == 5)
-            //{
-            //    DiscountsTab.Items = ItemsTab.Items;
-            //}
+            CartsTab.Items = ItemsTab.Items;
+            CartsTab.Customers = CustomersTab.Customers;
+            OrdersTab.Customers = CartsTab.Customers;
+            OrdersTab.RefreshData();
+            CartsTab.RefreshData();
         }
+
+        //private void TabControl_SelectedIndexChanged(object sender, System.EventArgs e)
+        //{
+        //    if (TabControl.SelectedIndex == 2)
+        //    {
+        //        CartsTab.Items = ItemsTab.Items;
+        //        CartsTab.Customers = CustomersTab.Customers;
+        //        CartsTab.RefreshData();
+        //    }
+        //    else if (TabControl.SelectedIndex == 3)
+        //    {
+        //        OrdersTab.Customers = CartsTab.Customers;
+        //        OrdersTab.RefreshData();
+        //    }
+        //    //else if (TabControl.SelectedIndex == 5)
+        //    //{
+        //    //    DiscountsTab.Items = ItemsTab.Items;
+        //    //}
+        //}
     }
 }
