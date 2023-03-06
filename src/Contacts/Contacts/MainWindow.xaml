@@ -6,7 +6,44 @@
         xmlns:local="clr-namespace:Contacts"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Margin="15px,15px,15px,15px">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="31"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox x:Name="EditContactGroupBox" Header="Edit Contact" 
+                      Grid.Column="0" Grid.Row="0" Margin="3">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Name:" Margin="3"></TextBlock>
+                    <TextBox Margin="3"></TextBox>
+                    <TextBlock Text="Phone Number:" Margin="3"></TextBlock>
+                    <TextBox Margin="3"></TextBox>
+                    <TextBlock Text="Email:" Margin="3"></TextBlock>
+                    <TextBox Margin="3"></TextBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="ReadContactGroupBox" Header="Read Contact" 
+                      Grid.Column="1" Grid.Row="0" Margin="3">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Name:" Margin="3"></TextBlock>
+                    <TextBlock Text="Name:" Margin="3" FontWeight="Bold" Height="18"></TextBlock>
+                    <TextBlock Text="Phone Number:" Margin="3"></TextBlock>
+                    <TextBlock Text="Phone Number" Margin="3" FontWeight="Bold" Height="18"></TextBlock>
+                    <TextBlock Text="Email:" Margin="3"></TextBlock>
+                    <TextBlock Text="Email" Margin="3" FontWeight="Bold" Height="18"></TextBlock>
+                </StackPanel>
+            </GroupBox>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" 
+                        HorizontalAlignment="Right">
+                <Button Width="75" Height="25" Margin="3" Content="Save"></Button>
+                <Button Width="75" Height="25" Margin="3" Content="Load"></Button>
+            </StackPanel>
+            
+        </Grid>
     </Grid>
 </Window>
