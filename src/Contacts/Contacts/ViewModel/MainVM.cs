@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Contacts.Model;
+using Contacts.Model.Services;
 
 namespace Contacts.ViewModel
 {
@@ -53,6 +54,31 @@ namespace Contacts.ViewModel
                 _phone = value;
                 Contact.Phone = value;
                 OnPropertyChanged("PhoneNumber");
+            }
+        }
+
+        public SaveCommand SaveCommand
+        {
+            get
+            {
+                return new SaveCommand((obj) =>
+                {
+                    ContactSerializer.Serialize(Contact);
+                });
+            }
+        }
+
+        public LoadCommand LoadCommand
+        {
+            get
+            {
+                return new LoadCommand((obj) =>
+                {
+                    var contact = ContactSerializer.Deserialize();
+                    Name = contact.Name;
+                    Email = contact.Email;
+                    PhoneNumber = contact.Phone;
+                });
             }
         }
 
