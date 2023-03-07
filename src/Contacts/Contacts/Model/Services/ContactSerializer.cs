@@ -13,8 +13,6 @@ namespace Contacts.Model.Services
         {
             using (StreamWriter writer = new StreamWriter(Path + @"\contacts.json"))
             {
-                //JsonSerializerSettings settings = new JsonSerializerSettings();
-                //settings.TypeNameHandling = TypeNameHandling.All;
                 writer.Write(JsonConvert.SerializeObject(contact));
             }
         }
@@ -27,8 +25,6 @@ namespace Contacts.Model.Services
             {
                 using (StreamReader reader = new StreamReader(Path + @"\contacts.json"))
                 {
-                    //JsonSerializerSettings settings = new JsonSerializerSettings();
-                    //settings.TypeNameHandling = TypeNameHandling.All;
                     contact = JsonConvert.DeserializeObject<Contact>(reader.ReadToEnd());
                 }
 
