@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Contacts.Model;
 using Contacts.Model.Services;
 
@@ -57,22 +58,22 @@ namespace Contacts.ViewModel
             }
         }
 
-        public SaveCommand SaveCommand
+        public ICommand SaveCommand
         {
             get
             {
-                return new SaveCommand((obj) =>
+                return new RelayCommand((obj) =>
                 {
                     ContactSerializer.Serialize(Contact);
                 });
             }
         }
 
-        public LoadCommand LoadCommand
+        public ICommand LoadCommand
         {
             get
             {
-                return new LoadCommand((obj) =>
+                return new RelayCommand((obj) =>
                 {
                     var contact = ContactSerializer.Deserialize();
                     Name = contact.Name;

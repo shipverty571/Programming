@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Contacts.ViewModel
 {
-    public class SaveCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private Action<object> execute;
 
@@ -13,7 +13,7 @@ namespace Contacts.ViewModel
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public SaveCommand(Action<object> execute)
+        public RelayCommand(Action<object> execute)
         {
             this.execute = execute;
         }
