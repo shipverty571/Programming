@@ -7,7 +7,7 @@ namespace Contacts.Model.Services
     public static class ContactSerializer
     {
         public static string Path { get; } = 
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Contacts";
 
         public static void Serialize(Contact contact)
         {
