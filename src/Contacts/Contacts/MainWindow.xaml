@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contacts"
         mc:Ignorable="d"
-        Title="Contacts" Height="450" Width="800"
-        Icon="contacts_64x64.ico">
+        Title="Contacts" Height="450" Width="500"
+        Icon="contacts_64x64.ico" MinWidth="500" MinHeight="450">
     <Grid Margin="15px,15px,15px,15px">
         <Grid>
             <Grid.ColumnDefinitions>
