@@ -6,16 +6,34 @@ using Contacts.Model.Services;
 
 namespace Contacts.ViewModel
 {
+    /// <summary>
+    /// ViewModel для окна MainWindow.
+    /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Имя.
+        /// </summary>
         private string _name;
 
+        /// <summary>
+        /// Электронная почта.
+        /// </summary>
         private string _email;
 
+        /// <summary>
+        /// Номер телефона.
+        /// </summary>
         private string _phone;
 
+        /// <summary>
+        /// Контакт.
+        /// </summary>
         public Contact Contact { get; private set; } = new Contact();
 
+        /// <summary>
+        /// Возвращает и задаёт имя контакта.
+        /// </summary>
         public string Name
         {
             get
@@ -30,6 +48,9 @@ namespace Contacts.ViewModel
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт электронную почту контакта.
+        /// </summary>
         public string Email
         {
             get
@@ -44,6 +65,9 @@ namespace Contacts.ViewModel
             }
         }
 
+        /// <summary>
+        /// Возвращает и задаёт номер телефона контакта.
+        /// </summary>
         public string PhoneNumber
         {
             get
@@ -58,6 +82,9 @@ namespace Contacts.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда сериализации контакта.
+        /// </summary>
         public ICommand SaveCommand
         {
             get
@@ -69,6 +96,9 @@ namespace Contacts.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда десериализации контакта.
+        /// </summary>
         public ICommand LoadCommand
         {
             get
@@ -84,7 +114,7 @@ namespace Contacts.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        protected void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));

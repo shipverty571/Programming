@@ -4,11 +4,21 @@ using System.IO;
 
 namespace Contacts.Model.Services
 {
+    /// <summary>
+    /// Представляет реализацию по сериализации данных.
+    /// </summary>
     public static class ContactSerializer
     {
+        /// <summary>
+        /// Путь до директории сохранения файла.
+        /// </summary>
         public static string Path { get; } = 
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Contacts";
 
+        /// <summary>
+        /// Проводит сериализацию данных.
+        /// </summary>
+        /// <param name="contact">Контакт.</param>
         public static void Serialize(Contact contact)
         {
             using (StreamWriter writer = new StreamWriter(Path + @"\contacts.json"))
@@ -17,6 +27,10 @@ namespace Contacts.Model.Services
             }
         }
 
+        /// <summary>
+        /// Проводит десериализацию данных.
+        /// </summary>
+        /// <returns>Возвращает экземпляр класса Contact.</returns>
         public static Contact Deserialize()
         {
             var contact = new Contact();
