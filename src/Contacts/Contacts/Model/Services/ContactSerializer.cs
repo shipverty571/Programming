@@ -21,6 +21,7 @@ namespace Contacts.Model.Services
         /// <param name="contact">Контакт.</param>
         public static void Serialize(Contact contact)
         {
+            if (!Directory.Exists(Path)) Directory.CreateDirectory(Path);
             using (StreamWriter writer = new StreamWriter(Path + @"\contacts.json"))
             {
                 writer.Write(JsonConvert.SerializeObject(contact));
@@ -33,8 +34,8 @@ namespace Contacts.Model.Services
         /// <returns>Возвращает экземпляр класса Contact.</returns>
         public static Contact Deserialize()
         {
+            if (!Directory.Exists(Path)) Directory.CreateDirectory(Path);
             var contact = new Contact();
-
             try
             {
                 using (StreamReader reader = new StreamReader(Path + @"\contacts.json"))

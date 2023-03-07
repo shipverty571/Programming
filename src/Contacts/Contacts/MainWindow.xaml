@@ -21,11 +21,14 @@
                       Grid.Column="0" Grid.Row="0" Margin="3">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Name:" Margin="3"></TextBlock>
-                    <TextBox Margin="3" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBox Margin="3" Text="{Binding Name,
+                        UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBlock Text="Phone Number:" Margin="3"></TextBlock>
-                    <TextBox Margin="3" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBox Margin="3" Text="{Binding PhoneNumber, 
+                        UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <TextBlock Text="Email:" Margin="3"></TextBlock>
-                    <TextBox Margin="3" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBox Margin="3" Text="{Binding Email, 
+                        UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="ReadContactGroupBox" Header="Read Contact" 
