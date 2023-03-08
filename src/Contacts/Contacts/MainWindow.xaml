@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="500"
         Icon="contacts_64x64.ico" MinWidth="500" MinHeight="450">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DefaultStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="15px,15px,15px,15px">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -20,39 +27,39 @@
             <GroupBox x:Name="EditContactGroupBox" Header="Edit Contact" 
                       Grid.Column="0" Grid.Row="0" Margin="3">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Name:" Margin="3"/>
-                    <TextBox Margin="3" Text="{Binding Name,
-                        UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="Phone Number:" Margin="3"/>
-                    <TextBox Margin="3" Text="{Binding PhoneNumber, 
-                        UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="Email:" Margin="3"/>
-                    <TextBox Margin="3" Text="{Binding Email, 
-                        UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Name:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBox Margin="{StaticResource DefaultMargin}" 
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Phone Number:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBox Margin="{StaticResource DefaultMargin}" 
+                             Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Email:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBox Margin="{StaticResource DefaultMargin}" 
+                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="ReadContactGroupBox" Header="Read Contact" 
                       Grid.Column="1" Grid.Row="0" Margin="3">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Name:" Margin="3"/>
-                    <TextBlock Text="{Binding Name, 
-                        UpdateSourceTrigger=PropertyChanged}" Margin="3" 
+                    <TextBlock Text="Name:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                               Margin="{StaticResource DefaultMargin}" 
                                FontWeight="Bold" Height="18"/>
-                    <TextBlock Text="Phone Number:" Margin="3"/>
-                    <TextBlock Text="{Binding PhoneNumber,
-                        UpdateSourceTrigger=PropertyChanged}" Margin="3" 
+                    <TextBlock Text="Phone Number:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" 
+                               Margin="{StaticResource DefaultMargin}" 
                                FontWeight="Bold" Height="18"/>
-                    <TextBlock Text="Email:" Margin="3"/>
-                    <TextBlock Text="{Binding Email, 
-                        UpdateSourceTrigger=PropertyChanged}" Margin="3"
+                    <TextBlock Text="Email:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBlock Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
+                               Margin="{StaticResource DefaultMargin}"
                                FontWeight="Bold" Height="18"/>
                 </StackPanel>
             </GroupBox>
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" 
                         HorizontalAlignment="Right">
-                <Button Width="75" Height="25" Margin="3" Content="Save" 
+                <Button Width="75" Height="25" Margin="{StaticResource DefaultMargin}" Content="Save" 
                         Command="{Binding SaveCommand}"/>
-                <Button Width="75" Height="25" Margin="3" Content="Load"
+                <Button Width="75" Height="25" Margin="{StaticResource DefaultMargin}" Content="Load"
                         Command="{Binding LoadCommand}"/>
             </StackPanel>
         </Grid>
