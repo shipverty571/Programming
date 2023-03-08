@@ -55,7 +55,6 @@
                 <Button Width="75" Height="25" Margin="3" Content="Load"
                         Command="{Binding LoadCommand}"/>
             </StackPanel>
-            
         </Grid>
     </Grid>
 </Window>
