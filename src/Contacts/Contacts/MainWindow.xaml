@@ -5,8 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contacts"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Contacts" Height="450" Width="500"
+        Icon="contacts_64x64.ico" MinWidth="500" MinHeight="450">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resource/DefaultStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="15px,15px,15px,15px">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="31"/>
+            </Grid.RowDefinitions>
+            <GroupBox x:Name="EditContactGroupBox" Header="Edit Contact" 
+                      Grid.Column="0" Grid.Row="0" Margin="3">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Name:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBox Margin="{StaticResource DefaultMargin}" 
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Phone Number:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBox Margin="{StaticResource DefaultMargin}" 
+                             Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Email:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBox Margin="{StaticResource DefaultMargin}" 
+                             Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="ReadContactGroupBox" Header="Read Contact" 
+                      Grid.Column="1" Grid.Row="0" Margin="3">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Name:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                               Margin="{StaticResource DefaultMargin}" 
+                               Style="{StaticResource ContactInfoTextBlock}"/>
+                    <TextBlock Text="Phone Number:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" 
+                               Margin="{StaticResource DefaultMargin}" 
+                               Style="{StaticResource ContactInfoTextBlock}"/>
+                    <TextBlock Text="Email:" Margin="{StaticResource DefaultMargin}"/>
+                    <TextBlock Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
+                               Margin="{StaticResource DefaultMargin}"
+                               Style="{StaticResource ContactInfoTextBlock}"/>
+                </StackPanel>
+            </GroupBox>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" 
+                        HorizontalAlignment="Right">
+                <Button Style="{StaticResource DefaultButton}" 
+                        Margin="{StaticResource DefaultMargin}" Content="Save" 
+                        Command="{Binding SaveCommand}"/>
+                <Button Style="{StaticResource DefaultButton}" 
+                        Margin="{StaticResource DefaultMargin}" Content="Load"
+                        Command="{Binding LoadCommand}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
