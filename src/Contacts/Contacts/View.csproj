@@ -61,7 +61,7 @@
     <Compile Include="Model\Services\ContactSerializer.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
-    <Page Include="DefaultStyle.xaml">
+    <Page Include="Resource\DefaultStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
