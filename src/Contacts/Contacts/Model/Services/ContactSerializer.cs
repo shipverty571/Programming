@@ -17,7 +17,7 @@ namespace Contacts.Model.Services
         public static void Serialize(Contact contact, string path)
         {
             if (!Directory.Exists(path + @"\Contacts")) Directory.CreateDirectory(path + @"\Contacts");
-            using (StreamWriter writer = new StreamWriter(path + @"\contacts.json"))
+            using (StreamWriter writer = new StreamWriter(path + @"\Contacts\contacts.json"))
             {
                 writer.Write(JsonConvert.SerializeObject(contact));
             }
@@ -33,7 +33,7 @@ namespace Contacts.Model.Services
             var contact = new Contact();
             try
             {
-                using (StreamReader reader = new StreamReader(path + @"\contacts.json"))
+                using (StreamReader reader = new StreamReader(path + @"\Contacts\contacts.json"))
                 {
                     contact = JsonConvert.DeserializeObject<Contact>(reader.ReadToEnd());
                 }
