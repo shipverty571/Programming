@@ -21,7 +21,8 @@ namespace Contacts.ViewModel
         /// Возвращает и задаёт путь сериализации. По умолчанию - папка "Мои документы".
         /// </summary>
         public string Path { get; set; } = 
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            + @"\Contacts\contacts.json";
 
         /// <summary>
         /// Возвращает и задаёт имя контакта.
