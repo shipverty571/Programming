@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Windows.Shapes;
 
 namespace Contacts.Model.Services
 {
@@ -10,19 +11,13 @@ namespace Contacts.Model.Services
     public static class ContactSerializer
     {
         /// <summary>
-        /// Путь до директории сохранения файла.
-        /// </summary>
-        public static string Path { get; } = 
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Contacts";
-
-        /// <summary>
         /// Проводит сериализацию данных.
         /// </summary>
         /// <param name="contact">Контакт.</param>
-        public static void Serialize(Contact contact)
+        public static void Serialize(Contact contact, string path)
         {
-            if (!Directory.Exists(Path)) Directory.CreateDirectory(Path);
-            using (StreamWriter writer = new StreamWriter(Path + @"\contacts.json"))
+            if (!Directory.Exists(path + @"\Contacts")) Directory.CreateDirectory(path + @"\Contacts");
+            using (StreamWriter writer = new StreamWriter(path + @"\contacts.json"))
             {
                 writer.Write(JsonConvert.SerializeObject(contact));
             }
@@ -32,13 +27,13 @@ namespace Contacts.Model.Services
         /// Проводит десериализацию данных.
         /// </summary>
         /// <returns>Возвращает экземпляр класса Contact.</returns>
-        public static Contact Deserialize()
+        public static Contact Deserialize(string path)
         {
-            if (!Directory.Exists(Path)) Directory.CreateDirectory(Path);
+            if (!Directory.Exists(path + @"\Contacts")) Directory.CreateDirectory(path + @"\Contacts");
             var contact = new Contact();
             try
             {
-                using (StreamReader reader = new StreamReader(Path + @"\contacts.json"))
+                using (StreamReader reader = new StreamReader(path + @"\contacts.json"))
                 {
                     contact = JsonConvert.DeserializeObject<Contact>(reader.ReadToEnd());
                 }

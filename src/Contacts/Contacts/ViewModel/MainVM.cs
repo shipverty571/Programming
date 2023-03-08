@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Contacts.Model;
@@ -30,6 +31,12 @@ namespace Contacts.ViewModel
         /// Контакт.
         /// </summary>
         public Contact Contact { get; private set; } = new Contact();
+
+        /// <summary>
+        /// Возвращает и задаёт путь сериализации. По умолчанию - папка "Мои документы".
+        /// </summary>
+        public string Path { get; set; } = 
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
         /// <summary>
         /// Возвращает и задаёт имя контакта.
@@ -91,7 +98,7 @@ namespace Contacts.ViewModel
             {
                 return new RelayCommand((obj) =>
                 {
-                    ContactSerializer.Serialize(Contact);
+                    ContactSerializer.Serialize(Contact, Path);
                 });
             }
         }
@@ -105,7 +112,7 @@ namespace Contacts.ViewModel
             {
                 return new RelayCommand((obj) =>
                 {
-                    var contact = ContactSerializer.Deserialize();
+                    var contact = ContactSerializer.Deserialize(Path);
                     Name = contact.Name;
                     Email = contact.Email;
                     PhoneNumber = contact.Phone;
