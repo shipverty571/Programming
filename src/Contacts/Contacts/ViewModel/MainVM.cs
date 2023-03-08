@@ -102,7 +102,15 @@ namespace Contacts.ViewModel
             }
         }
 
+        /// <summary>
+        /// Событие изменения свойства.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// При вызове зажигает событие <see cref="PropertyChanged"/>.
+        /// </summary>
+        /// <param name="prop">Имя свойства, вызвавшего метод.</param>
         protected void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)

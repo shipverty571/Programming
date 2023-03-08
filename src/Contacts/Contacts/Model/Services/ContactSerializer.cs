@@ -14,6 +14,7 @@ namespace Contacts.Model.Services
         /// Проводит сериализацию данных.
         /// </summary>
         /// <param name="contact">Контакт.</param>
+        /// <param name="path">Путь сериализации.</param>
         public static void Serialize(Contact contact, string path)
         {
             if (!Directory.Exists(path + @"\Contacts")) Directory.CreateDirectory(path + @"\Contacts");
@@ -26,6 +27,7 @@ namespace Contacts.Model.Services
         /// <summary>
         /// Проводит десериализацию данных.
         /// </summary>
+        /// <param name="path">Путь десериализации.</param>
         /// <returns>Возвращает экземпляр класса Contact.</returns>
         public static Contact Deserialize(string path)
         {
