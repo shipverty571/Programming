@@ -13,21 +13,6 @@ namespace Contacts.ViewModel
     public class MainVM : INotifyPropertyChanged
     {
         /// <summary>
-        /// Имя.
-        /// </summary>
-        private string _name;
-
-        /// <summary>
-        /// Электронная почта.
-        /// </summary>
-        private string _email;
-
-        /// <summary>
-        /// Номер телефона.
-        /// </summary>
-        private string _phone;
-
-        /// <summary>
         /// Контакт.
         /// </summary>
         public Contact Contact { get; private set; } = new Contact();
@@ -45,11 +30,10 @@ namespace Contacts.ViewModel
         {
             get
             {
-                return _name;
+                return Contact.Name;
             }
             set
             {
-                _name = value;
                 Contact.Name = value;
                 OnPropertyChanged("Name");
             }
@@ -62,11 +46,10 @@ namespace Contacts.ViewModel
         {
             get
             {
-                return _email;
+                return Contact.Email;
             }
             set
             {
-                _email = value;
                 Contact.Email = value;
                 OnPropertyChanged("Email");
             }
@@ -79,11 +62,10 @@ namespace Contacts.ViewModel
         {
             get
             {
-                return _phone;
+                return Contact.Phone;
             }
             set
             {
-                _phone = value;
                 Contact.Phone = value;
                 OnPropertyChanged("PhoneNumber");
             }
