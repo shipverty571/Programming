@@ -57,9 +57,11 @@
             </GroupBox>
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" 
                         HorizontalAlignment="Right">
-                <Button Style="{StaticResource DefaultButton}" Margin="{StaticResource DefaultMargin}" Content="Save" 
+                <Button Style="{StaticResource DefaultButton}" 
+                        Margin="{StaticResource DefaultMargin}" Content="Save" 
                         Command="{Binding SaveCommand}"/>
-                <Button Style="{StaticResource DefaultButton}" Margin="{StaticResource DefaultMargin}" Content="Load"
+                <Button Style="{StaticResource DefaultButton}" 
+                        Margin="{StaticResource DefaultMargin}" Content="Load"
                         Command="{Binding LoadCommand}"/>
             </StackPanel>
         </Grid>
