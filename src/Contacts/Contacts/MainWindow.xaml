@@ -44,22 +44,22 @@
                     <TextBlock Text="Name:" Margin="{StaticResource DefaultMargin}"/>
                     <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
                                Margin="{StaticResource DefaultMargin}" 
-                               FontWeight="Bold" Height="18"/>
+                               Style="{StaticResource ContactInfoTextBlock}"/>
                     <TextBlock Text="Phone Number:" Margin="{StaticResource DefaultMargin}"/>
                     <TextBlock Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" 
                                Margin="{StaticResource DefaultMargin}" 
-                               FontWeight="Bold" Height="18"/>
+                               Style="{StaticResource ContactInfoTextBlock}"/>
                     <TextBlock Text="Email:" Margin="{StaticResource DefaultMargin}"/>
                     <TextBlock Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" 
                                Margin="{StaticResource DefaultMargin}"
-                               FontWeight="Bold" Height="18"/>
+                               Style="{StaticResource ContactInfoTextBlock}"/>
                 </StackPanel>
             </GroupBox>
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" 
                         HorizontalAlignment="Right">
-                <Button Width="75" Height="25" Margin="{StaticResource DefaultMargin}" Content="Save" 
+                <Button Style="{StaticResource DefaultButton}" Margin="{StaticResource DefaultMargin}" Content="Save" 
                         Command="{Binding SaveCommand}"/>
-                <Button Width="75" Height="25" Margin="{StaticResource DefaultMargin}" Content="Load"
+                <Button Style="{StaticResource DefaultButton}" Margin="{StaticResource DefaultMargin}" Content="Load"
                         Command="{Binding LoadCommand}"/>
             </StackPanel>
         </Grid>
