@@ -46,14 +46,8 @@
         /// </summary>
         public string Name
         {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
+            get => _name;
+            set => _name = value;
         }
         
         /// <summary>
@@ -61,14 +55,8 @@
         /// </summary>
         public string Email
         {
-            get
-            {
-                return _email;
-            }
-            set
-            {
-                _email = value;
-            }
+            get => _email;
+            set => _email = value;
         }
 
         /// <summary>
@@ -76,14 +64,8 @@
         /// </summary>
         public string Phone
         {
-            get
-            {
-                return _phone;
-            }
-            set
-            {
-                _phone = value;
-            }
+            get => _phone; 
+            set => _phone = value;
         }
     }
 }
