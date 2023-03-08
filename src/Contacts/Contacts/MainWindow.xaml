@@ -10,50 +10,50 @@
     <Grid Margin="15px,15px,15px,15px">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="31"></RowDefinition>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="31"/>
             </Grid.RowDefinitions>
             <GroupBox x:Name="EditContactGroupBox" Header="Edit Contact" 
                       Grid.Column="0" Grid.Row="0" Margin="3">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Name:" Margin="3"></TextBlock>
+                    <TextBlock Text="Name:" Margin="3"/>
                     <TextBox Margin="3" Text="{Binding Name,
-                        UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    <TextBlock Text="Phone Number:" Margin="3"></TextBlock>
+                        UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Phone Number:" Margin="3"/>
                     <TextBox Margin="3" Text="{Binding PhoneNumber, 
-                        UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    <TextBlock Text="Email:" Margin="3"></TextBlock>
+                        UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Email:" Margin="3"/>
                     <TextBox Margin="3" Text="{Binding Email, 
-                        UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox x:Name="ReadContactGroupBox" Header="Read Contact" 
                       Grid.Column="1" Grid.Row="0" Margin="3">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Name:" Margin="3"></TextBlock>
+                    <TextBlock Text="Name:" Margin="3"/>
                     <TextBlock Text="{Binding Name, 
                         UpdateSourceTrigger=PropertyChanged}" Margin="3" 
-                               FontWeight="Bold" Height="18"></TextBlock>
-                    <TextBlock Text="Phone Number:" Margin="3"></TextBlock>
+                               FontWeight="Bold" Height="18"/>
+                    <TextBlock Text="Phone Number:" Margin="3"/>
                     <TextBlock Text="{Binding PhoneNumber,
                         UpdateSourceTrigger=PropertyChanged}" Margin="3" 
-                               FontWeight="Bold" Height="18"></TextBlock>
-                    <TextBlock Text="Email:" Margin="3"></TextBlock>
+                               FontWeight="Bold" Height="18"/>
+                    <TextBlock Text="Email:" Margin="3"/>
                     <TextBlock Text="{Binding Email, 
                         UpdateSourceTrigger=PropertyChanged}" Margin="3"
-                               FontWeight="Bold" Height="18"></TextBlock>
+                               FontWeight="Bold" Height="18"/>
                 </StackPanel>
             </GroupBox>
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" 
                         HorizontalAlignment="Right">
                 <Button Width="75" Height="25" Margin="3" Content="Save" 
-                        Command="{Binding SaveCommand}"></Button>
+                        Command="{Binding SaveCommand}"/>
                 <Button Width="75" Height="25" Margin="3" Content="Load"
-                        Command="{Binding LoadCommand}"></Button>
+                        Command="{Binding LoadCommand}"/>
             </StackPanel>
             
         </Grid>
