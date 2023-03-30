@@ -23,13 +23,13 @@
         /// </summary>
         public Contact()
         {
-
         }
 
         /// <summary>
         /// Возвращает и задаёт имя контакта.
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// Возвращает и задаёт электронную почту контакта.
         /// </summary>

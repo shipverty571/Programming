@@ -30,7 +30,7 @@ namespace Contacts.Model.Services
         /// <returns>Возвращает экземпляр класса <see cref="Contact"/>.</returns>
         public static Contact Deserialize(string path)
         {
-            if (!Directory.Exists(Path.GetDirectoryName(path))) 
+            if (!Directory.Exists(Path.GetDirectoryName(path)))
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
             var contact = new Contact();
             try
