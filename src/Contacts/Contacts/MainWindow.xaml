@@ -9,6 +9,7 @@
     Height="450"
     MinWidth="500"
     MinHeight="450"
+    Icon="ContactsApp_96x96.ico"
     mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
@@ -19,7 +20,87 @@
     </Window.Resources>
     <Grid>
         <Grid>
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0" Background="{StaticResource LightGrayBackgroundColorBrush}">
+                <Grid Margin="{StaticResource DefaultColumnMargin}" DockPanel.Dock="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="{StaticResource DefaultMargin}"
+                            Text="Find: "/>
+                        <TextBox Grid.Column="1" Margin="{StaticResource DefaultMargin}"/>
+                    </Grid>
+                    <ListBox Grid.Row="1" Margin="{StaticResource DefaultMargin}"/>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Height="{StaticResource DefaultButtonHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Content="Add"/>
+                        <Button
+                            Grid.Column="1"
+                            Height="{StaticResource DefaultButtonHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Content="Edit"/>
+                        <Button
+                            Grid.Column="2"
+                            Height="{StaticResource DefaultButtonHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Content="Remove"/>
+                    </Grid>
+                </Grid>
+            </DockPanel>
+            <GridSplitter
+                Grid.Column="1"
+                Width="3px"
+                HorizontalAlignment="Center"/>
+            <DockPanel Grid.Column="2">
+                <Grid Margin="{StaticResource DefaultColumnMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Margin="{StaticResource DefaultMargin}" />
+                        <Image
+                            Width="{StaticResource DefaultPhotoPlaceholderWidthValue}"
+                            Height="{StaticResource DefaultPhotoPlaceholderHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Source="{StaticResource PhotoPlaceholder}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name: "/>
+                        <TextBox Margin="{StaticResource DefaultMargin}"/>
+                        <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone: "/>
+                        <TextBox Margin="{StaticResource DefaultMargin}"/>
+                        <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email: "/>
+                        <TextBox Margin="{StaticResource DefaultMargin}"/>
+                        <Button
+                            Margin="3 50 3 3"
+                            HorizontalAlignment="Left"
+                            Content="Apply"
+                            Style="{StaticResource DefaultButton}" />
+                    </StackPanel>
+                </Grid>
+            </DockPanel>
         </Grid>
     </Grid>
 </Window>

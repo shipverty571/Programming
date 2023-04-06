@@ -1,30 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Contacts.Model.Services
+﻿namespace Contacts.Model.Services
 {
     public class DataAPI
     {
         /// <summary>
-        /// Возвращает и задаёт имя контакта.
+        ///     Возвращает и задаёт имя.
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт имя контакта.
+        ///     Возвращает и задаёт фамилию.
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт электронную почту контакта.
+        ///     Возвращает и задаёт электронную почту.
         /// </summary>
         public string Email { get; set; }
 
         /// <summary>
-        /// Возвращает и задаёт номер телефона контакта.
+        ///     Возвращает и задаёт номер телефона.
         /// </summary>
         public string Phone { get; set; }
     }
