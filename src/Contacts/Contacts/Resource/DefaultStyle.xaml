@@ -9,6 +9,8 @@
     <ImageSource x:Key="PhotoPlaceholder">../Resource/photo_placeholder_100x100.png</ImageSource>
     <Color x:Key="LightGrayBackgroundColor">#f8f8f8</Color>
     <SolidColorBrush x:Key="LightGrayBackgroundColorBrush" Color="{StaticResource LightGrayBackgroundColor}" />
+    <Color x:Key="WhiteBackgroundColor">#ffffff</Color>
+    <SolidColorBrush x:Key="WhiteBackgroundColorBrush" Color="{StaticResource WhiteBackgroundColor}" />
 
     <Thickness
         x:Key="DefaultMargin"

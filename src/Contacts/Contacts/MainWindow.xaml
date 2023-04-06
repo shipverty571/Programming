@@ -5,9 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Contacts"
-    Width="500"
+    Width="650"
     Height="450"
-    MinWidth="500"
+    MinWidth="650"
     MinHeight="450"
     Icon="ContactsApp_96x96.ico"
     mc:Ignorable="d">
@@ -49,6 +49,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button
                             Grid.Column="0"
@@ -65,14 +66,21 @@
                             Height="{StaticResource DefaultButtonHeightValue}"
                             Margin="{StaticResource DefaultMargin}"
                             Content="Remove"/>
+                        <Button
+                            Grid.Column="3"
+                            Height="{StaticResource DefaultButtonHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Content="Randomize"/>
                     </Grid>
                 </Grid>
             </DockPanel>
             <GridSplitter
                 Grid.Column="1"
                 Width="3px"
-                HorizontalAlignment="Center"/>
-            <DockPanel Grid.Column="2">
+                HorizontalAlignment="Center"
+                VerticalAlignment="Stretch"
+                Background="{StaticResource WhiteBackgroundColorBrush}"/>
+            <DockPanel Grid.Column="2" Background="{StaticResource WhiteBackgroundColorBrush}">
                 <Grid Margin="{StaticResource DefaultColumnMargin}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
