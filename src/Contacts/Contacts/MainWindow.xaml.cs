@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Contacts.Model.Services;
 using Contacts.ViewModel;
 
 namespace Contacts
@@ -13,6 +14,7 @@ namespace Contacts
             InitializeComponent();
             MainVM vm = new MainVM();
             DataContext = vm;
+            ContactFactory.Randomize();
         }
     }
 }
