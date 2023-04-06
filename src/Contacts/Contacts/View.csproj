@@ -61,6 +61,7 @@
     <Compile Include="Model\Services\ContactFactory.cs" />
     <Compile Include="Model\Services\ContactSerializer.cs" />
     <Compile Include="Model\Services\DataAPI.cs" />
+    <Compile Include="ViewModel\ContactVM.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Page Include="Resource\DefaultStyle.xaml">

@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using Contacts.Model.Services;
 
 namespace Contacts.ViewModel
 {
@@ -8,6 +11,23 @@ namespace Contacts.ViewModel
     /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
+        public ObservableCollection<ContactVM> Contacts { get; set; } = 
+            new ObservableCollection<ContactVM>();
+
+        public ContactVM SelectedContact { get; set; }
+
+        public ICommand Randomize
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    var contact = ContactFactory.Randomize();
+                    Contacts.Add(new ContactVM(contact));
+                });
+            }
+        }
+
         /// <summary>
         ///     Событие изменения свойства.
         /// </summary>

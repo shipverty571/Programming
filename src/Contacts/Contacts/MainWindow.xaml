@@ -43,7 +43,18 @@
                             Text="Find: "/>
                         <TextBox Grid.Column="1" Margin="{StaticResource DefaultMargin}"/>
                     </Grid>
-                    <ListBox Grid.Row="1" Margin="{StaticResource DefaultMargin}"/>
+                    <ListBox
+                        x:Name="ContactsListBox"
+                        Grid.Row="1"
+                        Margin="{StaticResource DefaultMargin}"
+                        ItemsSource="{Binding Contacts}"
+                        SelectedItem="{Binding SelectedContact}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -70,6 +81,7 @@
                             Grid.Column="3"
                             Height="{StaticResource DefaultButtonHeightValue}"
                             Margin="{StaticResource DefaultMargin}"
+                            Command="{Binding Randomize}"
                             Content="Randomize"/>
                     </Grid>
                 </Grid>
@@ -87,7 +99,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <TextBlock Margin="{StaticResource DefaultMargin}" />
+                        <TextBlock Margin="{StaticResource DefaultMargin}"/>
                         <Image
                             Width="{StaticResource DefaultPhotoPlaceholderWidthValue}"
                             Height="{StaticResource DefaultPhotoPlaceholderHeightValue}"
@@ -96,16 +108,16 @@
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}"/>
+                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding ElementName=ContactsListBox, Path=SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}"/>
+                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding ElementName=ContactsListBox, Path=SelectedItem.Phone, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}"/>
+                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding ElementName=ContactsListBox, Path=SelectedItem.Email, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button
                             Margin="3 50 3 3"
                             HorizontalAlignment="Left"
                             Content="Apply"
-                            Style="{StaticResource DefaultButton}" />
+                            Style="{StaticResource DefaultButton}"/>
                     </StackPanel>
                 </Grid>
             </DockPanel>
