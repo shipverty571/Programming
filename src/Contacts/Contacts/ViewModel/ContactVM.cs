@@ -43,6 +43,13 @@ namespace Contacts.ViewModel
             }
         }
 
+        public void Clear()
+        {
+            Name = null;
+            Email = null;
+            Phone = null;
+        }
+
         /// <summary>
         ///     Событие изменения свойства.
         /// </summary>

@@ -11,12 +11,40 @@ namespace Contacts.ViewModel
     /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
-        public ObservableCollection<ContactVM> Contacts { get; set; } = 
+        public ObservableCollection<ContactVM> Contacts { get; set; } =
             new ObservableCollection<ContactVM>();
 
-        public ContactVM SelectedContact { get; set; }
+        private ContactVM _selectedContact;
 
-        public ICommand Randomize
+        private bool _isVisibilityApplyButton;
+
+        public ContactVM SelectedContact
+        {
+            get
+            {
+                return _selectedContact;
+            }
+            set
+            {
+                _selectedContact = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsVisibilityApplyButton
+        {
+            get
+            {
+                return _isVisibilityApplyButton;
+            }
+            set
+            {
+                _isVisibilityApplyButton = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand RandomizeCommand
         {
             get
             {
@@ -24,6 +52,18 @@ namespace Contacts.ViewModel
                 {
                     var contact = ContactFactory.Randomize();
                     Contacts.Add(new ContactVM(contact));
+                });
+            }
+        }
+
+        public ICommand AddCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    SelectedContact = null;
+                    IsVisibilityApplyButton = true;
                 });
             }
         }
