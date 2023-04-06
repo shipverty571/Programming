@@ -11,7 +11,7 @@ namespace Contacts.ViewModel
         /// <summary>
         /// Делегат для вызова команды.
         /// </summary>
-        private Action<object> execute;
+        private Action<object> _execute;
 
         /// <summary>
         /// Событие изменения возможности вызова команды.
@@ -28,7 +28,7 @@ namespace Contacts.ViewModel
         /// <param name="execute">Делегат для вызова команды.</param>
         public RelayCommand(Action<object> execute)
         {
-            this.execute = execute;
+            this._execute = execute;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Contacts.ViewModel
         /// <param name="parameter">Параметр.</param>
         public void Execute(object parameter)
         {
-            execute(parameter);
+            _execute(parameter);
         }
     }
 }
