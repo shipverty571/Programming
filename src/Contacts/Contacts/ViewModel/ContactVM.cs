@@ -6,8 +6,6 @@ namespace Contacts.ViewModel
 {
     public class ContactVM : INotifyPropertyChanged
     {
-        private Contact _contact;
-
         public ContactVM(Contact contact)
         {
             Contact = contact;

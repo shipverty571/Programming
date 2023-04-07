@@ -115,11 +115,11 @@
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyTextBoxes}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyTextBoxes}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyTextBoxes}"/>
                         <Button
                             Margin="3 50 3 3"
                             HorizontalAlignment="Left"

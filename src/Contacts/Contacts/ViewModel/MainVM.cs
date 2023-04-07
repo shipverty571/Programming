@@ -14,6 +14,8 @@ namespace Contacts.ViewModel
     {
         private bool _isEnabledButtons = true;
 
+        private bool _isReadOnlyTextBoxes = true;
+
         private bool _isVisibilityApplyButton;
 
         private ContactVM _selectedContact;
@@ -29,6 +31,16 @@ namespace Contacts.ViewModel
                 _selectedContact = value;
                 IsVisibilityApplyButton = false;
                 IsEnabledButtons = true;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsReadOnlyTextBoxes
+        {
+            get => _isReadOnlyTextBoxes;
+            set
+            {
+                _isReadOnlyTextBoxes = value;
                 OnPropertyChanged();
             }
         }
@@ -75,6 +87,7 @@ namespace Contacts.ViewModel
                     SelectedContact = new ContactVM(new Contact());
                     IsVisibilityApplyButton = true;
                     IsEnabledButtons = false;
+                    IsReadOnlyTextBoxes = false;
                 });
             }
         }
@@ -88,6 +101,7 @@ namespace Contacts.ViewModel
                     Contacts.Add(SelectedContact);
                     IsVisibilityApplyButton = false;
                     IsEnabledButtons = true;
+                    IsReadOnlyTextBoxes = true;
                 });
             }
         }
