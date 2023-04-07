@@ -18,6 +18,13 @@
             Phone = phone;
         }
 
+        public Contact(Contact contact)
+        {
+            Name = contact.Name;
+            Email = contact.Email;
+            Phone = contact.Phone;
+        }
+
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Contact"/>.
         /// </summary>

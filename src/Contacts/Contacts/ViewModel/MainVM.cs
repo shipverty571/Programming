@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Contacts.Model;
 using Contacts.Model.Services;
 
 namespace Contacts.ViewModel
@@ -11,32 +12,40 @@ namespace Contacts.ViewModel
     /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
-        public ObservableCollection<ContactVM> Contacts { get; set; } =
-            new ObservableCollection<ContactVM>();
-
-        private ContactVM _selectedContact;
+        private bool _isEnabledButtons = true;
 
         private bool _isVisibilityApplyButton;
 
+        private ContactVM _selectedContact;
+
+        public ObservableCollection<ContactVM> Contacts { get; set; } =
+            new ObservableCollection<ContactVM>();
+
         public ContactVM SelectedContact
         {
-            get
-            {
-                return _selectedContact;
-            }
+            get => _selectedContact;
             set
             {
                 _selectedContact = value;
+                IsVisibilityApplyButton = false;
+                IsEnabledButtons = true;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEnabledButtons
+        {
+            get => _isEnabledButtons;
+            set
+            {
+                _isEnabledButtons = value;
                 OnPropertyChanged();
             }
         }
 
         public bool IsVisibilityApplyButton
         {
-            get
-            {
-                return _isVisibilityApplyButton;
-            }
+            get => _isVisibilityApplyButton;
             set
             {
                 _isVisibilityApplyButton = value;
@@ -63,7 +72,22 @@ namespace Contacts.ViewModel
                 return new RelayCommand(obj =>
                 {
                     SelectedContact = null;
+                    SelectedContact = new ContactVM(new Contact());
                     IsVisibilityApplyButton = true;
+                    IsEnabledButtons = false;
+                });
+            }
+        }
+
+        public ICommand ApplyCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    Contacts.Add(SelectedContact);
+                    IsVisibilityApplyButton = false;
+                    IsEnabledButtons = true;
                 });
             }
         }

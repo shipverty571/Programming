@@ -6,12 +6,14 @@ namespace Contacts.ViewModel
 {
     public class ContactVM : INotifyPropertyChanged
     {
+        private Contact _contact;
+
         public ContactVM(Contact contact)
         {
             Contact = contact;
         }
 
-        public Contact Contact { get; set; }
+        public Contact Contact { get; }
 
         public string Name
         {
@@ -41,13 +43,6 @@ namespace Contacts.ViewModel
                 Contact.Phone = value;
                 OnPropertyChanged();
             }
-        }
-
-        public void Clear()
-        {
-            Name = null;
-            Email = null;
-            Phone = null;
         }
 
         /// <summary>
