@@ -12,7 +12,13 @@ namespace Contacts.ViewModel
     /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
-        private bool _isEnabledButtons = true;
+        private bool _isEnabledAddButton = true;
+
+        private bool _isEnabledRemoveButton = true;
+
+        private bool _isEnabledEditButton = false;
+
+        private bool _isEnabledRandomizeButton = true;
 
         private bool _isReadOnlyTextBoxes = true;
 
@@ -30,7 +36,10 @@ namespace Contacts.ViewModel
             {
                 _selectedContact = value;
                 IsVisibilityApplyButton = false;
-                IsEnabledButtons = true;
+                IsEnabledAddButton = true;
+                IsEnabledRemoveButton = true;
+                IsEnabledRandomizeButton = true;
+                _isEnabledEditButton = SelectedContact != null;
                 OnPropertyChanged();
             }
         }
@@ -45,12 +54,42 @@ namespace Contacts.ViewModel
             }
         }
 
-        public bool IsEnabledButtons
+        public bool IsEnabledAddButton
         {
-            get => _isEnabledButtons;
+            get => _isEnabledAddButton;
             set
             {
-                _isEnabledButtons = value;
+                _isEnabledAddButton = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEnabledRemoveButton
+        {
+            get => _isEnabledRemoveButton;
+            set
+            {
+                _isEnabledRemoveButton = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEnabledEditButton
+        {
+            get => _isEnabledEditButton;
+            set
+            {
+                _isEnabledEditButton = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEnabledRandomizeButton
+        {
+            get => _isEnabledRandomizeButton;
+            set
+            {
+                _isEnabledRandomizeButton = value;
                 OnPropertyChanged();
             }
         }
@@ -86,7 +125,10 @@ namespace Contacts.ViewModel
                     SelectedContact = null;
                     SelectedContact = new ContactVM(new Contact());
                     IsVisibilityApplyButton = true;
-                    IsEnabledButtons = false;
+                    IsEnabledAddButton = false;
+                    IsEnabledRemoveButton = false;
+                    IsEnabledRandomizeButton = false;
+                    IsEnabledEditButton = false;
                     IsReadOnlyTextBoxes = false;
                 });
             }
@@ -100,8 +142,23 @@ namespace Contacts.ViewModel
                 {
                     Contacts.Add(SelectedContact);
                     IsVisibilityApplyButton = false;
-                    IsEnabledButtons = true;
+                    IsEnabledAddButton = true;
+                    IsEnabledRemoveButton = true;
+                    IsEnabledRandomizeButton = true;
+                    IsEnabledEditButton = true;
                     IsReadOnlyTextBoxes = true;
+                });
+            }
+        }
+
+        public ICommand EditCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    if (SelectedContact == null) return;
+
                 });
             }
         }
