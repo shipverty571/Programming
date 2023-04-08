@@ -1,17 +1,23 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Contacts.Model;
 
 namespace Contacts.ViewModel
 {
-    public class ContactVM : INotifyPropertyChanged
+    public class ContactVM : INotifyPropertyChanged, ICloneable
     {
+        /// <summary>
+        ///     Событие изменения свойства.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ContactVM(Contact contact)
         {
             Contact = contact;
         }
 
-        public Contact Contact { get; }
+        public Contact Contact { get; set; }
 
         public string Name
         {
@@ -43,10 +49,10 @@ namespace Contacts.ViewModel
             }
         }
 
-        /// <summary>
-        ///     Событие изменения свойства.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public object Clone()
+        {
+            return new ContactVM(new Contact(Contact));
+        }
 
         /// <summary>
         ///     При вызове зажигает событие <see cref="PropertyChanged" />.

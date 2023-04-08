@@ -49,11 +49,11 @@
                         x:Name="ContactsListBox"
                         Grid.Row="1"
                         Margin="{StaticResource DefaultMargin}"
-                        ItemsSource="{Binding Contacts, Mode=TwoWay}"
-                        SelectedItem="{Binding SelectedContact, Mode=TwoWay}">
+                        ItemsSource="{Binding Contacts, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedItem="{Binding SelectedContact, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -75,6 +75,7 @@
                             Grid.Column="1"
                             Height="{StaticResource DefaultButtonHeightValue}"
                             Margin="{StaticResource DefaultMargin}"
+                            Command="{Binding EditCommand}"
                             Content="Edit"
                             IsEnabled="{Binding IsEnabledEditButton}"/>
                         <Button
@@ -115,11 +116,20 @@
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyTextBoxes}"/>
+                        <TextBox
+                            Margin="{StaticResource DefaultMargin}"
+                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyTextBoxes}"/>
+                        <TextBox
+                            Margin="{StaticResource DefaultMargin}"
+                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email: "/>
-                        <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyTextBoxes}"/>
+                        <TextBox
+                            Margin="{StaticResource DefaultMargin}"
+                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button
                             Margin="3 50 3 3"
                             HorizontalAlignment="Left"

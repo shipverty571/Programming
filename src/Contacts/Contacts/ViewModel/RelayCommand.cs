@@ -4,35 +4,35 @@ using System.Windows.Input;
 namespace Contacts.ViewModel
 {
     /// <summary>
-    /// Представляет реализацию интерфейса <see cref="ICommand"/>.
+    ///     Представляет реализацию интерфейса <see cref="ICommand" />.
     /// </summary>
     public class RelayCommand : ICommand
     {
         /// <summary>
-        /// Делегат для вызова команды.
+        ///     Делегат для вызова команды.
         /// </summary>
-        private Action<object> _execute;
+        private readonly Action<object> _execute;
 
         /// <summary>
-        /// Событие изменения возможности вызова команды.
-        /// </summary>
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        /// <summary>
-        /// Создаёт экземпляр класса <see cref="RelayCommand"/>.
+        ///     Создаёт экземпляр класса <see cref="RelayCommand" />.
         /// </summary>
         /// <param name="execute">Делегат для вызова команды.</param>
         public RelayCommand(Action<object> execute)
         {
-            this._execute = execute;
+            _execute = execute;
         }
 
         /// <summary>
-        /// Определяет, может ли команда выполняться
+        ///     Событие изменения возможности вызова команды.
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
+
+        /// <summary>
+        ///     Определяет, может ли команда выполняться
         /// </summary>
         /// <param name="parameter">Параметр.</param>
         /// <returns>Возвращает всегда истину.</returns>
@@ -42,7 +42,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        /// Выполняет логику команды.
+        ///     Выполняет логику команды.
         /// </summary>
         /// <param name="parameter">Параметр.</param>
         public void Execute(object parameter)
