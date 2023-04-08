@@ -18,6 +18,10 @@
             Phone = phone;
         }
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="Contact" />.
+        /// </summary>
+        /// <param name="contact">Контакт.</param>
         public Contact(Contact contact)
         {
             Name = contact.Name;
