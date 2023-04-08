@@ -82,6 +82,7 @@
                             Grid.Column="2"
                             Height="{StaticResource DefaultButtonHeightValue}"
                             Margin="{StaticResource DefaultMargin}"
+                            Command="{Binding RemoveCommand}"
                             Content="Remove"
                             IsEnabled="{Binding IsEnabledRemoveButton}"/>
                         <Button

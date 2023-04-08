@@ -115,6 +115,25 @@ namespace Contacts.ViewModel
                 });
             }
         }
+
+        public ICommand RemoveCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    if (SelectedContact == null) return;
+                    int index = Contacts.IndexOf(SelectedContact);
+                    Contacts.RemoveAt(index);
+                    if (Contacts.Count == 0)
+                        SelectedContact = null;
+                    else if (index == Contacts.Count)
+                        SelectedContact = Contacts[index - 1];
+                    else
+                        SelectedContact = Contacts[index];
+                });
+            }
+        }
         
         private void SetEnabled(
             bool addButton,
