@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using Contacts.Model;
 using Contacts.Model.Services;
 
@@ -12,6 +14,16 @@ namespace Contacts.ViewModel
     /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
+        private readonly RelayCommand _addCommand;
+
+        private readonly RelayCommand _applyCommand;
+
+        private readonly RelayCommand _editCommand;
+
+        private readonly RelayCommand _randomizeCommand;
+
+        private readonly RelayCommand _removeCommand;
+
         private bool _isEnabledAddButton;
 
         private bool _isEnabledEditButton;
@@ -28,11 +40,23 @@ namespace Contacts.ViewModel
 
         public MainVM()
         {
-            Contacts = new ObservableCollection<ContactVM>();
+            Contacts = ContactSerializer.Deserialize(Path);
+            _editCommand = new RelayCommand(EditContact);
+            _addCommand = new RelayCommand(AddContact);
+            _removeCommand = new RelayCommand(RemoveContact);
+            _randomizeCommand = new RelayCommand(RandomizeContact);
+            _applyCommand = new RelayCommand(ApplyChangesContact);
             IsReadOnlyTextBoxes = true;
             IsVisibilityApplyButton = false;
             SetEnabled(true, false, false, true);
         }
+
+        /// <summary>
+        ///     Возвращает и задаёт путь сериализации. По умолчанию - папка "Мои документы".
+        /// </summary>
+        public string Path { get; set; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            + @"\Contacts\contacts.json";
 
         public ObservableCollection<ContactVM> Contacts { get; set; }
 
@@ -60,85 +84,68 @@ namespace Contacts.ViewModel
             }
         }
 
-        public ICommand RandomizeCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    var contact = ContactFactory.Randomize();
-                    Contacts.Add(new ContactVM(contact));
-                });
-            }
-        }
+        public ICommand RandomizeCommand => _randomizeCommand;
 
-        public ICommand AddCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    SelectedContact = null;
-                    SelectedContact = new ContactVM(new Contact());
-                    IsVisibilityApplyButton = true;
-                    IsReadOnlyTextBoxes = false;
-                    SetEnabled(false, false, false, false);
-                });
-            }
-        }
+        public ICommand AddCommand => _addCommand;
 
-        public ICommand ApplyCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    if (!Contacts.Contains(SelectedContact)) Contacts.Add(SelectedContact);
-                    IsVisibilityApplyButton = false;
-                    IsReadOnlyTextBoxes = true;
-                    Buffer = null;
-                    SetEnabled(true, true, true, true);
-                });
-            }
-        }
+        public ICommand ApplyCommand => _applyCommand;
 
-        public ICommand EditCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    Buffer = (ContactVM)SelectedContact.Clone();
-                    IsReadOnlyTextBoxes = false;
-                    IsVisibilityApplyButton = true;
-                    SetEnabled(false, false, false, false);
-                });
-            }
-        }
+        public ICommand EditCommand => _editCommand;
 
-        public ICommand RemoveCommand
-        {
-            get
-            {
-                return new RelayCommand(obj =>
-                {
-                    if (SelectedContact == null) return;
-                    var index = Contacts.IndexOf(SelectedContact);
-                    Contacts.RemoveAt(index);
-                    if (Contacts.Count == 0)
-                        SelectedContact = null;
-                    else if (index == Contacts.Count)
-                        SelectedContact = Contacts[index - 1];
-                    else
-                        SelectedContact = Contacts[index];
-                });
-            }
-        }
+        public ICommand RemoveCommand => _removeCommand;
 
         /// <summary>
         ///     Событие изменения свойства.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void AddContact()
+        {
+            SelectedContact = null;
+            SelectedContact = new ContactVM(new Contact());
+            IsVisibilityApplyButton = true;
+            IsReadOnlyTextBoxes = false;
+            SetEnabled(false, false, false, false);
+        }
+
+        private void RandomizeContact()
+        {
+            var contact = ContactFactory.Randomize();
+            Contacts.Add(new ContactVM(contact));
+            ContactSerializer.Serialize(Contacts, Path);
+        }
+
+        private void EditContact()
+        {
+            Buffer = (ContactVM)SelectedContact.Clone();
+            IsReadOnlyTextBoxes = false;
+            IsVisibilityApplyButton = true;
+            SetEnabled(false, false, false, false);
+        }
+
+        private void RemoveContact()
+        {
+            if (SelectedContact == null) return;
+            var index = Contacts.IndexOf(SelectedContact);
+            Contacts.RemoveAt(index);
+            if (Contacts.Count == 0)
+                SelectedContact = null;
+            else if (index == Contacts.Count)
+                SelectedContact = Contacts[index - 1];
+            else
+                SelectedContact = Contacts[index];
+            ContactSerializer.Serialize(Contacts, Path);
+        }
+
+        private void ApplyChangesContact()
+        {
+            if (!Contacts.Contains(SelectedContact)) Contacts.Add(SelectedContact);
+            IsVisibilityApplyButton = false;
+            IsReadOnlyTextBoxes = true;
+            Buffer = null;
+            SetEnabled(true, true, true, true);
+            ContactSerializer.Serialize(Contacts, Path);
+        }
 
         private void SetEnabled(
             bool addButton,

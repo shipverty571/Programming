@@ -10,10 +10,8 @@ namespace Contacts.Model.Services
 
         private static string GetInfoAPI()
         {
-            var response = "";
             var webClient = new WebClient();
-            response = webClient.DownloadString(_url);
-            return response;
+            return webClient.DownloadString(_url);
         }
 
         public static Contact Randomize()

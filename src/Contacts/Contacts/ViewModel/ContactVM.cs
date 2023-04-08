@@ -17,7 +17,7 @@ namespace Contacts.ViewModel
             Contact = contact;
         }
 
-        public Contact Contact { get; set; }
+        public Contact Contact { get; private set; }
 
         public string Name
         {
