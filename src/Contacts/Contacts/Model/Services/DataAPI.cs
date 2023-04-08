@@ -1,7 +1,7 @@
 ﻿namespace Contacts.Model.Services
 {
     /// <summary>
-    /// Представляет реализацию по хранению данных, полученных по API.
+    ///     Представляет реализацию по хранению данных, полученных по API.
     /// </summary>
     public class DataAPI
     {

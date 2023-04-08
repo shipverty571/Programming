@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// Создаёт экземпляр класса <see cref="Contact" />.
+        ///     Создаёт экземпляр класса <see cref="Contact" />.
         /// </summary>
         /// <param name="contact">Контакт.</param>
         public Contact(Contact contact)
