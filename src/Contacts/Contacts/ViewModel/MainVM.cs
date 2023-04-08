@@ -123,7 +123,7 @@ namespace Contacts.ViewModel
                 return new RelayCommand(obj =>
                 {
                     if (SelectedContact == null) return;
-                    int index = Contacts.IndexOf(SelectedContact);
+                    var index = Contacts.IndexOf(SelectedContact);
                     Contacts.RemoveAt(index);
                     if (Contacts.Count == 0)
                         SelectedContact = null;
@@ -134,7 +134,12 @@ namespace Contacts.ViewModel
                 });
             }
         }
-        
+
+        /// <summary>
+        ///     Событие изменения свойства.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private void SetEnabled(
             bool addButton,
             bool removeButton,
@@ -146,11 +151,6 @@ namespace Contacts.ViewModel
             IsEnabledEditButton = editButton;
             IsEnabledRandomizeButton = randomizeButton;
         }
-
-        /// <summary>
-        ///     Событие изменения свойства.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         ///     При вызове зажигает событие <see cref="PropertyChanged" />.
