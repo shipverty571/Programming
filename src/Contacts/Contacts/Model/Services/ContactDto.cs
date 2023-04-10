@@ -3,7 +3,7 @@
     /// <summary>
     ///  Представляет реализацию по хранению данных, полученных по API.
     /// </summary>
-    public class DataAPI
+    public class ContactDto
     {
         /// <summary>
         ///  Возвращает и задаёт имя.
