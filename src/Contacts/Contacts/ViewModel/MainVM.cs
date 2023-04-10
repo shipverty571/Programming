@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Contacts.Model;
 using Contacts.Model.Services;
@@ -12,7 +14,7 @@ namespace Contacts.ViewModel
     /// <summary>
     ///  ViewModel для окна MainWindow.
     /// </summary>
-    public class MainVM : INotifyPropertyChanged
+    public class MainVM : ObservableObject, INotifyPropertyChanged
     {
         /// <summary>
         ///  Хранит булевое значение доступности кнопки добавления.
@@ -138,11 +140,7 @@ namespace Contacts.ViewModel
         public bool IsReadOnlyTextBoxes
         {
             get => _isReadOnlyTextBoxes;
-            set
-            {
-                _isReadOnlyTextBoxes = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _isReadOnlyTextBoxes, value);
         }
 
         /// <summary>
@@ -151,11 +149,7 @@ namespace Contacts.ViewModel
         public bool IsEnabledAddButton
         {
             get => _isEnabledAddButton;
-            set
-            {
-                _isEnabledAddButton = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _isEnabledAddButton, value);
         }
 
         /// <summary>
@@ -164,11 +158,7 @@ namespace Contacts.ViewModel
         public bool IsEnabledRemoveButton
         {
             get => _isEnabledRemoveButton;
-            set
-            {
-                _isEnabledRemoveButton = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _isEnabledRemoveButton, value);
         }
 
         /// <summary>
@@ -177,11 +167,7 @@ namespace Contacts.ViewModel
         public bool IsEnabledEditButton
         {
             get => _isEnabledEditButton;
-            set
-            {
-                _isEnabledEditButton = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _isEnabledEditButton, value);
         }
 
         /// <summary>
@@ -190,11 +176,7 @@ namespace Contacts.ViewModel
         public bool IsEnabledRandomizeButton
         {
             get => _isEnabledRandomizeButton;
-            set
-            {
-                _isEnabledRandomizeButton = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _isEnabledRandomizeButton, value);
         }
 
         /// <summary>
@@ -203,11 +185,7 @@ namespace Contacts.ViewModel
         public bool IsVisibilityApplyButton
         {
             get => _isVisibilityApplyButton;
-            set
-            {
-                _isVisibilityApplyButton = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _isVisibilityApplyButton, value);
         }
 
         /// <summary>
