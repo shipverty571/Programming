@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Contacts.Model;
 
 namespace Contacts.ViewModel
 {
-    public class ContactVM : INotifyPropertyChanged, ICloneable
+    public class ContactVM : ObservableObject, ICloneable
     {
         /// <summary>
         ///  Создаёт экземпляр класса <see cref="ContactVM"/>.
@@ -19,7 +20,7 @@ namespace Contacts.ViewModel
         /// <summary>
         ///  Возвращает и задаёт контакт.
         /// </summary>
-        public Contact Contact { get; }
+        public Contact Contact { get; private set; }
 
         /// <summary>
         ///  Возвращает и задаёт имя контакта.
@@ -27,11 +28,11 @@ namespace Contacts.ViewModel
         public string Name
         {
             get => Contact.Name;
-            set
-            {
-                Contact.Name = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(
+                Contact.Name, 
+                value, 
+                Contact, 
+                (contact, name) => Contact.Name = name);
         }
 
         /// <summary>
@@ -40,11 +41,11 @@ namespace Contacts.ViewModel
         public string Email
         {
             get => Contact.Email;
-            set
-            {
-                Contact.Email = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(
+                Contact.Email,
+                value,
+                Contact,
+                (contact, email) => Contact.Email = email);
         }
 
         /// <summary>
@@ -53,11 +54,11 @@ namespace Contacts.ViewModel
         public string Phone
         {
             get => Contact.Phone;
-            set
-            {
-                Contact.Phone = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(
+                Contact.Phone,
+                value,
+                Contact,
+                (contact, phone) => Contact.Phone = phone);
         }
 
         /// <summary>
@@ -67,20 +68,6 @@ namespace Contacts.ViewModel
         public object Clone()
         {
             return new ContactVM((Contact) Contact.Clone());
-        }
-
-        /// <summary>
-        ///  Событие изменения свойства.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        ///  При вызове зажигает событие <see cref="PropertyChanged"/>.
-        /// </summary>
-        /// <param name="propertyName">Имя свойства, вызвавшего метод.</param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

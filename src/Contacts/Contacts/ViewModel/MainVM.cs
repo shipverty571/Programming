@@ -14,7 +14,7 @@ namespace Contacts.ViewModel
     /// <summary>
     ///  ViewModel для окна MainWindow.
     /// </summary>
-    public class MainVM : ObservableObject, INotifyPropertyChanged
+    public class MainVM : ObservableObject
     {
         /// <summary>
         ///  Хранит булевое значение доступности кнопки добавления.
@@ -185,14 +185,8 @@ namespace Contacts.ViewModel
         public bool IsVisibilityApplyButton
         {
             get => _isVisibilityApplyButton;
-            set => SetProperty(ref _isVisibilityApplyButton, value);
+            set=> SetProperty(ref _isVisibilityApplyButton, value);
         }
-
-        /// <summary>
-        ///  Событие изменения свойства.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
         ///  Вызывает редактирование нового экземпляра класса <see cref="ContactVM"/>.
         /// </summary>
@@ -273,15 +267,6 @@ namespace Contacts.ViewModel
             IsEnabledRemoveButton = removeButton;
             IsEnabledEditButton = editButton;
             IsEnabledRandomizeButton = randomizeButton;
-        }
-
-        /// <summary>
-        ///  При вызове зажигает событие <see cref="PropertyChanged"/>.
-        /// </summary>
-        /// <param name="propertyName">Имя свойства, вызвавшего метод.</param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

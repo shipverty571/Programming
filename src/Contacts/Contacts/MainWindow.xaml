@@ -49,11 +49,11 @@
                         x:Name="ContactsListBox"
                         Grid.Row="1"
                         Margin="{StaticResource DefaultMargin}"
-                        ItemsSource="{Binding Contacts, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedItem="{Binding SelectedContact, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        ItemsSource="{Binding Contacts}"
+                        SelectedItem="{Binding SelectedContact, UpdateSourceTrigger=PropertyChanged}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
