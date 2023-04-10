@@ -35,7 +35,7 @@ namespace Contacts.Model.Services
         public static Contact Randomize()
         {
             var response = GetInfoAPI();
-            var data = JsonConvert.DeserializeObject<DataAPI>(response);
+            var data = JsonConvert.DeserializeObject<ContactDto>(response);
             var contact = new Contact(
                 $"{data.LastName} {data.FirstName}",
                 data.Email,
