@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Contacts.Model;
 
@@ -20,7 +18,7 @@ namespace Contacts.ViewModel
         /// <summary>
         ///  Возвращает и задаёт контакт.
         /// </summary>
-        public Contact Contact { get; private set; }
+        public Contact Contact { get; }
 
         /// <summary>
         ///  Возвращает и задаёт имя контакта.
@@ -29,9 +27,9 @@ namespace Contacts.ViewModel
         {
             get => Contact.Name;
             set => SetProperty(
-                Contact.Name, 
-                value, 
-                Contact, 
+                Contact.Name,
+                value,
+                Contact,
                 (contact, name) => Contact.Name = name);
         }
 
@@ -67,7 +65,7 @@ namespace Contacts.ViewModel
         /// <returns>Возвращает дубликат текущего экземпляра.</returns>
         public object Clone()
         {
-            return new ContactVM((Contact) Contact.Clone());
+            return new ContactVM((Contact)Contact.Clone());
         }
     }
 }

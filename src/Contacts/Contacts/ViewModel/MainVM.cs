@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Configuration;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -185,8 +182,9 @@ namespace Contacts.ViewModel
         public bool IsVisibilityApplyButton
         {
             get => _isVisibilityApplyButton;
-            set=> SetProperty(ref _isVisibilityApplyButton, value);
+            set => SetProperty(ref _isVisibilityApplyButton, value);
         }
+
         /// <summary>
         ///  Вызывает редактирование нового экземпляра класса <see cref="ContactVM"/>.
         /// </summary>
