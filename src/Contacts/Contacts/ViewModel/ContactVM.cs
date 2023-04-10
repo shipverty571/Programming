@@ -8,7 +8,7 @@ namespace Contacts.ViewModel
     public class ContactVM : INotifyPropertyChanged, ICloneable
     {
         /// <summary>
-        ///     Создаёт экземпляр класса <see cref="ContactVM" />.
+        ///  Создаёт экземпляр класса <see cref="ContactVM"/>.
         /// </summary>
         /// <param name="contact">Контакт.</param>
         public ContactVM(Contact contact)
@@ -17,12 +17,12 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт контакт.
+        ///  Возвращает и задаёт контакт.
         /// </summary>
         public Contact Contact { get; }
 
         /// <summary>
-        ///     Возвращает и задаёт имя контакта.
+        ///  Возвращает и задаёт имя контакта.
         /// </summary>
         public string Name
         {
@@ -35,7 +35,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт электронную почту контакта.
+        ///  Возвращает и задаёт электронную почту контакта.
         /// </summary>
         public string Email
         {
@@ -48,7 +48,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт номер телефона контакта.
+        ///  Возвращает и задаёт номер телефона контакта.
         /// </summary>
         public string Phone
         {
@@ -61,7 +61,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Клонирует текущий экземпляр класса <see cref="ContactVM" />.
+        ///  Клонирует текущий экземпляр класса <see cref="ContactVM"/>.
         /// </summary>
         /// <returns>Возвращает дубликат текущего экземпляра.</returns>
         public object Clone()
@@ -70,12 +70,12 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Событие изменения свойства.
+        ///  Событие изменения свойства.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        ///     При вызове зажигает событие <see cref="PropertyChanged" />.
+        ///  При вызове зажигает событие <see cref="PropertyChanged"/>.
         /// </summary>
         /// <param name="propertyName">Имя свойства, вызвавшего метод.</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

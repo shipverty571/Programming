@@ -6,12 +6,12 @@ using System.Windows.Data;
 namespace Contacts.Model.Services
 {
     /// <summary>
-    ///     Представляет реализацию для конвертирования bool значений.
+    ///  Представляет реализацию для конвертирования bool значений.
     /// </summary>
     public class VisibilityConverter : IValueConverter
     {
         /// <summary>
-        ///     Конвертирует bool значение в object
+        ///  Конвертирует bool значение в object
         /// </summary>
         /// <param name="value">Значение, которое необходимо преобразовать.</param>
         /// <param name="targetType">Тип, в который необходимо преобразовать.</param>
@@ -28,7 +28,7 @@ namespace Contacts.Model.Services
         }
 
         /// <summary>
-        ///     Конвертирует object значение bool.
+        ///  Конвертирует object значение bool.
         /// </summary>
         /// <param name="value">Значение, которое необходимо преобразовать.</param>
         /// <param name="targetType">Тип, в который необходимо преобразовать.</param>

@@ -10,72 +10,72 @@ using Contacts.Model.Services;
 namespace Contacts.ViewModel
 {
     /// <summary>
-    ///     ViewModel для окна MainWindow.
+    ///  ViewModel для окна MainWindow.
     /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
         /// <summary>
-        ///     Команда добавления контакта.
+        ///  Команда добавления контакта.
         /// </summary>
         private readonly RelayCommand _addCommand;
 
         /// <summary>
-        ///     Команда принятия изменений.
+        ///  Команда принятия изменений.
         /// </summary>
         private readonly RelayCommand _applyCommand;
 
         /// <summary>
-        ///     Команда редактирования контакта.
+        ///  Команда редактирования контакта.
         /// </summary>
         private readonly RelayCommand _editCommand;
 
         /// <summary>
-        ///     Команда генерации случайного контакта.
+        ///  Команда генерации случайного контакта.
         /// </summary>
         private readonly RelayCommand _randomizeCommand;
 
         /// <summary>
-        ///     Команда удаления контакта.
+        ///  Команда удаления контакта.
         /// </summary>
         private readonly RelayCommand _removeCommand;
 
         /// <summary>
-        ///     Хранит булевое значение доступности кнопки добавления.
+        ///  Хранит булевое значение доступности кнопки добавления.
         /// </summary>
         private bool _isEnabledAddButton;
 
         /// <summary>
-        ///     Хранит булевое значение доступности кнопки редактирования.
+        ///  Хранит булевое значение доступности кнопки редактирования.
         /// </summary>
         private bool _isEnabledEditButton;
 
         /// <summary>
-        ///     Хранит булевое значение доступности кнопки генерации контакта.
+        ///  Хранит булевое значение доступности кнопки генерации контакта.
         /// </summary>
         private bool _isEnabledRandomizeButton;
 
         /// <summary>
-        ///     Хранит булевое значение доступности кнопки удаления.
+        ///  Хранит булевое значение доступности кнопки удаления.
         /// </summary>
         private bool _isEnabledRemoveButton;
 
         /// <summary>
-        ///     Хранит булевое значение доступности редактирования текстовых полей.
+        ///  Хранит булевое значение доступности редактирования текстовых полей.
         /// </summary>
         private bool _isReadOnlyTextBoxes;
 
         /// <summary>
-        ///     Хранит булевое значение видимости кнопки принятия изменений.
+        ///  Хранит булевое значение видимости кнопки принятия изменений.
         /// </summary>
         private bool _isVisibilityApplyButton;
 
         /// <summary>
-        ///     Текущий контакт.
+        ///  Текущий контакт.
         /// </summary>
         private ContactVM _selectedContact;
 
         /// <summary>
-        ///     Создаёт экземпляр класса <see cref="MainVM" />.
+        ///  Создаёт экземпляр класса <see cref="MainVM"/>.
         /// </summary>
         public MainVM()
         {
@@ -91,24 +91,24 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт путь сериализации. По умолчанию - папка "Мои документы".
+        ///  Возвращает и задаёт путь сериализации. По умолчанию - папка "Мои документы".
         /// </summary>
         public string Path { get; set; } =
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             + @"\Contacts\contacts.json";
 
         /// <summary>
-        ///     Возвращает и задаёт коллекцию контактов.
+        ///  Возвращает и задаёт коллекцию контактов.
         /// </summary>
         public ObservableCollection<ContactVM> Contacts { get; set; }
 
         /// <summary>
-        ///     Возвращает и задает исходную версию редактируемого контакта.
+        ///  Возвращает и задает исходную версию редактируемого контакта.
         /// </summary>
         public ContactVM Buffer { get; set; }
 
         /// <summary>
-        ///     Возвращает и задает текущий контакт.
+        ///  Возвращает и задает текущий контакт.
         /// </summary>
         public ContactVM SelectedContact
         {
@@ -133,32 +133,32 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает команду генерации контакта.
+        ///  Возвращает команду генерации контакта.
         /// </summary>
         public ICommand RandomizeCommand => _randomizeCommand;
 
         /// <summary>
-        ///     Возвращает команду добавления контакта.
+        ///  Возвращает команду добавления контакта.
         /// </summary>
         public ICommand AddCommand => _addCommand;
 
         /// <summary>
-        ///     Возвращает команду принятия изменений.
+        ///  Возвращает команду принятия изменений.
         /// </summary>
         public ICommand ApplyCommand => _applyCommand;
 
         /// <summary>
-        ///     Возвращает команду редактирования контакта.
+        ///  Возвращает команду редактирования контакта.
         /// </summary>
         public ICommand EditCommand => _editCommand;
 
         /// <summary>
-        ///     Возвращает команду удаления контакта.
+        ///  Возвращает команду удаления контакта.
         /// </summary>
         public ICommand RemoveCommand => _removeCommand;
 
         /// <summary>
-        ///     Возвращает и задаёт значение доступности редактирования текстовых полей.
+        ///  Возвращает и задаёт значение доступности редактирования текстовых полей.
         /// </summary>
         public bool IsReadOnlyTextBoxes
         {
@@ -171,7 +171,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт значение доступности кнопки добавления.
+        ///  Возвращает и задаёт значение доступности кнопки добавления.
         /// </summary>
         public bool IsEnabledAddButton
         {
@@ -184,7 +184,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт значение доступности кнопки удаления.
+        ///  Возвращает и задаёт значение доступности кнопки удаления.
         /// </summary>
         public bool IsEnabledRemoveButton
         {
@@ -197,7 +197,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт значение доступности кнопки редактирования.
+        ///  Возвращает и задаёт значение доступности кнопки редактирования.
         /// </summary>
         public bool IsEnabledEditButton
         {
@@ -210,7 +210,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт значение доступности кнопки генерации контакта.
+        ///  Возвращает и задаёт значение доступности кнопки генерации контакта.
         /// </summary>
         public bool IsEnabledRandomizeButton
         {
@@ -223,7 +223,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Возвращает и задаёт значение видимости кнопки принятия изменений.
+        ///  Возвращает и задаёт значение видимости кнопки принятия изменений.
         /// </summary>
         public bool IsVisibilityApplyButton
         {
@@ -236,12 +236,12 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Событие изменения свойства.
+        ///  Событие изменения свойства.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        ///     Вызывает редактирование нового экземпляра класса <see cref="ContactVM" />.
+        ///  Вызывает редактирование нового экземпляра класса <see cref="ContactVM"/>.
         /// </summary>
         private void AddContact()
         {
@@ -253,7 +253,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Генерирует случайный контакт.
+        ///  Генерирует случайный контакт.
         /// </summary>
         private void RandomizeContact()
         {
@@ -263,7 +263,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Вызывает редактирования текущего контакта.
+        ///  Вызывает редактирования текущего контакта.
         /// </summary>
         private void EditContact()
         {
@@ -274,7 +274,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Удаляет текущий контакт.
+        ///  Удаляет текущий контакт.
         /// </summary>
         private void RemoveContact()
         {
@@ -291,7 +291,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Принимает изменения редактирования контакта.
+        ///  Принимает изменения редактирования контакта.
         /// </summary>
         private void ApplyChangesContact()
         {
@@ -304,7 +304,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     Устанавливает значения доступности кнопок.
+        ///  Устанавливает значения доступности кнопок.
         /// </summary>
         /// <param name="addButton">Кнопка добавления контакта.</param>
         /// <param name="removeButton">Кнопка удаления контакта.</param>
@@ -323,7 +323,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        ///     При вызове зажигает событие <see cref="PropertyChanged" />.
+        ///  При вызове зажигает событие <see cref="PropertyChanged"/>.
         /// </summary>
         /// <param name="propertyName">Имя свойства, вызвавшего метод.</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
