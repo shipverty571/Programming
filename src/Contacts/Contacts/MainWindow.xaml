@@ -4,85 +4,143 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:services="clr-namespace:Contacts.Model.Services"
     Title="Contacts"
-    Width="500"
+    Width="650"
     Height="450"
-    MinWidth="500"
+    MinWidth="650"
     MinHeight="450"
-    Icon="contacts_64x64.ico"
+    Icon="ContactsApp_96x96.ico"
     mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resource/DefaultStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <services:VisibilityConverter x:Key="VisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="15px 15px 15px 15px">
+    <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="31"/>
-            </Grid.RowDefinitions>
-            <GroupBox
-                x:Name="EditContactGroupBox"
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="3"
-                Header="Edit Contact">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name:"/>
-                    <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone Number:"/>
-                    <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email:"/>
-                    <TextBox Margin="{StaticResource DefaultMargin}" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
-            </GroupBox>
-            <GroupBox
-                x:Name="ReadContactGroupBox"
-                Grid.Row="0"
+            <DockPanel Grid.Column="0" Background="{StaticResource LightGrayBackgroundColorBrush}">
+                <Grid Margin="{StaticResource DefaultColumnMargin}" DockPanel.Dock="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="{StaticResource DefaultMargin}"
+                            Text="Find: "/>
+                        <TextBox Grid.Column="1" Margin="{StaticResource DefaultMargin}"/>
+                    </Grid>
+                    <ListBox
+                        x:Name="ContactsListBox"
+                        Grid.Row="1"
+                        Margin="{StaticResource DefaultMargin}"
+                        ItemsSource="{Binding Contacts}"
+                        SelectedItem="{Binding SelectedContact, UpdateSourceTrigger=PropertyChanged}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Height="{StaticResource DefaultButtonHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Command="{Binding AddCommand}"
+                            Content="Add"
+                            IsEnabled="{Binding IsEnabledAddButton}"/>
+                        <Button
+                            Grid.Column="1"
+                            Height="{StaticResource DefaultButtonHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Command="{Binding EditCommand}"
+                            Content="Edit"
+                            IsEnabled="{Binding IsEnabledEditButton}"/>
+                        <Button
+                            Grid.Column="2"
+                            Height="{StaticResource DefaultButtonHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Command="{Binding RemoveCommand}"
+                            Content="Remove"
+                            IsEnabled="{Binding IsEnabledRemoveButton}"/>
+                        <Button
+                            Grid.Column="3"
+                            Height="{StaticResource DefaultButtonHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Command="{Binding RandomizeCommand}"
+                            Content="Randomize"
+                            IsEnabled="{Binding IsEnabledRandomizeButton}"/>
+                    </Grid>
+                </Grid>
+            </DockPanel>
+            <GridSplitter
                 Grid.Column="1"
-                Margin="3"
-                Header="Read Contact">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name:"/>
-                    <TextBlock
-                        Margin="{StaticResource DefaultMargin}"
-                        Style="{StaticResource ContactInfoTextBlock}"
-                        Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone Number:"/>
-                    <TextBlock
-                        Margin="{StaticResource DefaultMargin}"
-                        Style="{StaticResource ContactInfoTextBlock}"
-                        Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email:"/>
-                    <TextBlock
-                        Margin="{StaticResource DefaultMargin}"
-                        Style="{StaticResource ContactInfoTextBlock}"
-                        Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
-            </GroupBox>
-            <StackPanel
-                Grid.Row="1"
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
-                <Button
-                    Margin="{StaticResource DefaultMargin}"
-                    Command="{Binding SaveCommand}"
-                    Content="Save"
-                    Style="{StaticResource DefaultButton}"/>
-                <Button
-                    Margin="{StaticResource DefaultMargin}"
-                    Command="{Binding LoadCommand}"
-                    Content="Load"
-                    Style="{StaticResource DefaultButton}"/>
-            </StackPanel>
+                Width="3px"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Stretch"
+                Background="{StaticResource WhiteBackgroundColorBrush}"/>
+            <DockPanel Grid.Column="2" Background="{StaticResource WhiteBackgroundColorBrush}">
+                <Grid Margin="{StaticResource DefaultColumnMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Margin="{StaticResource DefaultMargin}"/>
+                        <Image
+                            Width="{StaticResource DefaultPhotoPlaceholderWidthValue}"
+                            Height="{StaticResource DefaultPhotoPlaceholderHeightValue}"
+                            Margin="{StaticResource DefaultMargin}"
+                            Source="{StaticResource PhotoPlaceholder}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name: "/>
+                        <TextBox
+                            Margin="{StaticResource DefaultMargin}"
+                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone: "/>
+                        <TextBox
+                            Margin="{StaticResource DefaultMargin}"
+                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email: "/>
+                        <TextBox
+                            Margin="{StaticResource DefaultMargin}"
+                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button
+                            Margin="3 50 3 3"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ApplyCommand}"
+                            Content="Apply"
+                            Style="{StaticResource DefaultButton}"
+                            Visibility="{Binding IsVisibilityApplyButton, Converter={StaticResource VisibilityConverter}}"/>
+                    </StackPanel>
+                </Grid>
+            </DockPanel>
         </Grid>
     </Grid>
 </Window>
