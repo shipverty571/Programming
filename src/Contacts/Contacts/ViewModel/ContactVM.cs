@@ -66,7 +66,7 @@ namespace Contacts.ViewModel
         /// <returns>Возвращает дубликат текущего экземпляра.</returns>
         public object Clone()
         {
-            return new ContactVM(new Contact(Contact));
+            return new ContactVM((Contact) Contact.Clone());
         }
 
         /// <summary>

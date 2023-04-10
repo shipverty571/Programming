@@ -1,9 +1,11 @@
-﻿namespace Contacts.Model
+﻿using System;
+
+namespace Contacts.Model
 {
     /// <summary>
     ///  Хранит данные о контакте.
     /// </summary>
-    public class Contact
+    public class Contact : ICloneable
     {
         /// <summary>
         ///  Создаёт экземпляр класса <see cref="Contact"/>.
@@ -16,17 +18,6 @@
             Name = name;
             Email = email;
             Phone = phone;
-        }
-
-        /// <summary>
-        ///  Создаёт экземпляр класса <see cref="Contact"/>.
-        /// </summary>
-        /// <param name="contact">Контакт.</param>
-        public Contact(Contact contact)
-        {
-            Name = contact.Name;
-            Email = contact.Email;
-            Phone = contact.Phone;
         }
 
         /// <summary>
@@ -50,5 +41,14 @@
         ///  Возвращает и задаёт номер телефона контакта.
         /// </summary>
         public string Phone { get; set; }
+
+        /// <summary>
+        ///  Клонирует текущий экземпляр класса <see cref="Contact"/>.
+        /// </summary>
+        /// <returns>Возвращает дубликат текущего экземпляра.</returns>
+        public object Clone()
+        {
+            return new Contact(Name, Email, Phone);
+        }
     }
 }
