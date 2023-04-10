@@ -15,31 +15,6 @@ namespace Contacts.ViewModel
     public class MainVM : INotifyPropertyChanged
     {
         /// <summary>
-        ///  Команда добавления контакта.
-        /// </summary>
-        private readonly RelayCommand _addCommand;
-
-        /// <summary>
-        ///  Команда принятия изменений.
-        /// </summary>
-        private readonly RelayCommand _applyCommand;
-
-        /// <summary>
-        ///  Команда редактирования контакта.
-        /// </summary>
-        private readonly RelayCommand _editCommand;
-
-        /// <summary>
-        ///  Команда генерации случайного контакта.
-        /// </summary>
-        private readonly RelayCommand _randomizeCommand;
-
-        /// <summary>
-        ///  Команда удаления контакта.
-        /// </summary>
-        private readonly RelayCommand _removeCommand;
-
-        /// <summary>
         ///  Хранит булевое значение доступности кнопки добавления.
         /// </summary>
         private bool _isEnabledAddButton;
@@ -80,11 +55,11 @@ namespace Contacts.ViewModel
         public MainVM()
         {
             Contacts = ContactSerializer.Deserialize(Path);
-            _editCommand = new RelayCommand(EditContact);
-            _addCommand = new RelayCommand(AddContact);
-            _removeCommand = new RelayCommand(RemoveContact);
-            _randomizeCommand = new RelayCommand(RandomizeContact);
-            _applyCommand = new RelayCommand(ApplyChangesContact);
+            EditCommand = new RelayCommand(EditContact);
+            AddCommand = new RelayCommand(AddContact);
+            RemoveCommand = new RelayCommand(RemoveContact);
+            RandomizeCommand = new RelayCommand(RandomizeContact);
+            ApplyCommand = new RelayCommand(ApplyChangesContact);
             IsReadOnlyTextBoxes = true;
             IsVisibilityApplyButton = false;
             SetEnabled(true, false, false, true);
@@ -135,27 +110,27 @@ namespace Contacts.ViewModel
         /// <summary>
         ///  Возвращает команду генерации контакта.
         /// </summary>
-        public ICommand RandomizeCommand => _randomizeCommand;
+        public ICommand RandomizeCommand { get; }
 
         /// <summary>
         ///  Возвращает команду добавления контакта.
         /// </summary>
-        public ICommand AddCommand => _addCommand;
+        public ICommand AddCommand { get; }
 
         /// <summary>
         ///  Возвращает команду принятия изменений.
         /// </summary>
-        public ICommand ApplyCommand => _applyCommand;
+        public ICommand ApplyCommand { get; }
 
         /// <summary>
         ///  Возвращает команду редактирования контакта.
         /// </summary>
-        public ICommand EditCommand => _editCommand;
+        public ICommand EditCommand { get; }
 
         /// <summary>
         ///  Возвращает команду удаления контакта.
         /// </summary>
-        public ICommand RemoveCommand => _removeCommand;
+        public ICommand RemoveCommand { get; }
 
         /// <summary>
         ///  Возвращает и задаёт значение доступности редактирования текстовых полей.
