@@ -124,7 +124,7 @@ namespace Contacts.ViewModel
                 _selectedContact = value;
                 IsVisibilityApplyButton = false;
                 IsReadOnlyTextBoxes = true;
-                if (_selectedContact == null)
+                if (SelectedContact == null)
                     SetEnabled(true, false, false, true);
                 else
                     SetEnabled(true, true, true, true);
