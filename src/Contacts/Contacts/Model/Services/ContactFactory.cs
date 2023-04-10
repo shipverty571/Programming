@@ -9,10 +9,15 @@ namespace Contacts.Model.Services
     public static class ContactFactory
     {
         /// <summary>
-        ///  Гиперссылка запроса данных.
+        ///  Возвращает гиперссылку запроса данных.
         /// </summary>
-        private static readonly string _url =
+        private static string Url { get;  } = 
             "https://api.randomdatatools.ru/?count=1&params=LastName,FirstName,Phone,Email";
+
+        /// <summary>
+        ///  Возвращает экземпляр <see cref="System.Net.WebClient"/>.
+        /// </summary>
+        private static WebClient WebClient { get; } = new WebClient();
 
         /// <summary>
         ///  Получает данные по API.
@@ -20,8 +25,7 @@ namespace Contacts.Model.Services
         /// <returns>Возвращает json строку.</returns>
         private static string GetInfoAPI()
         {
-            var webClient = new WebClient();
-            return webClient.DownloadString(_url);
+            return WebClient.DownloadString(Url);
         }
 
         /// <summary>
