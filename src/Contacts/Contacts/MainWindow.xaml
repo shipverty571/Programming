@@ -17,7 +17,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resource/DefaultStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <services:VisibilityConverter x:Key="VisibilityConverter"/>
+            <services:BoolToVisibilityConverter x:Key="VisibilityConverter"/>
+            <services:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <services:CombiningVisibilityConverter
+                x:Key="CombiningVisibilityConverter"
+                InverseBooleanConverter="{StaticResource InverseBooleanConverter}"
+                VisibilityConverter="{StaticResource VisibilityConverter}"/>
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -53,7 +58,13 @@
                         SelectedItem="{Binding SelectedContact, UpdateSourceTrigger=PropertyChanged}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock
+                                        Margin="{StaticResource DefaultMargin}"
+                                        Style="{StaticResource ContactNameTextBlock}"
+                                        Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    <TextBlock Margin="{StaticResource DefaultMargin}" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -70,28 +81,28 @@
                             Margin="{StaticResource DefaultMargin}"
                             Command="{Binding AddCommand}"
                             Content="Add"
-                            IsEnabled="{Binding IsEnabledAddButton}"/>
+                            IsEnabled="{Binding IsAddMode}"/>
                         <Button
                             Grid.Column="1"
                             Height="{StaticResource DefaultButtonHeightValue}"
                             Margin="{StaticResource DefaultMargin}"
                             Command="{Binding EditCommand}"
                             Content="Edit"
-                            IsEnabled="{Binding IsEnabledEditButton}"/>
+                            IsEnabled="{Binding IsEditMode}"/>
                         <Button
                             Grid.Column="2"
                             Height="{StaticResource DefaultButtonHeightValue}"
                             Margin="{StaticResource DefaultMargin}"
                             Command="{Binding RemoveCommand}"
                             Content="Remove"
-                            IsEnabled="{Binding IsEnabledRemoveButton}"/>
+                            IsEnabled="{Binding IsEditMode}"/>
                         <Button
                             Grid.Column="3"
                             Height="{StaticResource DefaultButtonHeightValue}"
                             Margin="{StaticResource DefaultMargin}"
                             Command="{Binding RandomizeCommand}"
                             Content="Randomize"
-                            IsEnabled="{Binding IsEnabledRandomizeButton}"/>
+                            IsEnabled="{Binding IsAddMode}"/>
                     </Grid>
                 </Grid>
             </DockPanel>
@@ -119,17 +130,17 @@
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name: "/>
                         <TextBox
                             Margin="{StaticResource DefaultMargin}"
-                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            IsReadOnly="{Binding IsAddMode, Converter=InverseBooleanConverter}"
                             Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone: "/>
                         <TextBox
                             Margin="{StaticResource DefaultMargin}"
-                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            IsReadOnly="{Binding IsAddMode, Converter=InverseBooleanConverter}"
                             Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email: "/>
                         <TextBox
                             Margin="{StaticResource DefaultMargin}"
-                            IsReadOnly="{Binding IsReadOnlyTextBoxes}"
+                            IsReadOnly="{Binding IsAddMode, Converter=InverseBooleanConverter}"
                             Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button
                             Margin="3 50 3 3"
@@ -137,7 +148,7 @@
                             Command="{Binding ApplyCommand}"
                             Content="Apply"
                             Style="{StaticResource DefaultButton}"
-                            Visibility="{Binding IsVisibilityApplyButton, Converter={StaticResource VisibilityConverter}}"/>
+                            Visibility="{Binding IsAddMode, Converter={StaticResource CombiningVisibilityConverter}}"/>
                     </StackPanel>
                 </Grid>
             </DockPanel>
