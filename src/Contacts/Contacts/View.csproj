@@ -89,12 +89,12 @@
         <Compile Include="ContactInfoUserControl.xaml.cs">
           <DependentUpon>ContactInfoUserControl.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Model\Services\CombiningVisibilityConverter.cs" />
         <Compile Include="Model\Services\ContactFactory.cs" />
         <Compile Include="Model\Services\ContactSerializer.cs" />
         <Compile Include="Model\Services\ContactDto.cs" />
-        <Compile Include="Model\Services\InverseBooleanConverter.cs" />
-        <Compile Include="Model\Services\BoolToVisibilityConverter.cs" />
+        <Compile Include="Model\Services\Converters\BoolToVisibilityConverter.cs" />
+        <Compile Include="Model\Services\Converters\CombiningVisibilityConverter.cs" />
+        <Compile Include="Model\Services\Converters\InverseBooleanConverter.cs" />
         <Compile Include="ViewModel\ContactVM.cs" />
         <Compile Include="ViewModel\MainVM.cs" />
         <Page Include="ContactInfoUserControl.xaml" />

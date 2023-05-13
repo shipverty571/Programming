@@ -17,6 +17,34 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resource/DefaultStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="ContactTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle
+                        Grid.Column="0"
+                        Width="{StaticResource DefaultPhotoPlaceholderListItemWidthValue}"
+                        Height="{StaticResource DefaultPhotoPlaceholderListItemHeightValue}"
+                        RadiusX="{StaticResource DefaultRadiusXValue}"
+                        RadiusY="{StaticResource DefaultRadiusYValue}"
+                        Margin="{StaticResource DefaultMargin}">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{StaticResource PhotoPlaceholder}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                        <TextBlock
+                            Margin="{StaticResource DefaultMargin}"
+                            Style="{StaticResource ContactNameTextBlock}"
+                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <TextBlock Margin="{StaticResource DefaultMargin}" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Grid>
+
+            </DataTemplate>
             <services:BoolToVisibilityConverter x:Key="VisibilityConverter"/>
             <services:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
             <services:CombiningVisibilityConverter
@@ -54,19 +82,9 @@
                         x:Name="ContactsListBox"
                         Grid.Row="1"
                         Margin="{StaticResource DefaultMargin}"
+                        ItemTemplate="{StaticResource ContactTemplate}"
                         ItemsSource="{Binding Contacts}"
                         SelectedItem="{Binding SelectedContact, UpdateSourceTrigger=PropertyChanged}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock
-                                        Margin="{StaticResource DefaultMargin}"
-                                        Style="{StaticResource ContactNameTextBlock}"
-                                        Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                    <TextBlock Margin="{StaticResource DefaultMargin}" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
                     </ListBox>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
