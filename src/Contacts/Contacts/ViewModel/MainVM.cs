@@ -153,7 +153,7 @@ namespace Contacts.ViewModel
         {
             Buffer = (ContactVM)SelectedContact.Clone();
             IsAddMode = false;
-            IsEditMode = true;
+            IsEditMode = false;
         }
 
         /// <summary>

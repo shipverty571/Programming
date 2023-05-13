@@ -130,17 +130,17 @@
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Name: "/>
                         <TextBox
                             Margin="{StaticResource DefaultMargin}"
-                            IsReadOnly="{Binding IsAddMode, Converter=InverseBooleanConverter}"
+                            IsReadOnly="{Binding IsAddMode}"
                             Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone: "/>
                         <TextBox
                             Margin="{StaticResource DefaultMargin}"
-                            IsReadOnly="{Binding IsAddMode, Converter=InverseBooleanConverter}"
+                            IsReadOnly="{Binding IsAddMode}"
                             Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email: "/>
                         <TextBox
                             Margin="{StaticResource DefaultMargin}"
-                            IsReadOnly="{Binding IsAddMode, Converter=InverseBooleanConverter}"
+                            IsReadOnly="{Binding IsAddMode}"
                             Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button
                             Margin="3 50 3 3"

@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace Contacts.Model.Services
 {
-    public class CombiningVisibilityConverter
+    public class CombiningVisibilityConverter : IValueConverter
     {
         public IValueConverter InverseBooleanConverter { get; set; }
         
