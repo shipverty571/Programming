@@ -11,7 +11,7 @@ namespace Contacts.Model.Services
     public class InverseBooleanConverter : IValueConverter
     {
         /// <summary>
-        /// Инвертирует bool значение.
+        /// Инвертирует <see cref="bool" /> значение.
         /// </summary>
         /// <param name="value">Значение, которое необходимо преобразовать.</param>
         /// <param name="targetType">Тип, в который необходимо преобразовать.</param>
@@ -24,11 +24,11 @@ namespace Contacts.Model.Services
             object parameter,
             CultureInfo culture)
         {
-            return !(bool) value;
+            return !(bool)value;
         }
 
         /// <summary>
-        /// Конвертирует object значение bool.
+        /// Конвертирует <see cref="object" /> значение в <see cref="bool" />.
         /// </summary>
         /// <param name="value">Значение, которое необходимо преобразовать.</param>
         /// <param name="targetType">Тип, в который необходимо преобразовать.</param>

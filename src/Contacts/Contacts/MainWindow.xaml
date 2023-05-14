@@ -89,8 +89,7 @@
                         ItemTemplate="{StaticResource ContactTemplate}"
                         ItemsSource="{Binding Contacts}"
                         SelectedItem="{Binding SelectedContact, UpdateSourceTrigger=PropertyChanged}"
-                        Validation.ErrorTemplate="{x:Null}">
-                    </ListBox>
+                        Validation.ErrorTemplate="{x:Null}"/>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -145,9 +144,9 @@
                     HorizontalAlignment="Left"
                     Command="{Binding ApplyCommand}"
                     Content="Apply"
+                    IsEnabled="{Binding SelectedContact.HasErrors, Converter={StaticResource InverseBooleanConverter}}"
                     Style="{StaticResource DefaultButton}"
-                    Visibility="{Binding IsAddMode, Converter={StaticResource CombiningVisibilityConverter}}"
-                    IsEnabled="{Binding SelectedContact.HasErrors, Converter={StaticResource InverseBooleanConverter}}"/>
+                    Visibility="{Binding IsAddMode, Converter={StaticResource CombiningVisibilityConverter}}"/>
             </StackPanel>
         </Grid>
     </Grid>

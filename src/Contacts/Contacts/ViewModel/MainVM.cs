@@ -13,8 +13,14 @@ namespace Contacts.ViewModel
     /// </summary>
     public class MainVM : ObservableObject
     {
+        /// <summary>
+        /// Режим добавления.
+        /// </summary>
         private bool _isAddMode;
 
+        /// <summary>
+        /// Режим редактирования.
+        /// </summary>
         private bool _isEditMode;
 
         /// <summary>
@@ -69,16 +75,12 @@ namespace Contacts.ViewModel
                 }
 
                 _selectedContact = value;
+                IsAddMode = true;
                 if (SelectedContact == null)
-                {
-                    IsAddMode = true;
                     IsEditMode = false;
-                }
                 else
-                {
-                    IsAddMode = true;
                     IsEditMode = true;
-                }
+
                 OnPropertyChanged();
             }
         }
@@ -108,12 +110,18 @@ namespace Contacts.ViewModel
         /// </summary>
         public ICommand RemoveCommand { get; }
 
+        /// <summary>
+        /// Возвращает и задаёт значение активности режима добавления.
+        /// </summary>
         public bool IsAddMode
         {
             get => _isAddMode;
             set => SetProperty(ref _isAddMode, value);
         }
-        
+
+        /// <summary>
+        /// Возвращает и задаёт значение активности режима редактирования.
+        /// </summary>
         public bool IsEditMode
         {
             get => _isEditMode;
@@ -123,8 +131,6 @@ namespace Contacts.ViewModel
         /// <summary>
         /// Возвращает и задаёт значение доступности кнопки добавления.
         /// </summary>
-        
-
         /// <summary>
         /// Вызывает редактирование нового экземпляра класса <see cref="ContactVM" />.
         /// </summary>
@@ -178,9 +184,10 @@ namespace Contacts.ViewModel
         /// </summary>
         private void ApplyChangesContact()
         {
-            if (!Contacts.Contains(SelectedContact)) Contacts.Add(SelectedContact);
+            if (!Contacts.Contains(SelectedContact))
+                Contacts.Add(SelectedContact);
             IsAddMode = true;
-            IsEditMode = false;
+            IsEditMode = true;
             Buffer = null;
             ContactSerializer.Serialize(Contacts, Path);
         }

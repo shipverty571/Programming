@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -46,19 +46,19 @@
         <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
             <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
         </Reference>
-        <Reference Include="System" />
+        <Reference Include="System"/>
         <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
             <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
         </Reference>
         <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
             <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
         </Reference>
-        <Reference Include="System.ComponentModel.DataAnnotations" />
-        <Reference Include="System.Data" />
+        <Reference Include="System.ComponentModel.DataAnnotations"/>
+        <Reference Include="System.Data"/>
         <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
             <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
         </Reference>
-        <Reference Include="System.Numerics" />
+        <Reference Include="System.Numerics"/>
         <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
             <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
         </Reference>
@@ -68,18 +68,18 @@
         <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
             <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
         </Reference>
-        <Reference Include="System.Xml" />
-        <Reference Include="Microsoft.CSharp" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Xml.Linq" />
-        <Reference Include="System.Data.DataSetExtensions" />
-        <Reference Include="System.Net.Http" />
+        <Reference Include="System.Xml"/>
+        <Reference Include="Microsoft.CSharp"/>
+        <Reference Include="System.Core"/>
+        <Reference Include="System.Xml.Linq"/>
+        <Reference Include="System.Data.DataSetExtensions"/>
+        <Reference Include="System.Net.Http"/>
         <Reference Include="System.Xaml">
             <RequiredTargetFramework>4.0</RequiredTargetFramework>
         </Reference>
-        <Reference Include="WindowsBase" />
-        <Reference Include="PresentationCore" />
-        <Reference Include="PresentationFramework" />
+        <Reference Include="WindowsBase"/>
+        <Reference Include="PresentationCore"/>
+        <Reference Include="PresentationFramework"/>
     </ItemGroup>
     <ItemGroup>
         <ApplicationDefinition Include="App.xaml">
@@ -87,17 +87,17 @@
             <SubType>Designer</SubType>
         </ApplicationDefinition>
         <Compile Include="Controls\ContactControl.xaml.cs">
-          <DependentUpon>ContactControl.xaml</DependentUpon>
+            <DependentUpon>ContactControl.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Model\Services\ContactFactory.cs" />
-        <Compile Include="Model\Services\ContactSerializer.cs" />
-        <Compile Include="Model\Services\ContactDto.cs" />
-        <Compile Include="Model\Services\Converters\BoolToVisibilityConverter.cs" />
-        <Compile Include="Model\Services\Converters\CombiningVisibilityConverter.cs" />
-        <Compile Include="Model\Services\Converters\InverseBooleanConverter.cs" />
-        <Compile Include="ViewModel\ContactVM.cs" />
-        <Compile Include="ViewModel\MainVM.cs" />
-        <Page Include="Controls\ContactControl.xaml" />
+        <Compile Include="Model\Services\ContactFactory.cs"/>
+        <Compile Include="Model\Services\ContactSerializer.cs"/>
+        <Compile Include="Model\Services\ContactDto.cs"/>
+        <Compile Include="Model\Services\Converters\BoolToVisibilityConverter.cs"/>
+        <Compile Include="Model\Services\Converters\CombiningVisibilityConverter.cs"/>
+        <Compile Include="Model\Services\Converters\InverseBooleanConverter.cs"/>
+        <Compile Include="ViewModel\ContactVM.cs"/>
+        <Compile Include="ViewModel\MainVM.cs"/>
+        <Page Include="Controls\ContactControl.xaml"/>
         <Page Include="Resource\DefaultStyle.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
@@ -116,7 +116,7 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Model\Contact.cs" />
+        <Compile Include="Model\Contact.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs">
             <SubType>Code</SubType>
         </Compile>
@@ -134,27 +134,27 @@
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
         </EmbeddedResource>
-        <None Include="packages.config" />
+        <None Include="packages.config"/>
         <None Include="Properties\Settings.settings">
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
     </ItemGroup>
     <ItemGroup>
-        <None Include="App.config" />
+        <None Include="App.config"/>
     </ItemGroup>
     <ItemGroup>
-        <Resource Include="Resource\photo_placeholder_100x100.png" />
+        <Resource Include="Resource\photo_placeholder_100x100.png"/>
     </ItemGroup>
     <ItemGroup>
-        <Resource Include="ContactsApp_96x96.ico" />
+        <Resource Include="ContactsApp_96x96.ico"/>
     </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <Import Project="..\packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('..\packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <Import Project="..\packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('..\packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')"/>
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
         <PropertyGroup>
             <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
         </PropertyGroup>
-        <Error Condition="!Exists('..\packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets'))" />
+        <Error Condition="!Exists('..\packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CommunityToolkit.Mvvm.8.2.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets'))"/>
     </Target>
 </Project>
