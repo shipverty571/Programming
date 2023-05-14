@@ -32,17 +32,23 @@
                 <TextBox
                     Margin="{StaticResource DefaultMargin}"
                     IsReadOnly="{Binding IsAddMode}"
-                    Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    Style="{StaticResource ValidationStyleTextBox}"
+                    Text="{Binding Path=SelectedContact.Name, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{x:Null}"/>
                 <TextBlock Margin="{StaticResource DefaultMargin}" Text="Phone: "/>
                 <TextBox
                     Margin="{StaticResource DefaultMargin}"
                     IsReadOnly="{Binding IsAddMode}"
-                    Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                    Style="{StaticResource ValidationStyleTextBox}"
+                    Text="{Binding Path=SelectedContact.Phone, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{x:Null}"/>
                 <TextBlock Margin="{StaticResource DefaultMargin}" Text="Email: "/>
                 <TextBox
                     Margin="{StaticResource DefaultMargin}"
                     IsReadOnly="{Binding IsAddMode}"
-                    Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                    Style="{StaticResource ValidationStyleTextBox}"
+                    Text="{Binding Path=SelectedContact.Email, UpdateSourceTrigger=PropertyChanged}"
+                    Validation.ErrorTemplate="{x:Null}"/>
             </StackPanel>
         </Grid>
     </Grid>

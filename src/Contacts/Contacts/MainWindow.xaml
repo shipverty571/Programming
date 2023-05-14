@@ -40,8 +40,12 @@
                         <TextBlock
                             Margin="{StaticResource DefaultMargin}"
                             Style="{StaticResource ContactNameTextBlock}"
-                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                        <TextBlock Margin="{StaticResource DefaultMargin}" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Validation.ErrorTemplate="{x:Null}"/>
+                        <TextBlock
+                            Margin="{StaticResource DefaultMargin}"
+                            Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Validation.ErrorTemplate="{x:Null}"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>
@@ -84,7 +88,8 @@
                         Margin="{StaticResource DefaultMargin}"
                         ItemTemplate="{StaticResource ContactTemplate}"
                         ItemsSource="{Binding Contacts}"
-                        SelectedItem="{Binding SelectedContact, UpdateSourceTrigger=PropertyChanged}">
+                        SelectedItem="{Binding SelectedContact, UpdateSourceTrigger=PropertyChanged}"
+                        Validation.ErrorTemplate="{x:Null}">
                     </ListBox>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -130,36 +135,20 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Stretch"
                 Background="{StaticResource WhiteBackgroundColorBrush}"/>
-            <StackPanel Grid.Column="2" Orientation="Vertical" Margin="{StaticResource DefaultColumnMargin}">
-                <controls:ContactControl SelectedContact="{Binding SelectedContact, Mode=TwoWay}"/>
+            <StackPanel
+                Grid.Column="2"
+                Margin="{StaticResource DefaultColumnMargin}"
+                Orientation="Vertical">
+                <controls:ContactControl SelectedContact="{Binding SelectedContact, Mode=TwoWay}" Validation.ErrorTemplate="{x:Null}"/>
                 <Button
                     Margin="109 50 3 3"
                     HorizontalAlignment="Left"
                     Command="{Binding ApplyCommand}"
                     Content="Apply"
                     Style="{StaticResource DefaultButton}"
-                    Visibility="{Binding IsAddMode, Converter={StaticResource CombiningVisibilityConverter}}"/>
+                    Visibility="{Binding IsAddMode, Converter={StaticResource CombiningVisibilityConverter}}"
+                    IsEnabled="{Binding SelectedContact.HasErrors, Converter={StaticResource InverseBooleanConverter}}"/>
             </StackPanel>
-            <Grid Grid.Column="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                
-            </Grid>
-            <!--<DockPanel Grid.Column="2" Background="{StaticResource WhiteBackgroundColorBrush}">
-                <controls:ContactControl ></controls:ContactControl>
-                <Button
-                    Margin="3 50 3 3"
-                    HorizontalAlignment="Left"
-                    Command="{Binding ApplyCommand}"
-                    Content="Apply"
-                    Style="{StaticResource DefaultButton}"
-                    Visibility="{Binding IsAddMode, Converter={StaticResource CombiningVisibilityConverter}}"/>
-            </DockPanel>-->
         </Grid>
     </Grid>
 </Window>
