@@ -86,8 +86,8 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
-        <Compile Include="ContactInfoUserControl.xaml.cs">
-          <DependentUpon>ContactInfoUserControl.xaml</DependentUpon>
+        <Compile Include="Controls\ContactControl.xaml.cs">
+          <DependentUpon>ContactControl.xaml</DependentUpon>
         </Compile>
         <Compile Include="Model\Services\ContactFactory.cs" />
         <Compile Include="Model\Services\ContactSerializer.cs" />
@@ -97,7 +97,7 @@
         <Compile Include="Model\Services\Converters\InverseBooleanConverter.cs" />
         <Compile Include="ViewModel\ContactVM.cs" />
         <Compile Include="ViewModel\MainVM.cs" />
-        <Page Include="ContactInfoUserControl.xaml" />
+        <Page Include="Controls\ContactControl.xaml" />
         <Page Include="Resource\DefaultStyle.xaml">
             <SubType>Designer</SubType>
             <Generator>MSBuild:Compile</Generator>
