@@ -6,6 +6,7 @@
     xmlns:controls="clr-namespace:Contacts.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:Contacts.Converters"
     Title="Contacts"
     Width="650"
     Height="450"
@@ -49,9 +50,9 @@
                     </StackPanel>
                 </Grid>
             </DataTemplate>
-            <contacts:BoolToVisibilityConverter x:Key="VisibilityConverter"/>
-            <contacts:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-            <contacts:CombiningVisibilityConverter
+            <converters:BoolToVisibilityConverter x:Key="VisibilityConverter"/>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <converters:CombiningVisibilityConverter
                 x:Key="CombiningVisibilityConverter"
                 InverseBooleanConverter="{StaticResource InverseBooleanConverter}"
                 VisibilityConverter="{StaticResource VisibilityConverter}"/>

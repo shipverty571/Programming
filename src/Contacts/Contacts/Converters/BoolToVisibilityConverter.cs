@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Contacts
+namespace Contacts.Converters
 {
     /// <summary>
     /// Представляет реализацию для конвертирования <see cref="bool" /> значений.
