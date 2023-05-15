@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using Newtonsoft.Json;
 
 namespace Contacts.Model.Services
@@ -30,11 +29,10 @@ namespace Contacts.Model.Services
             {
                 return WebClient.DownloadString(Url);
             }
-            catch (System.Net.WebException e)
+            catch (WebException e)
             {
                 return null;
             }
-            
         }
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace Contacts.Model.Services
         public static Contact Randomize()
         {
             var response = GetInfoApi();
-            if (response == null) 
+            if (response == null)
                 return null;
             var data = JsonConvert.DeserializeObject<ContactDto>(response);
             var contact = new Contact(

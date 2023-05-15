@@ -6,7 +6,7 @@ using System.Windows.Data;
 namespace Contacts
 {
     /// <summary>
-    /// Представляет реализацию для инверсии bool значений.
+    /// Представляет реализацию для инверсии <see cref="bool" /> значений.
     /// </summary>
     public class InverseBooleanConverter : IValueConverter
     {

@@ -48,7 +48,7 @@ namespace Contacts
         }
 
         /// <summary>
-        /// Конвертирует <see cref="object"/> значение в <see cref="bool" />.
+        /// Конвертирует <see cref="object" /> значение в <see cref="bool" />.
         /// </summary>
         /// <param name="value">Значение, которое необходимо преобразовать.</param>
         /// <param name="targetType">Тип, в который необходимо преобразовать.</param>
