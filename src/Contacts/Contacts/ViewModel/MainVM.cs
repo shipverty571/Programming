@@ -68,12 +68,6 @@ namespace Contacts.ViewModel
             get => _selectedContact;
             set
             {
-                // if (SelectedContact != null && Contacts.IndexOf(Buffer) != -1)
-                // {
-                //     Contacts[Contacts.IndexOf(Buffer)] = SelectedContact;
-                //     Buffer = null;
-                // }
-
                 _selectedContact = value;
                 IsAddMode = true;
                 if (SelectedContact == null)

@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Contacts.Model.Services
 {
+    /// <summary>
+    /// Хранит реализацию методов, предназначенных для валидации.
+    /// </summary>
     public static class ValueValidator
     {
         /// <summary>
