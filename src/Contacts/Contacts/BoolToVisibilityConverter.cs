@@ -3,15 +3,15 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Contacts.Model.Services
+namespace Contacts
 {
     /// <summary>
-    /// Представляет реализацию для инверсии bool значений.
+    /// Представляет реализацию для конвертирования <see cref="bool" /> значений.
     /// </summary>
-    public class InverseBooleanConverter : IValueConverter
+    public class BoolToVisibilityConverter : IValueConverter
     {
         /// <summary>
-        /// Инвертирует <see cref="bool" /> значение.
+        /// Конвертирует <see cref="bool" /> значение в <see cref="object" />.
         /// </summary>
         /// <param name="value">Значение, которое необходимо преобразовать.</param>
         /// <param name="targetType">Тип, в который необходимо преобразовать.</param>
@@ -24,7 +24,7 @@ namespace Contacts.Model.Services
             object parameter,
             CultureInfo culture)
         {
-            return !(bool)value;
+            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
