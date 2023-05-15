@@ -68,11 +68,11 @@ namespace Contacts.ViewModel
             get => _selectedContact;
             set
             {
-                if (Buffer != null && Contacts.IndexOf(SelectedContact) != -1)
-                {
-                    Contacts[Contacts.IndexOf(SelectedContact)] = Buffer;
-                    Buffer = null;
-                }
+                // if (SelectedContact != null && Contacts.IndexOf(Buffer) != -1)
+                // {
+                //     Contacts[Contacts.IndexOf(Buffer)] = SelectedContact;
+                //     Buffer = null;
+                // }
 
                 _selectedContact = value;
                 IsAddMode = true;
@@ -137,7 +137,11 @@ namespace Contacts.ViewModel
         private void AddContact()
         {
             SelectedContact = null;
-            SelectedContact = new ContactVM(new Contact());
+            Buffer = new ContactVM(new Contact());
+            Buffer.Name = "";
+            Buffer.Phone = "";
+            Buffer.Email = "";
+            SelectedContact = Buffer;
             IsAddMode = false;
             IsEditMode = true;
         }
@@ -148,6 +152,8 @@ namespace Contacts.ViewModel
         private void RandomizeContact()
         {
             var contact = ContactFactory.Randomize();
+            if (contact == null)
+                return;
             Contacts.Add(new ContactVM(contact));
             ContactSerializer.Serialize(Contacts, Path);
         }
@@ -157,7 +163,8 @@ namespace Contacts.ViewModel
         /// </summary>
         private void EditContact()
         {
-            Buffer = (ContactVM)SelectedContact.Clone();
+            Buffer = SelectedContact;
+            SelectedContact = (ContactVM)SelectedContact.Clone();
             IsAddMode = false;
             IsEditMode = false;
         }
@@ -184,11 +191,13 @@ namespace Contacts.ViewModel
         /// </summary>
         private void ApplyChangesContact()
         {
-            if (!Contacts.Contains(SelectedContact))
-                Contacts.Add(SelectedContact);
+            if (!Contacts.Contains(Buffer))
+                Contacts.Add(Buffer);
             IsAddMode = true;
             IsEditMode = true;
-            Buffer = null;
+            var index = Contacts.IndexOf(Buffer);
+            Contacts[index] = SelectedContact;
+            SelectedContact = Contacts[index];
             ContactSerializer.Serialize(Contacts, Path);
         }
     }
