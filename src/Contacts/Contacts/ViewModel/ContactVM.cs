@@ -19,6 +19,9 @@ namespace Contacts.ViewModel
         public ContactVM(Contact contact)
         {
             Contact = contact;
+            Name = "";
+            Phone = "";
+            Email = "";
         }
 
         /// <summary>
