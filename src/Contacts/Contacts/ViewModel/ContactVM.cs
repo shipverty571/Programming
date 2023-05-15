@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Contacts.Model;
+using Contacts.Model.Services;
 
 namespace Contacts.ViewModel
 {
@@ -28,7 +29,7 @@ namespace Contacts.ViewModel
         /// <summary>
         /// Возвращает и задаёт имя контакта.
         /// </summary>
-        [CustomValidation(typeof(ContactVM), nameof(ValidateName))]
+        [CustomValidation(typeof(ValueValidator), nameof(ValueValidator.ValidateName))]
         public string Name
         {
             get => Contact.Name;
@@ -43,7 +44,7 @@ namespace Contacts.ViewModel
         /// <summary>
         /// Возвращает и задаёт электронную почту контакта.
         /// </summary>
-        [CustomValidation(typeof(ContactVM), nameof(ValidateEmail))]
+        [CustomValidation(typeof(ValueValidator), nameof(ValueValidator.ValidateEmail))]
         public string Email
         {
             get => Contact.Email;
@@ -58,7 +59,7 @@ namespace Contacts.ViewModel
         /// <summary>
         /// Возвращает и задаёт номер телефона контакта.
         /// </summary>
-        [CustomValidation(typeof(ContactVM), nameof(ValidatePhone))]
+        [CustomValidation(typeof(ValueValidator), nameof(ValueValidator.ValidatePhone))]
         public string Phone
         {
             get => Contact.Phone;
@@ -77,47 +78,6 @@ namespace Contacts.ViewModel
         public object Clone()
         {
             return new ContactVM((Contact)Contact.Clone());
-        }
-
-        /// <summary>
-        /// Валидация номера телефона.
-        /// </summary>
-        /// <param name="phone">Номер телефона.</param>
-        /// <returns>Возвращает результат валидации <see cref="ValidationResult" />.</returns>
-        public static ValidationResult ValidatePhone(string phone)
-        {
-            var pattern = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
-            if (Regex.IsMatch(phone, pattern))
-                return ValidationResult.Success;
-
-            return new ValidationResult("The phone number is not correctly.");
-        }
-
-        /// <summary>
-        /// Валидация адреса электронной почты.
-        /// </summary>
-        /// <param name="email">Электронная почта.</param>
-        /// <returns>Возвращает результат валидации <see cref="ValidationResult" />.</returns>
-        public static ValidationResult ValidateEmail(string email)
-        {
-            var pattern = @"^\w+\@{1}\w+\.{1}\w+";
-            if (Regex.IsMatch(email, pattern))
-                return ValidationResult.Success;
-
-            return new ValidationResult("The email is not correctly.");
-        }
-
-        /// <summary>
-        /// Валидация имени.
-        /// </summary>
-        /// <param name="name">Имя.</param>
-        /// <returns>Возвращает результат валидации <see cref="ValidationResult" />.</returns>
-        public static ValidationResult ValidateName(string name)
-        {
-            if (name.Length > 0 && name.Length <= 100)
-                return ValidationResult.Success;
-
-            return new ValidationResult("The name is not correctly.");
         }
     }
 }

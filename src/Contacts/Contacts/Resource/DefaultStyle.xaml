@@ -26,7 +26,7 @@
     <Color x:Key="WhiteBackgroundColor">#ffffff</Color>
     <SolidColorBrush x:Key="WhiteBackgroundColorBrush" Color="{StaticResource WhiteBackgroundColor}"/>
     <Color x:Key="HasErrorBackgroundColor">#ffdddd</Color>
-    <SolidColorBrush x:Key="HasErrorgroundColorBrush" Color="{StaticResource HasErrorBackgroundColor}"/>
+    <SolidColorBrush x:Key="HasErrorBackgroundColorBrush" Color="{StaticResource HasErrorBackgroundColor}"/>
     <Thickness
         x:Key="DefaultMargin"
         Bottom="{StaticResource DefaultMarginValue}"
@@ -50,6 +50,7 @@
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="True">
                 <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                <Setter Property="Background" Value="{StaticResource HasErrorBackgroundColorBrush}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

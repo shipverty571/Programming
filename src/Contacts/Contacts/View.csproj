@@ -95,6 +95,7 @@
         <Compile Include="Model\Services\ContactFactory.cs" />
         <Compile Include="Model\Services\ContactSerializer.cs" />
         <Compile Include="Model\Services\ContactDto.cs" />
+        <Compile Include="Model\Services\ValueValidator.cs" />
         <Compile Include="ViewModel\ContactVM.cs" />
         <Compile Include="ViewModel\MainVM.cs" />
         <Page Include="Controls\ContactControl.xaml" />
