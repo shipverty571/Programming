@@ -20,10 +20,10 @@ namespace Contacts.Model.Services
         private static WebClient WebClient { get; } = new WebClient();
 
         /// <summary>
-        /// Получает данные по API.
+        /// Получает данные по Api.
         /// </summary>
         /// <returns>Возвращает json строку.</returns>
-        private static string GetInfoAPI()
+        private static string GetInfoApi()
         {
             return WebClient.DownloadString(Url);
         }
@@ -34,7 +34,7 @@ namespace Contacts.Model.Services
         /// <returns>Возвращает сгенерированный контакт.</returns>
         public static Contact Randomize()
         {
-            var response = GetInfoAPI();
+            var response = GetInfoApi();
             var data = JsonConvert.DeserializeObject<ContactDto>(response);
             var contact = new Contact(
                 $"{data.LastName} {data.FirstName}",
