@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 namespace Contacts.Model.Services
 {
     /// <summary>
-    ///  Представляет реализацию по сериализации данных.
+    /// Представляет реализацию по сериализации данных.
     /// </summary>
     public static class ContactSerializer
     {
         /// <summary>
-        ///  Проводит сериализацию данных.
+        /// Проводит сериализацию данных.
         /// </summary>
         /// <param name="contacts">Коллекция контактов.</param>
         /// <param name="path">Путь сериализации.</param>
@@ -25,10 +25,10 @@ namespace Contacts.Model.Services
         }
 
         /// <summary>
-        ///  Проводит десериализацию данных.
+        /// Проводит десериализацию данных.
         /// </summary>
         /// <param name="path">Путь десериализации.</param>
-        /// <returns>Возвращает экземпляр коллекции <see cref="ObservableCollection&lt;ContactVM&gt;"/>.</returns>
+        /// <returns>Возвращает экземпляр коллекции <see cref="ObservableCollection&lt;ContactVM&gt;" />.</returns>
         public static ObservableCollection<ContactVM> Deserialize(string path)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -36,7 +36,8 @@ namespace Contacts.Model.Services
             using (var reader = new StreamReader(path))
             {
                 var contact =
-                    JsonConvert.DeserializeObject<ObservableCollection<ContactVM>>(reader.ReadToEnd()) ??
+                    JsonConvert.DeserializeObject<ObservableCollection<ContactVM>>(
+                        reader.ReadToEnd()) ??
                     new ObservableCollection<ContactVM>();
                 return contact;
             }

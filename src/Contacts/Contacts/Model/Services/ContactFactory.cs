@@ -4,37 +4,46 @@ using Newtonsoft.Json;
 namespace Contacts.Model.Services
 {
     /// <summary>
-    ///  Представляет реализацию по генерации экземпляра класса <see cref="Contact"/>.
+    /// Представляет реализацию по генерации экземпляра класса <see cref="Contact" />.
     /// </summary>
     public static class ContactFactory
     {
         /// <summary>
-        ///  Возвращает гиперссылку запроса данных.
+        /// Возвращает гиперссылку запроса данных.
         /// </summary>
-        private static string Url { get;  } = 
+        private static string Url { get; } =
             "https://api.randomdatatools.ru/?count=1&params=LastName,FirstName,Phone,Email";
 
         /// <summary>
-        ///  Возвращает экземпляр <see cref="System.Net.WebClient"/>.
+        /// Возвращает экземпляр <see cref="System.Net.WebClient" />.
         /// </summary>
         private static WebClient WebClient { get; } = new WebClient();
 
         /// <summary>
-        ///  Получает данные по API.
+        /// Получает данные по Api.
         /// </summary>
         /// <returns>Возвращает json строку.</returns>
-        private static string GetInfoAPI()
+        private static string GetInfoApi()
         {
-            return WebClient.DownloadString(Url);
+            try
+            {
+                return WebClient.DownloadString(Url);
+            }
+            catch (WebException e)
+            {
+                return null;
+            }
         }
 
         /// <summary>
-        ///  Генерирует экземпляр класса <see cref="Contact"/>.
+        /// Генерирует экземпляр класса <see cref="Contact" />.
         /// </summary>
         /// <returns>Возвращает сгенерированный контакт.</returns>
         public static Contact Randomize()
         {
-            var response = GetInfoAPI();
+            var response = GetInfoApi();
+            if (response == null)
+                return null;
             var data = JsonConvert.DeserializeObject<ContactDto>(response);
             var contact = new Contact(
                 $"{data.LastName} {data.FirstName}",

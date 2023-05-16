@@ -3,15 +3,30 @@
     <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultColumnMarginValue">8</sys:Double>
     <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultButtonWidthValue">75</sys:Double>
     <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultButtonHeightValue">25</sys:Double>
-    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultPhotoPlaceholderHeightValue">100</sys:Double>
-    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultPhotoPlaceholderWidthValue">100</sys:Double>
-    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultContactInfoTextBlockHeightValue">18</sys:Double>
+    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultRadiusXValue">20</sys:Double>
+    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultRadiusYValue">20</sys:Double>
+    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultPhotoPlaceholderHeightValue">
+        100
+    </sys:Double>
+    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultPhotoPlaceholderWidthValue">
+        100
+    </sys:Double>
+    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultPhotoPlaceholderListItemHeightValue">
+        40
+    </sys:Double>
+    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultPhotoPlaceholderListItemWidthValue">
+        40
+    </sys:Double>
+    <sys:Double xmlns:sys="clr-namespace:System;assembly=mscorlib" x:Key="DefaultContactInfoTextBlockHeightValue">
+        18
+    </sys:Double>
     <ImageSource x:Key="PhotoPlaceholder">../Resource/photo_placeholder_100x100.png</ImageSource>
     <Color x:Key="LightGrayBackgroundColor">#f8f8f8</Color>
-    <SolidColorBrush x:Key="LightGrayBackgroundColorBrush" Color="{StaticResource LightGrayBackgroundColor}" />
+    <SolidColorBrush x:Key="LightGrayBackgroundColorBrush" Color="{StaticResource LightGrayBackgroundColor}"/>
     <Color x:Key="WhiteBackgroundColor">#ffffff</Color>
-    <SolidColorBrush x:Key="WhiteBackgroundColorBrush" Color="{StaticResource WhiteBackgroundColor}" />
-
+    <SolidColorBrush x:Key="WhiteBackgroundColorBrush" Color="{StaticResource WhiteBackgroundColor}"/>
+    <Color x:Key="HasErrorBackgroundColor">#ffdddd</Color>
+    <SolidColorBrush x:Key="HasErrorBackgroundColorBrush" Color="{StaticResource HasErrorBackgroundColor}"/>
     <Thickness
         x:Key="DefaultMargin"
         Bottom="{StaticResource DefaultMarginValue}"
@@ -28,8 +43,15 @@
         <Setter Property="Width" Value="{StaticResource DefaultButtonWidthValue}"/>
         <Setter Property="Height" Value="{StaticResource DefaultButtonHeightValue}"/>
     </Style>
-    <Style x:Key="ContactInfoTextBlock" TargetType="TextBlock">
+    <Style x:Key="ContactNameTextBlock" TargetType="TextBlock">
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Height" Value="{StaticResource DefaultContactInfoTextBlockHeightValue}"/>
+    </Style>
+    <Style x:Key="ValidationStyleTextBox" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                <Setter Property="Background" Value="{StaticResource HasErrorBackgroundColorBrush}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
