@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Contacts.Model
+namespace Model
 {
     /// <summary>
     /// Хранит данные о контакте.

@@ -3,10 +3,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Contacts.Model;
-using Contacts.Model.Services;
+using Model;
 
-namespace Contacts.ViewModel
+namespace ViewModel
 {
     /// <summary>
     /// ViewModel для окна MainWindow.

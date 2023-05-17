@@ -1,9 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
-using Contacts.ViewModel;
 using Newtonsoft.Json;
 
-namespace Contacts.Model.Services
+namespace ViewModel
 {
     /// <summary>
     /// Представляет реализацию по сериализации данных.

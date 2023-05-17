@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace Contacts.Model.Services
+namespace ViewModel
 {
     /// <summary>
     /// Хранит реализацию методов, предназначенных для валидации.

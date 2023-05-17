@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Newtonsoft.Json;
 
-namespace Contacts.Model.Services
+namespace Model
 {
     /// <summary>
     /// Представляет реализацию по генерации экземпляра класса <see cref="Contact" />.

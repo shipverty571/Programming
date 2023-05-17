@@ -1,4 +1,4 @@
-﻿namespace Contacts.Model.Services
+﻿namespace Model
 {
     /// <summary>
     /// Представляет реализацию по хранению данных, полученных по API.
