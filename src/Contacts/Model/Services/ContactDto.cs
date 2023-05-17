@@ -1,4 +1,4 @@
-﻿namespace Model
+﻿namespace Model.Services
 {
     /// <summary>
     /// Представляет реализацию по хранению данных, полученных по API.

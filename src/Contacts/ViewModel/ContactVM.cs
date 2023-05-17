@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Model;
+using ViewModel.Services;
 
 namespace ViewModel
 {

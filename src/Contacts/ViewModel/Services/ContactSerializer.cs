@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace ViewModel
+namespace ViewModel.Services
 {
     /// <summary>
     /// Представляет реализацию по сериализации данных.
