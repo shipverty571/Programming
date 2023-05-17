@@ -4,7 +4,6 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Model;
-using Model.Services;
 using ViewModel.Services;
 
 namespace ViewModel
@@ -38,7 +37,6 @@ namespace ViewModel
             EditCommand = new RelayCommand(EditContact);
             AddCommand = new RelayCommand(AddContact);
             RemoveCommand = new RelayCommand(RemoveContact);
-            RandomizeCommand = new RelayCommand(RandomizeContact);
             ApplyCommand = new RelayCommand(ApplyChangesContact);
             IsAddMode = true;
             IsEditMode = false;
@@ -139,18 +137,6 @@ namespace ViewModel
             SelectedContact = Buffer;
             IsAddMode = false;
             IsEditMode = true;
-        }
-
-        /// <summary>
-        /// Генерирует случайный контакт.
-        /// </summary>
-        private void RandomizeContact()
-        {
-            var contact = ContactFactory.Randomize();
-            if (contact == null)
-                return;
-            Contacts.Add(new ContactVM(contact));
-            ContactSerializer.Serialize(Contacts, Path);
         }
 
         /// <summary>

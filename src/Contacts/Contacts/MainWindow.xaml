@@ -95,7 +95,6 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Button
                             Grid.Column="0"
@@ -118,13 +117,6 @@
                             Command="{Binding RemoveCommand}"
                             Content="Remove"
                             IsEnabled="{Binding IsEditMode}" />
-                        <Button
-                            Grid.Column="3"
-                            Height="{StaticResource DefaultButtonHeightValue}"
-                            Margin="{StaticResource DefaultMargin}"
-                            Command="{Binding RandomizeCommand}"
-                            Content="Randomize"
-                            IsEnabled="{Binding IsAddMode}" />
                     </Grid>
                 </Grid>
             </DockPanel>
