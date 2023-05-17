@@ -79,11 +79,6 @@ namespace ViewModel
         }
 
         /// <summary>
-        /// Возвращает команду генерации контакта.
-        /// </summary>
-        public ICommand RandomizeCommand { get; }
-
-        /// <summary>
         /// Возвращает команду добавления контакта.
         /// </summary>
         public ICommand AddCommand { get; }
