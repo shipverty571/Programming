@@ -1,13 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace Contacts.Model.Services
+namespace ViewModel.Services
 {
     /// <summary>
     /// Хранит реализацию методов, предназначенных для валидации.
     /// </summary>
     public static class ValueValidator
     {
+        /// <summary>
+        /// Максимальное количество символов.
+        /// </summary>
+        private static readonly int MaxSymbolsCount = 100;
+
         /// <summary>
         /// Валидация номера телефона.
         /// </summary>
@@ -43,7 +48,7 @@ namespace Contacts.Model.Services
         /// <returns>Возвращает результат валидации <see cref="ValidationResult" />.</returns>
         public static ValidationResult ValidateName(string name)
         {
-            if (name.Length > 0 && name.Length <= 100)
+            if (name.Length > 0 && name.Length <= MaxSymbolsCount)
                 return ValidationResult.Success;
 
             return new ValidationResult("The name is not correctly.");

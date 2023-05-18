@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Contacts.Model;
-using Contacts.Model.Services;
+using Model;
+using ViewModel.Services;
 
-namespace Contacts.ViewModel
+namespace ViewModel
 {
     /// <summary>
     /// ViewModel для Contact.

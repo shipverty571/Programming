@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Contacts.ViewModel;
+using ViewModel;
 
 namespace Contacts.Controls
 {

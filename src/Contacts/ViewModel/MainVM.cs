@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Contacts.Model;
-using Contacts.Model.Services;
+using Model;
+using ViewModel.Services;
 
-namespace Contacts.ViewModel
+namespace ViewModel
 {
     /// <summary>
     /// ViewModel для окна MainWindow.
@@ -37,7 +37,6 @@ namespace Contacts.ViewModel
             EditCommand = new RelayCommand(EditContact);
             AddCommand = new RelayCommand(AddContact);
             RemoveCommand = new RelayCommand(RemoveContact);
-            RandomizeCommand = new RelayCommand(RandomizeContact);
             ApplyCommand = new RelayCommand(ApplyChangesContact);
             IsAddMode = true;
             IsEditMode = false;
@@ -70,19 +69,10 @@ namespace Contacts.ViewModel
             {
                 _selectedContact = value;
                 IsAddMode = true;
-                if (SelectedContact == null)
-                    IsEditMode = false;
-                else
-                    IsEditMode = true;
-
+                IsEditMode = SelectedContact != null;
                 OnPropertyChanged();
             }
         }
-
-        /// <summary>
-        /// Возвращает команду генерации контакта.
-        /// </summary>
-        public ICommand RandomizeCommand { get; }
 
         /// <summary>
         /// Возвращает команду добавления контакта.
@@ -138,18 +128,6 @@ namespace Contacts.ViewModel
             SelectedContact = Buffer;
             IsAddMode = false;
             IsEditMode = true;
-        }
-
-        /// <summary>
-        /// Генерирует случайный контакт.
-        /// </summary>
-        private void RandomizeContact()
-        {
-            var contact = ContactFactory.Randomize();
-            if (contact == null)
-                return;
-            Contacts.Add(new ContactVM(contact));
-            ContactSerializer.Serialize(Contacts, Path);
         }
 
         /// <summary>
