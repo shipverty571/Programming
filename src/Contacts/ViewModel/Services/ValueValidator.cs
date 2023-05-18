@@ -9,6 +9,11 @@ namespace ViewModel.Services
     public static class ValueValidator
     {
         /// <summary>
+        /// Максимальное количество символов.
+        /// </summary>
+        private static readonly int MaxSymbolsCount = 100;
+
+        /// <summary>
         /// Валидация номера телефона.
         /// </summary>
         /// <param name="phone">Номер телефона.</param>
@@ -43,7 +48,7 @@ namespace ViewModel.Services
         /// <returns>Возвращает результат валидации <see cref="ValidationResult" />.</returns>
         public static ValidationResult ValidateName(string name)
         {
-            if (name.Length > 0 && name.Length <= 100)
+            if (name.Length > 0 && name.Length <= MaxSymbolsCount)
                 return ValidationResult.Success;
 
             return new ValidationResult("The name is not correctly.");

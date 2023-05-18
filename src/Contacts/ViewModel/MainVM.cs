@@ -69,11 +69,7 @@ namespace ViewModel
             {
                 _selectedContact = value;
                 IsAddMode = true;
-                if (SelectedContact == null)
-                    IsEditMode = false;
-                else
-                    IsEditMode = true;
-
+                IsEditMode = SelectedContact != null;
                 OnPropertyChanged();
             }
         }
