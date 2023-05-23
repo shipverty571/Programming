@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using Microsoft.SqlServer.Server;
 
 namespace Contacts.Converters
 {
@@ -24,7 +25,7 @@ namespace Contacts.Converters
             object parameter,
             CultureInfo culture)
         {
-            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+            return !(bool)value ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
