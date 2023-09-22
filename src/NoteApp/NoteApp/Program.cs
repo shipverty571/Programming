@@ -5,11 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-var connectionString = builder.Configuration.GetConnectionString("Npgsql");
+/*var connectionString = builder.Configuration.GetConnectionString("Npgsql");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(connectionString);
-});
+});*/
 
 var app = builder.Build();
 
