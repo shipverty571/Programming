@@ -1,0 +1,83 @@
+.main {
+	width: 100%;
+	max-width: 1400px;
+}
+
+.container_row {
+	height: 500px;
+	min-height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.container_column {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.horizontal_content {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: start;
+	align-items: center;
+}
+
+button, select, h2, p, input, textarea {
+	margin: 3px;
+}
+
+.CRUD_button {
+	width: 32px;
+	height: 32px;
+	background: none;
+	border: none;
+}
+
+.add_button {
+	text-align: center;
+	background: url('../img/add_32x32_colorful.png') no-repeat;
+	background-position: center center;
+}
+
+.add_button:hover {
+	background-color: #EBEBEB;
+}
+
+.add_button:active {
+	background: url('../img/add_32x32_black.png') no-repeat;
+	background-color: #EBEBEB;
+	background-position: center center;
+}
+
+.edit_button {
+	text-align: center;
+	background: url('../img/edit_32x32_colorful.png') no-repeat;
+	background-position: center center;
+}
+
+.edit_button:hover {
+	background-color: #EBEBEB;
+}
+
+.edit_button:active {
+	background: url('../img/edit_32x32_black.png') no-repeat;
+	background-color: #EBEBEB;
+	background-position: center center;
+}
+
+.remove_button {
+	text-align: center;
+	background: url('../img/remove_32x32_colorful.png') no-repeat;
+	background-position: center center;
+}
+
+.remove_button:hover {
+	background-color: #EBEBEB;
+}
+
+.remove_button:active {
+	background: url('../img/remove_32x32_black.png') no-repeat;
+	background-color: #EBEBEB;
+	background-position: center center;
+}
