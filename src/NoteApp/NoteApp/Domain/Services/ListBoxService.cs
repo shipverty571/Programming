@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using NoteApp.DAL.Interfaces;
+using NoteApp.Domain.Entity;
+using NoteApp.Domain.Enums;
 using NoteApp.Domain.ViewModels;
 using NoteApp.TestValues;
 
@@ -9,26 +12,17 @@ namespace NoteApp.Domain.Services;
 /// </summary>
 public class ListBoxService
 {
-    /// <summary>
-    /// Модель представления для списка заметок.
-    /// </summary>
-    private ListBoxViewModel _listBoxViewModel;
-    
+    private readonly INoteRepository _noteRepository;
+
+    public ListBoxService(INoteRepository noteRepository)
+    {
+        _noteRepository = noteRepository;
+    }
+
     /// <summary>
     /// Возвращает модель представления для списка заметок.
     /// </summary>
-    public ListBoxViewModel ListBoxViewModel
-    {
-        get
-        {
-            if (_listBoxViewModel == null)
-            {
-                _listBoxViewModel = GetNewListBoxViewModel();
-            }
-
-            return _listBoxViewModel;
-        }
-    }
+    public ListBoxViewModel ListBoxViewModel => GetNewListBoxViewModel();
 
     /// <summary>
     /// Инициализарует список данными.
@@ -38,7 +32,8 @@ public class ListBoxService
     {
         ListBoxViewModel listBoxViewModel = new ListBoxViewModel();
         listBoxViewModel.Items = new List<SelectListItem>();
-        foreach (var note in TestData.Notes)
+        var allNotes = _noteRepository.GetAll();
+        foreach (var note in allNotes)
         {
             listBoxViewModel.Items.Add(new SelectListItem
             {
