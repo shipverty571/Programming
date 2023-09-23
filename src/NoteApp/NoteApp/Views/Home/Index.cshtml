@@ -1,0 +1,44 @@
+﻿@using NoteApp.Domain.Enums;
+@using NoteApp.Domain.ViewModels;
+@model ListBoxViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="main">
+    <div class="container_row">
+        <div class="container_column">
+            <div class="horizontal_content">
+                <p style="">Show category: </p>
+                <select style="flex-grow: 1; " asp-items="Html.GetEnumSelectList<Category>()"></select>
+            </div>
+            @Html.DropDownListFor(
+                x => x.SelectedNoteId, 
+                Model.Items,
+                new {@id="NotesListBox", size=2, @style="flex-grow: 3"})
+            <div class="horizontal_content">
+                <button class="CRUD_button add_button"></button>
+                <button class="CRUD_button edit_button"></button>
+                <button class="CRUD_button remove_button"></button>
+            </div>
+
+        </div>
+        <div class="container_column">
+            <h4 id="Title" style="display: flex; align-self: flex-start;">
+                Title
+            </h4>
+            <div class="horizontal_content">
+                <p>Category: </p>
+                <p id="Category"></p>
+            </div>
+
+            <div class="horizontal_content">
+                <p>Created:</p>
+                <input type="date" id="TimeOfCreate" disabled>
+                <p>Modified:</p>
+                <input type="date" id="TimeOfUpdate" disabled>
+            </div>
+            <textarea style="resize: none; flex-grow: 2;" id="Description" readonly></textarea>
+        </div>
+    </div>
+</div>
