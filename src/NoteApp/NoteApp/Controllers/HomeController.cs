@@ -12,14 +12,19 @@ namespace NoteApp.Controllers
         /// Сервис для ListBoxViewModel.
         /// </summary>
         private readonly ListBoxService _listBoxService;
+
+        private readonly NoteViewModelFactory _noteViewModelFactory;
     
         /// <summary>
         /// Создает экземпляр класса <see cref="HomeController"/>.
         /// </summary>
         /// <param name="listBoxService">Сервис для ListBoxViewModel.</param>
-        public HomeController(ListBoxService listBoxService)
+        public HomeController(
+            ListBoxService listBoxService, 
+            NoteViewModelFactory noteViewModelFactory)
         {
             _listBoxService = listBoxService;
+            _noteViewModelFactory = noteViewModelFactory;
         }
         
         /// <summary>
@@ -50,7 +55,7 @@ namespace NoteApp.Controllers
         [HttpPost]
         public JsonResult LoadSelectedNote(int noteId)
         {
-            var noteViewModel = NoteViewModelFactory.Create(noteId);
+            var noteViewModel = _noteViewModelFactory.Create(noteId);
             return Json(noteViewModel);
         }
     }
