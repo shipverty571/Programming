@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<ListBoxService>();
-builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddTransient<NoteViewModelFactory>();
+builder.Services.AddTransient<INoteRepository, NoteRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("Npgsql");
 builder.Services.AddDbContext<AppDbContext>(options =>
