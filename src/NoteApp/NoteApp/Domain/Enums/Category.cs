@@ -1,5 +1,8 @@
 ﻿namespace NoteApp.Domain.Enums
 {
+    /// <summary>
+    /// Перечисление категорий записей.
+    /// </summary>
     public enum Category
     {
         Work,
