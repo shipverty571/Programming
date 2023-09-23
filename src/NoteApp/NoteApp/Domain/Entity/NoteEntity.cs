@@ -1,10 +1,11 @@
-﻿using NoteApp.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using NoteApp.Domain.Enums;
 
 namespace NoteApp.Domain.Entity
 {
     public class NoteEntity
     {
-        private readonly int _id;
+        private  int _id;
 
         private static int _allNotes;
 
@@ -16,7 +17,12 @@ namespace NoteApp.Domain.Entity
             TimeOfUpdate = DateOnly.FromDateTime(DateTime.Now);
         }
 
-        public int Id => _id;
+        [Required]
+        public int Id
+        {
+            get => _id;
+            set => _id = value;
+        }
 
         public string Name { get; set; }
 
@@ -24,7 +30,7 @@ namespace NoteApp.Domain.Entity
 
         public Category Category { get; set; }
 
-        public DateOnly TimeOfCreate { get; }
+        public DateOnly TimeOfCreate { get; private set; }
 
         public DateOnly TimeOfUpdate { get; set; }
     }
