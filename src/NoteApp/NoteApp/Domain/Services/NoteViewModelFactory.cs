@@ -1,6 +1,5 @@
 ﻿using NoteApp.DAL.Interfaces;
 using NoteApp.Domain.ViewModels;
-using NoteApp.TestValues;
 
 namespace NoteApp.Domain.Services
 {

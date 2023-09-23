@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using NoteApp.DAL.Interfaces;
-using NoteApp.Domain.Entity;
-using NoteApp.Domain.Enums;
 using NoteApp.Domain.ViewModels;
-using NoteApp.TestValues;
 
 namespace NoteApp.Domain.Services;
 
