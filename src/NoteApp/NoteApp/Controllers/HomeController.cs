@@ -33,6 +33,16 @@ namespace NoteApp.Controllers
         }
 
         /// <summary>
+        /// Страница добавления и редактирования задачи.
+        /// </summary>
+        /// <returns>Возвращает представление окна добавления и удаления задачи.</returns>
+        [HttpGet]
+        public IActionResult EditNote()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// Отправляет данные выбранной заметки.
         /// </summary>
         /// <param name="noteId">Уникальный идентификатор выбранной записи.</param>

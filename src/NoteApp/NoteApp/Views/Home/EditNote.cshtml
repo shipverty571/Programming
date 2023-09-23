@@ -1,0 +1,48 @@
+﻿@using NoteApp.Domain.ViewModels
+@model CreateNoteViewModel
+@{
+    ViewData["Title"] = "Add/Edit note";
+}
+
+<div class="main">
+    <table style="min-width: 100%;">
+        <tr>
+            <td>
+                <p>Title:</p>
+            </td>
+            <td style="display: flex;">
+                <input style="flex-grow:1;">
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 1px; white-space: nowrap;">
+                <p>Category:</p>
+            </td>
+            <td>
+                <select style="width: 150px;"></select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="horizontal_content">
+                    <p style="margin-right: 14px;">Created:</p>
+                    <input type="date" disabled style="width: 100px; margin-right: 14px;">
+                    <p style="margin-right: 14px;">Modified:</p>
+                    <input type="date" disabled style="width: 100px; margin-right: 14px;">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+						
+            </td>
+            <td style="display: flex; flex-direction: column; height: 200px;">
+                <textarea style="resize: none; flex-grow: 2;"></textarea>
+                <div class="horizontal_content" style="justify-content: right;">
+                    <button class="button_size">Cancel</button>
+                    <button class="button_size">OK</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
