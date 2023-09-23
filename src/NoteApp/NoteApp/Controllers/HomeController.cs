@@ -9,18 +9,18 @@ namespace NoteApp.Controllers
     public class HomeController : Controller
     {
         /// <summary>
+        /// Сервис для ListBoxViewModel.
+        /// </summary>
+        private readonly ListBoxService _listBoxService;
+    
+        /// <summary>
         /// Создает экземпляр класса <see cref="HomeController"/>.
         /// </summary>
         /// <param name="listBoxService">Сервис для ListBoxViewModel.</param>
         public HomeController(ListBoxService listBoxService)
         {
-            ListBoxService = listBoxService;
+            _listBoxService = listBoxService;
         }
-
-        /// <summary>
-        /// Возвращает сервис для ListBoxViewModel.
-        /// </summary>
-        public ListBoxService ListBoxService { get; }
         
         /// <summary>
         /// Главная страница.
@@ -29,7 +29,7 @@ namespace NoteApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(ListBoxService.ListBoxViewModel);
+            return View(_listBoxService.ListBoxViewModel);
         }
 
         /// <summary>
