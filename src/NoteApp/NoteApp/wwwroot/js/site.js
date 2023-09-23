@@ -19,3 +19,8 @@ $(function () {
         });
     });
 });
+$(function () {
+    $('button#AddButton').on('click', function (e) {
+        window.location.href = window.location.origin + "/Home/EditNote/";
+    });
+});
