@@ -12,7 +12,10 @@
                 <p style="">Show category: </p>
                 <select style="flex-grow: 1; " asp-items="Html.GetEnumSelectList<Category>()"></select>
             </div>
-            @Html.DropDownListFor(x => x.SelectedNoteId, Model.Items, new {@id="NotesListBox", size=2, @style="flex-grow: 3"})
+            @Html.DropDownListFor(
+                x => x.SelectedNoteId, 
+                Model.Items,
+                new {@id="NotesListBox", size=2, @style="flex-grow: 3"})
             <div class="horizontal_content">
                 <button class="CRUD_button add_button"></button>
                 <button class="CRUD_button edit_button"></button>
@@ -21,7 +24,9 @@
 
         </div>
         <div class="container_column">
-            <h2 id="Title">Title</h2>
+            <h4 id="Title" style="display: flex; align-self: flex-start;">
+                Title
+            </h4>
             <div class="horizontal_content">
                 <p>Category: </p>
                 <p id="Category"></p>
@@ -37,25 +42,3 @@
         </div>
     </div>
 </div>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('select#NotesListBox').change(function () {
-            var noteId = $(this).val();
-
-            $.ajax({
-                url: '@Url.Action("LoadSelectedNote", "Home")',
-                type: "POST",
-                data: {"noteId":noteId},
-                success: function (result) {
-                    console.log(result);
-                    $('h2#Title').text(result.name);
-                    $('p#Category').text(result.category);
-                    $('input#TimeOfCreate').val(result.timeOfCreate);
-                    $('input#TimeOfUpdate').val(result.timeOfUpdate);
-                    $('textarea#Description').val(result.description)
-                }
-            });
-        });
-    });
-</script>
