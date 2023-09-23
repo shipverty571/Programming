@@ -1,40 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using NoteApp.Domain.Services;
-using NoteApp.Domain.ViewModels;
-using NoteApp.TestValues;
 
 namespace NoteApp.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController() 
+        public HomeController(ListBoxService listBoxService)
         {
-            ListBoxViewModel = new ListBoxViewModel();
-            ListBoxViewModel.Items = new List<SelectListItem>();
-            foreach (var note in TestData.Notes)
-            {
-                ListBoxViewModel.Items.Add(new SelectListItem 
-                { 
-                    Text = note.Name,
-                    Value = note.Id.ToString()
-                });
-            }
+            ListBoxService = listBoxService;
         }
 
-        public ListBoxViewModel ListBoxViewModel { get; set; }
-
+        public ListBoxService ListBoxService { get; }
+        
         [HttpGet]
         public IActionResult Index()
         {
-            return View(ListBoxViewModel);
+            return View(ListBoxService.ListBoxViewModel);
         }
 
         [HttpPost]
         public JsonResult LoadSelectedNote(int noteId)
         {
-            var note = TestData.Notes.First(x => x.Id == noteId);
-            var noteViewModel = NoteViewModelFactory.Create(note);
+            var noteViewModel = NoteViewModelFactory.Create(noteId);
             return Json(noteViewModel);
         }
     }
