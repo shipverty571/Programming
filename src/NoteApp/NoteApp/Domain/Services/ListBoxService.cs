@@ -11,6 +11,8 @@ public class ListBoxService
 {
     private readonly INoteRepository _noteRepository;
 
+    private ListBoxViewModel _listBoxViewModel;
+
     public ListBoxService(INoteRepository noteRepository)
     {
         _noteRepository = noteRepository;
@@ -19,7 +21,18 @@ public class ListBoxService
     /// <summary>
     /// Возвращает модель представления для списка заметок.
     /// </summary>
-    public ListBoxViewModel ListBoxViewModel => GetNewListBoxViewModel();
+    public ListBoxViewModel ListBoxViewModel
+    {
+        get
+        {
+            if (_listBoxViewModel == null)
+            {
+                _listBoxViewModel = GetNewListBoxViewModel();
+            }
+
+            return _listBoxViewModel;
+        }
+    }
 
     /// <summary>
     /// Инициализарует список данными.
