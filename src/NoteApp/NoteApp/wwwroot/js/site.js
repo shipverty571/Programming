@@ -19,8 +19,38 @@ $(function () {
         });
     });
 });
+
 $(function () {
     $('button#AddButton').on('click', function (e) {
         window.location.href = window.location.origin + "/Home/EditNote/";
+    });
+});
+
+$(function () {
+    $('button#CancelAddNoteButton').on('click', function (e) {
+        window.location.href = window.location.origin + "/Home/Index/";
+    });
+});
+
+$(function () {
+    $('button#AddNoteButton').on('click', function (e) {
+        var name = $('input#Name').val();
+        var category = $('select#Category').val();
+        var description = $('textarea#Description').val();
+        console.log(name);
+        console.log(category);
+        console.log(description);
+        $.ajax({
+            url: '/Home/Index/',
+            type: "POST",
+            data: {
+                "name": name,
+                "category": category,
+                "description": description
+            },
+            success: function (result) {
+                window.location.href = window.location.origin;
+            }
+        });
     });
 });

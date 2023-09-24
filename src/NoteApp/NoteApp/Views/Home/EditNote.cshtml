@@ -1,4 +1,6 @@
 ﻿@using NoteApp.Domain.ViewModels
+@using NoteApp.Domain.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model CreateNoteViewModel
 @{
     ViewData["Title"] = "Add/Edit note";
@@ -11,7 +13,7 @@
                 <p>Title:</p>
             </td>
             <td style="display: flex;">
-                <input style="flex-grow:1;">
+                <input style="flex-grow:1;" id="Name">
             </td>
         </tr>
         <tr>
@@ -19,7 +21,7 @@
                 <p>Category:</p>
             </td>
             <td>
-                <select style="width: 150px;"></select>
+                <select style="width:150px; " asp-items="Html.GetEnumSelectList<Category>()" id="Category"></select>
             </td>
         </tr>
         <tr>
@@ -37,10 +39,10 @@
 						
             </td>
             <td style="display: flex; flex-direction: column; height: 200px;">
-                <textarea style="resize: none; flex-grow: 2;"></textarea>
+                <textarea style="resize: none; flex-grow: 2;" id="Description"></textarea>
                 <div class="horizontal_content" style="justify-content: right;">
-                    <button class="button_size">Cancel</button>
-                    <button class="button_size">OK</button>
+                    <button class="button_size" id="CancelAddNoteButton">Cancel</button>
+                    <button class="button_size" id="AddNoteButton">OK</button>
                 </div>
             </td>
         </tr>
