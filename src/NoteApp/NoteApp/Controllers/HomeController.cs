@@ -18,6 +18,8 @@ namespace NoteApp.Controllers
         private readonly NoteViewModelFactory _noteViewModelFactory;
 
         private readonly INoteService _noteService;
+
+        private readonly CreateNoteViewModelFactory _createNoteViewModelFactory;
     
         /// <summary>
         /// Создает экземпляр класса <see cref="HomeController"/>.
@@ -26,11 +28,13 @@ namespace NoteApp.Controllers
         public HomeController(
             ListBoxService listBoxService, 
             NoteViewModelFactory noteViewModelFactory, 
-            INoteService noteService)
+            INoteService noteService, 
+            CreateNoteViewModelFactory createNoteViewModelFactory)
         {
             _listBoxService = listBoxService;
             _noteViewModelFactory = noteViewModelFactory;
             _noteService = noteService;
+            _createNoteViewModelFactory = createNoteViewModelFactory;
         }
         
         /// <summary>
@@ -48,9 +52,18 @@ namespace NoteApp.Controllers
         /// </summary>
         /// <returns>Возвращает представление окна добавления и удаления задачи.</returns>
         [HttpGet]
-        public IActionResult EditNote()
+        public ActionResult EditNote(int noteId = -1)
         {
-            return View();
+            if (noteId == -1)
+            {
+                return View(new CreateNoteViewModel());
+            }
+            else
+            {
+                var note = _createNoteViewModelFactory.Create(noteId);
+                return View(note);
+            }
+            
         }
 
         /// <summary>
@@ -59,23 +72,32 @@ namespace NoteApp.Controllers
         /// <param name="noteId">Уникальный идентификатор выбранной записи.</param>
         /// <returns>Возвращает Json объект данных.</returns>
         [HttpPost]
-        public JsonResult LoadSelectedNote(int noteId)
+        public IActionResult LoadSelectedNote(int noteId)
         {
             var noteViewModel = _noteViewModelFactory.Create(noteId);
             return Json(noteViewModel);
         }
 
         [HttpPost]
-        public JsonResult Index(string name, string category, string description)
+        public IActionResult Index(CreateNoteViewModel note)
         {
-            var note = new CreateNoteViewModel
+            if (note.Id == -1)
             {
-                Name = name,
-                Category = category,
-                Description = description
-            };
-            _noteService.Add(note);
+                _noteService.Add(note);
+            }
+            else
+            {
+                _noteService.Edit(note);
+            }
+
             return Json(note);
+        }
+
+        [HttpPost]
+        public string RemoveNote(int noteId)
+        {
+            _noteService.Remove(noteId);
+            return "Removed";
         }
     }
 }
