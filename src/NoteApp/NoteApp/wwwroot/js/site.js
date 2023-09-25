@@ -3,7 +3,17 @@
 $(function () {
     $('select#NotesListBox').change(function () {
         var noteId = $(this).val();
-
+        
+        if (noteId == null)
+        {
+            $("button#EditButton").prop("disabled", true);
+            $("button#RemoveButton").prop("disabled", true);
+        }
+        else{
+            $("button#EditButton").prop("disabled", false);
+            $("button#RemoveButton").prop("disabled", false);
+        }
+        
         $.ajax({
             url: '/Home/LoadSelectedNote/',
             type: "POST",
@@ -37,19 +47,45 @@ $(function () {
         var name = $('input#Name').val();
         var category = $('select#Category').val();
         var description = $('textarea#Description').val();
+        var id = $("div.main").attr('id');
         console.log(name);
         console.log(category);
         console.log(description);
+        console.log(id);
         $.ajax({
             url: '/Home/Index/',
             type: "POST",
             data: {
-                "name": name,
-                "category": category,
-                "description": description
+                "Id": id,
+                "Name": name,
+                "Category": category,
+                "Description": description
             },
             success: function (result) {
                 window.location.href = window.location.origin;
+            }
+        });
+    });
+});
+
+$(function () {
+    $('button#EditButton').on('click', function (e) {
+        var noteId = $('select#NotesListBox').val();
+        window.location.href = window.location.origin + '/Home/EditNote?noteId=' + noteId;
+    });
+});
+
+$(function () {
+    $('button#RemoveButton').on('click', function (e) {
+        e.preventDefault();
+        var noteId = $("select#NotesListBox").val();
+        $.ajax({
+            url: '/Home/RemoveNote/',
+            type: "POST",
+            data: {"noteId":noteId},
+            success: function (result)
+            {
+                window.location.href = window.location.href;
             }
         });
     });
