@@ -25,4 +25,23 @@ public class NoteService : INoteService
         };
         _noteRepository.Create(noteEntity);
     }
+
+    public void Edit(CreateNoteViewModel newNote)
+    {
+        var allNote = _noteRepository.GetAll();
+        var note = allNote.First(n => n.Id == newNote.Id);
+        note.Name = newNote.Name;
+        note.Description = newNote.Description;
+        note.Category = Enum.Parse<Category>(newNote.Category);
+        note.TimeOfUpdate = DateOnly.FromDateTime(DateTime.Now);
+
+        _noteRepository.Update(note);
+    }
+
+    public void Remove(int noteId)
+    {
+        var allNote = _noteRepository.GetAll();
+        var note = allNote.First(n => n.Id == noteId);
+        _noteRepository.Delete(note);
+    }
 }
