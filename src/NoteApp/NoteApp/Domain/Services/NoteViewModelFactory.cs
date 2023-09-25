@@ -26,6 +26,7 @@ namespace NoteApp.Domain.Services
             var note = allNotes.First(x => x.Id == noteId);
             return new NoteViewModel
             {
+                Id = note.Id,
                 Name = note.Name,
                 Category = note.Category.ToString(),
                 Description = note.Description,

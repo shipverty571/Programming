@@ -5,6 +5,8 @@
     /// </summary>
     public class NoteViewModel
     {
+        public int Id { get; set; } = -1;
+        
         /// <summary>
         /// Возвращает и задает заголовок.
         /// </summary>
