@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<ListBoxService>();
 builder.Services.AddTransient<NoteViewModelFactory>();
+builder.Services.AddTransient<CreateNoteViewModelFactory>();
 builder.Services.AddTransient<INoteService, NoteService>();
 builder.Services.AddTransient<INoteRepository, NoteRepository>();
 
