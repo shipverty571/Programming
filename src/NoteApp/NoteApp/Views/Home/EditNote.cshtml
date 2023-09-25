@@ -3,17 +3,19 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model CreateNoteViewModel
 @{
+    string category = ((int)Enum.Parse(typeof(Category), Model.Category)).ToString();
     ViewData["Title"] = "Add/Edit note";
 }
+        
 
-<div class="main">
+<div class="main" id="@Model.Id">
     <table style="min-width: 100%;">
         <tr>
             <td>
                 <p>Title:</p>
             </td>
             <td style="display: flex;">
-                <input style="flex-grow:1;" id="Name">
+                <input style="flex-grow:1;" id="Name" value="@Model.Name">
             </td>
         </tr>
         <tr>
@@ -21,16 +23,17 @@
                 <p>Category:</p>
             </td>
             <td>
-                <select style="width:150px; " asp-items="Html.GetEnumSelectList<Category>()" id="Category"></select>
+                <select 
+                    style="width:150px;" asp-for="@category" asp-items="Html.GetEnumSelectList<Category>()" id="Category"></select>
             </td>
         </tr>
         <tr>
             <td colspan="2">
                 <div class="horizontal_content">
                     <p style="margin-right: 14px;">Created:</p>
-                    <input type="date" disabled style="width: 100px; margin-right: 14px;">
+                    <input type="date" disabled style="width: 100px; margin-right: 14px;" value="@Model.TimeOfCreate">
                     <p style="margin-right: 14px;">Modified:</p>
-                    <input type="date" disabled style="width: 100px; margin-right: 14px;">
+                    <input type="date" disabled style="width: 100px; margin-right: 14px;" value="@Model.TimeOfUpdate">
                 </div>
             </td>
         </tr>
@@ -39,7 +42,7 @@
 						
             </td>
             <td style="display: flex; flex-direction: column; height: 200px;">
-                <textarea style="resize: none; flex-grow: 2;" id="Description"></textarea>
+                <textarea style="resize: none; flex-grow: 2;" id="Description">@Model.Description</textarea>
                 <div class="horizontal_content" style="justify-content: right;">
                     <button class="button_size" id="CancelAddNoteButton">Cancel</button>
                     <button class="button_size" id="AddNoteButton">OK</button>
