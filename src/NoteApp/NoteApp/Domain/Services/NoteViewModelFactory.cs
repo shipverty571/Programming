@@ -20,7 +20,7 @@ namespace NoteApp.Domain.Services
         /// </summary>
         /// <param name="noteId">Уникальный идентификатор заметки.</param>
         /// <returns>Возвращает объект <see cref="NoteViewModel"/>.</returns>
-        public NoteViewModel Create(int noteId)
+        public NoteViewModel Create(Guid noteId)
         {
             var allNotes = _noteRepository.GetAll();
             var note = allNotes.First(x => x.Id == noteId);

@@ -8,5 +8,5 @@ public interface INoteService
 
     public void Edit(NoteViewModel newNote);
 
-    public void Remove(int noteId);
+    public void Remove(Guid noteId);
 }

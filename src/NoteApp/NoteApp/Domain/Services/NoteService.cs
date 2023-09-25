@@ -38,7 +38,7 @@ public class NoteService : INoteService
         _noteRepository.Update(note);
     }
 
-    public void Remove(int noteId)
+    public void Remove(Guid noteId)
     {
         var allNote = _noteRepository.GetAll();
         var note = allNote.First(n => n.Id == noteId);

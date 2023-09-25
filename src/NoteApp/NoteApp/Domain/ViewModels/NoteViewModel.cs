@@ -5,7 +5,7 @@
     /// </summary>
     public class NoteViewModel
     {
-        public int Id { get; set; } = -1;
+        public Guid Id { get; set; } = Guid.Empty;
         
         /// <summary>
         /// Возвращает и задает заголовок.

@@ -11,8 +11,7 @@ namespace NoteApp.Domain.Entity
             TimeOfUpdate = DateOnly.FromDateTime(DateTime.Now);
         }
 
-        [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 

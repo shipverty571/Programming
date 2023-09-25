@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Mvc;
 using NoteApp.Domain.Interfaces;
 using NoteApp.Domain.Services;
 using NoteApp.Domain.ViewModels;
@@ -48,9 +49,9 @@ namespace NoteApp.Controllers
         /// </summary>
         /// <returns>Возвращает представление окна добавления и удаления задачи.</returns>
         [HttpGet]
-        public ActionResult EditNote(int noteId = -1)
+        public ActionResult EditNote(Guid noteId)
         {
-            if (noteId == -1)
+            if (noteId == Guid.Empty)
             {
                 return View(new NoteViewModel());
             }
@@ -68,7 +69,7 @@ namespace NoteApp.Controllers
         /// <param name="noteId">Уникальный идентификатор выбранной записи.</param>
         /// <returns>Возвращает Json объект данных.</returns>
         [HttpPost]
-        public IActionResult LoadSelectedNote(int noteId)
+        public IActionResult LoadSelectedNote(Guid noteId)
         {
             var noteViewModel = _noteViewModelFactory.Create(noteId);
             return Json(noteViewModel);
@@ -77,7 +78,7 @@ namespace NoteApp.Controllers
         [HttpPost]
         public string Index(NoteViewModel note)
         {
-            if (note.Id == -1)
+            if (note.Id == Guid.Empty)
             {
                 _noteService.Add(note);
             }
@@ -90,7 +91,7 @@ namespace NoteApp.Controllers
         }
 
         [HttpPost]
-        public string RemoveNote(int noteId)
+        public string RemoveNote(Guid noteId)
         {
             _noteService.Remove(noteId);
             return "Removed";
