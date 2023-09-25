@@ -18,8 +18,6 @@ namespace NoteApp.Controllers
         private readonly NoteViewModelFactory _noteViewModelFactory;
 
         private readonly INoteService _noteService;
-
-        private readonly CreateNoteViewModelFactory _createNoteViewModelFactory;
     
         /// <summary>
         /// Создает экземпляр класса <see cref="HomeController"/>.
@@ -28,13 +26,11 @@ namespace NoteApp.Controllers
         public HomeController(
             ListBoxService listBoxService, 
             NoteViewModelFactory noteViewModelFactory, 
-            INoteService noteService, 
-            CreateNoteViewModelFactory createNoteViewModelFactory)
+            INoteService noteService)
         {
             _listBoxService = listBoxService;
             _noteViewModelFactory = noteViewModelFactory;
             _noteService = noteService;
-            _createNoteViewModelFactory = createNoteViewModelFactory;
         }
         
         /// <summary>
@@ -56,11 +52,11 @@ namespace NoteApp.Controllers
         {
             if (noteId == -1)
             {
-                return View(new CreateNoteViewModel());
+                return View(new NoteViewModel());
             }
             else
             {
-                var note = _createNoteViewModelFactory.Create(noteId);
+                var note = _noteViewModelFactory.Create(noteId);
                 return View(note);
             }
             
@@ -79,7 +75,7 @@ namespace NoteApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(CreateNoteViewModel note)
+        public string Index(NoteViewModel note)
         {
             if (note.Id == -1)
             {
@@ -90,7 +86,7 @@ namespace NoteApp.Controllers
                 _noteService.Edit(note);
             }
 
-            return Json(note);
+            return "Success";
         }
 
         [HttpPost]

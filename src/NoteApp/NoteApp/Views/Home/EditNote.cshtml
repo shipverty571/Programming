@@ -1,9 +1,14 @@
 ﻿@using NoteApp.Domain.ViewModels
 @using NoteApp.Domain.Enums
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model CreateNoteViewModel
+@model NoteViewModel
 @{
-    string category = ((int)Enum.Parse(typeof(Category), Model.Category)).ToString();
+    string category = "";
+    if (Model.Category != "")
+    {
+        category = ((int)Enum.Parse(typeof(Category), Model.Category)).ToString();
+    }
+    
     ViewData["Title"] = "Add/Edit note";
 }
         

@@ -15,7 +15,7 @@ public class NoteService : INoteService
         _noteRepository = noteRepository;
     }
 
-    public void Add(CreateNoteViewModel note)
+    public void Add(NoteViewModel note)
     {
         var noteEntity = new NoteEntity
         {
@@ -26,7 +26,7 @@ public class NoteService : INoteService
         _noteRepository.Create(noteEntity);
     }
 
-    public void Edit(CreateNoteViewModel newNote)
+    public void Edit(NoteViewModel newNote)
     {
         var allNote = _noteRepository.GetAll();
         var note = allNote.First(n => n.Id == newNote.Id);

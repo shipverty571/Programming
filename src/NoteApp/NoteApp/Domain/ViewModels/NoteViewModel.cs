@@ -20,16 +20,16 @@
         /// <summary>
         /// Возвращает и задает категорию.
         /// </summary>
-        public string Category { get; set; }
+        public string Category { get; set; } = Enum.GetName(Enums.Category.Work);
 
         /// <summary>
         /// Возвращает и задает дату создания заметки.
         /// </summary>
-        public string TimeOfCreate { get; set; }
+        public string TimeOfCreate { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
 
         /// <summary>
         /// Возвращает и задает дату обновления данных.
         /// </summary>
-        public string TimeOfUpdate { get; set; }
+        public string TimeOfUpdate { get; set; } = DateTime.Now.ToString("yyyy-MM-dd");
     }
 }

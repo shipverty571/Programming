@@ -4,9 +4,9 @@ namespace NoteApp.Domain.Interfaces;
 
 public interface INoteService
 {
-    public void Add(CreateNoteViewModel note);
+    public void Add(NoteViewModel note);
 
-    public void Edit(CreateNoteViewModel newNote);
+    public void Edit(NoteViewModel newNote);
 
     public void Remove(int noteId);
 }
