@@ -5,24 +5,14 @@ namespace NoteApp.Domain.Entity
 {
     public class NoteEntity
     {
-        private  int _id;
-
-        private static int _allNotes;
-
         public NoteEntity()
         {
-            _allNotes++;
-            _id = _allNotes;
             TimeOfCreate = DateOnly.FromDateTime(DateTime.Now);
             TimeOfUpdate = DateOnly.FromDateTime(DateTime.Now);
         }
 
         [Required]
-        public int Id
-        {
-            get => _id;
-            set => _id = value;
-        }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
