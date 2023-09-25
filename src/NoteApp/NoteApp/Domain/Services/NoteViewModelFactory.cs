@@ -8,8 +8,15 @@ namespace NoteApp.Domain.Services
     /// </summary>
     public class NoteViewModelFactory
     {
+        /// <summary>
+        /// Репозиторий заметок.
+        /// </summary>
         private readonly INoteRepository _noteRepository;
 
+        /// <summary>
+        /// Создает экземпляр класса <see cref="NoteViewModelFactory"/>.
+        /// </summary>
+        /// <param name="noteRepository">Репозиторий заметок.</param>
         public NoteViewModelFactory(INoteRepository noteRepository)
         {
             _noteRepository = noteRepository;

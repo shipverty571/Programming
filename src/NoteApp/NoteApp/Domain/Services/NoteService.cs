@@ -6,15 +6,25 @@ using NoteApp.Domain.ViewModels;
 
 namespace NoteApp.Domain.Services;
 
+/// <summary>
+/// Сервис для добавления заметок в БД.
+/// </summary>
 public class NoteService : INoteService
 {
+    /// <summary>
+    /// Репозиторий заметок.
+    /// </summary>
     private readonly INoteRepository _noteRepository;
 
+    /// <summary>
+    /// Создает экземпляр класса <see cref="NoteService"/>.
+    /// </summary>
+    /// <param name="noteRepository">Репозиторий заметок.</param>
     public NoteService(INoteRepository noteRepository)
     {
         _noteRepository = noteRepository;
     }
-
+    
     public void Add(NoteViewModel note)
     {
         var noteEntity = new NoteEntity

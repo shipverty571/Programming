@@ -5,8 +5,15 @@ namespace NoteApp.DAL;
 
 public class NoteRepository : INoteRepository
 {
+    /// <summary>
+    /// Контекст базы данных.
+    /// </summary>
     private readonly AppDbContext _appDbContext;
 
+    /// <summary>
+    /// Создает экземпляр класса <see cref="NoteRepository"/>.
+    /// </summary>
+    /// <param name="appDbContext">Контекст базы данных.</param>
     public NoteRepository(AppDbContext appDbContext)
     {
         _appDbContext = appDbContext;

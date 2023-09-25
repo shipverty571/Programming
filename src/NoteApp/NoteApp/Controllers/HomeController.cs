@@ -15,15 +15,23 @@ namespace NoteApp.Controllers
         /// Сервис для ListBoxViewModel.
         /// </summary>
         private readonly ListBoxService _listBoxService;
-
+        
+        /// <summary>
+        /// Сервис для создания объектов NoteViewModel.
+        /// </summary>
         private readonly NoteViewModelFactory _noteViewModelFactory;
 
+        /// <summary>
+        /// Сервис для добавления заметок в репозиторий.
+        /// </summary>
         private readonly INoteService _noteService;
     
         /// <summary>
         /// Создает экземпляр класса <see cref="HomeController"/>.
         /// </summary>
         /// <param name="listBoxService">Сервис для ListBoxViewModel.</param>
+        /// <param name="noteViewModelFactory">Сервис для создания объектов NoteViewModel.</param>
+        /// <param name="noteService">Сервис для добавления заметок в репозиторий.</param>
         public HomeController(
             ListBoxService listBoxService, 
             NoteViewModelFactory noteViewModelFactory, 
@@ -49,7 +57,7 @@ namespace NoteApp.Controllers
         /// </summary>
         /// <returns>Возвращает представление окна добавления и удаления задачи.</returns>
         [HttpGet]
-        public ActionResult EditNote(Guid noteId)
+        public IActionResult EditNote(Guid noteId)
         {
             if (noteId == Guid.Empty)
             {
@@ -75,6 +83,11 @@ namespace NoteApp.Controllers
             return Json(noteViewModel);
         }
 
+        /// <summary>
+        /// Добавляет полученные данные в базу данных.
+        /// </summary>
+        /// <param name="note">Заметка.</param>
+        /// <returns>Возвращает строку Success.</returns>
         [HttpPost]
         public string Index(NoteViewModel note)
         {
@@ -90,6 +103,11 @@ namespace NoteApp.Controllers
             return "Success";
         }
 
+        /// <summary>
+        /// Получает идентификатор заметки, которую нужно удалить.
+        /// </summary>
+        /// <param name="noteId">Идентификатор заметки.</param>
+        /// <returns>Возвращает строку Removed.</returns>
         [HttpPost]
         public string RemoveNote(Guid noteId)
         {

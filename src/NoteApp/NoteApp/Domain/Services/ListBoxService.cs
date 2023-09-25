@@ -9,10 +9,20 @@ namespace NoteApp.Domain.Services;
 /// </summary>
 public class ListBoxService
 {
+    /// <summary>
+    /// Репозиторий заметок.
+    /// </summary>
     private readonly INoteRepository _noteRepository;
 
+    /// <summary>
+    /// Модель представления для ListBox.
+    /// </summary>
     private ListBoxViewModel _listBoxViewModel;
 
+    /// <summary>
+    /// Создает экземпляр класса <see cref="ListBoxService"/>.
+    /// </summary>
+    /// <param name="noteRepository">Репозиторий заметок.</param>
     public ListBoxService(INoteRepository noteRepository)
     {
         _noteRepository = noteRepository;
