@@ -42,7 +42,7 @@ public class ListBoxService
     {
         ListBoxViewModel listBoxViewModel = new ListBoxViewModel();
         listBoxViewModel.Items = new List<SelectListItem>();
-        var allNotes = _noteRepository.GetAll();
+        var allNotes = _noteRepository.GetAll().OrderBy(n => n.Id);
         foreach (var note in allNotes)
         {
             listBoxViewModel.Items.Add(new SelectListItem
