@@ -85,10 +85,14 @@ public class HomeController : Controller
     public string Index(NoteViewModel note)
     {
         if (note.Id == Guid.Empty)
+        {
             _noteService.Add(note);
+        }
         else
+        {
             _noteService.Edit(note);
-
+        }
+        
         return "Success";
     }
 
