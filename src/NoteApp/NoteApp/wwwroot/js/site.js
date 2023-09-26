@@ -1,5 +1,6 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿/**
+ * Показывает информацию при выборе элемента списка.
+ */
 $(function () {
     $('select#NotesListBox').change(function () {
         var noteId = $(this).val();
@@ -30,18 +31,27 @@ $(function () {
     });
 });
 
+/**
+ * При вызове переходит в представление добавления задачи.
+ */
 $(function () {
     $('button#AddButton').on('click', function (e) {
         window.location.href = window.location.origin + "/Home/EditNote/";
     });
 });
 
+/**
+ * При вызове переходит в главное представление.
+ */
 $(function () {
     $('button#CancelAddNoteButton').on('click', function (e) {
-        window.location.href = window.location.origin + "/Home/Index/";
+        window.location.href = window.location.origin;
     });
 });
 
+/**
+ * При вызове добавляет заметку в базу данных.
+ */
 $(function () {
     $('button#AddNoteButton').on('click', function (e) {
         var name = $('input#Name').val();
@@ -68,6 +78,9 @@ $(function () {
     });
 });
 
+/**
+ * При вызове переходит в представление редактирования задачи.
+ */
 $(function () {
     $('button#EditButton').on('click', function (e) {
         var noteId = $('select#NotesListBox').val();
@@ -75,6 +88,9 @@ $(function () {
     });
 });
 
+/**
+ * При вызове удаляет выбранный элемент списка.
+ */
 $(function () {
     $('button#RemoveButton').on('click', function (e) {
         e.preventDefault();

@@ -10,15 +10,15 @@ public interface INoteService
     /// <summary>
     /// Добавляет заметку в БД.
     /// </summary>
-    /// <param name="note">Заметка.</param>
+    /// <param name="note">Модель представления заметки.</param>
     public void Add(NoteViewModel note);
 
     /// <summary>
     /// Редактирует заметку в БД.
     /// </summary>
-    /// <param name="newNote">Заметка.</param>
+    /// <param name="newNote">Модель представления заметки.</param>
     public void Edit(NoteViewModel newNote);
-    
+
     /// <summary>
     /// Удаляет заметку из БД.
     /// </summary>

@@ -20,7 +20,7 @@ public class ListBoxService
     private ListBoxViewModel _listBoxViewModel;
 
     /// <summary>
-    /// Создает экземпляр класса <see cref="ListBoxService"/>.
+    /// Создает экземпляр класса <see cref="ListBoxService" />.
     /// </summary>
     /// <param name="noteRepository">Репозиторий заметок.</param>
     public ListBoxService(INoteRepository noteRepository)
@@ -35,10 +35,7 @@ public class ListBoxService
     {
         get
         {
-            if (_listBoxViewModel == null)
-            {
-                _listBoxViewModel = GetNewListBoxViewModel();
-            }
+            if (_listBoxViewModel == null) _listBoxViewModel = GetNewListBoxViewModel();
 
             return _listBoxViewModel;
         }
@@ -47,20 +44,18 @@ public class ListBoxService
     /// <summary>
     /// Инициализарует список данными.
     /// </summary>
-    /// <returns>Возвращает объект <see cref="ListBoxViewModel"/>.</returns>
+    /// <returns>Возвращает объект <see cref="ListBoxViewModel" />.</returns>
     private ListBoxViewModel GetNewListBoxViewModel()
     {
-        ListBoxViewModel listBoxViewModel = new ListBoxViewModel();
+        var listBoxViewModel = new ListBoxViewModel();
         listBoxViewModel.Items = new List<SelectListItem>();
         var allNotes = _noteRepository.GetAll().OrderBy(n => n.Id);
         foreach (var note in allNotes)
-        {
             listBoxViewModel.Items.Add(new SelectListItem
             {
                 Text = note.Name,
                 Value = note.Id.ToString()
             });
-        }
 
         return listBoxViewModel;
     }

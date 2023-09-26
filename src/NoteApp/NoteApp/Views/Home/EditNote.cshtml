@@ -8,10 +8,9 @@
     {
         category = ((int)Enum.Parse(typeof(Category), Model.Category)).ToString();
     }
-    
+
     ViewData["Title"] = "Add/Edit note";
 }
-        
 
 <div class="main" id="@Model.Id">
     <table style="min-width: 100%;">
@@ -36,9 +35,9 @@
             <td colspan="2">
                 <div class="horizontal_content">
                     <p style="margin-right: 14px;">Created:</p>
-                    <input type="date" disabled style="width: 100px; margin-right: 14px;" value="@Model.TimeOfCreate">
+                    <input type="date" disabled style="width: 120px; margin-right: 14px;" value="@Model.TimeOfCreate">
                     <p style="margin-right: 14px;">Modified:</p>
-                    <input type="date" disabled style="width: 100px; margin-right: 14px;" value="@Model.TimeOfUpdate">
+                    <input type="date" disabled style="width: 120px; margin-right: 14px;" value="@Model.TimeOfUpdate">
                 </div>
             </td>
         </tr>

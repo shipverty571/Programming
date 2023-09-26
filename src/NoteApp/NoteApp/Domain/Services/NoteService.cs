@@ -17,14 +17,18 @@ public class NoteService : INoteService
     private readonly INoteRepository _noteRepository;
 
     /// <summary>
-    /// Создает экземпляр класса <see cref="NoteService"/>.
+    /// Создает экземпляр класса <see cref="NoteService" />.
     /// </summary>
     /// <param name="noteRepository">Репозиторий заметок.</param>
     public NoteService(INoteRepository noteRepository)
     {
         _noteRepository = noteRepository;
     }
-    
+
+    /// <summary>
+    /// Добавляет заметку в БД.
+    /// </summary>
+    /// <param name="note">Модель представления заметки.</param>
     public void Add(NoteViewModel note)
     {
         var noteEntity = new NoteEntity
@@ -36,6 +40,10 @@ public class NoteService : INoteService
         _noteRepository.Create(noteEntity);
     }
 
+    /// <summary>
+    /// Редактирует заметку в БД.
+    /// </summary>
+    /// <param name="newNote">Модель представления заметки.</param>
     public void Edit(NoteViewModel newNote)
     {
         var allNote = _noteRepository.GetAll();
@@ -48,6 +56,10 @@ public class NoteService : INoteService
         _noteRepository.Update(note);
     }
 
+    /// <summary>
+    /// Удаляет заметку из БД.
+    /// </summary>
+    /// <param name="noteId">Идентификатор заметки.</param>
     public void Remove(Guid noteId)
     {
         var allNote = _noteRepository.GetAll();
