@@ -29,6 +29,10 @@ button, select, h4, h3, p, input, textarea {
 	margin: 3px;
 }
 
+table {
+	margin: 20px;
+}
+
 .CRUD_button {
 	width: 32px;
 	height: 32px;
@@ -82,4 +86,9 @@ button, select, h4, h3, p, input, textarea {
 	background: url('../img/remove_32x32_black.png') no-repeat;
 	background-color: #EBEBEB;
 	background-position: center center;
+}
+
+.button_size {
+	width: 90px;
+	height: 30px;
 }

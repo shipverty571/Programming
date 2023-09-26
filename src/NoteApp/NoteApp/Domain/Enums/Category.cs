@@ -1,16 +1,42 @@
-﻿namespace NoteApp.Domain.Enums
+﻿namespace NoteApp.Domain.Enums;
+
+/// <summary>
+/// Перечисление категорий записей.
+/// </summary>
+public enum Category
 {
     /// <summary>
-    /// Перечисление категорий записей.
+    /// Работа.
     /// </summary>
-    public enum Category
-    {
-        Work,
-        Home,
-        Health,
-        People,
-        Documents,
-        Finance,
-        Other
-    }
+    Work,
+
+    /// <summary>
+    /// Дом.
+    /// </summary>
+    Home,
+
+    /// <summary>
+    /// Здоровье.
+    /// </summary>
+    Health,
+
+    /// <summary>
+    /// Люди.
+    /// </summary>
+    People,
+
+    /// <summary>
+    /// Документы.
+    /// </summary>
+    Documents,
+
+    /// <summary>
+    /// Финансы.
+    /// </summary>
+    Finance,
+
+    /// <summary>
+    /// Разное.
+    /// </summary>
+    Other
 }
