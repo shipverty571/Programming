@@ -1,8 +1,17 @@
 namespace NoteApp.Domain.DTO;
 
+/// <summary>
+/// Класс передачи данных о заметках.
+/// </summary>
 public class NoteDTO
 {
-    public string Value { get; set; }
+    /// <summary>
+    /// Уникальный идентификатор заметки.
+    /// </summary>
+    public string Id { get; set; }
     
-    public string Text { get; set; }
+    /// <summary>
+    /// Имя заметки.
+    /// </summary>
+    public string Title { get; set; }
 }

@@ -16,7 +16,7 @@
             </div>
             <select 
                 id="NotesListBox" 
-                asp-items="@(new SelectList(Model.Items, "Value", "Text"))" 
+                asp-items="@(new SelectList(Model.Items, "Id", "Title"))" 
                 size="2" 
                 style="flex-grow: 3">
             </select>

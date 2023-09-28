@@ -54,8 +54,8 @@ public class ListBoxService
         foreach (var note in allNotes)
             listBoxViewModel.Items.Add(new NoteDTO
             {
-                Text = note.Name,
-                Value = note.Id.ToString()
+                Title = note.Name,
+                Id = note.Id.ToString()
             });
 
         return listBoxViewModel;
