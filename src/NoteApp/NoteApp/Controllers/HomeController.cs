@@ -80,7 +80,7 @@ public class HomeController : Controller
     /// Добавляет полученные данные в базу данных.
     /// </summary>
     /// <param name="note">Модель представления заметки.</param>
-    /// <returns>Возвращает строку Success.</returns>
+    /// <returns>Возвращает представление.</returns>
     [HttpPost]
     public IActionResult EditNote(NoteViewModel note)
     {
