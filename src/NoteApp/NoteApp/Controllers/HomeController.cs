@@ -79,11 +79,16 @@ public class HomeController : Controller
     /// <summary>
     /// Добавляет полученные данные в базу данных.
     /// </summary>
-    /// <param name="note">Заметка.</param>
+    /// <param name="note">Модель представления заметки.</param>
     /// <returns>Возвращает строку Success.</returns>
     [HttpPost]
-    public string Index(NoteViewModel note)
+    public IActionResult EditNote(NoteViewModel note)
     {
+        if (!ModelState.IsValid)
+        {
+            return View(note);
+        }
+        
         if (note.Id == Guid.Empty)
         {
             _noteService.Add(note);
@@ -93,7 +98,7 @@ public class HomeController : Controller
             _noteService.Edit(note);
         }
         
-        return "Success";
+        return RedirectToAction("Index");
     }
 
     /// <summary>
