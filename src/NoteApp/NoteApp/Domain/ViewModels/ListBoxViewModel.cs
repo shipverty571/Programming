@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using NoteApp.Domain.DTO;
 
 namespace NoteApp.Domain.ViewModels;
 
@@ -15,5 +15,5 @@ public class ListBoxViewModel
     /// <summary>
     /// Возвращает и задает список данных для инициализации списка в представлении.
     /// </summary>
-    public List<SelectListItem> Items { get; set; }
+    public List<NoteDTO> Items { get; set; }
 }

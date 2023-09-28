@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using NoteApp.DAL.Interfaces;
+﻿using NoteApp.DAL.Interfaces;
+using NoteApp.Domain.DTO;
 using NoteApp.Domain.ViewModels;
 
 namespace NoteApp.Domain.Services;
@@ -48,10 +48,11 @@ public class ListBoxService
     private ListBoxViewModel GetNewListBoxViewModel()
     {
         var listBoxViewModel = new ListBoxViewModel();
-        listBoxViewModel.Items = new List<SelectListItem>();
-        var allNotes = _noteRepository.GetAll().OrderBy(n => n.Id);
+        listBoxViewModel.Items = new List<NoteDTO>();
+        var allNotes =
+            _noteRepository.GetAll().OrderByDescending(n => n.TimeOfUpdate);
         foreach (var note in allNotes)
-            listBoxViewModel.Items.Add(new SelectListItem
+            listBoxViewModel.Items.Add(new NoteDTO
             {
                 Text = note.Name,
                 Value = note.Id.ToString()

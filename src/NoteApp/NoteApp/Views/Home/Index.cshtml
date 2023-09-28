@@ -10,12 +10,20 @@
         <div class="container_column">
             <div class="horizontal_content">
                 <p style="">Show category: </p>
-                <select style="flex-grow: 1; " asp-items="Html.GetEnumSelectList<Category>()"></select>
+                <select style="flex-grow: 1; " asp-items="Html.GetEnumSelectList<Category>()">
+                    <option>All</option>
+                </select>
             </div>
-            @Html.DropDownListFor(
+            <select 
+                id="NotesListBox" 
+                asp-items="@(new SelectList(Model.Items, "Value", "Text"))" 
+                size="2" 
+                style="flex-grow: 3">
+            </select>
+            @*@Html.DropDownListFor(
                 x => x.SelectedNoteId, 
                 Model.Items,
-                new {@id="NotesListBox", size=2, @style="flex-grow: 3"})
+                new {@id="NotesListBox", size=2, @style="flex-grow: 3"})*@
             <div class="horizontal_content">
                 <button class="CRUD_button add_button" id="AddButton"></button>
                 <button class="CRUD_button edit_button" id="EditButton" disabled></button>
