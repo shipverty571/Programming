@@ -4,7 +4,7 @@
 @model NoteViewModel
 @{
     string category = "";
-    if (Model.Category != "")
+    if (Model.Category != null)
     {
         category = ((int)Enum.Parse(typeof(Category), Model.Category)).ToString();
     }
@@ -13,45 +13,59 @@
 }
 
 <div class="main" id="@Model.Id">
-    <table style="min-width: 100%;">
-        <tr>
-            <td>
-                <p>Title:</p>
-            </td>
-            <td style="display: flex;">
-                <input style="flex-grow:1;" id="Name" value="@Model.Name">
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 1px; white-space: nowrap;">
-                <p>Category:</p>
-            </td>
-            <td>
-                <select 
-                    style="width:150px;" asp-for="@category" asp-items="Html.GetEnumSelectList<Category>()" id="Category"></select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="horizontal_content">
-                    <p style="margin-right: 14px;">Created:</p>
-                    <input type="date" disabled style="width: 120px; margin-right: 14px;" value="@Model.TimeOfCreate">
-                    <p style="margin-right: 14px;">Modified:</p>
-                    <input type="date" disabled style="width: 120px; margin-right: 14px;" value="@Model.TimeOfUpdate">
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-						
-            </td>
-            <td style="display: flex; flex-direction: column; height: 200px;">
-                <textarea style="resize: none; flex-grow: 2;" id="Description">@Model.Description</textarea>
-                <div class="horizontal_content" style="justify-content: right;">
-                    <button class="button_size" id="AddNoteButton">OK</button>
-                    <button class="button_size" id="CancelAddNoteButton">Cancel</button>
-                </div>
-            </td>
-        </tr>
-    </table>
+    @using (Html.BeginForm("EditNote", "Home", FormMethod.Post))
+    {
+        @Html.Hidden("Id", Model.Id)
+        @Html.Hidden("TimeOfCreate", Model.TimeOfCreate)
+        @Html.Hidden("TimeOfUpdate", Model.TimeOfUpdate)
+        <table style="min-width: 100%;">
+            <tr>
+                <td>
+                    <p>Title:</p>
+                </td>
+                <td style="display: flex;">
+                    @Html.TextBoxFor(model => model.Name, new { style = "flex-grow:1;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1px; white-space: nowrap;">
+                    <p>Category:</p>
+                </td>
+                <td>
+                    <select
+                        style="width:150px;" asp-for="@category" asp-items="Html.GetEnumSelectList<Category>()"></select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="horizontal_content">
+                        <p style="margin-right: 14px;">Created:</p>
+                        <input type="date" disabled style="width: 120px; margin-right: 14px;" value="@Model.TimeOfCreate">
+                        <p style="margin-right: 14px;">Modified:</p>
+                        <input type="date" disabled style="width: 120px; margin-right: 14px;" value="@Model.TimeOfUpdate">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="display: flex; height: 200px;">
+                        @Html.TextAreaFor(model => model.Description, new { style = "resize: none; flex-grow: 2;" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="horizontal_content" style="justify-content: right;">
+                        <button class="button_size" type="submit">OK</button>
+                        <button class="button_size" id="CancelAddNoteButton" type="button">Cancel</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.ValidationSummary()
+                </td>
+            </tr>
+        </table>
+    }
 </div>
