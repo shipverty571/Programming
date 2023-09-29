@@ -76,3 +76,30 @@ $(function () {
         });
     });
 });
+
+/**
+ * При вызове обновляет данные в ListBox.
+ */
+$(function () {
+    $('select#CategoryComboBox').change(function () {
+        var categoryId = $(this).val();
+        console.log(categoryId);
+        $.ajax({
+            url: '/Home/LoadSelectedCategoryNotes/',
+            type: "POST",
+            data: {"category":categoryId},
+            success: function (result) {
+                $('select#NotesListBox').empty();
+                $.each(result.items, function (index, note)
+                {
+                    $('select#NotesListBox').append($("<option></option>").attr("value", note.id).text(note.title));
+                });
+                $('h4#Title').text("Title");
+                $('p#Category').empty();
+                $('input#TimeOfCreate').val("");
+                $('input#TimeOfUpdate').val("");
+                $('textarea#Description').val("");
+            }
+        });
+    });
+});
