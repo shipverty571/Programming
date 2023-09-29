@@ -10,8 +10,8 @@
         <div class="container_column">
             <div class="horizontal_content">
                 <p style="">Show category: </p>
-                <select style="flex-grow: 1; " asp-items="Html.GetEnumSelectList<Category>()">
-                    <option>All</option>
+                <select id="CategoryComboBox" style="flex-grow: 1; " asp-items="Html.GetEnumSelectList<Category>()">
+                    <option value="-1">All</option>
                 </select>
             </div>
             <select 
