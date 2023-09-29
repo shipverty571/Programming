@@ -71,7 +71,8 @@ $(function () {
             data: {"noteId":noteId},
             success: function (result)
             {
-                window.location.href = window.location.href;
+                $("select#NotesListBox :selected").remove();
+                SetDefaultValues();
             }
         });
     });
@@ -94,12 +95,20 @@ $(function () {
                 {
                     $('select#NotesListBox').append($("<option></option>").attr("value", note.id).text(note.title));
                 });
-                $('h4#Title').text("Title");
-                $('p#Category').empty();
-                $('input#TimeOfCreate').val("");
-                $('input#TimeOfUpdate').val("");
-                $('textarea#Description').val("");
+                SetDefaultValues();
             }
         });
     });
 });
+
+/**
+ * Устанавливает значение полей по умолчанию.
+ */
+function SetDefaultValues()
+{
+    $('h4#Title').text("Title");
+    $('p#Category').empty();
+    $('input#TimeOfCreate').val("");
+    $('input#TimeOfUpdate').val("");
+    $('textarea#Description').val("");
+}
