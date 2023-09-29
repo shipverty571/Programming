@@ -56,7 +56,7 @@ public class HomeController : Controller
     /// </summary>
     /// <returns>Возвращает представление окна добавления и удаления задачи.</returns>
     [HttpGet]
-    public IActionResult EditNote(Guid noteId)
+    public IActionResult AddEditNote(Guid noteId)
     {
         if (noteId == Guid.Empty) return View(new NoteViewModel());
 
@@ -77,13 +77,18 @@ public class HomeController : Controller
     }
 
     /// <summary>
-    /// Добавляет полученные данные в базу данных.
+    /// Добавляет полученные данные в БД или редактирует их.
     /// </summary>
-    /// <param name="note">Заметка.</param>
-    /// <returns>Возвращает строку Success.</returns>
+    /// <param name="note">Модель представления заметки.</param>
+    /// <returns>Возвращает представление.</returns>
     [HttpPost]
-    public string Index(NoteViewModel note)
+    public IActionResult AddEditNote(NoteViewModel note)
     {
+        if (!ModelState.IsValid)
+        {
+            return View(note);
+        }
+        
         if (note.Id == Guid.Empty)
         {
             _noteService.Add(note);
@@ -93,7 +98,7 @@ public class HomeController : Controller
             _noteService.Edit(note);
         }
         
-        return "Success";
+        return RedirectToAction(nameof(Index));
     }
 
     /// <summary>

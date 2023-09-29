@@ -1,10 +1,17 @@
-﻿namespace NoteApp.Domain.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NoteApp.Domain.ViewModels;
 
 /// <summary>
 /// Модель представления данных заметки.
 /// </summary>
 public class NoteViewModel
 {
+    /// <summary>
+    /// Максимальное количество символов в названии.
+    /// </summary>
+    private const int MaxCountOfSymbolsName = 50;
+    
     /// <summary>
     /// Возвращает и задает уникальный идентификатор.
     /// </summary>
@@ -13,16 +20,20 @@ public class NoteViewModel
     /// <summary>
     /// Возвращает и задает заголовок.
     /// </summary>
+    [Required(ErrorMessage = "The Name field must have the value")]
+    [StringLength(MaxCountOfSymbolsName, ErrorMessage = "The number of characters must be less than 50")]
     public string Name { get; set; }
 
     /// <summary>
     /// Возвращает и задает описание.
     /// </summary>
+    [Required(ErrorMessage = "The Description field must have the value")]
     public string Description { get; set; }
 
     /// <summary>
     /// Возвращает и задает категорию.
     /// </summary>
+    [Required(ErrorMessage = "The Category field must have the value")]
     public string Category { get; set; } = Enum.GetName(Enums.Category.Work);
 
     /// <summary>
