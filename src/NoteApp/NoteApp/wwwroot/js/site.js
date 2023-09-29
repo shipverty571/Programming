@@ -31,11 +31,11 @@ $(function () {
 });
 
 /**
- * При вызове переходит в представление добавления задачи.
+ * При вызове переходит в представление добавления и редактирования задачи.
  */
 $(function () {
     $('button#AddButton').on('click', function (e) {
-        window.location.href = window.location.origin + "/Home/EditNote/";
+        window.location.href = window.location.origin + "/Home/AddEditNote/";
     });
 });
 
@@ -54,7 +54,7 @@ $(function () {
 $(function () {
     $('button#EditButton').on('click', function (e) {
         var noteId = $('select#NotesListBox').val();
-        window.location.href = window.location.origin + '/Home/EditNote?noteId=' + noteId;
+        window.location.href = window.location.origin + '/Home/AddEditNote?noteId=' + noteId;
     });
 });
 
