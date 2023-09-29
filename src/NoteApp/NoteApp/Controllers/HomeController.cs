@@ -77,7 +77,7 @@ public class HomeController : Controller
     }
 
     /// <summary>
-    /// Добавляет полученные данные в базу данных.
+    /// Добавляет полученные данные в БД или редактирует их.
     /// </summary>
     /// <param name="note">Модель представления заметки.</param>
     /// <returns>Возвращает представление.</returns>
@@ -98,7 +98,7 @@ public class HomeController : Controller
             _noteService.Edit(note);
         }
         
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 
     /// <summary>
