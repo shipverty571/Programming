@@ -7,6 +7,9 @@ namespace NoteApp.Domain.ViewModels;
 /// </summary>
 public class NoteViewModel
 {
+    /// <summary>
+    /// Максимальное количество символов в названии.
+    /// </summary>
     private const int MaxCountOfSymbolsName = 50;
     
     /// <summary>
