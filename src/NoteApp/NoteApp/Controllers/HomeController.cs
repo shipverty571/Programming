@@ -56,7 +56,7 @@ public class HomeController : Controller
     /// </summary>
     /// <returns>Возвращает представление окна добавления и удаления задачи.</returns>
     [HttpGet]
-    public IActionResult EditNote(Guid noteId)
+    public IActionResult AddEditNote(Guid noteId)
     {
         if (noteId == Guid.Empty) return View(new NoteViewModel());
 
@@ -82,7 +82,7 @@ public class HomeController : Controller
     /// <param name="note">Модель представления заметки.</param>
     /// <returns>Возвращает представление.</returns>
     [HttpPost]
-    public IActionResult EditNote(NoteViewModel note)
+    public IActionResult AddEditNote(NoteViewModel note)
     {
         if (!ModelState.IsValid)
         {

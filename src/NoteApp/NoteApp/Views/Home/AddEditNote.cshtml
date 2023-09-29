@@ -13,7 +13,7 @@
 }
 
 <div class="main" id="@Model.Id">
-    @using (Html.BeginForm("EditNote", "Home", FormMethod.Post))
+    @using (Html.BeginForm("AddEditNote", "Home", FormMethod.Post))
     {
         @Html.Hidden("Id", Model.Id)
         @Html.Hidden("TimeOfCreate", Model.TimeOfCreate)
