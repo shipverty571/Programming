@@ -3,8 +3,8 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model NoteViewModel
 @{
-    string category = "";
-    if (Model.Category != null)
+    var category = string.Empty;
+    if (!string.IsNullOrEmpty(Model.Category))
     {
         category = ((int)Enum.Parse(typeof(Category), Model.Category)).ToString();
     }
