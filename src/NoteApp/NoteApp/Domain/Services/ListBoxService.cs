@@ -1,5 +1,6 @@
 ﻿using NoteApp.DAL.Interfaces;
 using NoteApp.Domain.DTO;
+using NoteApp.Domain.Enums;
 using NoteApp.Domain.ViewModels;
 
 namespace NoteApp.Domain.Services;
@@ -39,6 +40,29 @@ public class ListBoxService
 
             return _listBoxViewModel;
         }
+    }
+
+    /// <summary>
+    /// Инициализирует фильтрованный список заметок.
+    /// </summary>
+    /// <param name="category">Категория.</param>
+    /// <returns>Возвращает список фильтрованных заметок.</returns>
+    public ListBoxViewModel GetFilteredListBoxViewModel(string category)
+    {
+        var notes = _noteRepository.GetAll().Where(
+            note => note.Category == (Category)Convert.ToInt32(category)).OrderByDescending(
+            note => note.TimeOfUpdate);
+        
+        var listBoxViewModel = new ListBoxViewModel();
+        listBoxViewModel.Items = new List<NoteDTO>();
+        foreach (var note in notes)
+            listBoxViewModel.Items.Add(new NoteDTO
+            {
+                Title = note.Name,
+                Id = note.Id.ToString()
+            });
+        
+        return listBoxViewModel;
     }
 
     /// <summary>
