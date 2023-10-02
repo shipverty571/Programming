@@ -49,19 +49,17 @@ public class ListBoxService
     /// <returns>Возвращает список фильтрованных заметок.</returns>
     public ListBoxViewModel GetFilteredListBoxViewModel(string category)
     {
-        var notes = _noteRepository.GetAll().Where(
-            note => note.Category == (Category)Convert.ToInt32(category)).OrderByDescending(
-            note => note.TimeOfUpdate);
+        var notes = _noteRepository
+            .GetAll()
+            .Where(note => note.Category == (Category)Convert.ToInt32(category))
+            .OrderByDescending(note => note.TimeOfUpdate);
         
         var listBoxViewModel = new ListBoxViewModel();
-        listBoxViewModel.Items = new List<NoteDTO>();
-        foreach (var note in notes)
-            listBoxViewModel.Items.Add(new NoteDTO
-            {
-                Title = note.Name,
-                Id = note.Id.ToString()
-            });
-        
+        var noteDTOList = notes
+            .Select(note => new NoteDTO { Id = note.Id.ToString(), Title = note.Name })
+            .ToList();
+        listBoxViewModel.Items = noteDTOList;
+
         return listBoxViewModel;
     }
 
