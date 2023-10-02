@@ -93,7 +93,10 @@ $(function () {
                 $('select#NotesListBox').empty();
                 $.each(result.items, function (index, note)
                 {
-                    $('select#NotesListBox').append($("<option></option>").attr("value", note.id).text(note.title));
+                    $('select#NotesListBox')
+                        .append($("<option></option>")
+                        .attr("value", note.id)
+                        .text(note.title));
                 });
                 SetDefaultValues();
             }
