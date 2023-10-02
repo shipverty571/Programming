@@ -1,5 +1,6 @@
 ﻿using NoteApp.DAL.Interfaces;
 using NoteApp.Domain.DTO;
+using NoteApp.Domain.Enums;
 using NoteApp.Domain.ViewModels;
 
 namespace NoteApp.Domain.Services;
@@ -42,21 +43,37 @@ public class ListBoxService
     }
 
     /// <summary>
+    /// Инициализирует фильтрованный список заметок.
+    /// </summary>
+    /// <param name="category">Категория.</param>
+    /// <returns>Возвращает список фильтрованных заметок.</returns>
+    public ListBoxViewModel GetFilteredListBoxViewModel(string category)
+    {
+        var listBoxViewModel = new ListBoxViewModel();
+        var noteDTOList = _noteRepository
+            .GetAll()
+            .Where(note => note.Category == (Category)Convert.ToInt32(category))
+            .OrderByDescending(note => note.TimeOfUpdate)
+            .Select(note => new NoteDTO { Id = note.Id.ToString(), Title = note.Name })
+            .ToList();
+        listBoxViewModel.Items = noteDTOList;
+
+        return listBoxViewModel;
+    }
+
+    /// <summary>
     /// Инициализарует список данными.
     /// </summary>
     /// <returns>Возвращает объект <see cref="ListBoxViewModel" />.</returns>
     private ListBoxViewModel GetNewListBoxViewModel()
     {
         var listBoxViewModel = new ListBoxViewModel();
-        listBoxViewModel.Items = new List<NoteDTO>();
-        var allNotes =
-            _noteRepository.GetAll().OrderByDescending(n => n.TimeOfUpdate);
-        foreach (var note in allNotes)
-            listBoxViewModel.Items.Add(new NoteDTO
-            {
-                Title = note.Name,
-                Id = note.Id.ToString()
-            });
+        var noteDTOList = _noteRepository
+            .GetAll()
+            .OrderByDescending(n => n.TimeOfUpdate)
+            .Select(note => new NoteDTO { Id = note.Id.ToString(), Title = note.Name })
+            .ToList();
+        listBoxViewModel.Items = noteDTOList;
 
         return listBoxViewModel;
     }

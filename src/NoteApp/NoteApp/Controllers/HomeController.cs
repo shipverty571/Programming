@@ -77,6 +77,23 @@ public class HomeController : Controller
     }
 
     /// <summary>
+    /// Отправляет фильтрованные заметки.
+    /// </summary>
+    /// <param name="category">Категория.</param>
+    /// <returns>Возвращает Json объект данных.</returns>
+    [HttpPost]
+    public JsonResult LoadSelectedCategoryNotes(string category)
+    {
+        const string AllCategoryValue = "-1";
+        if (category == AllCategoryValue)
+        {
+            return Json(_listBoxService.ListBoxViewModel);
+        }
+        
+        return Json(_listBoxService.GetFilteredListBoxViewModel(category));
+    }
+
+    /// <summary>
     /// Добавляет полученные данные в БД или редактирует их.
     /// </summary>
     /// <param name="note">Модель представления заметки.</param>
