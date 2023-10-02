@@ -70,15 +70,12 @@ public class ListBoxService
     private ListBoxViewModel GetNewListBoxViewModel()
     {
         var listBoxViewModel = new ListBoxViewModel();
-        listBoxViewModel.Items = new List<NoteDTO>();
         var allNotes =
             _noteRepository.GetAll().OrderByDescending(n => n.TimeOfUpdate);
-        foreach (var note in allNotes)
-            listBoxViewModel.Items.Add(new NoteDTO
-            {
-                Title = note.Name,
-                Id = note.Id.ToString()
-            });
+        var noteDTOList = allNotes
+            .Select(note => new NoteDTO { Id = note.Id.ToString(), Title = note.Name })
+            .ToList();
+        listBoxViewModel.Items = noteDTOList;
 
         return listBoxViewModel;
     }
