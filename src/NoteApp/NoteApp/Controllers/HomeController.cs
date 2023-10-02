@@ -84,7 +84,8 @@ public class HomeController : Controller
     [HttpPost]
     public JsonResult LoadSelectedCategoryNotes(string category)
     {
-        if (category == "-1")
+        const string AllCategoryValue = "-1";
+        if (category == AllCategoryValue)
         {
             return Json(_listBoxService.ListBoxViewModel);
         }
