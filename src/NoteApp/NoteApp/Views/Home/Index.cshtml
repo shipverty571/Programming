@@ -2,6 +2,7 @@
 @using NoteApp.Domain.ViewModels;
 @model ListBoxViewModel
 @{
+    const string AllCategoryValue = "-1";
     ViewData["Title"] = "Home Page";
 }
 
@@ -11,7 +12,7 @@
             <div class="horizontal_content">
                 <p style="">Show category: </p>
                 <select id="CategoryComboBox" style="flex-grow: 1; " asp-items="Html.GetEnumSelectList<Category>()">
-                    <option value="-1">All</option>
+                    <option value="@AllCategoryValue">All</option>
                 </select>
             </div>
             <select 
