@@ -17,7 +17,6 @@ class CanvasPages extends Component {
                     <button id="RemovePageButton" />
                 </div>
             </div>
-            
         );
     }
 }
