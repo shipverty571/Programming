@@ -22,6 +22,10 @@ class Canvas extends Component {
     isPanning = false;
     startXPanning = null;
     startYPanning = null;
+
+    scaleFactor = 0.1;
+    MaxZoomWidth = 5000;
+    MaxZoomHeight = 5000;
     
     constructor(props) {
         super(props);
@@ -38,11 +42,11 @@ class Canvas extends Component {
         this.endDrag = this.endDrag.bind(this);
         this.SetNoFocusElement = this.SetNoFocusElement.bind(this);
         this.getMousePosition = this.getMousePosition.bind(this);
-        this.CreateSelectingRect = this.CreateSelectingRect.bind(this);
+        this.setZoom = this.setZoom.bind(this);
     }
     
     startDrag(event) {
-        if (event.ctrlKey){
+        if (event.button === 2){
             this.isPanning = true;
             let coord = this.getMousePosition(event);
             this.startXPanning = coord.x;
@@ -80,11 +84,12 @@ class Canvas extends Component {
             let canvas = document
                 .getElementById("CanvasPanel");
             let viewBox = canvas.viewBox.animVal;
-            canvas.setAttribute("viewBox", 
-                `${viewBox.x - (this.mouseCoordinate.x - this.startXPanning)} 
-                       ${viewBox.y - (this.mouseCoordinate.y - this.startYPanning)}
-                       ${viewBox.width} 
-                       ${viewBox.height}`)
+            let newX = viewBox.x - (this.mouseCoordinate.x - this.startXPanning);
+            let newY = viewBox.y - (this.mouseCoordinate.y - this.startYPanning);
+            canvas.setAttribute("viewBox", `${newX} ${newY} ${viewBox.width} ${viewBox.height}`)
+            let rect = document.getElementById("CanvasRect");
+            rect.setAttribute("x", newX);
+            rect.setAttribute("y", newY);
         } else if (this.selectedElement && this.down) {
             event.preventDefault();
             this.selectedElement.setAttributeNS(
@@ -97,8 +102,8 @@ class Canvas extends Component {
                 Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y);
         } else if (this.isAllSelecting && this.down)
         {
-            var width, height;
-            var x, y;
+            let width, height;
+            let x, y;
             x = this.selectingRectX;
             y = this.selectingRectY;
             width = Math.abs(this.mouseCoordinate.x - x);
@@ -127,19 +132,18 @@ class Canvas extends Component {
             }
             this.selectedElements = [];
         }
-        var rectX1 = this.state.xSelect;
-        var rectY1 = this.state.ySelect;
-        var rectX2 = parseInt(rectX1) + parseInt(this.state.widthSelect);
-        var rectY2 = parseInt(rectY1) + parseInt(this.state.heightSelect);
+        let rectX1 = this.state.xSelect;
+        let rectY1 = this.state.ySelect;
+        let rectX2 = parseInt(rectX1) + parseInt(this.state.widthSelect);
+        let rectY2 = parseInt(rectY1) + parseInt(this.state.heightSelect);
 
-        var elements = document
+        let elements = document
             .getElementById("CanvasPanel")
             .getElementsByTagName("use");
-        for (var elem of elements)
+        for (let elem of elements)
         {
-            var x = parseInt(elem.getAttribute("x"));
-            var y = parseInt(elem.getAttribute("y"));
-
+            let x = parseInt(elem.getAttribute("x"));
+            let y = parseInt(elem.getAttribute("y"));
             if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y)
             {
                 this.setDashArraySelectingRect(elem, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
@@ -152,6 +156,36 @@ class Canvas extends Component {
         this.selectingRectX = null;
         this.selectingRectY = null;
     }
+
+    setZoom(event) {
+        event.preventDefault();
+
+        let svg = document.getElementById("CanvasPanel");
+        let viewBox = svg.viewBox.animVal;
+        let newWidth = viewBox.width;
+        let newHeight = viewBox.height;
+
+        if (event.deltaY > 0) {
+            // Zoom out
+            newWidth = viewBox.width * (1 + this.scaleFactor);
+            newHeight = viewBox.height * (1 + this.scaleFactor);
+        } else {
+            // Zoom in
+            newWidth = viewBox.width * (1 - this.scaleFactor);
+            newHeight = viewBox.height * (1 - this.scaleFactor);
+        }
+
+        if (newWidth < this.props.widthRect || newHeight < this.props.heightRect) {
+            return;
+        } else if (newWidth >= this.MaxZoomWidth || newHeight >= this.MaxZoomHeight) {
+            return;
+        }
+
+        svg.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${newWidth} ${newHeight}`);
+        let canvas = document.getElementById("CanvasRect");
+        canvas.setAttribute("width", newWidth);
+        canvas.setAttribute("height", newHeight);
+    }
     
     setDashArraySelectingRect(element, strokeWidth, strokeDashArray) {
         element.setAttributeNS(null, "stroke-width", strokeWidth);
@@ -159,7 +193,7 @@ class Canvas extends Component {
     }
 
     SetNoFocusAllElements() {
-        var elements = document
+        let elements = document
             .getElementById("CanvasPanel")
             .getElementsByTagName("use");
         for (var element of elements) {
@@ -175,31 +209,20 @@ class Canvas extends Component {
     }
 
     getMousePosition(event) {
-        var svg = document.getElementById("CanvasPanel");
-        var CTM = svg.getScreenCTM();
+        let svg = document.getElementById("CanvasPanel");
+        let CTM = svg.getScreenCTM();
         return {
             x: (event.clientX - CTM.e) / CTM.a,
             y: (event.clientY - CTM.f) / CTM.d
         };
     }
 
-    CreateSelectingRect(x, y) {
-        var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect.setAttributeNS(null, "stroke", "black");
-        rect.setAttributeNS(null, "stroke-width", "2");
-        rect.setAttributeNS(null, "fill", "none");
-        rect.setAttributeNS(null, "id", "SelectingRect");
-        rect.setAttributeNS(null, "x", x);
-        rect.setAttributeNS(null, "y", y);
-
-        return rect;
-    }
-
     componentDidMount() {
-        console.log("AA")
         this.canvasRef.current.addEventListener('mousedown', this.startDrag);
         this.canvasRef.current.addEventListener('mousemove', this.drag);
         this.canvasRef.current.addEventListener('mouseup', this.endDrag);
+        this.canvasRef.current.addEventListener('wheel', this.setZoom);
+        this.canvasRef.current.addEventListener('contextmenu', e => e.preventDefault())
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
