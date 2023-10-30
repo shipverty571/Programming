@@ -19,6 +19,10 @@ class Canvas extends Component {
     offset = null;
     canvas = null;
     
+    isPanning = false;
+    startXPanning = null;
+    startYPanning = null;
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -38,7 +42,12 @@ class Canvas extends Component {
     }
     
     startDrag(event) {
-        if (event.target.classList.contains('draggable')) {
+        if (event.ctrlKey){
+            this.isPanning = true;
+            let coord = this.getMousePosition(event);
+            this.startXPanning = coord.x;
+            this.startYPanning = coord.y;
+        } else if (event.target.classList.contains('draggable')) {
             this.down = true;
             if (this.selectedElement)
             {
@@ -50,8 +59,7 @@ class Canvas extends Component {
             this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, "x"));
             this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, "y"));
             this.setDashArraySelectingRect(this.selectedElement, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
-        }
-        else {
+        } else {
             this.down = true;
             this.mouseCoordinate = this.getMousePosition(event);
             if (!this.selectingRectX && !this.selectingRectY)
@@ -68,7 +76,16 @@ class Canvas extends Component {
 
     drag(event) {
         this.mouseCoordinate = this.getMousePosition(event);
-        if (this.selectedElement && this.down) {
+        if (this.isPanning) {
+            let canvas = document
+                .getElementById("CanvasPanel");
+            let viewBox = canvas.viewBox.animVal;
+            canvas.setAttribute("viewBox", 
+                `${viewBox.x - (this.mouseCoordinate.x - this.startXPanning)} 
+                       ${viewBox.y - (this.mouseCoordinate.y - this.startYPanning)}
+                       ${viewBox.width} 
+                       ${viewBox.height}`)
+        } else if (this.selectedElement && this.down) {
             event.preventDefault();
             this.selectedElement.setAttributeNS(
                 null, 
@@ -78,8 +95,7 @@ class Canvas extends Component {
                 null, 
                 "y", 
                 Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y);
-        }
-        else if (this.isAllSelecting && this.down)
+        } else if (this.isAllSelecting && this.down)
         {
             var width, height;
             var x, y;
@@ -102,6 +118,7 @@ class Canvas extends Component {
 
     endDrag() {
         this.down = false;
+        this.isPanning = false;
         if (this.selectedElements.length > 0)
         {
             for (var element of this.selectedElements)
