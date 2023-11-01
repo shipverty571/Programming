@@ -328,11 +328,11 @@ class Canvas extends Component {
         let newWidth = viewBox.width;
         let newHeight = viewBox.height;
         if (event.deltaY > 0) {
-            newWidth = viewBox.width * (1 + this.scaleFactor);
-            newHeight = viewBox.height * (1 + this.scaleFactor);
+            newWidth = viewBox.width * (1 + this.ScaleFactor);
+            newHeight = viewBox.height * (1 + this.ScaleFactor);
         } else {
-            newWidth = viewBox.width * (1 - this.scaleFactor);
-            newHeight = viewBox.height * (1 - this.scaleFactor);
+            newWidth = viewBox.width * (1 - this.ScaleFactor);
+            newHeight = viewBox.height * (1 - this.ScaleFactor);
         }
 
         if (newWidth < this.props.widthRect || newHeight < this.props.heightRect) {
