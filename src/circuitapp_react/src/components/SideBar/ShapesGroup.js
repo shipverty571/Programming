@@ -20,14 +20,14 @@ class ShapesGroup extends Component {
         switch (name) {
             case 'Fundamental Items':
                 return (
-                    <div className='shapes_container' hidden={this.state.isHidden}>
+                    <div className='shapes-container' hidden={this.state.isHidden}>
                         <Shape name="Resistor" onAddShape={this.props.onAddShape} />
                         <Shape name="Capacitor" onAddShape={this.props.onAddShape} />
                         <Shape name="Inductor" onAddShape={this.props.onAddShape} /> 
                     </div>
                 );
             case 'Custom Items':
-                return <div className='shapes_container' hidden={this.state.isHidden} />;
+                return <div className='shapes-container' hidden={this.state.isHidden} />;
             default:
                 return 'Not found group';
         }
@@ -35,7 +35,7 @@ class ShapesGroup extends Component {
 
     SetNoFocusAllElements() {
         var elements = document
-            .getElementById('ShapesGroup')
+            .getElementById('shapes-group')
             .getElementsByTagName('use');
         for (var element of elements) {
             element.setAttributeNS(null, 'stroke-width', '0');
@@ -49,10 +49,10 @@ class ShapesGroup extends Component {
 
     render() {
         return (
-            <div id='ShapesGroup'>
+            <div id='shapes-group'>
                 <div style={{ display: 'flex' }}>
                     <button 
-                        id='ShapesGroupButton' 
+                        id='shapes-group-button' 
                         onClick={this.showGroup}>
                         <h3>{this.props.groupName}</h3>
                     </button>

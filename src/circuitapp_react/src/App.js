@@ -29,7 +29,7 @@ class App extends Component {
     }
     
     componentDidMount() {
-        let canvas = $('#CanvasPanel');
+        let canvas = $('#canvas-panel');
         this.setState({ widthRect : canvas.width() });
         this.setState({ heightRect:  canvas.height() });
     }
@@ -60,17 +60,17 @@ class App extends Component {
 
     render() {
         return (
-            <div className='container_column'>
-                <div className='container_row' style={{ justifyContent: 'left' }}>
-                    <div className='container_column'>
+            <div className='container-column'>
+                <div className='container-row' style={{ justifyContent: 'left' }}>
+                    <div className='container-column'>
                         <Header />
                     </div>
                 </div>
-                <div className='App container_row' style={{ flexGrow: 2 }}>
-                    <div className='container_column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
+                <div className='App container-row' style={{ flexGrow: 2 }}>
+                    <div className='container-column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
                         <SideBar onAddShape={this.onAddShape} />
                     </div>
-                    <div className='container_column' >
+                    <div className='container-column' >
                         <CanvasBar
                             patterns={this.state.patterns}
                             shapes={this.state.shapes}

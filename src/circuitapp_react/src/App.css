@@ -8,12 +8,12 @@ body, html {
   min-height: 100%;
 }
 
-.container_row {
+.container-row {
   display: flex;
   justify-content: center;
 }
 
-.container_column {
+.container-column {
   margin: 5px;
   width: 100%;
   min-height: 100%;
@@ -21,7 +21,7 @@ body, html {
   flex-direction: column;
 }
 
-.horizontal_content {
+.horizontal-content {
   display: flex;
   flex-wrap: nowrap;
   justify-content: start;
@@ -32,19 +32,19 @@ select, h4, h3, h2, h1, p, input {
   margin: 5px;
 }
 
-.shapes_container {
+.shapes-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-width: 100%;
   min-height: 50px;
 }
 
-.shape_image {
+.shape-image {
   width: 50px;
   height: 50px;
 }
 
-.shape_name {
+.shape-name {
   flex-grow: 2;
 }
 
@@ -58,7 +58,7 @@ select, h4, h3, h2, h1, p, input {
   cursor: move;
 }
 
-#FolderButton {
+#folder-button {
   text-align: center;
   background: url('../public/Images/folder_100x100_black.png') no-repeat;
   background-position: center center;
@@ -70,18 +70,18 @@ select, h4, h3, h2, h1, p, input {
   padding: 0;
 }
 
-#FolderButton:hover {
+#folder-button:hover {
   background-color: #EBEBEB;
 }
 
-#FolderButton:active {
+#folder-button:active {
   background: url('../public/Images/folder_100x100_white.png') no-repeat;
   background-size: 30px 30px;
   background-color: #4DC462;
   background-position: center center;
 }
 
-#SaveButton {
+#save-button {
   text-align: center;
   background: url('../public/Images/save_100x100_black.png') no-repeat;
   background-position: center center;
@@ -92,35 +92,35 @@ select, h4, h3, h2, h1, p, input {
   padding: 0;
 }
 
-#SaveButton:hover {
+#save-button:hover {
   background-color: #EBEBEB;
 }
 
-#SaveButton:active {
+#save-button:active {
   background: url('../public/Images/save_100x100_white.png') no-repeat;
   background-color: #4DC462;
   background-position: center center;
   background-size: 30px 30px;
 }
 
-#TimeSavedLabel {
+#time-saved-label {
   color: #808080;
   margin-right: 5px;
 }
 
-#SearchInput {
+#search-input {
   height: 25px;
   border: 1px solid black;
   border-radius: 0;
 }
 
-#SearchInput:focus {
+#search-input:focus {
   outline-style: solid;
   outline-color: #66CD79;
   border: 1px solid #66CD79;
 }
 
-#ShapesGroupButton {
+#shapes-group-button {
   background-color: #F3F3F3;
   text-align: left;
   border: 0;
@@ -129,45 +129,45 @@ select, h4, h3, h2, h1, p, input {
   flex-grow: 1;
 }
 
-#ShapesGroupButton:hover {
+#shapes-group-button:hover {
   background-color: #EBEBEB;
 }
 
-#ShapesGroupButton:active {
+#shapes-group-button:active {
   background-color: #66CD79;
   color: white;
 }
 
-#ShapesGroup {
+#shapes-group {
   background-color: white;
   margin: 5px;
 }
 
-.shape_button {
+.shape-button {
   border: 1px solid transparent;
   background-color: transparent;
 }
 
-.shape_button:hover {
+.shape-button:hover {
   background-color: #EBEBEB;
 }
 
-.shape_button:active {
+.shape-button:active {
   background-color: #66CD79;
   color: white;
 }
 
-#PagesGroup {
+#pages-group {
   padding: 0;
   border: 0;
   margin: 0;
 }
 
-#PagesGroup > input {
+#pages-group > input {
   display: none;
 }
 
-#PagesGroup > label {
+#pages-group > label {
   padding: 5px;
   background-color: transparent;
   height: 20px;
@@ -175,68 +175,68 @@ select, h4, h3, h2, h1, p, input {
   align-items: center;
 }
 
-#PagesGroup > label:hover {
+#pages-group > label:hover {
   background-color: #EBEBEB;
 }
 
-#PagesGroup > label:active {
+#pages-group > label:active {
   background-color: #4DC462;
   color: white;
 }
 
-#PagesGroup > input[type="radio"]:checked + label {
+#pages-group > input[type="radio"]:checked + label {
   background-color: #66CD79;
   color: white;
 }
 
-#EditPagesCountDiv {
+#edit-pages-count-div {
   height: 30px;
 }
 
-#EditPagesCountDiv > button {
+#edit-pages-count-div > button {
   border: 0;
   height: 30px;
   width: 30px;
 }
 
-#EditPagesCountDiv > button:hover {
+#edit-pages-count-div > button:hover {
   background-color: #DADADA;
 }
 
-#EditPagesCountDiv > button:active {
+#edit-pages-count-div > button:active {
   background-color: #4DC462;
   color: white;
 }
 
-#AddPageButton {
+#add-page-button {
   background: url('../public/Images/plus_100x100_black.png') no-repeat;
   background-position: center center;
   background-size: 30px 30px;
   margin-right: 5px;
 }
 
-#AddPageButton:hover {
+#add-page-button:hover {
   background-color: #EBEBEB;
 }
 
-#AddPageButton:active {
+#add-page-button:active {
   background: url('../public/Images/plus_100x100_white.png') no-repeat;
   background-color: #4DC462;
   background-position: center center;
   background-size: 30px 30px;
 }
 
-#RemovePageButton {
+#remove-page-button {
   background: url('../public/Images/minus_100x100_black.png') no-repeat;
   background-position: center center;
   background-size: 30px 30px;
 }
 
-#RemovePageButton:hover {
+#remove-page-button:hover {
   background-color: #EBEBEB;
 }
 
-#RemovePageButton:active {
+#remove-page-button:active {
   background: url('../public/Images/minus_100x100_white.png') no-repeat;
   background-color: #4DC462;
   background-position: center center;

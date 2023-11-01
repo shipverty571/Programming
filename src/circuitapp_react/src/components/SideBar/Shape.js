@@ -16,7 +16,7 @@ class Shape extends Component {
             case 'Resistor':
                 return (
                     <svg 
-                         className='shape_image' 
+                         className='shape-image' 
                          viewBox={[0, 0, 250, 100].join(' ')}
                          width={this.WidthElement} 
                          height={this.HeightElement}>
@@ -27,7 +27,7 @@ class Shape extends Component {
             case 'Capacitor':
                 return (
                     <svg 
-                        className='shape_image' 
+                        className='shape-image' 
                         viewBox={[0, 0, 125, 150].join(' ')}
                         width='125'
                         height='150'>
@@ -38,7 +38,7 @@ class Shape extends Component {
             case 'Inductor':
                 return (
                     <svg 
-                        className='shape_image'
+                        className='shape-image'
                          viewBox={[0, 0, 300, 75].join(' ')}
                          width='300'
                          height='75'>
@@ -53,9 +53,9 @@ class Shape extends Component {
     
     render() {
         return (
-            <button className='horizontal_content shape_button' onClick={() => this.props.onAddShape(this.props.name)}>
+            <button className='horizontal-content shape-button' onClick={() => this.props.onAddShape(this.props.name)}>
                 {this.renderElements(this.props.name)}
-                <p className='shape_name'>{this.props.name}</p>
+                <p className='shape-name'>{this.props.name}</p>
             </button>
         );
     }

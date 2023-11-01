@@ -238,8 +238,8 @@ class Canvas extends Component {
         this.canvasRef.current.addEventListener('wheel', this.setZoom);
         this.canvasRef.current.addEventListener('contextmenu', e => e.preventDefault());
 
-        this.CanvasSVG = document.getElementById('CanvasPanel');
-        this.CanvasRect = document.getElementById('CanvasRect');
+        this.CanvasSVG = document.getElementById('canvas-panel');
+        this.CanvasRect = document.getElementById('canvas-rect');
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -254,7 +254,7 @@ class Canvas extends Component {
                 xmlns='http://www.w3.org/2000/svg'
                 version='1.1'
                 preserveAspectRatio='xMinYMin'
-                id='CanvasPanel'
+                id='canvas-panel'
                 ref={this.canvasRef}
                 style={{flexGrow: 2}}
                 viewBox={[0, 0, this.props.widthRect*2, this.props.heightRect*2].join(' ')}>
@@ -263,7 +263,7 @@ class Canvas extends Component {
                     stroke='none' 
                     rx='0' 
                     ry='0' 
-                    id='CanvasRect' 
+                    id='canvas-rect' 
                     width={this.props.widthRect * 2} 
                     height={this.props.heightRect * 2} 
                 />

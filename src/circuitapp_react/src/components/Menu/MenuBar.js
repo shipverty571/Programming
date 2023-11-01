@@ -4,11 +4,11 @@ class MenuBar extends Component {
     render() {
         return (
             <div 
-                className='horizontal_content' 
+                className='horizontal-content' 
                 style={{ justifyContent : 'right', height: '100%', flexDirection: 'row', alignItems: 'flex-end' }}>
-                <label id='TimeSavedLabel'>saved at 15:08</label>
-                <button id='FolderButton' />
-                <button id='SaveButton' />
+                <label id='time-saved-label'>saved at 15:08</label>
+                <button id='folder-button' />
+                <button id='save-button' />
             </div>
         );
     }
