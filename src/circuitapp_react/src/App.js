@@ -35,16 +35,19 @@ class App extends Component {
     }
     
     onAddShape(shape) {
-        var element = null;
+        let element = null;
+        const X = 100;
+        const Y = 100;
+        
         switch (shape) {
             case 'Resistor':
-                element = <UseResistor href="#ResistorSymbol" x="100" y="100" />
+                element = <UseResistor href="#ResistorSymbol" x={X} y={Y} />
                 break;
             case 'Capacitor':
-                element = <UseCapacitor href="#CapacitorSymbol" x="100" y="100" />
+                element = <UseCapacitor href="#CapacitorSymbol" x={X} y={Y} />
                 break;
             case 'Inductor':
-                element = <UseInductor href="#InductorSymbol" x="100" y="100" />
+                element = <UseInductor href="#InductorSymbol" x={X} y={Y} />
                 break;
             default:
                 break;
@@ -72,7 +75,8 @@ class App extends Component {
                             patterns={this.state.patterns}
                             shapes={this.state.shapes}
                             widthRect={this.state.widthRect}
-                            heightRect={this.state.heightRect} />
+                            heightRect={this.state.heightRect}
+                        />
                     </div>
                 </div>
             </div>

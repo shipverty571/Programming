@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CanvasPages from './CanvasPages';
 import Canvas from './Canvas'
+import PropTypes from "prop-types";
 
 class CanvasBar extends Component {
     render() {
@@ -10,11 +11,18 @@ class CanvasBar extends Component {
                     patterns={this.props.patterns} 
                     shapes={this.props.shapes} 
                     widthRect={this.props.widthRect} 
-                    heightRect={this.props.heightRect} />
+                    heightRect={this.props.heightRect} 
+                />
                 <CanvasPages />
             </div>
         );
     }
+}
+CanvasBar.propTypes = {
+    patterns: PropTypes.array.isRequired,
+    shapes: PropTypes.array.isRequired,
+    widthRect: PropTypes.number.isRequired,
+    heightRect: PropTypes.number.isRequired
 }
 
 export default CanvasBar;

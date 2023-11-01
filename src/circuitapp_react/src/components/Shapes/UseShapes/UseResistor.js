@@ -9,17 +9,20 @@ class UseResistor extends Component {
                 y={this.props.y} 
                 href={this.props.href} 
                 className='draggable' 
-                style={{ cursor: this.props.canNotDraggable && 'default' }} />
+                style={{ cursor: this.props.canNotDraggable ? 'default' : 'move' }}
+            />
         );
     }
 }
 UseResistor.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
+    x: PropTypes.number,
+    y: PropTypes.number,
     href: PropTypes.string.isRequired,
     canNotDraggable: PropTypes.bool
 }
 UseResistor.defaultProps = {
+    x: 0,
+    y: 0,
     canNotDraggable: false
 }
 

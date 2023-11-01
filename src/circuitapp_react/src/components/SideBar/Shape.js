@@ -21,7 +21,7 @@ class Shape extends Component {
                          width={this.WidthElement} 
                          height={this.HeightElement}>
                         <Resistor id="ResistorSymbolPicture" />
-                        <UseResistor href="#ResistorSymbolPicture" x="0" y="0" canNotDraggable={true} />
+                        <UseResistor href="#ResistorSymbolPicture" canNotDraggable={true} />
                     </svg>
                 );
             case 'Capacitor':
@@ -32,7 +32,7 @@ class Shape extends Component {
                         width='125'
                         height='150'>
                         <Capacitor id="CapacitorSymbolPicture" />
-                        <UseCapacitor href="#CapacitorSymbolPicture" x="0" y="0" canNotDraggable={true} />
+                        <UseCapacitor href="#CapacitorSymbolPicture" canNotDraggable={true} />
                     </svg>
                 );
             case 'Inductor':
@@ -43,7 +43,7 @@ class Shape extends Component {
                          width='300'
                          height='75'>
                         <Inductor id="InductorSymbolPicture" />
-                        <UseInductor href="#InductorSymbolPicture" x="0" y="0" canNotDraggable={true} />
+                        <UseInductor href="#InductorSymbolPicture" canNotDraggable={true} />
                     </svg>
                 );
             default:

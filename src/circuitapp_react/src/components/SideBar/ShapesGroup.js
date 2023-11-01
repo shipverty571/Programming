@@ -24,9 +24,10 @@ class ShapesGroup extends Component {
                         <Shape name="Resistor" onAddShape={this.props.onAddShape} />
                         <Shape name="Capacitor" onAddShape={this.props.onAddShape} />
                         <Shape name="Inductor" onAddShape={this.props.onAddShape} /> 
-                    </div>);
+                    </div>
+                );
             case 'Custom Items':
-                return (<div className='shapes_container' hidden={this.state.isHidden} />);
+                return <div className='shapes_container' hidden={this.state.isHidden} />;
             default:
                 return 'Not found group';
         }

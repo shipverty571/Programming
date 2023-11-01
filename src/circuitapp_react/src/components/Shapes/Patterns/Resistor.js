@@ -15,7 +15,8 @@ class Resistor extends Component {
                         fill='none' 
                         stroke='black' 
                         strokeWidth='3' 
-                        strokeDasharray='none' />
+                        strokeDasharray='none' 
+                    />
                     <line x1='0' x2='50' y1='50' y2='50' stroke='black' strokeWidth='3' strokeDasharray='none'  />
                     <line x1='200' x2='250' y1='50' y2='50' stroke='black' strokeWidth='3' strokeDasharray='none'  />
                 </g>

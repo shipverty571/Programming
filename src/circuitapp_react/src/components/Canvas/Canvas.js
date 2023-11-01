@@ -265,12 +265,14 @@ class Canvas extends Component {
                     ry='0' 
                     id='CanvasRect' 
                     width={this.props.widthRect * 2} 
-                    height={this.props.heightRect * 2} />
+                    height={this.props.heightRect * 2} 
+                />
                 <SelectingRect 
                     width={this.state.widthSelect} 
                     height={this.state.heightSelect} 
                     x={this.state.xSelect} 
-                    y={this.state.ySelect} />
+                    y={this.state.ySelect} 
+                />
                 
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => shape)}

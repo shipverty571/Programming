@@ -13,7 +13,8 @@ class SelectingRect extends Component {
                 width={this.props.width} 
                 height={this.props.height} 
                 x={this.props.x} 
-                y={this.props.y} />
+                y={this.props.y} 
+            />
         );
     }
 }

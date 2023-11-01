@@ -28,7 +28,7 @@ body, html {
   align-items: center;
 }
 
-select, h4, h3, h2, h1, p, input, textarea {
+select, h4, h3, h2, h1, p, input {
   margin: 5px;
 }
 

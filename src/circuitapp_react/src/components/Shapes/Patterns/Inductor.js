@@ -17,7 +17,8 @@ class Inductor extends Component {
                         strokeWidth='3' 
                         strokeDasharray='78.53981633974483 78.53981633974483' 
                         strokeDashoffset='-78.53981633974483' 
-                        fill='none' />
+                        fill='none' 
+                    />
                     <circle 
                         cx='125' 
                         cy='50' 
@@ -26,7 +27,8 @@ class Inductor extends Component {
                         strokeWidth='3' 
                         strokeDasharray='78.53981633974483 78.53981633974483' 
                         strokeDashoffset='-78.53981633974483' 
-                        fill='none' />
+                        fill='none' 
+                    />
                     <circle 
                         cx='175' 
                         cy='50' 
@@ -35,7 +37,8 @@ class Inductor extends Component {
                         strokeWidth='3' 
                         strokeDasharray='78.53981633974483 78.53981633974483' 
                         strokeDashoffset='-78.53981633974483' 
-                        fill='none' />
+                        fill='none' 
+                    />
                     <circle 
                         cx='225' 
                         cy='50' 
@@ -44,7 +47,8 @@ class Inductor extends Component {
                         strokeWidth='3' 
                         strokeDasharray='78.53981633974483 78.53981633974483' 
                         strokeDashoffset='-78.53981633974483' 
-                        fill='none' />
+                        fill='none' 
+                    />
                 </g>
             </symbol>
         );
