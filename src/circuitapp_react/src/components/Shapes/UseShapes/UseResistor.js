@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 
 class UseResistor extends Component {
     render() {
@@ -11,6 +12,15 @@ class UseResistor extends Component {
                 style={{ cursor: this.props.canNotDraggable && 'default' }} />
         );
     }
+}
+UseResistor.propTypes = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    href: PropTypes.string.isRequired,
+    canNotDraggable: PropTypes.bool
+}
+UseResistor.defaultProps = {
+    canNotDraggable: false
 }
 
 export default UseResistor;

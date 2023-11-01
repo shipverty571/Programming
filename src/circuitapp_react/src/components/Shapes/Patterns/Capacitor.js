@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 
 class Capacitor extends Component {
     render() {
@@ -14,6 +15,9 @@ class Capacitor extends Component {
             </symbol>
         );
     }
+}
+Capacitor.propTypes = {
+    id: PropTypes.string.isRequired
 }
 
 export default Capacitor;

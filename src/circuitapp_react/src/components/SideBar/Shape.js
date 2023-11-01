@@ -5,6 +5,7 @@ import Inductor from '../Shapes/Patterns/Inductor';
 import UseResistor from '../Shapes/UseShapes/UseResistor';
 import UseCapacitor from '../Shapes/UseShapes/UseResistor';
 import UseInductor from '../Shapes/UseShapes/UseResistor';
+import PropTypes from "prop-types";
 
 class Shape extends Component {
     WidthElement = 50;
@@ -20,7 +21,7 @@ class Shape extends Component {
                          width={this.WidthElement} 
                          height={this.HeightElement}>
                         <Resistor id="ResistorSymbolPicture" />
-                        <UseResistor href="#ResistorSymbolPicture" x="0" y="0" canNotDraggable="true" />
+                        <UseResistor href="#ResistorSymbolPicture" x="0" y="0" canNotDraggable={true} />
                     </svg>
                 );
             case 'Capacitor':
@@ -31,7 +32,7 @@ class Shape extends Component {
                         width='125'
                         height='150'>
                         <Capacitor id="CapacitorSymbolPicture" />
-                        <UseCapacitor href="#CapacitorSymbolPicture" x="0" y="0" canNotDraggable="true" />
+                        <UseCapacitor href="#CapacitorSymbolPicture" x="0" y="0" canNotDraggable={true} />
                     </svg>
                 );
             case 'Inductor':
@@ -42,7 +43,7 @@ class Shape extends Component {
                          width='300'
                          height='75'>
                         <Inductor id="InductorSymbolPicture" />
-                        <UseInductor href="#InductorSymbolPicture" x="0" y="0" canNotDraggable="true" />
+                        <UseInductor href="#InductorSymbolPicture" x="0" y="0" canNotDraggable={true} />
                     </svg>
                 );
             default:
@@ -58,6 +59,10 @@ class Shape extends Component {
             </button>
         );
     }
+}
+Shape.propTypes = {
+    onAddShape: PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
 }
 
 export default Shape;

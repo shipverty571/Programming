@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SelectingRect from './SelectingRect';
 import RotateButton from './RotateButton';
+import PropTypes from "prop-types";
 
 class Canvas extends Component {
     X = 25;
@@ -271,8 +272,8 @@ class Canvas extends Component {
                     x={this.state.xSelect} 
                     y={this.state.ySelect} />
                 
-                {this.props.patterns.map((pattern) => (pattern))}
-                {this.props.shapes.map((shape) => (shape))}
+                {this.props.patterns.map(pattern => pattern)}
+                {this.props.shapes.map(shape => shape)}
                 {this.state.isShowRotateButton && (
                     <RotateButton startX={this.state.startXRotateButton} startY={this.state.startYRotateButton} />
                 )}
@@ -286,6 +287,12 @@ class Canvas extends Component {
             </svg>
         );
     }
+}
+Canvas.propTypes = {
+    patterns: PropTypes.array.isRequired,
+    shapes: PropTypes.array.isRequired,
+    widthRect: PropTypes.number.isRequired,
+    heightRect: PropTypes.number.isRequired
 }
 
 export default Canvas;

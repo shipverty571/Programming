@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 
 class UseInductor extends Component {
     render() {
@@ -11,6 +12,15 @@ class UseInductor extends Component {
                 style={{ cursor: this.props.canNotDraggable && 'default' }} />
         );
     }
+}
+UseInductor.propTypes = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    href: PropTypes.string.isRequired,
+    canNotDraggable: PropTypes.bool
+}
+UseInductor.defaultProps = {
+    canNotDraggable: false
 }
 
 export default UseInductor;

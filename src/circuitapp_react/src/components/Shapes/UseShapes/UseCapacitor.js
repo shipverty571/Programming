@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 
 class UseCapacitor extends Component {
     render() {
@@ -11,6 +12,15 @@ class UseCapacitor extends Component {
                 style={{ cursor: this.props.canNotDraggable && 'default' }} />
         );
     }
+}
+UseCapacitor.propTypes = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    href: PropTypes.string.isRequired,
+    canNotDraggable: PropTypes.bool
+}
+UseCapacitor.defaultProps = {
+    canNotDraggable: false
 }
 
 export default UseCapacitor;

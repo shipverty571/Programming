@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 
 class SelectingRect extends Component {
     render() {
@@ -15,6 +16,12 @@ class SelectingRect extends Component {
                 y={this.props.y} />
         );
     }
+}
+SelectingRect.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
 }
 
 export default SelectingRect;

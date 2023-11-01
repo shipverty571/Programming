@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Shape from './Shape';
+import PropTypes from "prop-types";
 
 class ShapesGroup extends Component {
     constructor(props) {
@@ -61,6 +62,13 @@ class ShapesGroup extends Component {
             </div> 
         );
     }
+}
+ShapesGroup.propTypes = {
+    groupName: PropTypes.string.isRequired,
+    onAddShape: PropTypes.func
+}
+ShapesGroup.defaultProps = {
+    onAddShape: (() => ({}))
 }
 
 export default ShapesGroup;

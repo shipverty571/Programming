@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from "prop-types";
 
 class Resistor extends Component {
     render() {
@@ -21,6 +22,9 @@ class Resistor extends Component {
             </symbol>
         );
     }
+}
+Resistor.propTypes = {
+    id: PropTypes.string.isRequired
 }
 
 export default Resistor;

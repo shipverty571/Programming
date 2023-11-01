@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ShapesGroup from './ShapesGroup';
 import SearchInput from './SearchInput';
+import PropTypes from "prop-types";
 
 class SideBar extends Component {
     render() {
@@ -13,6 +14,9 @@ class SideBar extends Component {
             </div>
         );
     }
+}
+SideBar.propTypes = {
+    onAddShape: PropTypes.func.isRequired
 }
 
 export default SideBar;

@@ -27,29 +27,6 @@ class App extends Component {
         
         this.onAddShape = this.onAddShape.bind(this);
     }
-    render() {
-        return (
-            <div className='container_column'>
-                <div className='container_row' style={{ justifyContent: 'left' }}>
-                    <div className='container_column'>
-                        <Header />
-                    </div>
-                </div>
-                <div className='App container_row' style={{ flexGrow: 2 }}>
-                    <div className='container_column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
-                        <SideBar onAddShape={this.onAddShape} />
-                    </div>
-                    <div className='container_column' >
-                        <CanvasBar 
-                            patterns={this.state.patterns}
-                            shapes={this.state.shapes} 
-                            widthRect={this.state.widthRect} 
-                            heightRect={this.state.heightRect} />
-                    </div>
-                </div>
-            </div>
-        );
-    }
     
     componentDidMount() {
         let canvas = $('#CanvasPanel');
@@ -76,6 +53,30 @@ class App extends Component {
         if (element) {
             this.setState({ shapes : [...this.state.shapes, element] });
         }
+    }
+
+    render() {
+        return (
+            <div className='container_column'>
+                <div className='container_row' style={{ justifyContent: 'left' }}>
+                    <div className='container_column'>
+                        <Header />
+                    </div>
+                </div>
+                <div className='App container_row' style={{ flexGrow: 2 }}>
+                    <div className='container_column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
+                        <SideBar onAddShape={this.onAddShape} />
+                    </div>
+                    <div className='container_column' >
+                        <CanvasBar
+                            patterns={this.state.patterns}
+                            shapes={this.state.shapes}
+                            widthRect={this.state.widthRect}
+                            heightRect={this.state.heightRect} />
+                    </div>
+                </div>
+            </div>
+        );
     }
 }
 

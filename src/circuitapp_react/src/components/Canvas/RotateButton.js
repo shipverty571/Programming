@@ -1,5 +1,6 @@
 ﻿import React, {Component} from 'react';
 import RotateImage from './reload_90x90_black.png'
+import PropTypes from "prop-types";
 
 class RotateButton extends Component {
     render() {
@@ -9,6 +10,10 @@ class RotateButton extends Component {
             </g>
         );
     }
+}
+RotateButton.propTypes = {
+    startX: PropTypes.number.isRequired,
+    startY: PropTypes.number.isRequired
 }
 
 export default RotateButton;
