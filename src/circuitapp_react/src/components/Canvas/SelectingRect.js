@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент прямоугольника для фокуса множества элементов.
+ */
 class SelectingRect extends Component {
     render() {
         return (

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import MenuBar from '../Menu/MenuBar';
 
+/**
+ * Компонент шапки.
+ */
 class Header extends Component {
     render() {
         return (

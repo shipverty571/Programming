@@ -3,6 +3,9 @@ import ShapesGroup from './ShapesGroup';
 import SearchInput from './SearchInput';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент левой колонки.
+ */
 class SideBar extends Component {
     render() {
         return (

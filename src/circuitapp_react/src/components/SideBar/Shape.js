@@ -7,10 +7,31 @@ import UseCapacitor from '../Shapes/UseShapes/UseResistor';
 import UseInductor from '../Shapes/UseShapes/UseResistor';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент кнопки для создания элемента.
+ */
 class Shape extends Component {
+    /**
+     * Ширина элемента.
+     * @type {number}
+     * @private
+     * @const
+     */
     WidthElement = 50;
-    HeightElement = 50;
     
+    /**
+     * Высота элемента.
+     * @type {number}
+     * @private
+     * @const
+     */
+    HeightElement = 50;
+
+    /**
+     * Рендерит изображение элемента.
+     * @param param Имя элемента.
+     * @returns {JSX.Element|string} Возвращает svg-элемент.
+     */
     renderElements(param) {
         switch(param) {
             case 'Resistor':

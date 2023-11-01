@@ -2,7 +2,14 @@ import React, {Component} from 'react';
 import Shape from './Shape';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент группы кнопок элементов.
+ */
 class ShapesGroup extends Component {
+    /**
+     * Создает экземпляр класса ShapesGroup.
+     * @param props Пропсы.
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -12,10 +19,18 @@ class ShapesGroup extends Component {
         this.showGroup = this.showGroup.bind(this);
     }
 
+    /**
+     * Кнопка показа и скрытия блока с кнопками.
+     */
     showGroup() {
         this.setState( {isHidden : !this.state.isHidden} )
     }
-    
+
+    /**
+     * Рендерит группу элементов.
+     * @param name Имя группы.
+     * @returns {JSX.Element|string} Возвращает блок с элементами.
+     */
     renderGroup(name) {
         switch (name) {
             case 'Fundamental Items':
@@ -32,8 +47,8 @@ class ShapesGroup extends Component {
                 return 'Not found group';
         }
     }
-
-    SetNoFocusAllElements() {
+    
+    componentDidUpdate(prevProps, prevState, snapshot) {
         var elements = document
             .getElementById('shapes-group')
             .getElementsByTagName('use');
@@ -41,10 +56,6 @@ class ShapesGroup extends Component {
             element.setAttributeNS(null, 'stroke-width', '0');
             element.setAttributeNS(null, 'stroke-dasharray', 'none');
         }
-    }
-    
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.SetNoFocusAllElements();
     }
 
     render() {

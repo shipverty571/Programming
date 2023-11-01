@@ -2,6 +2,9 @@
 import RotateImage from './reload_90x90_black.png'
 import PropTypes from "prop-types";
 
+/**
+ * Компонент кнопки поворота элемента.
+ */
 class RotateButton extends Component {
     render() {
         return (

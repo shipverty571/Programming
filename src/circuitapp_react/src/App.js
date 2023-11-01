@@ -11,7 +11,14 @@ import UseCapacitor from './components/Shapes/UseShapes/UseCapacitor';
 import UseInductor from './components/Shapes/UseShapes/UseInductor';
 import $ from 'jquery';
 
+/**
+ * Главный компонент.
+ */
 class App extends Component {
+    /**
+     * Создает экземпляр класса App.
+     * @param props Пропсы.
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -33,7 +40,11 @@ class App extends Component {
         this.setState({ widthRect : canvas.width() });
         this.setState({ heightRect:  canvas.height() });
     }
-    
+
+    /**
+     * Добавляет элемент в канвас.
+     * @param shape
+     */
     onAddShape(shape) {
         let element = null;
         const X = 100;

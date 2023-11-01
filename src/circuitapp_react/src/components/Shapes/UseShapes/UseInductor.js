@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент для использования шаблона катушки индуктивности.
+ */
 class UseInductor extends Component {
     render() {
         return (

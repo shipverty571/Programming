@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+/**
+ * Компонент строки поиска элемента.
+ */
 class SearchInput extends Component {
     render() {
         return (

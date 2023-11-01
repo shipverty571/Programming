@@ -3,33 +3,158 @@ import SelectingRect from './SelectingRect';
 import RotateButton from './RotateButton';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент канваса.
+ */
 class Canvas extends Component {
+    /**
+     * Базовая координата смещения по оси абсцисс.
+     * @const 
+     * @private 
+     * @type {number}
+     */
     X = 25;
+
+    /**
+     * Базовая координата смещения по оси ординат.
+     * @const
+     * @private
+     * @type {number}
+     */
     Y = 25;
+
+    /**
+     * Базовая ширина рамки выбранного элемента.
+     * @type {number}
+     * @private
+     * @const
+     */
     SelectedStrokeWidth = 2;
+
+    /**
+     * Базовое число ширины прерывистой линии.
+     * @type {number}
+     * @private
+     * @const
+     */
     SelectedStrokeDashArray = 8;
+
+    /**
+     * Числа, относительно которого происходит приближение и отдаление.
+     * @type {number}
+     * @private
+     * @const
+     */
+    ScaleFactor = 0.1;
+
+    /**
+     * Максимальная ширина масштабирования.
+     * @type {number}
+     * @private
+     * @const
+     */
+    MaxZoomWidth = 5000;
+
+    /**
+     * Максимальная высота масштабирования.
+     * @type {number}
+     * @private
+     * @const
+     */
+    MaxZoomHeight = 5000;
+
+    /**
+     * Выбранный элемент.
+     * @type {JSX.Element} 
+     * @private
+     */
     selectedElement;
+
+    /**
+     * Координаты мыши.
+     * @type {Array}
+     * @private
+     */
     mouseCoordinate;
+
+    /**
+     * Список выбранных элементов.
+     * @type {[]}
+     * @private
+     */
     selectedElements = [];
 
-    selectingRectX = null;
-    selectingRectY = null;
-    isAllSelecting = false;
-    
-    down = null;
-    offset = null;
-    
-    isPanning = false;
-    startXPanning = null;
-    startYPanning = null;
+    /**
+     * Начальная координата X выделения.
+     * @type {number}
+     * @private
+     */
+    selectingRectX;
 
-    scaleFactor = 0.1;
-    MaxZoomWidth = 5000;
-    MaxZoomHeight = 5000;
-    
-    CanvasSVG = null;
-    CanvasRect = null;
-    
+    /**
+     * Начальная координата Y выделения.
+     * @type {number}
+     * @private
+     */
+    selectingRectY;
+
+    /**
+     * Хранит true, если выбрано много элементов, иначе false.
+     * @type {boolean}
+     * @private
+     */
+    isAllSelecting = false;
+
+    /**
+     * Хранит true, если левая кнопка мыши зажата, иначе false.
+     * @type {bool}
+     * @private
+     */
+    down = false;
+
+    /**
+     * Хранит координаты мыши при первом нажатии на элемент.
+     * @private
+     */
+    offset;
+
+    /**
+     * Хранит true, если выбран режим масштабирования, иначе false.
+     * @type {boolean}
+     * @private
+     */
+    isPanning = false;
+
+    /**
+     * Начальная координата X масштабирования.
+     * @type {number}
+     * @private
+     */
+    startXPanning;
+
+    /**
+     * Начальная координата Y масштабирования.
+     * @type {number}
+     * @private
+     */
+    startYPanning;
+
+    /**
+     * Хранит ссылку на элемент канвас.
+     * @private
+     */
+    CanvasSVG;
+
+    /**
+     * Хранится ссылку на элемент прямоугольника канваса.
+     * @private
+     */
+    CanvasRect;
+
+    /**
+     * Создает экземпляр класса Canvas.
+     * @param props Пропсы.
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -43,16 +168,20 @@ class Canvas extends Component {
         }
         this.canvasRef = React.createRef();
         
-        this.startDrag = this.startDrag.bind(this);
-        this.drag = this.drag.bind(this);
-        this.endDrag = this.endDrag.bind(this);
-        this.SetNoFocusElement = this.SetNoFocusElement.bind(this);
+        this.onStartDrag = this.onStartDrag.bind(this);
+        this.onDrag = this.onDrag.bind(this);
+        this.onEndDrag = this.onEndDrag.bind(this);
+        this.setNoFocusElement = this.setNoFocusElement.bind(this);
         this.getMousePosition = this.getMousePosition.bind(this);
-        this.setZoom = this.setZoom.bind(this);
+        this.onSetZoom = this.onSetZoom.bind(this);
         this.setFocus = this.setFocus.bind(this);
     }
-    
-    startDrag(event) {
+
+    /**
+     * Обработчик события старта передвижения.
+     * @param event Объект события.
+     */
+    onStartDrag(event) {
         if (event.button === 2){
             this.isPanning = true;
             let coord = this.getMousePosition(event);
@@ -62,7 +191,7 @@ class Canvas extends Component {
             this.down = true;
             if (this.selectedElement)
             {
-                this.SetNoFocusElement();
+                this.setNoFocusElement();
             }
             this.setState( {isShowRotateButton: true} );
             this.selectedElement = event.target;
@@ -82,11 +211,15 @@ class Canvas extends Component {
                 this.isAllSelecting = true;
                 this.setState({ xSelect: this.selectingRectX, ySelect : this.selectingRectY})
             }
-            this.SetNoFocusElement();
+            this.setNoFocusElement();
         }
     }
 
-    drag(event) {
+    /**
+     * Обработчик передвижения.
+     * @param event Объект события.
+     */
+    onDrag(event) {
         this.mouseCoordinate = this.getMousePosition(event);
         if (this.isPanning) {
             let viewBox = this.CanvasSVG.viewBox.animVal;
@@ -126,7 +259,10 @@ class Canvas extends Component {
         }
     }
 
-    endDrag() {
+    /**
+     * Обработчик завершения передвижения.
+     */
+    onEndDrag() {
         this.down = false;
         this.isPanning = false;
         if (this.selectedElements.length > 0)
@@ -169,7 +305,11 @@ class Canvas extends Component {
         this.selectingRectX = null;
         this.selectingRectY = null;
     }
-    
+
+    /**
+     * Устанавливает визуальный фокус элемента.
+     * @param element Элемент.
+     */
     setFocus(element) {
         this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
         this.setState( {
@@ -177,7 +317,11 @@ class Canvas extends Component {
             startYRotateButton: element.getAttribute('y')-16} )
     }
 
-    setZoom(event) {
+    /**
+     * Приближает и отдаляет канвас.
+     * @param event Объект события.
+     */
+    onSetZoom(event) {
         event.preventDefault();
 
         let viewBox = this.CanvasSVG.viewBox.animVal;
@@ -201,13 +345,22 @@ class Canvas extends Component {
         this.CanvasRect.setAttribute('width', newWidth);
         this.CanvasRect.setAttribute('height', newHeight);
     }
-    
+
+    /**
+     * Устанавливает прерывистые рамки для визуального фокуса элемента.
+     * @param element Элемент.
+     * @param strokeWidth Ширина рамки.
+     * @param strokeDashArray Массив прерывистых линий.
+     */
     setDashArraySelectingRect(element, strokeWidth, strokeDashArray) {
         element.setAttributeNS(null, 'stroke-width', strokeWidth);
         element.setAttributeNS(null, 'stroke-dasharray', strokeDashArray);
     }
 
-    SetNoFocusAllElements() {
+    /**
+     * Убирает фокус со всех элементов.
+     */
+    setNoFocusAllElements() {
         let elements = this.CanvasSVG.getElementsByTagName('use');
         for (var element of elements) {
             this.setDashArraySelectingRect(element, '0', 'none');
@@ -215,7 +368,10 @@ class Canvas extends Component {
         this.setState( {isShowRotateButton: false} );
     }
 
-    SetNoFocusElement() {
+    /**
+     * Убирает фокус с выбранного элемента.
+     */
+    setNoFocusElement() {
         if (!this.selectedElement) return;
 
         this.setDashArraySelectingRect(this.selectedElement, '0', 'none');
@@ -223,6 +379,11 @@ class Canvas extends Component {
         this.setState( {isShowRotateButton: false} );
     }
 
+    /**
+     * Получает координаты мыши.
+     * @param event Объект события.
+     * @returns {{x: number, y: number}} Возвращает координаты.
+     */
     getMousePosition(event) {
         let CTM = this.CanvasSVG.getScreenCTM();
         return {
@@ -232,10 +393,10 @@ class Canvas extends Component {
     }
 
     componentDidMount() {
-        this.canvasRef.current.addEventListener('mousedown', this.startDrag);
-        this.canvasRef.current.addEventListener('mousemove', this.drag);
-        this.canvasRef.current.addEventListener('mouseup', this.endDrag);
-        this.canvasRef.current.addEventListener('wheel', this.setZoom);
+        this.canvasRef.current.addEventListener('mousedown', this.onStartDrag);
+        this.canvasRef.current.addEventListener('mousemove', this.onDrag);
+        this.canvasRef.current.addEventListener('mouseup', this.onEndDrag);
+        this.canvasRef.current.addEventListener('wheel', this.onSetZoom);
         this.canvasRef.current.addEventListener('contextmenu', e => e.preventDefault());
 
         this.CanvasSVG = document.getElementById('canvas-panel');
@@ -244,7 +405,7 @@ class Canvas extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps !== this.props) {
-            this.SetNoFocusAllElements();
+            this.setNoFocusAllElements();
         }
     }
     

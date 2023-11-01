@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент для использования шаблона резистора.
+ */
 class UseResistor extends Component {
     render() {
         return (

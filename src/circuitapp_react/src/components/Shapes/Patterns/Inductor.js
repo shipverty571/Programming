@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент катушки индуктивности.
+ */
 class Inductor extends Component {
     render() {
         return (

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент резистора.
+ */
 class Resistor extends Component {
     render() {
         return (

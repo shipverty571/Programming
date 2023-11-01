@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 
+/**
+ * Компонент конденсатора.
+ */
 class Capacitor extends Component {
     render() {
         return (

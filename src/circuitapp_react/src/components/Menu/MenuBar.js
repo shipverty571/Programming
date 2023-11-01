@@ -1,5 +1,8 @@
 ﻿import React, {Component} from 'react';
 
+/**
+ * Компонент, содержащий кнопки меню.
+ */
 class MenuBar extends Component {
     render() {
         return (

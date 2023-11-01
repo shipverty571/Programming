@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+/**
+ * Компонент страниц канваса.
+ */
 class CanvasPages extends Component {
     render() {
         return (

@@ -3,6 +3,9 @@ import CanvasPages from './CanvasPages';
 import Canvas from './Canvas'
 import PropTypes from "prop-types";
 
+/**
+ * Компонент правой колонки для работы с канвасом.
+ */
 class CanvasBar extends Component {
     render() {
         return (
