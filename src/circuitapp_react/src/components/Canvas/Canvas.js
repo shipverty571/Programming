@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import SelectingRect from "./SelectingRect";
-import RotateButton from "./RotateButton";
+import SelectingRect from './SelectingRect';
+import RotateButton from './RotateButton';
 
 class Canvas extends Component {
     X = 25;
@@ -66,8 +66,8 @@ class Canvas extends Component {
             this.setState( {isShowRotateButton: true} );
             this.selectedElement = event.target;
             this.offset = this.getMousePosition(event);
-            this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, "x"));
-            this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, "y"));
+            this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, 'x'));
+            this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, 'y'));
             this.setFocus(this.selectedElement);
             
         } else {
@@ -91,18 +91,18 @@ class Canvas extends Component {
             let viewBox = this.CanvasSVG.viewBox.animVal;
             let newX = viewBox.x - (this.mouseCoordinate.x - this.startXPanning);
             let newY = viewBox.y - (this.mouseCoordinate.y - this.startYPanning);
-            this.CanvasSVG.setAttribute("viewBox", `${newX} ${newY} ${viewBox.width} ${viewBox.height}`)
-            this.CanvasRect.setAttribute("x", newX);
-            this.CanvasRect.setAttribute("y", newY);
+            this.CanvasSVG.setAttribute('viewBox', `${newX} ${newY} ${viewBox.width} ${viewBox.height}`)
+            this.CanvasRect.setAttribute('x', newX);
+            this.CanvasRect.setAttribute('y', newY);
         } else if (this.selectedElement && this.down) {
             event.preventDefault();
             this.selectedElement.setAttributeNS(
                 null, 
-                "x", 
+                'x', 
                 Math.floor((this.mouseCoordinate.x - this.offset.x) / this.X) * this.X);
             this.selectedElement.setAttributeNS(
                 null, 
-                "y", 
+                'y', 
                 Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y);
         } else if (this.isAllSelecting && this.down)
         {
@@ -132,7 +132,7 @@ class Canvas extends Component {
         {
             for (var element of this.selectedElements)
             {
-                this.setDashArraySelectingRect(element, "0", "none");
+                this.setDashArraySelectingRect(element, '0', 'none');
             }
             this.selectedElements = [];
         }
@@ -141,13 +141,11 @@ class Canvas extends Component {
         let rectX2 = parseInt(rectX1) + parseInt(this.state.widthSelect);
         let rectY2 = parseInt(rectY1) + parseInt(this.state.heightSelect);
 
-        let elements = document
-            .getElementById("CanvasPanel")
-            .getElementsByTagName("use");
+        let elements = this.CanvasSVG.getElementsByTagName('use');
         for (let elem of elements)
         {
-            let x = parseInt(elem.getAttribute("x"));
-            let y = parseInt(elem.getAttribute("y"));
+            let x = parseInt(elem.getAttribute('x'));
+            let y = parseInt(elem.getAttribute('y'));
             if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y)
             {
                 this.setDashArraySelectingRect(elem, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
@@ -162,8 +160,8 @@ class Canvas extends Component {
             heightSelect : 0});
         if (this.state.isShowRotateButton) {
             this.setState({
-                startXRotateButton: this.selectedElement.getAttribute("x")-16,
-                startYRotateButton: this.selectedElement.getAttribute("y")-16});
+                startXRotateButton: this.selectedElement.getAttribute('x')-16,
+                startYRotateButton: this.selectedElement.getAttribute('y')-16});
         } 
         
         this.isAllSelecting = false;
@@ -174,8 +172,8 @@ class Canvas extends Component {
     setFocus(element) {
         this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
         this.setState( {
-            startXRotateButton: element.getAttribute("x")-16,
-            startYRotateButton: element.getAttribute("y")-16} )
+            startXRotateButton: element.getAttribute('x')-16,
+            startYRotateButton: element.getAttribute('y')-16} )
     }
 
     setZoom(event) {
@@ -199,19 +197,19 @@ class Canvas extends Component {
         }
 
         this.CanvasSVG.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${newWidth} ${newHeight}`);
-        this.CanvasRect.setAttribute("width", newWidth);
-        this.CanvasRect.setAttribute("height", newHeight);
+        this.CanvasRect.setAttribute('width', newWidth);
+        this.CanvasRect.setAttribute('height', newHeight);
     }
     
     setDashArraySelectingRect(element, strokeWidth, strokeDashArray) {
-        element.setAttributeNS(null, "stroke-width", strokeWidth);
-        element.setAttributeNS(null, "stroke-dasharray", strokeDashArray);
+        element.setAttributeNS(null, 'stroke-width', strokeWidth);
+        element.setAttributeNS(null, 'stroke-dasharray', strokeDashArray);
     }
 
     SetNoFocusAllElements() {
-        let elements = this.CanvasSVG.getElementsByTagName("use");
+        let elements = this.CanvasSVG.getElementsByTagName('use');
         for (var element of elements) {
-            this.setDashArraySelectingRect(element, "0", "none");
+            this.setDashArraySelectingRect(element, '0', 'none');
         }
         this.setState( {isShowRotateButton: false} );
     }
@@ -219,7 +217,7 @@ class Canvas extends Component {
     SetNoFocusElement() {
         if (!this.selectedElement) return;
 
-        this.setDashArraySelectingRect(this.selectedElement, "0", "none");
+        this.setDashArraySelectingRect(this.selectedElement, '0', 'none');
         this.selectedElement = null;
         this.setState( {isShowRotateButton: false} );
     }
@@ -239,8 +237,8 @@ class Canvas extends Component {
         this.canvasRef.current.addEventListener('wheel', this.setZoom);
         this.canvasRef.current.addEventListener('contextmenu', e => e.preventDefault());
 
-        this.CanvasSVG = document.getElementById("CanvasPanel");
-        this.CanvasRect = document.getElementById("CanvasRect");
+        this.CanvasSVG = document.getElementById('CanvasPanel');
+        this.CanvasRect = document.getElementById('CanvasRect');
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -252,33 +250,37 @@ class Canvas extends Component {
     render() {
         return (
             <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                preserveAspectRatio="xMinYMin"
-                id="CanvasPanel"
+                xmlns='http://www.w3.org/2000/svg'
+                version='1.1'
+                preserveAspectRatio='xMinYMin'
+                id='CanvasPanel'
                 ref={this.canvasRef}
                 style={{flexGrow: 2}}
                 viewBox={[0, 0, this.props.widthRect*2, this.props.heightRect*2].join(' ')}>
                 <rect 
-                    fill="url(#grid)" 
-                    stroke="none" 
-                    rx="0" 
-                    ry="0" 
-                    id="CanvasRect" 
+                    fill='url(#grid)' 
+                    stroke='none' 
+                    rx='0' 
+                    ry='0' 
+                    id='CanvasRect' 
                     width={this.props.widthRect * 2} 
-                    height={this.props.heightRect * 2}>
-                </rect>
-                <SelectingRect width={this.state.widthSelect} height={this.state.heightSelect} x={this.state.xSelect} y={this.state.ySelect} />
+                    height={this.props.heightRect * 2} />
+                <SelectingRect 
+                    width={this.state.widthSelect} 
+                    height={this.state.heightSelect} 
+                    x={this.state.xSelect} 
+                    y={this.state.ySelect} />
+                
                 {this.props.patterns.map((pattern) => (pattern))}
                 {this.props.shapes.map((shape) => (shape))}
                 {this.state.isShowRotateButton && (
                     <RotateButton startX={this.state.startXRotateButton} startY={this.state.startYRotateButton} />
-                )
-                }
+                )}
+                
                 <defs>
-                    <pattern id="grid" patternUnits="userSpaceOnUse" width="50" height="50">
-                        <rect width="50" height="50" fill="#DADADA" />
-                        <circle cx="25" cy="25" r="1" fill="black" />
+                    <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>
+                        <rect width='50' height='50' fill='#DADADA' />
+                        <circle cx='25' cy='25' r='1' fill='black' />
                     </pattern>
                 </defs>
             </svg>

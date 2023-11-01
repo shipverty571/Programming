@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Shape from "./Shape";
+import Shape from './Shape';
 
 class ShapesGroup extends Component {
     constructor(props) {
@@ -17,29 +17,27 @@ class ShapesGroup extends Component {
     
     renderGroup(name) {
         switch (name) {
-            case "Fundamental Items":
+            case 'Fundamental Items':
                 return (
-                    <div className="shapes_container" hidden={this.state.isHidden}>
-                        <Shape name="Resistor" onAddShape={this.props.onAddShape}/>
-                        <Shape name="Capacitor" onAddShape={this.props.onAddShape}/>
-                        <Shape name="Inductor" onAddShape={this.props.onAddShape}/> 
+                    <div className='shapes_container' hidden={this.state.isHidden}>
+                        <Shape name="Resistor" onAddShape={this.props.onAddShape} />
+                        <Shape name="Capacitor" onAddShape={this.props.onAddShape} />
+                        <Shape name="Inductor" onAddShape={this.props.onAddShape} /> 
                     </div>);
-            case "Custom Items":
-                return (
-                    <div className="shapes_container" hidden={this.state.isHidden}>
-                    </div>);
+            case 'Custom Items':
+                return (<div className='shapes_container' hidden={this.state.isHidden} />);
             default:
-                return "Not found group";
+                return 'Not found group';
         }
     }
 
     SetNoFocusAllElements() {
         var elements = document
-            .getElementById("ShapesGroup")
-            .getElementsByTagName("use");
+            .getElementById('ShapesGroup')
+            .getElementsByTagName('use');
         for (var element of elements) {
-            element.setAttributeNS(null, "stroke-width", "0");
-            element.setAttributeNS(null, "stroke-dasharray", "none");
+            element.setAttributeNS(null, 'stroke-width', '0');
+            element.setAttributeNS(null, 'stroke-dasharray', 'none');
         }
     }
     
@@ -49,10 +47,10 @@ class ShapesGroup extends Component {
 
     render() {
         return (
-            <div id="ShapesGroup">
-                <div style={{display: "flex"}}>
+            <div id='ShapesGroup'>
+                <div style={{ display: 'flex' }}>
                     <button 
-                        id="ShapesGroupButton" 
+                        id='ShapesGroupButton' 
                         onClick={this.showGroup}>
                         <h3>{this.props.groupName}</h3>
                     </button>

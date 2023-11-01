@@ -1,15 +1,15 @@
 import './App.css';
-import SideBar from "./components/SideBar/SideBar";
-import CanvasBar from "./components/Canvas/CanvasBar";
-import Header from "./components/Header/Header";
-import {Component} from "react";
-import Resistor from "./components/Shapes/Patterns/Resistor";
-import UseResistor from "./components/Shapes/UseShapes/UseResistor";
-import Capacitor from "./components/Shapes/Patterns/Capacitor";
-import Inductor from "./components/Shapes/Patterns/Inductor";
-import UseCapacitor from "./components/Shapes/UseShapes/UseCapacitor";
-import UseInductor from "./components/Shapes/UseShapes/UseInductor";
-import $ from "jquery";
+import SideBar from './components/SideBar/SideBar';
+import CanvasBar from './components/Canvas/CanvasBar';
+import Header from './components/Header/Header';
+import {Component} from 'react';
+import Resistor from './components/Shapes/Patterns/Resistor';
+import UseResistor from './components/Shapes/UseShapes/UseResistor';
+import Capacitor from './components/Shapes/Patterns/Capacitor';
+import Inductor from './components/Shapes/Patterns/Inductor';
+import UseCapacitor from './components/Shapes/UseShapes/UseCapacitor';
+import UseInductor from './components/Shapes/UseShapes/UseInductor';
+import $ from 'jquery';
 
 class App extends Component {
     constructor(props) {
@@ -29,17 +29,17 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="container_column">
-                <div className="container_row" style={{justifyContent: "left"}}>
-                    <div className="container_column">
+            <div className='container_column'>
+                <div className='container_row' style={{ justifyContent: 'left' }}>
+                    <div className='container_column'>
                         <Header />
                     </div>
                 </div>
-                <div className="App container_row" style={{flexGrow: 2}}>
-                    <div className="container_column" style={{width: "400px", backgroundColor: "#F3F3F3"}}>
+                <div className='App container_row' style={{ flexGrow: 2 }}>
+                    <div className='container_column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
                         <SideBar onAddShape={this.onAddShape} />
                     </div>
-                    <div className="container_column" >
+                    <div className='container_column' >
                         <CanvasBar 
                             patterns={this.state.patterns}
                             shapes={this.state.shapes} 
@@ -52,29 +52,29 @@ class App extends Component {
     }
     
     componentDidMount() {
-        this.setState({ widthRect : $("#CanvasPanel").width() })
-        this.setState({ heightRect:  $("#CanvasPanel").height() })
+        let canvas = $('#CanvasPanel');
+        this.setState({ widthRect : canvas.width() });
+        this.setState({ heightRect:  canvas.height() });
     }
     
     onAddShape(shape) {
         var element = null;
         switch (shape) {
-            case "Resistor":
+            case 'Resistor':
                 element = <UseResistor href="#ResistorSymbol" x="100" y="100" />
                 break;
-            case "Capacitor":
+            case 'Capacitor':
                 element = <UseCapacitor href="#CapacitorSymbol" x="100" y="100" />
                 break;
-            case "Inductor":
+            case 'Inductor':
                 element = <UseInductor href="#InductorSymbol" x="100" y="100" />
                 break;
             default:
-                console.log("error");
                 break;
         }
         
         if (element) {
-            this.setState({shapes : [...this.state.shapes, element]})
+            this.setState({ shapes : [...this.state.shapes, element] });
         }
     }
 }

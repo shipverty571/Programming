@@ -7,8 +7,8 @@ class UseCapacitor extends Component {
                 x={this.props.x} 
                 y={this.props.y} 
                 href={this.props.href} 
-                className="draggable"
-                style={{cursor: this.props.canNotDraggable && "default"}} />
+                className='draggable'
+                style={{ cursor: this.props.canNotDraggable && 'default' }} />
         );
     }
 }
