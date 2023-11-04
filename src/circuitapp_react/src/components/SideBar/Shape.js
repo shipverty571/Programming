@@ -49,7 +49,7 @@ class Shape extends Component {
                 return (
                     <svg 
                         className='shape-image' 
-                        viewBox={[0, 0, 125, 150].join(' ')}
+                        viewBox={[0, 0, 150, 100].join(' ')}
                         width='125'
                         height='150'>
                         <Capacitor id="CapacitorSymbolPicture" />
