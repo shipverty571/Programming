@@ -1,0 +1,244 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.container-row {
+  display: flex;
+  justify-content: center;
+}
+
+.container-column {
+  margin: 5px;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.horizontal-content {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: start;
+  align-items: center;
+}
+
+select, h4, h3, h2, h1, p, input {
+  margin: 5px;
+}
+
+.shapes-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-width: 100%;
+  min-height: 50px;
+}
+
+.shape-image {
+  width: 50px;
+  height: 50px;
+}
+
+.shape-name {
+  flex-grow: 2;
+}
+
+#root {
+  height: 95vh;
+  width: 98vw;
+  margin: 10px;
+}
+
+.draggable {
+  cursor: move;
+}
+
+#folder-button {
+  text-align: center;
+  background: url('../public/Images/folder_100x100_black.png') no-repeat;
+  background-position: center center;
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  margin-right: 5px;
+  padding: 0;
+}
+
+#folder-button:hover {
+  background-color: #EBEBEB;
+}
+
+#folder-button:active {
+  background: url('../public/Images/folder_100x100_white.png') no-repeat;
+  background-size: 30px 30px;
+  background-color: #4DC462;
+  background-position: center center;
+}
+
+#save-button {
+  text-align: center;
+  background: url('../public/Images/save_100x100_black.png') no-repeat;
+  background-position: center center;
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  padding: 0;
+}
+
+#save-button:hover {
+  background-color: #EBEBEB;
+}
+
+#save-button:active {
+  background: url('../public/Images/save_100x100_white.png') no-repeat;
+  background-color: #4DC462;
+  background-position: center center;
+  background-size: 30px 30px;
+}
+
+#time-saved-label {
+  color: #808080;
+  margin-right: 5px;
+}
+
+#search-input {
+  height: 25px;
+  border: 1px solid black;
+  border-radius: 0;
+}
+
+#search-input:focus {
+  outline-style: solid;
+  outline-color: #66CD79;
+  border: 1px solid #66CD79;
+}
+
+#shapes-group-button {
+  background-color: #F3F3F3;
+  text-align: left;
+  border: 0;
+  border-top: 2px solid #66CD79;
+  height: 30px;
+  flex-grow: 1;
+}
+
+#shapes-group-button:hover {
+  background-color: #EBEBEB;
+}
+
+#shapes-group-button:active {
+  background-color: #66CD79;
+  color: white;
+}
+
+#shapes-group {
+  background-color: white;
+  margin: 5px;
+}
+
+.shape-button {
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.shape-button:hover {
+  background-color: #EBEBEB;
+}
+
+.shape-button:active {
+  background-color: #66CD79;
+  color: white;
+}
+
+#pages-group {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+#pages-group > input {
+  display: none;
+}
+
+#pages-group > label {
+  padding: 5px;
+  background-color: transparent;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+#pages-group > label:hover {
+  background-color: #EBEBEB;
+}
+
+#pages-group > label:active {
+  background-color: #4DC462;
+  color: white;
+}
+
+#pages-group > input[type="radio"]:checked + label {
+  background-color: #66CD79;
+  color: white;
+}
+
+#edit-pages-count-div {
+  height: 30px;
+}
+
+#edit-pages-count-div > button {
+  border: 0;
+  height: 30px;
+  width: 30px;
+}
+
+#edit-pages-count-div > button:hover {
+  background-color: #DADADA;
+}
+
+#edit-pages-count-div > button:active {
+  background-color: #4DC462;
+  color: white;
+}
+
+#add-page-button {
+  background: url('../public/Images/plus_100x100_black.png') no-repeat;
+  background-position: center center;
+  background-size: 30px 30px;
+  margin-right: 5px;
+}
+
+#add-page-button:hover {
+  background-color: #EBEBEB;
+}
+
+#add-page-button:active {
+  background: url('../public/Images/plus_100x100_white.png') no-repeat;
+  background-color: #4DC462;
+  background-position: center center;
+  background-size: 30px 30px;
+}
+
+#remove-page-button {
+  background: url('../public/Images/minus_100x100_black.png') no-repeat;
+  background-position: center center;
+  background-size: 30px 30px;
+}
+
+#remove-page-button:hover {
+  background-color: #EBEBEB;
+}
+
+#remove-page-button:active {
+  background: url('../public/Images/minus_100x100_white.png') no-repeat;
+  background-color: #4DC462;
+  background-position: center center;
+  background-size: 30px 30px;
+}
