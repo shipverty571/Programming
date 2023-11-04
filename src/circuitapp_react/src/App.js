@@ -65,7 +65,9 @@ class App extends Component {
         }
         
         if (element) {
-            this.setState({ shapes : [...this.state.shapes, element] });
+            this.setState( previousState => ({ 
+                shapes : [...previousState.shapes, element] 
+            }));
         }
     }
 
