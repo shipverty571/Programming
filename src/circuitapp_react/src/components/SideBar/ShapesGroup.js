@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 class ShapesGroup extends Component {
     /**
      * Создает экземпляр класса ShapesGroup.
-     * @param props Пропсы.
+     * @param props Свойства.
      */
     constructor(props) {
         super(props);

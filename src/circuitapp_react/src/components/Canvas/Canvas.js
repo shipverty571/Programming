@@ -153,7 +153,7 @@ class Canvas extends Component {
 
     /**
      * Создает экземпляр класса Canvas.
-     * @param props Пропсы.
+     * @param props Свойства.
      */
     constructor(props) {
         super(props);

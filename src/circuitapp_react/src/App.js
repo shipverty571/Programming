@@ -17,7 +17,7 @@ import $ from 'jquery';
 class App extends Component {
     /**
      * Создает экземпляр класса App.
-     * @param props Пропсы.
+     * @param props Свойства.
      */
     constructor(props) {
         super(props);
