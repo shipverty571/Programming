@@ -13,6 +13,7 @@ class UseResistor extends Component {
                 href={this.props.href} 
                 className='draggable' 
                 style={{ cursor: this.props.canNotDraggable ? 'default' : 'move' }}
+                stroke="black"
             />
         );
     }

@@ -12,7 +12,8 @@ class UseInductor extends Component {
                 y={this.props.y} 
                 href={this.props.href} 
                 className='draggable' 
-                style={{ cursor: this.props.canNotDraggable ? 'default' : 'move' }} 
+                style={{ cursor: this.props.canNotDraggable ? 'default' : 'move' }}
+                stroke="black"
             />
         );
     }
