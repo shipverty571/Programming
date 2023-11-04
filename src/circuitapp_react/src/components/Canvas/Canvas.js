@@ -13,7 +13,7 @@ class Canvas extends Component {
      * @private 
      * @type {number}
      */
-    X = 25;
+    X = 50;
 
     /**
      * Базовая координата смещения по оси ординат.
@@ -21,7 +21,7 @@ class Canvas extends Component {
      * @private
      * @type {number}
      */
-    Y = 25;
+    Y = 50;
 
     /**
      * Базовая ширина рамки выбранного элемента.
@@ -444,7 +444,7 @@ class Canvas extends Component {
                 <defs>
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>
                         <rect width='50' height='50' fill='#DADADA' />
-                        <circle cx='25' cy='25' r='1' fill='black' />
+                        <circle cx='0' cy='0' r='2' fill='black' />
                     </pattern>
                 </defs>
             </svg>
