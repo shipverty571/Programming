@@ -64,6 +64,22 @@ class Canvas extends Component {
     MaxZoomHeight = 5000;
 
     /**
+     * Цвет элемента при его передвижении.
+     * @type {string}
+     * @private
+     * @const
+     */
+    DraggableElementColor = "gray";
+
+    /**
+     * Цвет элемента, когда он не передвигается.
+     * @type {string}
+     * @private
+     * @const
+     */
+    NoDraggableElementColor = "black";
+
+    /**
      * Выбранный элемент.
      * @type {JSX.Element} 
      * @private
@@ -175,6 +191,7 @@ class Canvas extends Component {
         this.getMousePosition = this.getMousePosition.bind(this);
         this.onSetZoom = this.onSetZoom.bind(this);
         this.setFocus = this.setFocus.bind(this);
+        this.setStrokeColor = this.setStrokeColor.bind(this);
     }
 
     /**
@@ -195,6 +212,7 @@ class Canvas extends Component {
             }
             this.setState( {isShowRotateButton: true} );
             this.selectedElement = event.target;
+            this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
             this.offset = this.getMousePosition(event);
             this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, 'x'));
             this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, 'y'));
@@ -238,6 +256,7 @@ class Canvas extends Component {
                 null, 
                 'y', 
                 Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y);
+            
         } else if (this.isAllSelecting && this.down)
         {
             let width, height;
@@ -265,6 +284,9 @@ class Canvas extends Component {
     onEndDrag() {
         this.down = false;
         this.isPanning = false;
+        if (this.selectedElement) {
+            this.setStrokeColor(this.selectedElement, this.NoDraggableElementColor);
+        }
         if (this.selectedElements.length > 0)
         {
             for (var element of this.selectedElements)
@@ -305,6 +327,10 @@ class Canvas extends Component {
         this.selectingRectX = null;
         this.selectingRectY = null;
     }
+    
+    setStrokeColor(element, color) {
+        element.setAttribute("stroke", color);
+    } 
 
     /**
      * Устанавливает визуальный фокус элемента.
