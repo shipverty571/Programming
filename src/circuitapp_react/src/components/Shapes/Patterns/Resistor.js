@@ -16,12 +16,11 @@ class Resistor extends Component {
                         width='150' 
                         height='50' 
                         fill='none' 
-                        stroke='black' 
                         strokeWidth='3' 
                         strokeDasharray='none' 
                     />
-                    <line x1='0' x2='50' y1='50' y2='50' stroke='black' strokeWidth='3' strokeDasharray='none'  />
-                    <line x1='200' x2='250' y1='50' y2='50' stroke='black' strokeWidth='3' strokeDasharray='none'  />
+                    <line x1='0' x2='50' y1='50' y2='50' strokeWidth='3' strokeDasharray='none'  />
+                    <line x1='200' x2='250' y1='50' y2='50' strokeWidth='3' strokeDasharray='none'  />
                 </g>
             </symbol>
         );
