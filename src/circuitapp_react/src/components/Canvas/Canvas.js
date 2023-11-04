@@ -143,13 +143,13 @@ class Canvas extends Component {
      * Хранит ссылку на элемент канвас.
      * @private
      */
-    CanvasSVG;
+    canvasSVG;
 
     /**
      * Хранится ссылку на элемент прямоугольника канваса.
      * @private
      */
-    CanvasRect;
+    canvasRect;
 
     /**
      * Создает экземпляр класса Canvas.
@@ -222,12 +222,12 @@ class Canvas extends Component {
     onDrag(event) {
         this.mouseCoordinate = this.getMousePosition(event);
         if (this.isPanning) {
-            let viewBox = this.CanvasSVG.viewBox.animVal;
+            let viewBox = this.canvasSVG.viewBox.animVal;
             let newX = viewBox.x - (this.mouseCoordinate.x - this.startXPanning);
             let newY = viewBox.y - (this.mouseCoordinate.y - this.startYPanning);
-            this.CanvasSVG.setAttribute('viewBox', `${newX} ${newY} ${viewBox.width} ${viewBox.height}`)
-            this.CanvasRect.setAttribute('x', newX);
-            this.CanvasRect.setAttribute('y', newY);
+            this.canvasSVG.setAttribute('viewBox', `${newX} ${newY} ${viewBox.width} ${viewBox.height}`)
+            this.canvasRect.setAttribute('x', newX);
+            this.canvasRect.setAttribute('y', newY);
         } else if (this.selectedElement && this.down) {
             event.preventDefault();
             this.selectedElement.setAttributeNS(
@@ -278,7 +278,7 @@ class Canvas extends Component {
         let rectX2 = parseInt(rectX1) + parseInt(this.state.widthSelect);
         let rectY2 = parseInt(rectY1) + parseInt(this.state.heightSelect);
 
-        let elements = this.CanvasSVG.getElementsByTagName('use');
+        let elements = this.canvasSVG.getElementsByTagName('use');
         for (let elem of elements)
         {
             let x = parseInt(elem.getAttribute('x'));
@@ -324,7 +324,7 @@ class Canvas extends Component {
     onSetZoom(event) {
         event.preventDefault();
 
-        let viewBox = this.CanvasSVG.viewBox.animVal;
+        let viewBox = this.canvasSVG.viewBox.animVal;
         let newWidth = viewBox.width;
         let newHeight = viewBox.height;
         if (event.deltaY > 0) {
@@ -341,9 +341,9 @@ class Canvas extends Component {
             return;
         }
 
-        this.CanvasSVG.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${newWidth} ${newHeight}`);
-        this.CanvasRect.setAttribute('width', newWidth);
-        this.CanvasRect.setAttribute('height', newHeight);
+        this.canvasSVG.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${newWidth} ${newHeight}`);
+        this.canvasRect.setAttribute('width', newWidth);
+        this.canvasRect.setAttribute('height', newHeight);
     }
 
     /**
@@ -361,7 +361,7 @@ class Canvas extends Component {
      * Убирает фокус со всех элементов.
      */
     setNoFocusAllElements() {
-        let elements = this.CanvasSVG.getElementsByTagName('use');
+        let elements = this.canvasSVG.getElementsByTagName('use');
         for (var element of elements) {
             this.setDashArraySelectingRect(element, '0', 'none');
         }
@@ -385,7 +385,7 @@ class Canvas extends Component {
      * @returns {{x: number, y: number}} Возвращает координаты.
      */
     getMousePosition(event) {
-        let CTM = this.CanvasSVG.getScreenCTM();
+        let CTM = this.canvasSVG.getScreenCTM();
         return {
             x: (event.clientX - CTM.e) / CTM.a,
             y: (event.clientY - CTM.f) / CTM.d
@@ -399,8 +399,8 @@ class Canvas extends Component {
         this.canvasRef.current.addEventListener('wheel', this.onSetZoom);
         this.canvasRef.current.addEventListener('contextmenu', e => e.preventDefault());
 
-        this.CanvasSVG = document.getElementById('canvas-panel');
-        this.CanvasRect = document.getElementById('canvas-rect');
+        this.canvasSVG = document.getElementById('canvas-panel');
+        this.canvasRect = document.getElementById('canvas-rect');
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
