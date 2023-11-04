@@ -43,7 +43,7 @@ class App extends Component {
 
     /**
      * Добавляет элемент в канвас.
-     * @param shape
+     * @param shape Имя элемента, который нужно добавить.
      */
     onAddShape(shape) {
         let element = null;
