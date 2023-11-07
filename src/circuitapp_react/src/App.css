@@ -242,3 +242,65 @@ select, h4, h3, h2, h1, p, input {
   background-position: center center;
   background-size: 30px 30px;
 }
+
+.menu-operations {
+  position: absolute;
+}
+
+.menu-operations > button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  margin: 5px 0 5px 5px;
+}
+
+#turn-left-element-button {
+  background: url('../public/Images/turn_left_64x64_black.png');
+  background-position: center center;
+  background-size: 32px 32px;
+}
+
+#turn-left-element-button:hover {
+  background-color: #EBEBEB;
+}
+
+#turn-left-element-button:active {
+  background: url('../public/Images/turn_left_64x64_white.png') no-repeat;
+  background-color: #4DC462;
+  background-position: center center;
+  background-size: 32px 32px;
+}
+
+#turn-right-element-button {
+  background: url('../public/Images/turn_right_64x64_black.png');
+  background-position: center center;
+  background-size: 32px 32px;
+}
+
+#turn-right-element-button:hover {
+  background-color: #EBEBEB;
+}
+
+#turn-right-element-button:active {
+  background: url('../public/Images/turn_right_64x64_white.png') no-repeat;
+  background-color: #4DC462;
+  background-position: center center;
+  background-size: 32px 32px;
+}
+
+#delete-element-button {
+  background: url('../public/Images/delete_64x64_black.png');
+  background-position: center center;
+  background-size: 32px 32px;
+}
+
+#delete-element-button:hover {
+  background-color: #EBEBEB;
+}
+
+#delete-element-button:active {
+  background: url('../public/Images/delete_64x64_white.png') no-repeat;
+  background-color: #4DC462;
+  background-position: center center;
+  background-size: 32px 32px;
+}

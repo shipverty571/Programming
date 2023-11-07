@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CanvasPages from './CanvasPages';
 import Canvas from './Canvas'
 import PropTypes from "prop-types";
+import MenuOperations from "./MenuOperations";
 
 /**
  * Компонент правой колонки для работы с канвасом.
@@ -10,6 +11,7 @@ class CanvasBar extends Component {
     render() {
         return (
             <div style={{ display: 'flex', flexGrow: 1, flexDirection: 'column' }}>
+                <MenuOperations />
                 <Canvas 
                     patterns={this.props.patterns} 
                     shapes={this.props.shapes} 
