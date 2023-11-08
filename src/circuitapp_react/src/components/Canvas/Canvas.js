@@ -177,10 +177,7 @@ class Canvas extends Component {
             xSelect : 0,
             ySelect : 0,
             widthSelect : 0,
-            heightSelect : 0,
-            startXRotateButton : 0,
-            startYRotateButton: 0,
-            isShowRotateButton : false
+            heightSelect : 0
         }
         this.canvasRef = React.createRef();
         
@@ -208,14 +205,13 @@ class Canvas extends Component {
             this.down = true;
             if (this.selectedElement)
             {
-                this.setNoFocusElement();
+                this.setNoFocusElement(this.selectedElement);
             }
-            this.setState( {isShowRotateButton: true} );
             this.selectedElement = event.target;
-            this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
             this.offset = this.getMousePosition(event);
             this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, 'x'));
             this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, 'y'));
+            this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
             this.setFocus(this.selectedElement);
             
         } else {
@@ -229,7 +225,7 @@ class Canvas extends Component {
                 this.isAllSelecting = true;
                 this.setState({ xSelect: this.selectingRectX, ySelect : this.selectingRectY})
             }
-            this.setNoFocusElement();
+            this.setNoFocusElement(this.selectedElement);
         }
     }
 
@@ -317,11 +313,6 @@ class Canvas extends Component {
             ySelect : 0, 
             widthSelect : 0, 
             heightSelect : 0});
-        if (this.state.isShowRotateButton) {
-            this.setState({
-                startXRotateButton: this.selectedElement.getAttribute('x')-16,
-                startYRotateButton: this.selectedElement.getAttribute('y')-16});
-        } 
         
         this.isAllSelecting = false;
         this.selectingRectX = null;
@@ -338,9 +329,7 @@ class Canvas extends Component {
      */
     setFocus(element) {
         this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
-        this.setState( {
-            startXRotateButton: element.getAttribute('x')-16,
-            startYRotateButton: element.getAttribute('y')-16} )
+        this.props.setSelectedElementInState(this.selectedElement);
     }
 
     /**
@@ -379,8 +368,9 @@ class Canvas extends Component {
      * @param strokeDashArray Массив прерывистых линий.
      */
     setDashArraySelectingRect(element, strokeWidth, strokeDashArray) {
-        element.setAttributeNS(null, 'stroke-width', strokeWidth);
-        element.setAttributeNS(null, 'stroke-dasharray', strokeDashArray);
+        console.log(element)
+        element.setAttribute('stroke-width', strokeWidth);
+        element.setAttribute('stroke-dasharray', strokeDashArray);
     }
 
     /**
@@ -388,21 +378,22 @@ class Canvas extends Component {
      */
     setNoFocusAllElements() {
         let elements = this.canvasSVG.getElementsByTagName('use');
-        for (var element of elements) {
-            this.setDashArraySelectingRect(element, '0', 'none');
+        for (let element of elements) {
+            this.setNoFocusElement(element);
         }
-        this.setState( {isShowRotateButton: false} );
     }
 
     /**
      * Убирает фокус с выбранного элемента.
      */
-    setNoFocusElement() {
-        if (!this.selectedElement) return;
-
-        this.setDashArraySelectingRect(this.selectedElement, '0', 'none');
-        this.selectedElement = null;
-        this.setState({ isShowRotateButton: false });
+    setNoFocusElement(element) {
+        if (!element) return;
+        
+        this.setDashArraySelectingRect(element, '0', 'none');
+        if (element === this.selectedElement) {
+            this.selectedElement = null;
+            this.props.setSelectedElementInState(this.selectedElement);
+        }
     }
 
     /**
@@ -430,7 +421,7 @@ class Canvas extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps !== this.props) {
+        if (prevProps.shapes !== this.props.shapes) {
             this.setNoFocusAllElements();
         }
     }
@@ -463,9 +454,6 @@ class Canvas extends Component {
                 
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => shape)}
-                {this.state.isShowRotateButton && (
-                    <RotateButton startX={this.state.startXRotateButton} startY={this.state.startYRotateButton} />
-                )}
                 
                 <defs>
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>
