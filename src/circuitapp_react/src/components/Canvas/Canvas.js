@@ -402,7 +402,7 @@ class Canvas extends Component {
 
         this.setDashArraySelectingRect(this.selectedElement, '0', 'none');
         this.selectedElement = null;
-        this.setState( {isShowRotateButton: false} );
+        this.setState({ isShowRotateButton: false });
     }
 
     /**

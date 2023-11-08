@@ -8,15 +8,28 @@ import MenuOperations from "./MenuOperations";
  * Компонент правой колонки для работы с канвасом.
  */
 class CanvasBar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            element: null
+        }
+        
+        this.setSelectedElementInState = this.setSelectedElementInState.bind(this);
+    }
+    
+    setSelectedElementInState(elem) {
+        this.setState({ element: elem });
+    }
     render() {
         return (
             <div style={{ display: 'flex', flexGrow: 1, flexDirection: 'column' }}>
-                <MenuOperations />
+                <MenuOperations element={this.state.element} />
                 <Canvas 
                     patterns={this.props.patterns} 
                     shapes={this.props.shapes} 
                     widthRect={this.props.widthRect} 
-                    heightRect={this.props.heightRect} 
+                    heightRect={this.props.heightRect}
+                    setSelectedElementInState={this.setSelectedElementInState}
                 />
                 <CanvasPages />
             </div>
