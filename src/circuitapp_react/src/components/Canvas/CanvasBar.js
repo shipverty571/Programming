@@ -20,10 +20,13 @@ class CanvasBar extends Component {
     setSelectedElementInState(elem) {
         this.setState({ element: elem });
     }
+    
     render() {
         return (
             <div style={{ display: 'flex', flexGrow: 1, flexDirection: 'column' }}>
-                <MenuOperations element={this.state.element} />
+                {this.state.element && (
+                    <MenuOperations element={this.state.element} />
+                )}
                 <Canvas 
                     patterns={this.props.patterns} 
                     shapes={this.props.shapes} 

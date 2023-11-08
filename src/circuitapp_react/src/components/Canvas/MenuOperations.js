@@ -11,9 +11,7 @@ class MenuOperations extends Component {
             <div className="horizontal-content menu-operations">
                 <button id='turn-left-element-button' />
                 <button id='turn-right-element-button' />
-                {this.props.element && (
-                    <button id='delete-element-button' />
-                )}
+                <button id='delete-element-button' />
             </div>
         );
     }
