@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 class Resistor extends Component {
     render() {
         return (
-            <symbol width='250' height='100' id={this.props.id}>
+            <symbol width='250' height='150' id={this.props.id}>
                 <rect x='0' y='0' fillOpacity='0' width='250' height='100' id='SelectingRect' stroke='#0078D7' />
                 <g>
                     <rect 
