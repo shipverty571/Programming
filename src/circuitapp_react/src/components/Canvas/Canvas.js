@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import SelectingRect from './SelectingRect';
-import RotateButton from './RotateButton';
 import PropTypes from "prop-types";
 
 /**
