@@ -8,6 +8,10 @@ import MenuOperations from "./MenuOperations";
  * Компонент правой колонки для работы с канвасом.
  */
 class CanvasBar extends Component {
+    /**
+     * Создает экземпляр класса CanvasBar.
+     * @param props Свойства.
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -18,18 +22,28 @@ class CanvasBar extends Component {
         this.removeElement = this.removeElement.bind(this);
         this.rotateElement = this.rotateElement.bind(this);
     }
-    
+
+    /**
+     * Изменяет состояние текущего класса.
+     * @param elem Элемент, на который необходимо заменить.
+     */
     setSelectedElementInState(elem) {
         this.setState({ element: elem });
     }
 
+    /**
+     * Удаляет элемент из канваса.
+     */
     removeElement() {
         if (!this.state.element) return;
 
         this.state.element.remove();
         this.setSelectedElementInState(null);
     }
-    
+
+    /**
+     * Поворачивает элемент.
+     */
     rotateElement() {
         if (!this.state.element) return;
         

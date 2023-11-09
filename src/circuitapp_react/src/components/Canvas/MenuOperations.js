@@ -1,5 +1,8 @@
 ﻿import React, {Component} from 'react';
 
+/**
+ * Компонент с операциями над элементами.
+ */
 class MenuOperations extends Component {
     render() {
         return (

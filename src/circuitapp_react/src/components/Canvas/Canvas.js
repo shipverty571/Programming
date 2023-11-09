@@ -309,7 +309,10 @@ class Canvas extends Component {
         this.selectingRectX = null;
         this.selectingRectY = null;
     }
-    
+
+    /**
+     * Изменяет координаты элемента при его перемещении.
+     */
     changeCoordinateMovingElement() {
         let x = Math.floor((this.mouseCoordinate.x - this.offset.x) / this.X) * this.X;
         let y = Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y;
@@ -326,7 +329,12 @@ class Canvas extends Component {
             this.selectedElement.setAttribute('transform', `rotate(${num} ${x+centerX} ${y+centerY})`)
         }
     }
-    
+
+    /**
+     * Устанавливает цвет граней элемента.
+     * @param element Элемент.
+     * @param color Цвет.
+     */
     setStrokeColor(element, color) {
         element.setAttribute("stroke", color);
     } 
