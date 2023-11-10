@@ -20,6 +20,22 @@ class UseResistor extends Component {
      * @const
      */
     NoDraggableColor = "black";
+
+    /**
+     * Базовая ширина рамки выбранного элемента.
+     * @type {number}
+     * @private
+     * @const
+     */
+    SelectedStrokeWidth = 2;
+
+    /**
+     * Базовое число ширины прерывистой линии.
+     * @type {number}
+     * @private
+     * @const
+     */
+    SelectedStrokeDashArray = 8;
     
     constructor(props) {
         super(props);
@@ -29,7 +45,9 @@ class UseResistor extends Component {
             width: this.props.width,
             height: this.props.height,
             rotate: 0,
-            strokeColor: this.NoDraggableColor
+            strokeColor: this.NoDraggableColor,
+            strokeWidth: 0,
+            strokeDashArray: null
         }
         this.setCoordinate = this.setCoordinate.bind(this);
         this.changeRotate = this.changeRotate.bind(this);
@@ -45,11 +63,19 @@ class UseResistor extends Component {
         this.setState({ rotate: (oldRotate + 90) % 360})
     }
     
-    isDragging(dragging) {
-        if (dragging) {
+    isDragging(flag) {
+        if (flag) {
             this.setState({ strokeColor: this.DraggableColor })
         } else {
             this.setState({ strokeColor: this.NoDraggableColor })
+        }
+    }
+    
+    isFocus(flag) {
+        if (flag) {
+            this.setState({ strokeWidth: this.SelectedStrokeWidth, strokeDashArray: this.SelectedStrokeDashArray })
+        } else {
+            this.setState({ strokeWidth: 0, strokeDashArray: null })
         }
     }
     
@@ -62,6 +88,8 @@ class UseResistor extends Component {
                 className='draggable' 
                 style={{ cursor: this.props.canNotDraggable ? 'default' : 'move' }}
                 stroke={this.state.strokeColor}
+                strokeWidth={this.state.strokeWidth}
+                strokeDasharray={this.state.strokeDashArray}
                 id={this.props.id}
                 transform={`rotate(${this.state.rotate} ${this.state.X+this.state.width/2} ${this.state.Y+this.state.height/2})`}
             />

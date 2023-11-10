@@ -23,22 +23,6 @@ class Canvas extends Component {
     Y = 50;
 
     /**
-     * Базовая ширина рамки выбранного элемента.
-     * @type {number}
-     * @private
-     * @const
-     */
-    SelectedStrokeWidth = 2;
-
-    /**
-     * Базовое число ширины прерывистой линии.
-     * @type {number}
-     * @private
-     * @const
-     */
-    SelectedStrokeDashArray = 8;
-
-    /**
      * Числа, относительно которого происходит приближение и отдаление.
      * @type {number}
      * @private
@@ -186,10 +170,10 @@ class Canvas extends Component {
             this.startYPanning = coord.y;
         } else if (event.target.classList.contains('draggable')) {
             this.down = true;
-            if (this.selectedElement)
+            /*if (this.selectedElement)
             {
                 this.setNoFocusElement(this.selectedElement);
-            }
+            }*/
 
             let id = Math.floor(event.target.getAttribute('id'));
             this.selectedElement = this.props.refs[id].current;
@@ -213,7 +197,7 @@ class Canvas extends Component {
                 this.isAllSelecting = true;
                 this.setState({ xSelect: this.selectingRectX, ySelect : this.selectingRectY})
             }
-            this.setNoFocusElement(this.selectedElement);
+            /*this.setNoFocusElement(this.selectedElement);*/
         }
     }
 
@@ -310,11 +294,14 @@ class Canvas extends Component {
 
     /**
      * Устанавливает визуальный фокус элемента.
-     * @param element Элемент.
+     * @param flag Если true, то фокус устанавливается, иначе false.
      */
-    setFocus(element) {
+    setFocus(flag) {
         /*this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);*/
-        this.props.setSelectedElementInState(this.selectedElement);
+        this.selectedElement.isFocus(flag);
+        if (flag) {
+            this.props.setSelectedElementInState(this.selectedElement);
+        }
     }
 
     /**
@@ -405,9 +392,9 @@ class Canvas extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.shapes !== this.props.shapes) {
+       /* if (prevProps.shapes !== this.props.shapes) {
             this.setNoFocusAllElements();
-        }
+        }*/
     }
     
     render() {
