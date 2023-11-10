@@ -5,6 +5,22 @@ import PropTypes from "prop-types";
  * Компонент для использования шаблона резистора.
  */
 class UseResistor extends Component {
+    /**
+     * Цвет элемента при его передвижении.
+     * @type {string}
+     * @private
+     * @const
+     */
+    DraggableColor = "gray";
+
+    /**
+     * Цвет элемента, когда он не передвигается.
+     * @type {string}
+     * @private
+     * @const
+     */
+    NoDraggableColor = "black";
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -12,10 +28,12 @@ class UseResistor extends Component {
             Y: this.props.y,
             width: this.props.width,
             height: this.props.height,
-            rotate: 0
+            rotate: 0,
+            strokeColor: this.NoDraggableColor
         }
         this.setCoordinate = this.setCoordinate.bind(this);
         this.changeRotate = this.changeRotate.bind(this);
+        this.isDragging = this.isDragging.bind(this);
     }
     
     setCoordinate(x, y) {
@@ -27,6 +45,14 @@ class UseResistor extends Component {
         this.setState({ rotate: (oldRotate + 90) % 360})
     }
     
+    isDragging(dragging) {
+        if (dragging) {
+            this.setState({ strokeColor: this.DraggableColor })
+        } else {
+            this.setState({ strokeColor: this.NoDraggableColor })
+        }
+    }
+    
     render() {
         return (
             <use
@@ -35,7 +61,7 @@ class UseResistor extends Component {
                 href={this.props.href} 
                 className='draggable' 
                 style={{ cursor: this.props.canNotDraggable ? 'default' : 'move' }}
-                stroke="black"
+                stroke={this.state.strokeColor}
                 id={this.props.id}
                 transform={`rotate(${this.state.rotate} ${this.state.X+this.state.width/2} ${this.state.Y+this.state.height/2})`}
             />

@@ -63,22 +63,6 @@ class Canvas extends Component {
     MaxZoomHeight = 5000;
 
     /**
-     * Цвет элемента при его передвижении.
-     * @type {string}
-     * @private
-     * @const
-     */
-    DraggableElementColor = "gray";
-
-    /**
-     * Цвет элемента, когда он не передвигается.
-     * @type {string}
-     * @private
-     * @const
-     */
-    NoDraggableElementColor = "black";
-
-    /**
      * Выбранный элемент.
      * @type {JSX.Element} 
      * @private
@@ -187,7 +171,6 @@ class Canvas extends Component {
         this.getMousePosition = this.getMousePosition.bind(this);
         this.onSetZoom = this.onSetZoom.bind(this);
         this.setFocus = this.setFocus.bind(this);
-        this.setStrokeColor = this.setStrokeColor.bind(this);
         this.changeCoordinateMovingElement = this.changeCoordinateMovingElement.bind(this);
     }
 
@@ -214,6 +197,7 @@ class Canvas extends Component {
             this.offset = this.getMousePosition(event);
             this.offset.x -= parseFloat(this.selectedElement.state.X);
             this.offset.y -= parseFloat(this.selectedElement.state.Y);
+            this.selectedElement.isDragging(true);
            /* this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
             this.setFocus(this.selectedElement);*/
             this.setFocus(this.selectedElement);
@@ -276,6 +260,7 @@ class Canvas extends Component {
         this.down = false;
         this.isPanning = false;
         if (this.selectedElement) {
+            this.selectedElement.isDragging(false);
             /*this.setStrokeColor(this.selectedElement, this.NoDraggableElementColor);*/
         }
         if (this.selectedElements.length > 0)
@@ -321,26 +306,7 @@ class Canvas extends Component {
         let x = Math.floor((this.mouseCoordinate.x - this.offset.x) / this.X) * this.X;
         let y = Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y;
         this.selectedElement.setCoordinate(x, y);
-       /* let rotate = this.selectedElement.getAttribute('transform');
-        if (rotate) {
-            rotate = rotate.match(/rotate\((\d+)(.+)\)/);
-            let num = Math.floor(rotate.slice(1)[0]);
-            let nameSymbol = this.selectedElement.getAttribute('href').replace('#', '');
-            let symbol = document.getElementById(nameSymbol);
-            let centerX = Math.floor(symbol.getAttribute('width')) / 2;
-            let centerY = Math.floor(symbol.getAttribute('height')) / 2;
-            this.selectedElement.setAttribute('transform', `rotate(${num} ${x+centerX} ${y+centerY})`)
-        }*/
     }
-
-    /**
-     * Устанавливает цвет граней элемента.
-     * @param element Элемент.
-     * @param color Цвет.
-     */
-    setStrokeColor(element, color) {
-        element.setAttribute("stroke", color);
-    } 
 
     /**
      * Устанавливает визуальный фокус элемента.
