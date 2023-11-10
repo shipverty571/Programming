@@ -170,10 +170,10 @@ class Canvas extends Component {
             this.startYPanning = coord.y;
         } else if (event.target.classList.contains('draggable')) {
             this.down = true;
-            /*if (this.selectedElement)
+            if (this.selectedElement)
             {
-                this.setNoFocusElement(this.selectedElement);
-            }*/
+                this.setFocus(false);
+            }
 
             let id = Math.floor(event.target.getAttribute('id'));
             this.selectedElement = this.props.refs[id].current;
@@ -197,7 +197,7 @@ class Canvas extends Component {
                 this.isAllSelecting = true;
                 this.setState({ xSelect: this.selectingRectX, ySelect : this.selectingRectY})
             }
-            /*this.setNoFocusElement(this.selectedElement);*/
+            this.setFocus(false);
         }
     }
 
@@ -298,9 +298,14 @@ class Canvas extends Component {
      */
     setFocus(flag) {
         /*this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);*/
-        this.selectedElement.isFocus(flag);
+        if (this.selectedElement) {
+            this.selectedElement.isFocus(flag);
+        }
+        
         if (flag) {
             this.props.setSelectedElementInState(this.selectedElement);
+        } else {
+            this.selectedElement = null;
         }
     }
 
