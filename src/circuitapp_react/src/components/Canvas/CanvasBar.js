@@ -77,6 +77,7 @@ class CanvasBar extends Component {
                     widthRect={this.props.widthRect} 
                     heightRect={this.props.heightRect}
                     setSelectedElementInState={this.setSelectedElementInState}
+                    refs={this.props.refs}
                 />
                 <CanvasPages />
             </div>

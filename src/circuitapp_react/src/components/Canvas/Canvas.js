@@ -207,12 +207,15 @@ class Canvas extends Component {
             {
                 this.setNoFocusElement(this.selectedElement);
             }
-            this.selectedElement = event.target;
+
+            let id = Math.floor(event.target.getAttribute('id'));
+            this.selectedElement = this.props.refs[id].current;
+            console.log(this.selectedElement);
             this.offset = this.getMousePosition(event);
-            this.offset.x -= parseFloat(this.selectedElement.getAttribute('x'));
-            this.offset.y -= parseFloat(this.selectedElement.getAttribute('y'));
-            this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
-            this.setFocus(this.selectedElement);
+            this.offset.x -= parseFloat(this.selectedElement.state.X);
+            this.offset.y -= parseFloat(this.selectedElement.state.Y);
+           /* this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
+            this.setFocus(this.selectedElement);*/
             
         } else {
             this.down = true;
@@ -316,9 +319,8 @@ class Canvas extends Component {
     changeCoordinateMovingElement() {
         let x = Math.floor((this.mouseCoordinate.x - this.offset.x) / this.X) * this.X;
         let y = Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y;
-        this.selectedElement.setAttribute('x', x);
-        this.selectedElement.setAttribute('y', y);
-        let rotate = this.selectedElement.getAttribute('transform');
+        this.selectedElement.setCoordinate(x, y);
+       /* let rotate = this.selectedElement.getAttribute('transform');
         if (rotate) {
             rotate = rotate.match(/rotate\((\d+)(.+)\)/);
             let num = Math.floor(rotate.slice(1)[0]);
@@ -327,7 +329,7 @@ class Canvas extends Component {
             let centerX = Math.floor(symbol.getAttribute('width')) / 2;
             let centerY = Math.floor(symbol.getAttribute('height')) / 2;
             this.selectedElement.setAttribute('transform', `rotate(${num} ${x+centerX} ${y+centerY})`)
-        }
+        }*/
     }
 
     /**

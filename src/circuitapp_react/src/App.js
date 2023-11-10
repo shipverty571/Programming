@@ -2,7 +2,7 @@ import './App.css';
 import SideBar from './components/SideBar/SideBar';
 import CanvasBar from './components/Canvas/CanvasBar';
 import Header from './components/Header/Header';
-import {Component} from 'react';
+import React, {Component} from 'react';
 import Resistor from './components/Shapes/Patterns/Resistor';
 import UseResistor from './components/Shapes/UseShapes/UseResistor';
 import Capacitor from './components/Shapes/Patterns/Capacitor';
@@ -28,17 +28,25 @@ class App extends Component {
                 <Inductor id="InductorSymbol" />
             ],
             shapes: [],
+            refsShapes: [],
             widthRect: 0,
             heightRect:  0
         }
-        
+
         this.onAddShape = this.onAddShape.bind(this);
+        this.setRef = this.setRef.bind(this);
     }
     
     componentDidMount() {
         let canvas = $('#canvas-panel');
         this.setState({ widthRect : canvas.width() });
         this.setState({ heightRect:  canvas.height() });
+    }
+    
+    setRef(ref) {
+        this.setState( previousState => ({
+            refsShapes : [...previousState.refsShapes, ref]
+        }));
     }
 
     /**
@@ -49,16 +57,18 @@ class App extends Component {
         let element = null;
         const X = 100;
         const Y = 100;
+        let ref = React.createRef();
         
         switch (shape) {
             case 'Resistor':
-                element = <UseResistor href="#ResistorSymbol" x={X} y={Y} />
+                element = <UseResistor href="#ResistorSymbol" x={X} y={Y} id={this.state.shapes.length} ref={ref}/>
+                this.setRef(ref);
                 break;
             case 'Capacitor':
-                element = <UseCapacitor href="#CapacitorSymbol" x={X} y={Y} />
+                element = <UseCapacitor href="#CapacitorSymbol" x={X} y={Y} id={this.state.shapes.length} />
                 break;
             case 'Inductor':
-                element = <UseInductor href="#InductorSymbol" x={X} y={Y} />
+                element = <UseInductor href="#InductorSymbol" x={X} y={Y} id={this.state.shapes.length} />
                 break;
             default:
                 break;
@@ -89,6 +99,7 @@ class App extends Component {
                             shapes={this.state.shapes}
                             widthRect={this.state.widthRect}
                             heightRect={this.state.heightRect}
+                            refs={this.state.refsShapes}
                         />
                     </div>
                 </div>
