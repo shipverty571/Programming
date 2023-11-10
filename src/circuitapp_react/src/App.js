@@ -61,7 +61,14 @@ class App extends Component {
         
         switch (shape) {
             case 'Resistor':
-                element = <UseResistor href="#ResistorSymbol" x={X} y={Y} id={this.state.shapes.length} ref={ref}/>
+                element = <UseResistor 
+                    href="#ResistorSymbol" 
+                    x={X} 
+                    y={Y} 
+                    id={this.state.shapes.length} 
+                    width={250}
+                    height={150}
+                    ref={ref}/>
                 this.setRef(ref);
                 break;
             case 'Capacitor':

@@ -216,6 +216,7 @@ class Canvas extends Component {
             this.offset.y -= parseFloat(this.selectedElement.state.Y);
            /* this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
             this.setFocus(this.selectedElement);*/
+            this.setFocus(this.selectedElement);
             
         } else {
             this.down = true;
@@ -275,7 +276,7 @@ class Canvas extends Component {
         this.down = false;
         this.isPanning = false;
         if (this.selectedElement) {
-            this.setStrokeColor(this.selectedElement, this.NoDraggableElementColor);
+            /*this.setStrokeColor(this.selectedElement, this.NoDraggableElementColor);*/
         }
         if (this.selectedElements.length > 0)
         {
@@ -346,7 +347,7 @@ class Canvas extends Component {
      * @param element Элемент.
      */
     setFocus(element) {
-        this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
+        /*this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);*/
         this.props.setSelectedElementInState(this.selectedElement);
     }
 
