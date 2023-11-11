@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import SelectingRect from './SelectingRect';
-import RotateButton from './RotateButton';
 import PropTypes from "prop-types";
 
 /**
@@ -177,10 +176,7 @@ class Canvas extends Component {
             xSelect : 0,
             ySelect : 0,
             widthSelect : 0,
-            heightSelect : 0,
-            startXRotateButton : 0,
-            startYRotateButton: 0,
-            isShowRotateButton : false
+            heightSelect : 0
         }
         this.canvasRef = React.createRef();
         
@@ -192,6 +188,7 @@ class Canvas extends Component {
         this.onSetZoom = this.onSetZoom.bind(this);
         this.setFocus = this.setFocus.bind(this);
         this.setStrokeColor = this.setStrokeColor.bind(this);
+        this.changeCoordinateMovingElement = this.changeCoordinateMovingElement.bind(this);
     }
 
     /**
@@ -208,14 +205,13 @@ class Canvas extends Component {
             this.down = true;
             if (this.selectedElement)
             {
-                this.setNoFocusElement();
+                this.setNoFocusElement(this.selectedElement);
             }
-            this.setState( {isShowRotateButton: true} );
             this.selectedElement = event.target;
-            this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
             this.offset = this.getMousePosition(event);
-            this.offset.x -= parseFloat(this.selectedElement.getAttributeNS(null, 'x'));
-            this.offset.y -= parseFloat(this.selectedElement.getAttributeNS(null, 'y'));
+            this.offset.x -= parseFloat(this.selectedElement.getAttribute('x'));
+            this.offset.y -= parseFloat(this.selectedElement.getAttribute('y'));
+            this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
             this.setFocus(this.selectedElement);
             
         } else {
@@ -229,7 +225,7 @@ class Canvas extends Component {
                 this.isAllSelecting = true;
                 this.setState({ xSelect: this.selectingRectX, ySelect : this.selectingRectY})
             }
-            this.setNoFocusElement();
+            this.setNoFocusElement(this.selectedElement);
         }
     }
 
@@ -248,17 +244,8 @@ class Canvas extends Component {
             this.canvasRect.setAttribute('y', newY);
         } else if (this.selectedElement && this.down) {
             event.preventDefault();
-            this.selectedElement.setAttributeNS(
-                null, 
-                'x', 
-                Math.floor((this.mouseCoordinate.x - this.offset.x) / this.X) * this.X);
-            this.selectedElement.setAttributeNS(
-                null, 
-                'y', 
-                Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y);
-            
-        } else if (this.isAllSelecting && this.down)
-        {
+            this.changeCoordinateMovingElement();
+        } else if (this.isAllSelecting && this.down) {
             let width, height;
             let x, y;
             x = this.selectingRectX;
@@ -317,17 +304,37 @@ class Canvas extends Component {
             ySelect : 0, 
             widthSelect : 0, 
             heightSelect : 0});
-        if (this.state.isShowRotateButton) {
-            this.setState({
-                startXRotateButton: this.selectedElement.getAttribute('x')-16,
-                startYRotateButton: this.selectedElement.getAttribute('y')-16});
-        } 
         
         this.isAllSelecting = false;
         this.selectingRectX = null;
         this.selectingRectY = null;
     }
-    
+
+    /**
+     * Изменяет координаты элемента при его перемещении.
+     */
+    changeCoordinateMovingElement() {
+        let x = Math.floor((this.mouseCoordinate.x - this.offset.x) / this.X) * this.X;
+        let y = Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y;
+        this.selectedElement.setAttribute('x', x);
+        this.selectedElement.setAttribute('y', y);
+        let rotate = this.selectedElement.getAttribute('transform');
+        if (rotate) {
+            rotate = rotate.match(/rotate\((\d+)(.+)\)/);
+            let num = Math.floor(rotate.slice(1)[0]);
+            let nameSymbol = this.selectedElement.getAttribute('href').replace('#', '');
+            let symbol = document.getElementById(nameSymbol);
+            let centerX = Math.floor(symbol.getAttribute('width')) / 2;
+            let centerY = Math.floor(symbol.getAttribute('height')) / 2;
+            this.selectedElement.setAttribute('transform', `rotate(${num} ${x+centerX} ${y+centerY})`)
+        }
+    }
+
+    /**
+     * Устанавливает цвет граней элемента.
+     * @param element Элемент.
+     * @param color Цвет.
+     */
     setStrokeColor(element, color) {
         element.setAttribute("stroke", color);
     } 
@@ -338,9 +345,7 @@ class Canvas extends Component {
      */
     setFocus(element) {
         this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
-        this.setState( {
-            startXRotateButton: element.getAttribute('x')-16,
-            startYRotateButton: element.getAttribute('y')-16} )
+        this.props.setSelectedElementInState(this.selectedElement);
     }
 
     /**
@@ -379,8 +384,8 @@ class Canvas extends Component {
      * @param strokeDashArray Массив прерывистых линий.
      */
     setDashArraySelectingRect(element, strokeWidth, strokeDashArray) {
-        element.setAttributeNS(null, 'stroke-width', strokeWidth);
-        element.setAttributeNS(null, 'stroke-dasharray', strokeDashArray);
+        element.setAttribute('stroke-width', strokeWidth);
+        element.setAttribute('stroke-dasharray', strokeDashArray);
     }
 
     /**
@@ -388,21 +393,22 @@ class Canvas extends Component {
      */
     setNoFocusAllElements() {
         let elements = this.canvasSVG.getElementsByTagName('use');
-        for (var element of elements) {
-            this.setDashArraySelectingRect(element, '0', 'none');
+        for (let element of elements) {
+            this.setNoFocusElement(element);
         }
-        this.setState( {isShowRotateButton: false} );
     }
 
     /**
      * Убирает фокус с выбранного элемента.
      */
-    setNoFocusElement() {
-        if (!this.selectedElement) return;
-
-        this.setDashArraySelectingRect(this.selectedElement, '0', 'none');
-        this.selectedElement = null;
-        this.setState( {isShowRotateButton: false} );
+    setNoFocusElement(element) {
+        if (!element) return;
+        
+        this.setDashArraySelectingRect(element, '0', 'none');
+        if (element === this.selectedElement) {
+            this.selectedElement = null;
+            this.props.setSelectedElementInState(this.selectedElement);
+        }
     }
 
     /**
@@ -430,7 +436,7 @@ class Canvas extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps !== this.props) {
+        if (prevProps.shapes !== this.props.shapes) {
             this.setNoFocusAllElements();
         }
     }
@@ -463,9 +469,6 @@ class Canvas extends Component {
                 
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => shape)}
-                {this.state.isShowRotateButton && (
-                    <RotateButton startX={this.state.startXRotateButton} startY={this.state.startYRotateButton} />
-                )}
                 
                 <defs>
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 class Inductor extends Component {
     render() {
         return (
-            <symbol width='300' height='75' id={this.props.id}>
+            <symbol width='300' height='100' id={this.props.id}>
                 <rect x='0' y='0' fillOpacity='0' width='300' height='75' id='SelectingRect' stroke='#0078D7' />
                 <g>
                     <line x1='0' x2='50' y1='50' y2='50' strokeWidth='3' strokeDasharray='none' />

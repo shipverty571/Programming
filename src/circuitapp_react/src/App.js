@@ -27,8 +27,8 @@ class App extends Component {
                 <Capacitor id="CapacitorSymbol" />,
                 <Inductor id="InductorSymbol" />
             ],
-            shapes : [],
-            widthRect : 0,
+            shapes: [],
+            widthRect: 0,
             heightRect:  0
         }
         
