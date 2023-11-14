@@ -143,10 +143,12 @@ class Canvas extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            xSelect : 0,
-            ySelect : 0,
             widthSelect : 0,
-            heightSelect : 0
+            heightSelect : 0,
+            viewBoxX: 0,
+            viewBoxY: 0,
+            viewBoxWidth: 0,
+            viewBoxHeight: 0
         }
         this.canvasRef = React.createRef();
         this.selectingRectRef = React.createRef();
@@ -154,6 +156,7 @@ class Canvas extends Component {
         this.onStartDrag = this.onStartDrag.bind(this);
         this.onDrag = this.onDrag.bind(this);
         this.onEndDrag = this.onEndDrag.bind(this);
+        this.onPanning = this.onPanning.bind(this);
         this.getMousePosition = this.getMousePosition.bind(this);
         this.onSetZoom = this.onSetZoom.bind(this);
         this.setFocus = this.setFocus.bind(this);
@@ -184,8 +187,8 @@ class Canvas extends Component {
             let id = event.target.getAttribute('id');
             this.selectedElement = this.getRefElement(id);
             this.offset = this.getMousePosition(event);
-            this.offset.x -= parseFloat(this.selectedElement.state.X);
-            this.offset.y -= parseFloat(this.selectedElement.state.Y);
+            this.offset.x -= this.selectedElement.state.X;
+            this.offset.y -= this.selectedElement.state.Y;
             this.selectedElement.isDragging(true);
             this.setFocus(this.selectedElement, true);
             
@@ -196,9 +199,7 @@ class Canvas extends Component {
             {
                 this.selectingRectX = this.mouseCoordinate.x;
                 this.selectingRectY = this.mouseCoordinate.y;
-                this.setState({ IsSelecting : true })
                 this.isAllSelecting = true;
-                this.setState({ xSelect: this.selectingRectX, ySelect : this.selectingRectY})
             }
             this.setFocus(this.selectedElement, false);
         }
@@ -211,30 +212,12 @@ class Canvas extends Component {
     onDrag(event) {
         this.mouseCoordinate = this.getMousePosition(event);
         if (this.isPanning) {
-            let viewBox = this.canvasSVG.viewBox.animVal;
-            let newX = viewBox.x - (this.mouseCoordinate.x - this.startXPanning);
-            let newY = viewBox.y - (this.mouseCoordinate.y - this.startYPanning);
-            this.canvasSVG.setAttribute('viewBox', `${newX} ${newY} ${viewBox.width} ${viewBox.height}`)
-            this.canvasRect.setAttribute('x', newX);
-            this.canvasRect.setAttribute('y', newY);
+            this.onPanning();
         } else if (this.selectedElement && this.down) {
             event.preventDefault();
             this.changeCoordinateMovingElement();
         } else if (this.isAllSelecting && this.down) {
-            let width, height;
-            let x, y;
-            x = this.selectingRectX;
-            y = this.selectingRectY;
-            width = Math.abs(this.mouseCoordinate.x - x);
-            height = Math.abs(this.mouseCoordinate.y - y);
-            if (this.mouseCoordinate.x < x) {
-                x = this.mouseCoordinate.x;
-            }
-
-            if (this.mouseCoordinate.y < y) {
-                y = this.mouseCoordinate.y;
-            }
-            this.selectingRectRef.current.setSize(x, y, width, height);
+            this.onMultiSelecting();
         }
     }
 
@@ -251,6 +234,7 @@ class Canvas extends Component {
             this.setNoFocusAllElements(this.selectedElements);
             this.selectedElements = [];
         }
+        
         let rectX1 = this.selectingRectRef.current.state.x;
         let rectY1 = this.selectingRectRef.current.state.y;
         let rectX2 = rectX1 + this.selectingRectRef.current.state.width;
@@ -260,7 +244,6 @@ class Canvas extends Component {
             if (!elem) {
                 continue;
             }
-            
             let x = elem.state.X;
             let y = elem.state.Y;
             if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y) {
@@ -276,6 +259,32 @@ class Canvas extends Component {
         this.isAllSelecting = false;
         this.selectingRectX = null;
         this.selectingRectY = null;
+    }
+
+    /**
+     * Изменяет размеры прямоугольника выделения.
+     */
+    onMultiSelecting() {
+        let x = this.selectingRectX;
+        let y = this.selectingRectY;
+        let width = Math.abs(this.mouseCoordinate.x - x);
+        let height = Math.abs(this.mouseCoordinate.y - y);
+        if (this.mouseCoordinate.x < x) {
+            x = this.mouseCoordinate.x;
+        }
+        if (this.mouseCoordinate.y < y) {
+            y = this.mouseCoordinate.y;
+        }
+        this.selectingRectRef.current.setSize(x, y, width, height);
+    }
+
+    /**
+     * Перемещает макет.
+     */
+    onPanning() {
+        let newX = this.state.viewBoxX - (this.mouseCoordinate.x - this.startXPanning);
+        let newY = this.state.viewBoxY - (this.mouseCoordinate.y - this.startYPanning);
+        this.setState({ viewBoxX: newX, viewBoxY: newY });
     }
 
     /**
@@ -334,27 +343,21 @@ class Canvas extends Component {
      */
     onSetZoom(event) {
         event.preventDefault();
-
-        let viewBox = this.canvasSVG.viewBox.animVal;
-        let newWidth = viewBox.width;
-        let newHeight = viewBox.height;
         if (event.deltaY > 0) {
-            newWidth = viewBox.width * (1 + this.ScaleFactor);
-            newHeight = viewBox.height * (1 + this.ScaleFactor);
+            if (this.state.viewBoxWidth >= this.MaxZoomWidth || this.state.viewBoxHeight >= this.MaxZoomHeight) {
+                return;
+            }
+            this.setState(previousState => ({ 
+                viewBoxWidth: previousState.viewBoxWidth * (1 + this.ScaleFactor),
+                viewBoxHeight: previousState.viewBoxHeight * (1 + this.ScaleFactor)}));
         } else {
-            newWidth = viewBox.width * (1 - this.ScaleFactor);
-            newHeight = viewBox.height * (1 - this.ScaleFactor);
+            if (this.state.viewBoxWidth < this.props.widthRect || this.state.viewBoxHeight < this.props.heightRect) {
+                return;
+            }
+            this.setState(previousState => ({
+                viewBoxWidth: previousState.viewBoxWidth * (1 - this.ScaleFactor),
+                viewBoxHeight: previousState.viewBoxHeight * (1 - this.ScaleFactor)}));
         }
-
-        if (newWidth < this.props.widthRect || newHeight < this.props.heightRect) {
-            return;
-        } else if (newWidth >= this.MaxZoomWidth || newHeight >= this.MaxZoomHeight) {
-            return;
-        }
-
-        this.canvasSVG.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${newWidth} ${newHeight}`);
-        this.canvasRect.setAttribute('width', newWidth);
-        this.canvasRect.setAttribute('height', newHeight);
     }
 
     /**
@@ -401,6 +404,9 @@ class Canvas extends Component {
         if (prevProps.shapes !== this.props.shapes) {
             this.setNoFocusAllElements(this.props.refs);
         }
+        if (prevProps.widthRect !== this.props.widthRect) {
+            this.setState({ viewBoxWidth: this.props.widthRect*2, viewBoxHeight: this.props.heightRect*2 })
+        }
     }
     
     render() {
@@ -412,15 +418,17 @@ class Canvas extends Component {
                 id='canvas-panel'
                 ref={this.canvasRef}
                 style={{flexGrow: 2}}
-                viewBox={[0, 0, this.props.widthRect*2, this.props.heightRect*2].join(' ')}>
+                viewBox={[this.state.viewBoxX, this.state.viewBoxY, this.state.viewBoxWidth, this.state.viewBoxHeight].join(' ')}>
                 <rect 
                     fill='url(#grid)' 
                     stroke='none' 
                     rx='0' 
                     ry='0' 
-                    id='canvas-rect' 
-                    width={this.props.widthRect * 2} 
-                    height={this.props.heightRect * 2} 
+                    id='canvas-rect'
+                    x={this.state.viewBoxX}
+                    y={this.state.viewBoxY}
+                    width={this.state.viewBoxWidth} 
+                    height={this.state.viewBoxHeight} 
                 />
                 <SelectingRect ref={this.selectingRectRef} />
                 
