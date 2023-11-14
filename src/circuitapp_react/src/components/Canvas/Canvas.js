@@ -133,6 +133,8 @@ class Canvas extends Component {
      * @private
      */
     canvasRect;
+    
+    selectingRectRef;
 
     /**
      * Создает экземпляр класса Canvas.
@@ -147,6 +149,7 @@ class Canvas extends Component {
             heightSelect : 0
         }
         this.canvasRef = React.createRef();
+        this.selectingRectRef = React.createRef();
         
         this.onStartDrag = this.onStartDrag.bind(this);
         this.onDrag = this.onDrag.bind(this);
@@ -231,7 +234,7 @@ class Canvas extends Component {
             if (this.mouseCoordinate.y < y) {
                 y = this.mouseCoordinate.y;
             }
-            this.setState({ xSelect: x, ySelect : y, widthSelect : width, heightSelect : height})
+            this.selectingRectRef.current.setSize(x, y, width, height);
         }
     }
 
@@ -248,10 +251,10 @@ class Canvas extends Component {
             this.setNoFocusAllElements(this.selectedElements);
             this.selectedElements = [];
         }
-        let rectX1 = this.state.xSelect;
-        let rectY1 = this.state.ySelect;
-        let rectX2 = parseInt(rectX1) + parseInt(this.state.widthSelect);
-        let rectY2 = parseInt(rectY1) + parseInt(this.state.heightSelect);
+        let rectX1 = this.selectingRectRef.current.state.x;
+        let rectY1 = this.selectingRectRef.current.state.y;
+        let rectX2 = rectX1 + this.selectingRectRef.current.state.width;
+        let rectY2 = rectY1 + this.selectingRectRef.current.state.height;
         
         for (let elem of this.props.refs) {
             if (!elem) {
@@ -269,12 +272,7 @@ class Canvas extends Component {
             }
         }
 
-        this.setState({ 
-            xSelect: 0, 
-            ySelect : 0, 
-            widthSelect : 0, 
-            heightSelect : 0});
-        
+        this.selectingRectRef.current.setSize(0, 0, 0, 0);
         this.isAllSelecting = false;
         this.selectingRectX = null;
         this.selectingRectY = null;
@@ -424,12 +422,7 @@ class Canvas extends Component {
                     width={this.props.widthRect * 2} 
                     height={this.props.heightRect * 2} 
                 />
-                <SelectingRect 
-                    width={this.state.widthSelect} 
-                    height={this.state.heightSelect} 
-                    x={this.state.xSelect} 
-                    y={this.state.ySelect} 
-                />
+                <SelectingRect ref={this.selectingRectRef} />
                 
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => shape)}
