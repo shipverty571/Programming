@@ -238,27 +238,10 @@ class Canvas extends Component {
             this.setNoFocusAllElements(this.selectedElements);
             this.selectedElements = [];
         }
-        
-        let rectX1 = this.selectingRectRef.current.state.x;
-        let rectY1 = this.selectingRectRef.current.state.y;
-        let rectX2 = rectX1 + this.selectingRectRef.current.state.width;
-        let rectY2 = rectY1 + this.selectingRectRef.current.state.height;
-        
-        for (let elem of this.props.refs) {
-            if (!elem) {
-                continue;
-            }
-            let x = elem.state.X;
-            let y = elem.state.Y;
-            if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y) {
-                if (this.selectedElement) {
-                    this.setFocus(this.selectedElement, false);
-                }
-                this.setFocus(elem, true);
-                this.selectedElements.push(elem);
-            }
+        if (this.isAllSelecting) {
+            this.selectedElements = this.getSelectedElements();
         }
-
+        
         this.selectingRectRef.current.setSize(0, 0, 0, 0);
         this.isAllSelecting = false;
         this.selectingRectX = null;
@@ -310,6 +293,35 @@ class Canvas extends Component {
         }
 
         return null;
+    }
+
+    /**
+     * Перебирает все элементы на вхождение их в прямоугольник выделения.
+     * @returns {*[]} Возвращает элементы.
+     */
+    getSelectedElements() {
+        let rectX1 = this.selectingRectRef.current.state.x;
+        let rectY1 = this.selectingRectRef.current.state.y;
+        let rectX2 = rectX1 + this.selectingRectRef.current.state.width;
+        let rectY2 = rectY1 + this.selectingRectRef.current.state.height;
+
+        let elements = []
+        for (let elem of this.props.refs) {
+            if (!elem) {
+                continue;
+            }
+            let x = elem.state.X;
+            let y = elem.state.Y;
+            if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y) {
+                if (this.selectedElement) {
+                    this.setFocus(this.selectedElement, false);
+                }
+                this.setFocus(elem, true);
+                elements.push(elem);
+            }
+        }
+        
+        return elements;
     }
 
     /**
