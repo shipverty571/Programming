@@ -43,7 +43,7 @@ class App extends Component {
         this.setState({ heightRect:  canvas.height() });
     }
     
-    setRef(ref) {
+    setRef = (ref) => {
         this.setState( previousState => ({
             refsShapes : [...previousState.refsShapes, ref]
         }));
@@ -58,6 +58,7 @@ class App extends Component {
         const X = 100;
         const Y = 100;
         let ref = React.createRef();
+        const id = crypto.randomUUID();
         
         switch (shape) {
             case 'Resistor':
@@ -65,11 +66,11 @@ class App extends Component {
                     href="#ResistorSymbol" 
                     x={X} 
                     y={Y} 
-                    id={this.state.shapes.length} 
+                    id={id} 
+                    key={id}
                     width={250}
                     height={150}
-                    ref={ref}/>
-                this.setRef(ref);
+                    ref={this.setRef}/>
                 break;
             case 'Capacitor':
                 element = <UseCapacitor href="#CapacitorSymbol" x={X} y={Y} id={this.state.shapes.length} />

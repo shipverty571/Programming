@@ -178,8 +178,8 @@ class Canvas extends Component {
                 this.setNoFocusAllElements(this.selectedElements);
             }
 
-            let id = Math.floor(event.target.getAttribute('id'));
-            this.selectedElement = this.props.refs[id].current;
+            let id = event.target.getAttribute('id');
+            this.selectedElement = this.getRefElement(id)
             console.log(this.selectedElement);
             this.offset = this.getMousePosition(event);
             this.offset.x -= parseFloat(this.selectedElement.state.X);
@@ -255,8 +255,8 @@ class Canvas extends Component {
         let rectY2 = parseInt(rectY1) + parseInt(this.state.heightSelect);
         
         for (let elem of this.props.refs) {
-            let x = elem.current.state.X;
-            let y = elem.current.state.Y;
+            let x = elem.state.X;
+            let y = elem.state.Y;
             if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y) {
                 if (this.selectedElement) {
                     this.setFocus(this.selectedElement, false);
@@ -276,6 +276,22 @@ class Canvas extends Component {
         this.isAllSelecting = false;
         this.selectingRectX = null;
         this.selectingRectY = null;
+    }
+
+    getRefElement(id) {
+        let element;
+        console.log(id, "ASA")
+        for (var i = 0; i < this.props.refs.length; i++) {
+            let shapeId = this.props.refs[i].props.id
+
+            console.log(shapeId)
+            if (shapeId === id) {
+                element = this.props.refs[i];
+                return element;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -355,9 +371,9 @@ class Canvas extends Component {
             this.setFocus(this.selectedElement, false);
         }
         
-        for (let element of elements) {
+       /* for (let element of elements) {
             this.setFocus(element.current, false);
-        }
+        }*/
     }
 
     /**
