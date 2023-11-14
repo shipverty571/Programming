@@ -133,7 +133,11 @@ class Canvas extends Component {
      * @private
      */
     canvasRect;
-    
+
+    /**
+     * Хранит ссылку на прямоугольник выделения.
+     * @private
+     */
     selectingRectRef;
 
     /**
