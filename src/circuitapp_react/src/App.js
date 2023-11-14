@@ -134,7 +134,7 @@ class App extends Component {
                     <div className='container-column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
                         <SideBar onAddShape={this.onAddShape} />
                     </div>
-                    <div className='container-column' >
+                    <div className='container-column'>
                         <CanvasBar
                             patterns={this.state.patterns}
                             shapes={this.state.shapes}
