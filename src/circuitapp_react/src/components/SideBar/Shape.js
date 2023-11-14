@@ -42,7 +42,12 @@ class Shape extends Component {
                          width={this.WidthElement} 
                          height={this.HeightElement}>
                         <Resistor id="ResistorSymbolPicture" />
-                        <UseResistor href="#ResistorSymbolPicture" canNotDraggable={true} />
+                        <UseResistor 
+                            href="#ResistorSymbolPicture" 
+                            canNotDraggable={true}
+                            width={250}
+                            height={100}
+                        />
                     </svg>
                 );
             case 'Capacitor':
@@ -50,10 +55,15 @@ class Shape extends Component {
                     <svg 
                         className='shape-image' 
                         viewBox={[0, 0, 150, 100].join(' ')}
-                        width='125'
-                        height='150'>
+                        width={this.WidthElement}
+                        height={this.HeightElement} >
                         <Capacitor id="CapacitorSymbolPicture" />
-                        <UseCapacitor href="#CapacitorSymbolPicture" canNotDraggable={true} />
+                        <UseCapacitor 
+                            href="#CapacitorSymbolPicture" 
+                            canNotDraggable={true} 
+                            width={125} 
+                            height={150}
+                        />
                     </svg>
                 );
             case 'Inductor':
@@ -61,10 +71,15 @@ class Shape extends Component {
                     <svg 
                         className='shape-image'
                          viewBox={[0, 0, 300, 75].join(' ')}
-                         width='300'
-                         height='75'>
+                        width={this.WidthElement}
+                        height={this.HeightElement} >
                         <Inductor id="InductorSymbolPicture" />
-                        <UseInductor href="#InductorSymbolPicture" canNotDraggable={true} />
+                        <UseInductor 
+                            href="#InductorSymbolPicture" 
+                            canNotDraggable={true}
+                            width={300}
+                            height={75}
+                        />
                     </svg>
                 );
             default:
