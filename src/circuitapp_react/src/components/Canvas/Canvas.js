@@ -439,6 +439,9 @@ class Canvas extends Component {
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>
                         <rect width='50' height='50' fill='#DADADA' />
                         <circle cx='0' cy='0' r='2' fill='black' />
+                        <circle cx='50' cy='0' r='2' fill='black' />
+                        <circle cx='0' cy='50' r='2' fill='black' />
+                        <circle cx='50' cy='50' r='2' fill='black' />
                     </pattern>
                 </defs>
             </svg>
