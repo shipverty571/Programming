@@ -280,6 +280,11 @@ class Canvas extends Component {
         this.selectingRectY = null;
     }
 
+    /**
+     * Получает ссылку на элемент из коллекции. 
+     * @param id Уникальный идентификатор элемента.
+     * @returns {*|null} Возвращает ссылку на элемент. Если не найдена, то возвращает null.
+     */
     getRefElement(id) {
         let element;
         for (var i = 0; i < this.props.refs.length; i++) {

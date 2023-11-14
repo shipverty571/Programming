@@ -35,16 +35,14 @@ class App extends Component {
 
         this.onAddShape = this.onAddShape.bind(this);
         this.onRemoveShape = this.onRemoveShape.bind(this);
-        this.setRef = this.setRef.bind(this);
+        this.setRefToShape = this.setRefToShape.bind(this);
     }
-    
-    componentDidMount() {
-        let canvas = $('#canvas-panel');
-        this.setState({ widthRect : canvas.width() });
-        this.setState({ heightRect:  canvas.height() });
-    }
-    
-    setRef = (ref) => {
+
+    /**
+     * Добавляет ссылку на элемент в коллекцию.
+     * @param ref Ссылка.
+     */
+    setRefToShape = (ref) => {
         this.setState( previousState => ({
             refsShapes : [...previousState.refsShapes, ref]
         }));
@@ -70,7 +68,7 @@ class App extends Component {
                     key={id}
                     width={250}
                     height={150}
-                    ref={this.setRef} 
+                    ref={this.setRefToShape} 
                 />
                 break;
             case 'Capacitor':
@@ -82,7 +80,7 @@ class App extends Component {
                     key={id}
                     width={150}
                     height={150}
-                    ref={this.setRef} 
+                    ref={this.setRefToShape} 
                 />
                 break;
             case 'Inductor':
@@ -94,7 +92,7 @@ class App extends Component {
                     key={id}
                     width={300}
                     height={100}
-                    ref={this.setRef}
+                    ref={this.setRefToShape}
                 />
                 break;
             default:
@@ -107,12 +105,22 @@ class App extends Component {
             }));
         }
     }
-    
+
+    /**
+     * Удаляет элемент из коллекции.
+     * @param id Уникальный идентификатор элемента, который нужно удалить.
+     */
     onRemoveShape(id) {
         if (!id) return;
         
         this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.props.id !== id) }));
      }
+
+    componentDidMount() {
+        let canvas = $('#canvas-panel');
+        this.setState({ widthRect : canvas.width() });
+        this.setState({ heightRect:  canvas.height() });
+    }
 
     render() {
         return (
