@@ -1,42 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
+import {DraggableColor, NoDraggableColor} from "../../../Resources/Colors";
+import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/Values";
 
 /**
  * Компонент для использования шаблона резистора.
  */
 class UseResistor extends Component {
-    /**
-     * Цвет элемента при его передвижении.
-     * @type {string}
-     * @private
-     * @const
-     */
-    DraggableColor = "gray";
-
-    /**
-     * Цвет элемента, когда он не передвигается.
-     * @type {string}
-     * @private
-     * @const
-     */
-    NoDraggableColor = "black";
-
-    /**
-     * Базовая ширина рамки выбранного элемента.
-     * @type {number}
-     * @private
-     * @const
-     */
-    SelectedStrokeWidth = 2;
-
-    /**
-     * Базовое число ширины прерывистой линии.
-     * @type {number}
-     * @private
-     * @const
-     */
-    SelectedStrokeDashArray = 8;
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -45,7 +15,7 @@ class UseResistor extends Component {
             width: this.props.width,
             height: this.props.height,
             rotate: 0,
-            strokeColor: this.NoDraggableColor,
+            strokeColor: NoDraggableColor,
             strokeWidth: 0,
             strokeDashArray: null
         }
@@ -65,15 +35,15 @@ class UseResistor extends Component {
     
     isDragging(flag) {
         if (flag) {
-            this.setState({ strokeColor: this.DraggableColor })
+            this.setState({ strokeColor: DraggableColor })
         } else {
-            this.setState({ strokeColor: this.NoDraggableColor })
+            this.setState({ strokeColor: NoDraggableColor })
         }
     }
     
     isFocus(flag) {
         if (flag) {
-            this.setState({ strokeWidth: this.SelectedStrokeWidth, strokeDashArray: this.SelectedStrokeDashArray })
+            this.setState({ strokeWidth: SelectedStrokeWidth, strokeDashArray: SelectedStrokeDashArray })
         } else {
             this.setState({ strokeWidth: 0, strokeDashArray: null })
         }

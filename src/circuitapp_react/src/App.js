@@ -70,13 +70,32 @@ class App extends Component {
                     key={id}
                     width={250}
                     height={150}
-                    ref={this.setRef}/>
+                    ref={this.setRef} 
+                />
                 break;
             case 'Capacitor':
-                element = <UseCapacitor href="#CapacitorSymbol" x={X} y={Y} id={this.state.shapes.length} />
+                element = <UseCapacitor 
+                    href="#CapacitorSymbol" 
+                    x={X} 
+                    y={Y} 
+                    id={id}
+                    key={id}
+                    width={150}
+                    height={150}
+                    ref={this.setRef} 
+                />
                 break;
             case 'Inductor':
-                element = <UseInductor href="#InductorSymbol" x={X} y={Y} id={this.state.shapes.length} />
+                element = <UseInductor 
+                    href="#InductorSymbol" 
+                    x={X} 
+                    y={Y}
+                    id={id}
+                    key={id}
+                    width={300}
+                    height={100}
+                    ref={this.setRef}
+                />
                 break;
             default:
                 break;
@@ -91,10 +110,8 @@ class App extends Component {
     
     onRemoveShape(id) {
         if (!id) return;
-
-        /*this.setState(previousState => ({ refsShapes: previousState.refsShapes.filter(ref => ref.props.id !== id) }));*/
-        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.props.id !== id) }));
         
+        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.props.id !== id) }));
      }
 
     render() {
