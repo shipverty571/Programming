@@ -34,6 +34,7 @@ class App extends Component {
         }
 
         this.onAddShape = this.onAddShape.bind(this);
+        this.onRemoveShape = this.onRemoveShape.bind(this);
         this.setRef = this.setRef.bind(this);
     }
     
@@ -57,7 +58,6 @@ class App extends Component {
         let element = null;
         const X = 100;
         const Y = 100;
-        let ref = React.createRef();
         const id = crypto.randomUUID();
         
         switch (shape) {
@@ -88,6 +88,14 @@ class App extends Component {
             }));
         }
     }
+    
+    onRemoveShape(id) {
+        if (!id) return;
+
+        /*this.setState(previousState => ({ refsShapes: previousState.refsShapes.filter(ref => ref.props.id !== id) }));*/
+        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.props.id !== id) }));
+        
+     }
 
     render() {
         return (
@@ -108,6 +116,7 @@ class App extends Component {
                             widthRect={this.state.widthRect}
                             heightRect={this.state.heightRect}
                             refs={this.state.refsShapes}
+                            onRemoveShape={this.onRemoveShape}
                         />
                     </div>
                 </div>

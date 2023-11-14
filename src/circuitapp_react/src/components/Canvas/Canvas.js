@@ -179,8 +179,7 @@ class Canvas extends Component {
             }
 
             let id = event.target.getAttribute('id');
-            this.selectedElement = this.getRefElement(id)
-            console.log(this.selectedElement);
+            this.selectedElement = this.getRefElement(id);
             this.offset = this.getMousePosition(event);
             this.offset.x -= parseFloat(this.selectedElement.state.X);
             this.offset.y -= parseFloat(this.selectedElement.state.Y);
@@ -255,14 +254,17 @@ class Canvas extends Component {
         let rectY2 = parseInt(rectY1) + parseInt(this.state.heightSelect);
         
         for (let elem of this.props.refs) {
+            if (!elem) {
+                continue;
+            }
+            
             let x = elem.state.X;
             let y = elem.state.Y;
             if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y) {
                 if (this.selectedElement) {
                     this.setFocus(this.selectedElement, false);
                 }
-                
-                this.setFocus(elem.current, true);
+                this.setFocus(elem, true);
                 this.selectedElements.push(elem);
             }
         }
@@ -280,12 +282,12 @@ class Canvas extends Component {
 
     getRefElement(id) {
         let element;
-        console.log(id, "ASA")
         for (var i = 0; i < this.props.refs.length; i++) {
-            let shapeId = this.props.refs[i].props.id
-
-            console.log(shapeId)
-            if (shapeId === id) {
+            let ref = this.props.refs[i];
+            if (!ref) {
+                continue;
+            }
+            if (ref.props.id === id) {
                 element = this.props.refs[i];
                 return element;
             }
@@ -353,17 +355,6 @@ class Canvas extends Component {
     }
 
     /**
-     * Устанавливает прерывистые рамки для визуального фокуса элемента.
-     * @param element Элемент.
-     * @param strokeWidth Ширина рамки.
-     * @param strokeDashArray Массив прерывистых линий.
-     */
-    setDashArraySelectingRect(element, strokeWidth, strokeDashArray) {
-        element.setAttribute('stroke-width', strokeWidth);
-        element.setAttribute('stroke-dasharray', strokeDashArray);
-    }
-
-    /**
      * Убирает фокус со всех элементов.
      */
     setNoFocusAllElements(elements) {
@@ -371,9 +362,12 @@ class Canvas extends Component {
             this.setFocus(this.selectedElement, false);
         }
         
-       /* for (let element of elements) {
-            this.setFocus(element.current, false);
-        }*/
+        for (let element of elements) {
+            if (!element) {
+                continue;
+            }
+            this.setFocus(element, false);
+        }
     }
 
     /**
@@ -402,7 +396,7 @@ class Canvas extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
-            this.setNoFocusAllElements();
+            this.setNoFocusAllElements(this.props.refs);
         }
     }
     

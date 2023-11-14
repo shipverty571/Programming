@@ -37,7 +37,8 @@ class CanvasBar extends Component {
     removeElement() {
         if (!this.state.element) return;
 
-        this.state.element.remove();
+        const id = this.state.element.props.id;
+        this.props.onRemoveShape(id);
         this.setSelectedElementInState(null);
     }
 
