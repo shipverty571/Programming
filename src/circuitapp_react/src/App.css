@@ -163,11 +163,11 @@ select, h4, h3, h2, h1, p, input {
   margin: 0;
 }
 
-#pages-group > input {
+#pages-group input {
   display: none;
 }
 
-#pages-group > label {
+#pages-group label {
   padding: 5px;
   background-color: transparent;
   height: 20px;
@@ -175,16 +175,16 @@ select, h4, h3, h2, h1, p, input {
   align-items: center;
 }
 
-#pages-group > label:hover {
+#pages-group label:hover {
   background-color: #EBEBEB;
 }
 
-#pages-group > label:active {
+#pages-group label:active {
   background-color: #4DC462;
   color: white;
 }
 
-#pages-group > input[type="radio"]:checked + label {
+#pages-group input[type="radio"]:checked + label {
   background-color: #66CD79;
   color: white;
 }
