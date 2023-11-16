@@ -10,6 +10,7 @@ import Inductor from './components/Shapes/Patterns/Inductor';
 import UseCapacitor from './components/Shapes/UseShapes/UseCapacitor';
 import UseInductor from './components/Shapes/UseShapes/UseInductor';
 import $ from 'jquery';
+import PageButton from "./components/Canvas/PageButton";
 
 /**
  * Главный компонент.
@@ -29,6 +30,8 @@ class App extends Component {
             ],
             shapes: [],
             refsShapes: [],
+            pages: [],
+            selectedPage: null,
             widthRect: 0,
             heightRect:  0
         }
@@ -36,6 +39,7 @@ class App extends Component {
         this.onAddShape = this.onAddShape.bind(this);
         this.onRemoveShape = this.onRemoveShape.bind(this);
         this.setRefToShape = this.setRefToShape.bind(this);
+        this.onAddPage = this.onAddPage.bind(this);
     }
 
     /**
@@ -114,7 +118,13 @@ class App extends Component {
         if (!id) return;
         
         this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.props.id !== id) }));
-     }
+    }
+     
+    onAddPage() {
+        let id = crypto.randomUUID();
+        let page = <PageButton id={id} name="test" />
+        this.setState(previousState => ({ pages : [...previousState.pages, page] }), ()=>{console.log(this.state.pages)})
+    } 
 
     componentDidMount() {
         let canvas = $('#canvas-panel');
@@ -142,6 +152,8 @@ class App extends Component {
                             heightRect={this.state.heightRect}
                             refs={this.state.refsShapes}
                             onRemoveShape={this.onRemoveShape}
+                            onAddPage={this.onAddPage}
+                            pages={this.state.pages}
                         />
                     </div>
                 </div>

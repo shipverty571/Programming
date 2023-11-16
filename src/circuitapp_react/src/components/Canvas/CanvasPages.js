@@ -9,9 +9,7 @@ class CanvasPages extends Component {
         return (
             <div className='horizontal-content' style={{ justifyContent: 'space-between', backgroundColor: '#F3F3F3' }}>
                 <fieldset className='horizontal-content' id='pages-group'>
-                    <PageButton id="000111" name="Page 1111" />
-                    <PageButton id="0001121" name="Page 1111" />
-                    <PageButton id="0001311" name="Page 1111" />
+                    {this.props.pages.map(page => page)}
                     {/*<div>
                         <input type='radio' value='1' name='pages-group' id='Page1' />
                         <label htmlFor='Page1'>Page 1</label>
