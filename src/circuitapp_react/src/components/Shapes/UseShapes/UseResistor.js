@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import {DraggableColor, NoDraggableColor} from "../../../Resources/Colors";
+import {DraggableColor, StaticColor} from "../../../Resources/Colors";
 import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/Values";
 
 /**
@@ -15,7 +15,7 @@ class UseResistor extends Component {
             width: this.props.width,
             height: this.props.height,
             rotate: 0,
-            strokeColor: NoDraggableColor,
+            strokeColor: StaticColor,
             strokeWidth: 0,
             strokeDashArray: 0
         }
@@ -49,7 +49,7 @@ class UseResistor extends Component {
         if (flag) {
             this.setState({ strokeColor: DraggableColor })
         } else {
-            this.setState({ strokeColor: NoDraggableColor })
+            this.setState({ strokeColor: StaticColor })
         }
     }
 
@@ -100,7 +100,7 @@ UseResistor.defaultProps = {
     y: 0,
     canNotDraggable: false,
     rotate: 0,
-    strokeColor: NoDraggableColor,
+    strokeColor: StaticColor,
     strokeWidth: 0,
     strokeDasharray: 0
 }
