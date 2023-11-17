@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import {DraggableColor, StaticColor} from "../../../Resources/Colors";
-import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/Values";
+import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/ApplicationConstants";
 
 /**
  * Компонент для использования шаблона конденсатора.
