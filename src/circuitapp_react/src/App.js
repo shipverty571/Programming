@@ -10,6 +10,7 @@ import Inductor from './components/Shapes/Patterns/Inductor';
 import UseCapacitor from './components/Shapes/UseShapes/UseCapacitor';
 import UseInductor from './components/Shapes/UseShapes/UseInductor';
 import $ from 'jquery';
+import {CapacitorSize, InductorSize, ResistorSize} from "./Resources/ShapesSizes";
 
 /**
  * Главный компонент.
@@ -66,8 +67,8 @@ class App extends Component {
                     y={Y} 
                     id={id} 
                     key={id}
-                    width={250}
-                    height={150}
+                    width={ResistorSize.width}
+                    height={ResistorSize.height}
                     ref={this.setRefToShape} 
                 />
                 break;
@@ -78,8 +79,8 @@ class App extends Component {
                     y={Y} 
                     id={id}
                     key={id}
-                    width={150}
-                    height={150}
+                    width={CapacitorSize.width}
+                    height={CapacitorSize.height}
                     ref={this.setRefToShape} 
                 />
                 break;
@@ -90,8 +91,8 @@ class App extends Component {
                     y={Y}
                     id={id}
                     key={id}
-                    width={300}
-                    height={100}
+                    width={InductorSize.width}
+                    height={InductorSize.height}
                     ref={this.setRefToShape}
                 />
                 break;
