@@ -20,7 +20,7 @@ class UseCapacitor extends Component {
             strokeDashArray: null
         }
         this.setCoordinate = this.setCoordinate.bind(this);
-        this.changeRotate = this.changeRotate.bind(this);
+        this.rotate = this.rotate.bind(this);
         this.isDragging = this.isDragging.bind(this);
     }
 
@@ -34,9 +34,9 @@ class UseCapacitor extends Component {
     }
 
     /**
-     * Поворачивает элемент.
+     * Поворачивает элемент на 90 градусов по часовой.
      */
-    changeRotate(){
+    rotate(){
         let oldRotate = this.state.rotate;
         this.setState({ rotate: (oldRotate + 90) % 360})
     }
