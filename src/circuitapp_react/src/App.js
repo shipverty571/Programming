@@ -2,7 +2,7 @@ import './App.css';
 import SideBar from './components/SideBar/SideBar';
 import CanvasBar from './components/Canvas/CanvasBar';
 import Header from './components/Header/Header';
-import {Component} from 'react';
+import React, {Component} from 'react';
 import Resistor from './components/Shapes/Patterns/Resistor';
 import UseResistor from './components/Shapes/UseShapes/UseResistor';
 import Capacitor from './components/Shapes/Patterns/Capacitor';
@@ -10,6 +10,7 @@ import Inductor from './components/Shapes/Patterns/Inductor';
 import UseCapacitor from './components/Shapes/UseShapes/UseCapacitor';
 import UseInductor from './components/Shapes/UseShapes/UseInductor';
 import $ from 'jquery';
+import {CapacitorSize, InductorSize, ResistorSize} from "./Resources/ShapesSizes";
 
 /**
  * Главный компонент.
@@ -28,17 +29,24 @@ class App extends Component {
                 <Inductor id="InductorSymbol" />
             ],
             shapes: [],
+            refsShapes: [],
             widthRect: 0,
             heightRect:  0
         }
-        
+
         this.onAddShape = this.onAddShape.bind(this);
+        this.onRemoveShape = this.onRemoveShape.bind(this);
+        this.setRefToShape = this.setRefToShape.bind(this);
     }
-    
-    componentDidMount() {
-        let canvas = $('#canvas-panel');
-        this.setState({ widthRect : canvas.width() });
-        this.setState({ heightRect:  canvas.height() });
+
+    /**
+     * Добавляет ссылку на элемент в коллекцию.
+     * @param ref Ссылка.
+     */
+    setRefToShape = (ref) => {
+        this.setState( previousState => ({
+            refsShapes : [...previousState.refsShapes, ref]
+        }));
     }
 
     /**
@@ -49,16 +57,44 @@ class App extends Component {
         let element = null;
         const X = 100;
         const Y = 100;
+        const id = crypto.randomUUID();
         
         switch (shape) {
             case 'Resistor':
-                element = <UseResistor href="#ResistorSymbol" x={X} y={Y} />
+                element = <UseResistor 
+                    href="#ResistorSymbol" 
+                    x={X} 
+                    y={Y} 
+                    id={id} 
+                    key={id}
+                    width={ResistorSize.width}
+                    height={ResistorSize.height}
+                    ref={this.setRefToShape} 
+                />
                 break;
             case 'Capacitor':
-                element = <UseCapacitor href="#CapacitorSymbol" x={X} y={Y} />
+                element = <UseCapacitor 
+                    href="#CapacitorSymbol" 
+                    x={X} 
+                    y={Y} 
+                    id={id}
+                    key={id}
+                    width={CapacitorSize.width}
+                    height={CapacitorSize.height}
+                    ref={this.setRefToShape} 
+                />
                 break;
             case 'Inductor':
-                element = <UseInductor href="#InductorSymbol" x={X} y={Y} />
+                element = <UseInductor 
+                    href="#InductorSymbol" 
+                    x={X} 
+                    y={Y}
+                    id={id}
+                    key={id}
+                    width={InductorSize.width}
+                    height={InductorSize.height}
+                    ref={this.setRefToShape}
+                />
                 break;
             default:
                 break;
@@ -69,6 +105,22 @@ class App extends Component {
                 shapes : [...previousState.shapes, element] 
             }));
         }
+    }
+
+    /**
+     * Удаляет элемент из коллекции.
+     * @param id Уникальный идентификатор элемента, который нужно удалить.
+     */
+    onRemoveShape(id) {
+        if (!id) return;
+        
+        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.props.id !== id) }));
+     }
+
+    componentDidMount() {
+        let canvas = $('#canvas-panel');
+        this.setState({ widthRect : canvas.width() });
+        this.setState({ heightRect:  canvas.height() });
     }
 
     render() {
@@ -83,12 +135,14 @@ class App extends Component {
                     <div className='container-column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
                         <SideBar onAddShape={this.onAddShape} />
                     </div>
-                    <div className='container-column' >
+                    <div className='container-column'>
                         <CanvasBar
                             patterns={this.state.patterns}
                             shapes={this.state.shapes}
                             widthRect={this.state.widthRect}
                             heightRect={this.state.heightRect}
+                            refs={this.state.refsShapes}
+                            onRemoveShape={this.onRemoveShape}
                         />
                     </div>
                 </div>

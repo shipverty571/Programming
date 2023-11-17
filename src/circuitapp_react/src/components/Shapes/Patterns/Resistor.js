@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
+import {ResistorSize} from "../../../Resources/ShapesSizes";
 
 /**
  * Компонент резистора.
@@ -7,8 +8,16 @@ import PropTypes from "prop-types";
 class Resistor extends Component {
     render() {
         return (
-            <symbol width='250' height='150' id={this.props.id}>
-                <rect x='0' y='0' fillOpacity='0' width='250' height='100' id='SelectingRect' stroke='#0078D7' />
+            <symbol width={ResistorSize.width} height={ResistorSize.height} id={this.props.id}>
+                <rect 
+                    x='0' 
+                    y='0' 
+                    fillOpacity='0' 
+                    width={ResistorSize.width} 
+                    height={ResistorSize.height - 50} 
+                    id='SelectingRect' 
+                    stroke='#0078D7'
+                />
                 <g>
                     <rect 
                         x='50' 

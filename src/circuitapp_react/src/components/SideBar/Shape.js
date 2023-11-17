@@ -6,6 +6,7 @@ import UseResistor from '../Shapes/UseShapes/UseResistor';
 import UseCapacitor from '../Shapes/UseShapes/UseResistor';
 import UseInductor from '../Shapes/UseShapes/UseResistor';
 import PropTypes from "prop-types";
+import {CapacitorSize, InductorSize, ResistorSize} from "../../Resources/ShapesSizes";
 
 /**
  * Компонент кнопки для создания элемента.
@@ -38,33 +39,48 @@ class Shape extends Component {
                 return (
                     <svg 
                          className='shape-image' 
-                         viewBox={[0, 0, 250, 100].join(' ')}
+                         viewBox={[0, 0, ResistorSize.width, ResistorSize.height - 50].join(' ')}
                          width={this.WidthElement} 
                          height={this.HeightElement}>
                         <Resistor id="ResistorSymbolPicture" />
-                        <UseResistor href="#ResistorSymbolPicture" canNotDraggable={true} />
+                        <UseResistor 
+                            href="#ResistorSymbolPicture" 
+                            canNotDraggable={true}
+                            width={ResistorSize.width}
+                            height={ResistorSize.height}
+                        />
                     </svg>
                 );
             case 'Capacitor':
                 return (
                     <svg 
                         className='shape-image' 
-                        viewBox={[0, 0, 150, 100].join(' ')}
-                        width='125'
-                        height='150'>
+                        viewBox={[0, 0, CapacitorSize.width, CapacitorSize.height - 50].join(' ')}
+                        width={this.WidthElement}
+                        height={this.HeightElement} >
                         <Capacitor id="CapacitorSymbolPicture" />
-                        <UseCapacitor href="#CapacitorSymbolPicture" canNotDraggable={true} />
+                        <UseCapacitor 
+                            href="#CapacitorSymbolPicture" 
+                            canNotDraggable={true} 
+                            width={CapacitorSize.width} 
+                            height={CapacitorSize.height}
+                        />
                     </svg>
                 );
             case 'Inductor':
                 return (
                     <svg 
                         className='shape-image'
-                         viewBox={[0, 0, 300, 75].join(' ')}
-                         width='300'
-                         height='75'>
+                         viewBox={[0, 0, InductorSize.width, InductorSize.height - 25].join(' ')}
+                        width={this.WidthElement}
+                        height={this.HeightElement} >
                         <Inductor id="InductorSymbolPicture" />
-                        <UseInductor href="#InductorSymbolPicture" canNotDraggable={true} />
+                        <UseInductor 
+                            href="#InductorSymbolPicture" 
+                            canNotDraggable={true}
+                            width={InductorSize.width}
+                            height={InductorSize.height}
+                        />
                     </svg>
                 );
             default:

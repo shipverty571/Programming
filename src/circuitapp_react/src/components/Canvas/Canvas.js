@@ -23,22 +23,6 @@ class Canvas extends Component {
     Y = 50;
 
     /**
-     * Базовая ширина рамки выбранного элемента.
-     * @type {number}
-     * @private
-     * @const
-     */
-    SelectedStrokeWidth = 2;
-
-    /**
-     * Базовое число ширины прерывистой линии.
-     * @type {number}
-     * @private
-     * @const
-     */
-    SelectedStrokeDashArray = 8;
-
-    /**
      * Числа, относительно которого происходит приближение и отдаление.
      * @type {number}
      * @private
@@ -61,22 +45,6 @@ class Canvas extends Component {
      * @const
      */
     MaxZoomHeight = 5000;
-
-    /**
-     * Цвет элемента при его передвижении.
-     * @type {string}
-     * @private
-     * @const
-     */
-    DraggableElementColor = "gray";
-
-    /**
-     * Цвет элемента, когда он не передвигается.
-     * @type {string}
-     * @private
-     * @const
-     */
-    NoDraggableElementColor = "black";
 
     /**
      * Выбранный элемент.
@@ -167,28 +135,37 @@ class Canvas extends Component {
     canvasRect;
 
     /**
+     * Хранит ссылку на прямоугольник выделения.
+     * @private
+     */
+    selectingRectRef;
+
+    /**
      * Создает экземпляр класса Canvas.
      * @param props Свойства.
      */
     constructor(props) {
         super(props);
         this.state = {
-            xSelect : 0,
-            ySelect : 0,
             widthSelect : 0,
-            heightSelect : 0
+            heightSelect : 0,
+            viewBoxX: 0,
+            viewBoxY: 0,
+            viewBoxWidth: 0,
+            viewBoxHeight: 0
         }
         this.canvasRef = React.createRef();
+        this.selectingRectRef = React.createRef();
         
         this.onStartDrag = this.onStartDrag.bind(this);
         this.onDrag = this.onDrag.bind(this);
         this.onEndDrag = this.onEndDrag.bind(this);
-        this.setNoFocusElement = this.setNoFocusElement.bind(this);
+        this.onPanning = this.onPanning.bind(this);
         this.getMousePosition = this.getMousePosition.bind(this);
         this.onSetZoom = this.onSetZoom.bind(this);
         this.setFocus = this.setFocus.bind(this);
-        this.setStrokeColor = this.setStrokeColor.bind(this);
         this.changeCoordinateMovingElement = this.changeCoordinateMovingElement.bind(this);
+        this.setNoFocusAllElements = this.setNoFocusAllElements.bind(this);
     }
 
     /**
@@ -205,14 +182,19 @@ class Canvas extends Component {
             this.down = true;
             if (this.selectedElement)
             {
-                this.setNoFocusElement(this.selectedElement);
+                this.setFocus(this.selectedElement, false);
             }
-            this.selectedElement = event.target;
+            if (this.selectedElements) {
+                this.setNoFocusAllElements(this.selectedElements);
+            }
+
+            let id = event.target.getAttribute('id');
+            this.selectedElement = this.getRefElement(id);
             this.offset = this.getMousePosition(event);
-            this.offset.x -= parseFloat(this.selectedElement.getAttribute('x'));
-            this.offset.y -= parseFloat(this.selectedElement.getAttribute('y'));
-            this.setStrokeColor(this.selectedElement, this.DraggableElementColor);
-            this.setFocus(this.selectedElement);
+            this.offset.x -= this.selectedElement.state.X;
+            this.offset.y -= this.selectedElement.state.Y;
+            this.selectedElement.isDragging(true);
+            this.setFocus(this.selectedElement, true);
             
         } else {
             this.down = true;
@@ -221,11 +203,9 @@ class Canvas extends Component {
             {
                 this.selectingRectX = this.mouseCoordinate.x;
                 this.selectingRectY = this.mouseCoordinate.y;
-                this.setState({ IsSelecting : true })
                 this.isAllSelecting = true;
-                this.setState({ xSelect: this.selectingRectX, ySelect : this.selectingRectY})
             }
-            this.setNoFocusElement(this.selectedElement);
+            this.setFocus(this.selectedElement, false);
         }
     }
 
@@ -236,32 +216,12 @@ class Canvas extends Component {
     onDrag(event) {
         this.mouseCoordinate = this.getMousePosition(event);
         if (this.isPanning) {
-            let viewBox = this.canvasSVG.viewBox.animVal;
-            let newX = viewBox.x - (this.mouseCoordinate.x - this.startXPanning);
-            let newY = viewBox.y - (this.mouseCoordinate.y - this.startYPanning);
-            this.canvasSVG.setAttribute('viewBox', `${newX} ${newY} ${viewBox.width} ${viewBox.height}`)
-            this.canvasRect.setAttribute('x', newX);
-            this.canvasRect.setAttribute('y', newY);
+            this.onPanning();
         } else if (this.selectedElement && this.down) {
             event.preventDefault();
             this.changeCoordinateMovingElement();
         } else if (this.isAllSelecting && this.down) {
-            let width, height;
-            let x, y;
-            x = this.selectingRectX;
-            y = this.selectingRectY;
-            width = Math.abs(this.mouseCoordinate.x - x);
-            height = Math.abs(this.mouseCoordinate.y - y);
-            if (this.mouseCoordinate.x < x)
-            {
-                x = this.mouseCoordinate.x;
-            }
-
-            if (this.mouseCoordinate.y < y)
-            {
-                y = this.mouseCoordinate.y;
-            }
-            this.setState({ xSelect: x, ySelect : y, widthSelect : width, heightSelect : height})
+            this.onMultiSelecting();
         }
     }
 
@@ -272,42 +232,96 @@ class Canvas extends Component {
         this.down = false;
         this.isPanning = false;
         if (this.selectedElement) {
-            this.setStrokeColor(this.selectedElement, this.NoDraggableElementColor);
+            this.selectedElement.isDragging(false);
         }
-        if (this.selectedElements.length > 0)
-        {
-            for (var element of this.selectedElements)
-            {
-                this.setDashArraySelectingRect(element, '0', 'none');
-            }
+        if (this.selectedElements.length > 0) {
+            this.setNoFocusAllElements(this.selectedElements);
             this.selectedElements = [];
         }
-        let rectX1 = this.state.xSelect;
-        let rectY1 = this.state.ySelect;
-        let rectX2 = parseInt(rectX1) + parseInt(this.state.widthSelect);
-        let rectY2 = parseInt(rectY1) + parseInt(this.state.heightSelect);
-
-        let elements = this.canvasSVG.getElementsByTagName('use');
-        for (let elem of elements)
-        {
-            let x = parseInt(elem.getAttribute('x'));
-            let y = parseInt(elem.getAttribute('y'));
-            if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y)
-            {
-                this.setDashArraySelectingRect(elem, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
-                this.selectedElements.push(elem);
-            }
+        if (this.isAllSelecting) {
+            this.selectedElements = this.getSelectedElements();
         }
-
-        this.setState({ 
-            xSelect: 0, 
-            ySelect : 0, 
-            widthSelect : 0, 
-            heightSelect : 0});
         
+        this.selectingRectRef.current.setSize(0, 0, 0, 0);
         this.isAllSelecting = false;
         this.selectingRectX = null;
         this.selectingRectY = null;
+    }
+
+    /**
+     * Изменяет размеры прямоугольника выделения.
+     */
+    onMultiSelecting() {
+        let x = this.selectingRectX;
+        let y = this.selectingRectY;
+        let width = Math.abs(this.mouseCoordinate.x - x);
+        let height = Math.abs(this.mouseCoordinate.y - y);
+        if (this.mouseCoordinate.x < x) {
+            x = this.mouseCoordinate.x;
+        }
+        if (this.mouseCoordinate.y < y) {
+            y = this.mouseCoordinate.y;
+        }
+        this.selectingRectRef.current.setSize(x, y, width, height);
+    }
+
+    /**
+     * Перемещает макет.
+     */
+    onPanning() {
+        let newX = this.state.viewBoxX - (this.mouseCoordinate.x - this.startXPanning);
+        let newY = this.state.viewBoxY - (this.mouseCoordinate.y - this.startYPanning);
+        this.setState({ viewBoxX: newX, viewBoxY: newY });
+    }
+
+    /**
+     * Получает ссылку на элемент из коллекции. 
+     * @param id Уникальный идентификатор элемента.
+     * @returns {*|null} Возвращает ссылку на элемент. Если не найдена, то возвращает null.
+     */
+    getRefElement(id) {
+        let element;
+        for (var i = 0; i < this.props.refs.length; i++) {
+            let ref = this.props.refs[i];
+            if (!ref) {
+                continue;
+            }
+            if (ref.props.id === id) {
+                element = this.props.refs[i];
+                return element;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Перебирает все элементы на вхождение их в прямоугольник выделения.
+     * @returns {*[]} Возвращает элементы.
+     */
+    getSelectedElements() {
+        let rectX1 = this.selectingRectRef.current.state.x;
+        let rectY1 = this.selectingRectRef.current.state.y;
+        let rectX2 = rectX1 + this.selectingRectRef.current.state.width;
+        let rectY2 = rectY1 + this.selectingRectRef.current.state.height;
+
+        let elements = []
+        for (let elem of this.props.refs) {
+            if (!elem) {
+                continue;
+            }
+            let x = elem.state.X;
+            let y = elem.state.Y;
+            if (rectX1 <= x && rectX2 >= x && rectY1 <= y && rectY2 >= y) {
+                if (this.selectedElement) {
+                    this.setFocus(this.selectedElement, false);
+                }
+                this.setFocus(elem, true);
+                elements.push(elem);
+            }
+        }
+        
+        return elements;
     }
 
     /**
@@ -316,36 +330,27 @@ class Canvas extends Component {
     changeCoordinateMovingElement() {
         let x = Math.floor((this.mouseCoordinate.x - this.offset.x) / this.X) * this.X;
         let y = Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y;
-        this.selectedElement.setAttribute('x', x);
-        this.selectedElement.setAttribute('y', y);
-        let rotate = this.selectedElement.getAttribute('transform');
-        if (rotate) {
-            rotate = rotate.match(/rotate\((\d+)(.+)\)/);
-            let num = Math.floor(rotate.slice(1)[0]);
-            let nameSymbol = this.selectedElement.getAttribute('href').replace('#', '');
-            let symbol = document.getElementById(nameSymbol);
-            let centerX = Math.floor(symbol.getAttribute('width')) / 2;
-            let centerY = Math.floor(symbol.getAttribute('height')) / 2;
-            this.selectedElement.setAttribute('transform', `rotate(${num} ${x+centerX} ${y+centerY})`)
-        }
+        this.selectedElement.setCoordinate(x, y);
     }
-
-    /**
-     * Устанавливает цвет граней элемента.
-     * @param element Элемент.
-     * @param color Цвет.
-     */
-    setStrokeColor(element, color) {
-        element.setAttribute("stroke", color);
-    } 
 
     /**
      * Устанавливает визуальный фокус элемента.
      * @param element Элемент.
+     * @param flag Если true, то фокус устанавливается, иначе false.
      */
-    setFocus(element) {
-        this.setDashArraySelectingRect(element, this.SelectedStrokeWidth, this.SelectedStrokeDashArray);
-        this.props.setSelectedElementInState(this.selectedElement);
+    setFocus(element, flag) {
+        if (element) {
+            element.isFocus(flag);
+        }
+        
+        if (flag) {
+            this.props.setSelectedElementInState(element);
+        } else {
+            if (element === this.selectedElement) {
+                this.props.setSelectedElementInState(null);
+                this.selectedElement = null;
+            }
+        }
     }
 
     /**
@@ -354,60 +359,36 @@ class Canvas extends Component {
      */
     onSetZoom(event) {
         event.preventDefault();
-
-        let viewBox = this.canvasSVG.viewBox.animVal;
-        let newWidth = viewBox.width;
-        let newHeight = viewBox.height;
         if (event.deltaY > 0) {
-            newWidth = viewBox.width * (1 + this.ScaleFactor);
-            newHeight = viewBox.height * (1 + this.ScaleFactor);
+            if (this.state.viewBoxWidth >= this.MaxZoomWidth || this.state.viewBoxHeight >= this.MaxZoomHeight) {
+                return;
+            }
+            this.setState(previousState => ({ 
+                viewBoxWidth: previousState.viewBoxWidth * (1 + this.ScaleFactor),
+                viewBoxHeight: previousState.viewBoxHeight * (1 + this.ScaleFactor)}));
         } else {
-            newWidth = viewBox.width * (1 - this.ScaleFactor);
-            newHeight = viewBox.height * (1 - this.ScaleFactor);
+            if (this.state.viewBoxWidth < this.props.widthRect || this.state.viewBoxHeight < this.props.heightRect) {
+                return;
+            }
+            this.setState(previousState => ({
+                viewBoxWidth: previousState.viewBoxWidth * (1 - this.ScaleFactor),
+                viewBoxHeight: previousState.viewBoxHeight * (1 - this.ScaleFactor)}));
         }
-
-        if (newWidth < this.props.widthRect || newHeight < this.props.heightRect) {
-            return;
-        } else if (newWidth >= this.MaxZoomWidth || newHeight >= this.MaxZoomHeight) {
-            return;
-        }
-
-        this.canvasSVG.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${newWidth} ${newHeight}`);
-        this.canvasRect.setAttribute('width', newWidth);
-        this.canvasRect.setAttribute('height', newHeight);
-    }
-
-    /**
-     * Устанавливает прерывистые рамки для визуального фокуса элемента.
-     * @param element Элемент.
-     * @param strokeWidth Ширина рамки.
-     * @param strokeDashArray Массив прерывистых линий.
-     */
-    setDashArraySelectingRect(element, strokeWidth, strokeDashArray) {
-        element.setAttribute('stroke-width', strokeWidth);
-        element.setAttribute('stroke-dasharray', strokeDashArray);
     }
 
     /**
      * Убирает фокус со всех элементов.
      */
-    setNoFocusAllElements() {
-        let elements = this.canvasSVG.getElementsByTagName('use');
-        for (let element of elements) {
-            this.setNoFocusElement(element);
+    setNoFocusAllElements(elements) {
+        if (this.selectedElement) {
+            this.setFocus(this.selectedElement, false);
         }
-    }
-
-    /**
-     * Убирает фокус с выбранного элемента.
-     */
-    setNoFocusElement(element) {
-        if (!element) return;
         
-        this.setDashArraySelectingRect(element, '0', 'none');
-        if (element === this.selectedElement) {
-            this.selectedElement = null;
-            this.props.setSelectedElementInState(this.selectedElement);
+        for (let element of elements) {
+            if (!element) {
+                continue;
+            }
+            this.setFocus(element, false);
         }
     }
 
@@ -437,7 +418,10 @@ class Canvas extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
-            this.setNoFocusAllElements();
+            this.setNoFocusAllElements(this.props.refs);
+        }
+        if (prevProps.widthRect !== this.props.widthRect) {
+            this.setState({ viewBoxWidth: this.props.widthRect*2, viewBoxHeight: this.props.heightRect*2 })
         }
     }
     
@@ -450,22 +434,19 @@ class Canvas extends Component {
                 id='canvas-panel'
                 ref={this.canvasRef}
                 style={{flexGrow: 2}}
-                viewBox={[0, 0, this.props.widthRect*2, this.props.heightRect*2].join(' ')}>
+                viewBox={[this.state.viewBoxX, this.state.viewBoxY, this.state.viewBoxWidth, this.state.viewBoxHeight].join(' ')}>
                 <rect 
                     fill='url(#grid)' 
                     stroke='none' 
                     rx='0' 
                     ry='0' 
-                    id='canvas-rect' 
-                    width={this.props.widthRect * 2} 
-                    height={this.props.heightRect * 2} 
+                    id='canvas-rect'
+                    x={this.state.viewBoxX}
+                    y={this.state.viewBoxY}
+                    width={this.state.viewBoxWidth} 
+                    height={this.state.viewBoxHeight} 
                 />
-                <SelectingRect 
-                    width={this.state.widthSelect} 
-                    height={this.state.heightSelect} 
-                    x={this.state.xSelect} 
-                    y={this.state.ySelect} 
-                />
+                <SelectingRect ref={this.selectingRectRef} />
                 
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => shape)}
@@ -474,6 +455,9 @@ class Canvas extends Component {
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>
                         <rect width='50' height='50' fill='#DADADA' />
                         <circle cx='0' cy='0' r='2' fill='black' />
+                        <circle cx='50' cy='0' r='2' fill='black' />
+                        <circle cx='0' cy='50' r='2' fill='black' />
+                        <circle cx='50' cy='50' r='2' fill='black' />
                     </pattern>
                 </defs>
             </svg>

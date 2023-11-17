@@ -37,7 +37,8 @@ class CanvasBar extends Component {
     removeElement() {
         if (!this.state.element) return;
 
-        this.state.element.remove();
+        const id = this.state.element.props.id;
+        this.props.onRemoveShape(id);
         this.setSelectedElementInState(null);
     }
 
@@ -47,22 +48,8 @@ class CanvasBar extends Component {
     rotateElement() {
         if (!this.state.element) return;
         
-        let nameSymbol =
-            this.state.element.getAttribute('href').replace('#', '');
-        let symbol = document.getElementById(nameSymbol);
-        let x = Math.floor(this.state.element.getAttribute('x'));
-        let y = Math.floor(this.state.element.getAttribute('y'));
-        let centerX = Math.floor(symbol.getAttribute('width')) / 2;
-        let centerY = Math.floor(symbol.getAttribute('height')) / 2;
-        let rotate = this.state.element.getAttribute('transform');
-        if (rotate) {
-            rotate = rotate.match(/rotate\((\d+)(.+)\)/);
-            rotate = (Math.floor(rotate.slice(1)[0]) + 90) % 360;
-        }
-        else{
-            rotate = 90;
-        }
-        this.state.element.setAttribute('transform', `rotate(${rotate} ${x+centerX} ${y+centerY})`);
+        this.state.element.rotate();
+        
     }
     
     render() {
@@ -77,6 +64,7 @@ class CanvasBar extends Component {
                     widthRect={this.props.widthRect} 
                     heightRect={this.props.heightRect}
                     setSelectedElementInState={this.setSelectedElementInState}
+                    refs={this.props.refs}
                 />
                 <CanvasPages />
             </div>
