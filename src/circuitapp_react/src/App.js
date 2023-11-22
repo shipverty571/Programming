@@ -122,12 +122,14 @@ class App extends Component {
      
     onAddPage() {
         let id = crypto.randomUUID();
-        let page = <PageButton id={id} name="test" />
+        let page = <PageButton id={id} name="Page 1" />
         this.setState(previousState => ({ pages : [...previousState.pages, page] }), ()=>{console.log(this.state.pages)})
     } 
 
     componentDidMount() {
-        
+        if (this.state.pages.length === 0) {
+            this.onAddPage();
+        }
     }
 
     render() {
