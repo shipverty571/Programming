@@ -40,6 +40,7 @@ class App extends Component {
         this.onRemoveShape = this.onRemoveShape.bind(this);
         this.setRefToShape = this.setRefToShape.bind(this);
         this.onAddPage = this.onAddPage.bind(this);
+        this.onRemovePage = this.onRemovePage.bind(this);
     }
 
     /**
@@ -124,7 +125,11 @@ class App extends Component {
         let id = crypto.randomUUID();
         let page = <PageButton id={id} name="Page 1" />
         this.setState(previousState => ({ pages : [...previousState.pages, page] }), ()=>{console.log(this.state.pages)})
-    } 
+    }
+    
+    onRemovePage() {
+        
+    }
 
     componentDidMount() {
         if (this.state.pages.length === 0) {
@@ -153,6 +158,7 @@ class App extends Component {
                             refs={this.state.refsShapes}
                             onRemoveShape={this.onRemoveShape}
                             onAddPage={this.onAddPage}
+                            onRemovePage={this.onRemovePage}
                             pages={this.state.pages}
                         />
                     </div>

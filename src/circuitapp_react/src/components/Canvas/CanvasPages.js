@@ -24,8 +24,8 @@ class CanvasPages extends Component {
                     </div>*/}
                 </fieldset>
                 <div id='edit-pages-count-div'>
-                    <button id='add-page-button' />
-                    <button id='remove-page-button' />
+                    <button id='add-page-button' onClick={() => this.props.onAddPage()} />
+                    <button id='remove-page-button' onClick={() => this.props.onRemovePage()} />
                 </div>
             </div>
         );

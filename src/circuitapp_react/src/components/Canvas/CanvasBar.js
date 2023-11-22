@@ -66,7 +66,11 @@ class CanvasBar extends Component {
                     setSelectedElementInState={this.setSelectedElementInState}
                     refs={this.props.refs}
                 />
-                <CanvasPages pages={this.props.pages} />
+                <CanvasPages 
+                    pages={this.props.pages} 
+                    onAddPage={this.props.onAddPage} 
+                    onRemovePage={this.props.onRemovePage}
+                />
             </div>
         );
     }
