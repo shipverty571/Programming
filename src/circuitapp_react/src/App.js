@@ -127,9 +127,7 @@ class App extends Component {
     } 
 
     componentDidMount() {
-        let canvas = $('#canvas-panel');
-        this.setState({ widthRect : canvas.width() });
-        this.setState({ heightRect:  canvas.height() });
+        
     }
 
     render() {

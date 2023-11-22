@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SelectingRect from './SelectingRect';
 import PropTypes from "prop-types";
+import $ from "jquery";
 
 /**
  * Компонент канваса.
@@ -367,7 +368,7 @@ class Canvas extends Component {
                 viewBoxWidth: previousState.viewBoxWidth * (1 + this.ScaleFactor),
                 viewBoxHeight: previousState.viewBoxHeight * (1 + this.ScaleFactor)}));
         } else {
-            if (this.state.viewBoxWidth < this.props.widthRect || this.state.viewBoxHeight < this.props.heightRect) {
+            if (this.state.viewBoxWidth < this.state.widthRect || this.state.viewBoxHeight < this.state.heightRect) {
                 return;
             }
             this.setState(previousState => ({
@@ -414,14 +415,18 @@ class Canvas extends Component {
 
         this.canvasSVG = document.getElementById('canvas-panel');
         this.canvasRect = document.getElementById('canvas-rect');
+        
+        let canvas = $('#canvas-panel');
+        this.setState(
+            { widthRect : canvas.width(), heightRect:  canvas.height() }, 
+            () => {
+                this.setState({ viewBoxWidth: this.state.widthRect*2, viewBoxHeight: this.state.heightRect*2 })
+            });
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
             this.setNoFocusAllElements(this.props.refs);
-        }
-        if (prevProps.widthRect !== this.props.widthRect) {
-            this.setState({ viewBoxWidth: this.props.widthRect*2, viewBoxHeight: this.props.heightRect*2 })
         }
     }
     
