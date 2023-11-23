@@ -9,6 +9,7 @@ import Capacitor from './components/Shapes/Patterns/Capacitor';
 import Inductor from './components/Shapes/Patterns/Inductor';
 import UseCapacitor from './components/Shapes/UseShapes/UseCapacitor';
 import UseInductor from './components/Shapes/UseShapes/UseInductor';
+import {CapacitorSize, InductorSize, ResistorSize} from "./Resources/ShapesSizes";
 import $ from 'jquery';
 import PageButton from "./components/Canvas/PageButton";
 
@@ -61,70 +62,43 @@ class App extends Component {
      */
     onAddShape(shape) {
         let element = null;
-        const X = 100;
-        const Y = 100;
-        const id = crypto.randomUUID();
-        
         switch (shape) {
             case 'Resistor':
                 element = {
                     href: "#ResistorSymbol",
-                    width: 250,
-                    height: 150
+                    width: ResistorSize.width,
+                    height: ResistorSize.height
                 }
-                element = <UseResistor 
-                    href="#ResistorSymbol" 
-                    x={X} 
-                    y={Y} 
-                    id={id} 
-                    key={id}
-                    width={250}
-                    height={150}
-                    page={this.state.activePageId}
-                    ref={this.setRefToShape} 
-                />
                 break;
             case 'Capacitor':
                 element = {
                     href: "#CapacitorSymbol",
-                    width: 150,
-                    height: 150
+                    width: CapacitorSize.width,
+                    height: CapacitorSize.height,
+                    page: this.state.activePageId
                 }
-                element = <UseCapacitor 
-                    href="#CapacitorSymbol" 
-                    x={X} 
-                    y={Y} 
-                    id={id}
-                    key={id}
-                    width={150}
-                    height={150}
-                    page={this.state.activePageId}
-                    ref={this.setRefToShape} 
-                />
                 break;
             case 'Inductor':
                 element = {
                     href: "#InductorSymbol",
-                    width: 300,
-                    height: 100
+                    width: InductorSize.width,
+                    height: InductorSize.height
                 }
-                element = <UseInductor 
-                    href="#InductorSymbol" 
-                    x={X} 
-                    y={Y}
-                    id={id}
-                    key={id}
-                    width={300}
-                    height={100}
-                    page={this.state.activePageId}
-                    ref={this.setRefToShape}
-                />
                 break;
             default:
                 break;
         }
         
         if (element) {
+            const X = 100;
+            const Y = 100;
+            const id = crypto.randomUUID();
+            
+            element.id = id;
+            element.x = X;
+            element.y = Y;
+            element.page = this.state.activePageId;
+            
             this.setState( previousState => ({ 
                 shapes : [...previousState.shapes, element] 
             }));
@@ -138,7 +112,7 @@ class App extends Component {
     onRemoveShape(id) {
         if (!id) return;
         
-        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.props.id !== id) }));
+        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.id !== id) }));
     }
      
     onAddPage() {
@@ -185,6 +159,7 @@ class App extends Component {
                             widthRect={this.state.widthRect}
                             heightRect={this.state.heightRect}
                             refs={this.state.refsShapes}
+                            setRefToShape={this.setRefToShape}
                             onRemoveShape={this.onRemoveShape}
                             onAddPage={this.onAddPage}
                             onRemovePage={this.onRemovePage}

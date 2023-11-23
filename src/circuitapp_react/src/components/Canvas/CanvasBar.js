@@ -61,6 +61,7 @@ class CanvasBar extends Component {
                 <Canvas 
                     patterns={this.props.patterns} 
                     shapes={this.props.shapes} 
+                    setRefToShape={this.props.setRefToShape}
                     widthRect={this.props.widthRect} 
                     heightRect={this.props.heightRect}
                     setSelectedElementInState={this.setSelectedElementInState}

@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import SelectingRect from './SelectingRect';
 import PropTypes from "prop-types";
 import $ from "jquery";
+import {scryRenderedComponentsWithType} from "react-dom/test-utils";
+import UseResistor from "../Shapes/UseShapes/UseResistor";
+import UseCapacitor from "../Shapes/UseShapes/UseCapacitor";
+import UseInductor from "../Shapes/UseShapes/UseInductor";
 
 /**
  * Компонент канваса.
@@ -405,6 +409,46 @@ class Canvas extends Component {
             y: (event.clientY - CTM.f) / CTM.d
         };
     }
+    
+    getUseComponent(shape) {
+        switch(shape.href) {
+            case "#ResistorSymbol":
+                return (<UseResistor
+                    href={shape.href}
+                    x={shape.x}
+                    y={shape.y}
+                    id={shape.id}
+                    key={shape.id}
+                    width={shape.width}
+                    height={shape.height}
+                    ref={this.props.setRefToShape}
+                />);
+            case "#CapacitorSymbol":
+                return <UseCapacitor
+                    href={shape.href}
+                    x={shape.x}
+                    y={shape.y}
+                    id={shape.id}
+                    key={shape.id}
+                    width={shape.width}
+                    height={shape.height}
+                    ref={this.props.setRefToShape}
+                />
+            case "#InductorSymbol":
+                return <UseInductor
+                    href={shape.href}
+                    x={shape.x}
+                    y={shape.y}
+                    id={shape.id}
+                    key={shape.id}
+                    width={shape.width}
+                    height={shape.height}
+                    ref={this.props.setRefToShape}
+                />
+            default:
+                return 'Element not found';
+        }
+    }
 
     componentDidMount() {
         this.canvasRef.current.addEventListener('mousedown', this.onStartDrag);
@@ -454,7 +498,7 @@ class Canvas extends Component {
                 <SelectingRect ref={this.selectingRectRef} />
                 
                 {this.props.patterns.map(pattern => pattern)}
-                {this.props.shapes.map(shape => shape)}
+                {this.props.shapes.map(shape => this.getUseComponent(shape))}
                 
                 <defs>
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>
