@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import {DraggableColor, NoDraggableColor} from "../../../Resources/Colors";
-import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/Values";
+import {DraggableColor, StaticColor} from "../../../Resources/Colors";
+import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/ApplicationConstants";
 
 /**
  * Компонент для использования шаблона резистора.
@@ -15,12 +15,12 @@ class UseResistor extends Component {
             width: this.props.width,
             height: this.props.height,
             rotate: 0,
-            strokeColor: NoDraggableColor,
+            strokeColor: StaticColor,
             strokeWidth: 0,
             strokeDashArray: 0
         }
         this.setCoordinate = this.setCoordinate.bind(this);
-        this.changeRotate = this.changeRotate.bind(this);
+        this.rotate = this.rotate.bind(this);
         this.isDragging = this.isDragging.bind(this);
     }
 
@@ -34,9 +34,9 @@ class UseResistor extends Component {
     }
 
     /**
-     * Поворачивает элемент.
+     * Поворачивает элемент на 90 градусов по часовой.
      */
-    changeRotate(){
+    rotate(){
         let oldRotate = this.state.rotate;
         this.setState({ rotate: (oldRotate + 90) % 360})
     }
@@ -49,7 +49,7 @@ class UseResistor extends Component {
         if (flag) {
             this.setState({ strokeColor: DraggableColor })
         } else {
-            this.setState({ strokeColor: NoDraggableColor })
+            this.setState({ strokeColor: StaticColor })
         }
     }
 
@@ -100,7 +100,7 @@ UseResistor.defaultProps = {
     y: 0,
     canNotDraggable: false,
     rotate: 0,
-    strokeColor: NoDraggableColor,
+    strokeColor: StaticColor,
     strokeWidth: 0,
     strokeDasharray: 0
 }

@@ -48,7 +48,7 @@ class CanvasBar extends Component {
     rotateElement() {
         if (!this.state.element) return;
         
-        this.state.element.changeRotate();
+        this.state.element.rotate();
         
     }
     

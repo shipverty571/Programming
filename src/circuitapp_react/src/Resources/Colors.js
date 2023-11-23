@@ -3,11 +3,11 @@
  * @type {string}
  * @const
  */
-export const DraggableColor = "gray";
+export const DraggableColor = "#808080";
 
 /**
  * Цвет элемента, когда он не передвигается.
  * @type {string}
  * @const
  */
-export const NoDraggableColor = "black";
+export const StaticColor = "#000000";
