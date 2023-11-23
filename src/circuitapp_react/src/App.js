@@ -45,16 +45,7 @@ class App extends Component {
         this.onAddPage = this.onAddPage.bind(this);
         this.onRemovePage = this.onRemovePage.bind(this);
         this.setActivePage = this.setActivePage.bind(this);
-    }
-
-    /**
-     * Добавляет ссылку на элемент в коллекцию.
-     * @param ref Ссылка.
-     */
-    setRefToShape = (ref) => {
-        this.setState( previousState => ({
-            refsShapes : [...previousState.refsShapes, ref]
-        }));
+        this.setNewPropsShape = this.setNewPropsShape.bind(this);
     }
 
     /**
@@ -75,8 +66,7 @@ class App extends Component {
                 element = {
                     href: "#CapacitorSymbol",
                     width: CapacitorSize.width,
-                    height: CapacitorSize.height,
-                    page: this.state.activePageId
+                    height: CapacitorSize.height
                 }
                 break;
             case 'Inductor':
@@ -116,7 +106,9 @@ class App extends Component {
     onRemoveShape(id) {
         if (!id) return;
         
-        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.id !== id) }));
+        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.id !== id) }), () => {
+            this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) });
+        });
     }
      
     onAddPage() {
@@ -128,6 +120,17 @@ class App extends Component {
                 this.setActivePage(id);
             }
         })
+    }
+    
+    setNewPropsShape(id, props) {
+        let shape = this.state.shapes.filter(shape => shape.id === id )[0]
+        let newShape = shape;
+        newShape.x = props.X;
+        newShape.y = props.Y;
+        
+        let newShapes = this.state.shapes.filter(shape => shape.id !== id)
+        newShapes = [...newShapes, newShape];
+        this.setState({ shapes: newShapes }, () => console.log(this.state.shapes));
     }
     
     onRemovePage() {
@@ -162,16 +165,13 @@ class App extends Component {
                         <CanvasBar
                             patterns={this.state.patterns}
                             shapes={this.state.shapesOfPage}
-                            widthRect={this.state.widthRect}
-                            heightRect={this.state.heightRect}
-                            refs={this.state.refsShapes}
-                            setRefToShape={this.setRefToShape}
                             onRemoveShape={this.onRemoveShape}
                             onAddPage={this.onAddPage}
                             onRemovePage={this.onRemovePage}
                             pages={this.state.pages}
                             setActivePage={this.setActivePage}
                             activePageId={this.state.activePageId}
+                            setNewPropsShape={this.setNewPropsShape}
                         />
                     </div>
                 </div>

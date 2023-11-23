@@ -157,7 +157,8 @@ class Canvas extends Component {
             viewBoxX: 0,
             viewBoxY: 0,
             viewBoxWidth: 0,
-            viewBoxHeight: 0
+            viewBoxHeight: 0,
+            refs: []
         }
         this.canvasRef = React.createRef();
         this.selectingRectRef = React.createRef();
@@ -237,6 +238,8 @@ class Canvas extends Component {
         this.down = false;
         this.isPanning = false;
         if (this.selectedElement) {
+            console.log(this.selectedElement.state)
+            this.props.setNewPropsShape(this.selectedElement.props.id, this.selectedElement.state);
             this.selectedElement.isDragging(false);
         }
         if (this.selectedElements.length > 0) {
@@ -286,13 +289,13 @@ class Canvas extends Component {
      */
     getRefElement(id) {
         let element;
-        for (var i = 0; i < this.props.refs.length; i++) {
-            let ref = this.props.refs[i];
+        for (var i = 0; i < this.state.refs.length; i++) {
+            let ref = this.state.refs[i];
             if (!ref) {
                 continue;
             }
             if (ref.props.id === id) {
-                element = this.props.refs[i];
+                element = this.state.refs[i];
                 return element;
             }
         }
@@ -311,7 +314,7 @@ class Canvas extends Component {
         let rectY2 = rectY1 + this.selectingRectRef.current.state.height;
 
         let elements = []
-        for (let elem of this.props.refs) {
+        for (let elem of this.state.refs) {
             if (!elem) {
                 continue;
             }
@@ -409,6 +412,16 @@ class Canvas extends Component {
             y: (event.clientY - CTM.f) / CTM.d
         };
     }
+
+    /**
+     * Добавляет ссылку на элемент в коллекцию.
+     * @param ref Ссылка.
+     */
+    setRefToShape = (ref) => {
+        this.setState( previousState => ({
+            refs : [...previousState.refs, ref]
+        }));
+    }
     
     getUseComponent(shape) {
         switch(shape.href) {
@@ -421,7 +434,7 @@ class Canvas extends Component {
                     key={shape.id}
                     width={shape.width}
                     height={shape.height}
-                    ref={this.props.setRefToShape}
+                    ref={this.setRefToShape}
                 />);
             case "#CapacitorSymbol":
                 return <UseCapacitor
@@ -432,7 +445,7 @@ class Canvas extends Component {
                     key={shape.id}
                     width={shape.width}
                     height={shape.height}
-                    ref={this.props.setRefToShape}
+                    ref={this.setRefToShape}
                 />
             case "#InductorSymbol":
                 return <UseInductor
@@ -443,7 +456,7 @@ class Canvas extends Component {
                     key={shape.id}
                     width={shape.width}
                     height={shape.height}
-                    ref={this.props.setRefToShape}
+                    ref={this.setRefToShape}
                 />
             default:
                 return 'Element not found';
@@ -470,7 +483,10 @@ class Canvas extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
-            this.setNoFocusAllElements(this.props.refs);
+            this.setNoFocusAllElements(this.state.refs);
+        }
+        if (prevProps.activePageId !== this.props.activePageId) {
+            this.setState({ refs: [] })
         }
     }
     

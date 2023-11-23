@@ -61,11 +61,11 @@ class CanvasBar extends Component {
                 <Canvas 
                     patterns={this.props.patterns} 
                     shapes={this.props.shapes} 
-                    setRefToShape={this.props.setRefToShape}
                     widthRect={this.props.widthRect} 
                     heightRect={this.props.heightRect}
                     setSelectedElementInState={this.setSelectedElementInState}
-                    refs={this.props.refs}
+                    setNewPropsShape={this.props.setNewPropsShape}
+                    activePageId={this.props.activePageId}
                 />
                 <CanvasPages 
                     pages={this.props.pages} 
@@ -80,9 +80,7 @@ class CanvasBar extends Component {
 }
 CanvasBar.propTypes = {
     patterns: PropTypes.array.isRequired,
-    shapes: PropTypes.array.isRequired,
-    widthRect: PropTypes.number.isRequired,
-    heightRect: PropTypes.number.isRequired
+    shapes: PropTypes.array.isRequired
 }
 
 export default CanvasBar;
