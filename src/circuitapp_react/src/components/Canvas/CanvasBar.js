@@ -70,6 +70,8 @@ class CanvasBar extends Component {
                     pages={this.props.pages} 
                     onAddPage={this.props.onAddPage} 
                     onRemovePage={this.props.onRemovePage}
+                    setActivePage={this.props.setActivePage}
+                    activePageId={this.props.activePageId}
                 />
             </div>
         );

@@ -33,7 +33,8 @@ class App extends Component {
             pages: [],
             selectedPage: null,
             widthRect: 0,
-            heightRect:  0
+            heightRect:  0,
+            activePageId: null,
         }
 
         this.onAddShape = this.onAddShape.bind(this);
@@ -41,6 +42,7 @@ class App extends Component {
         this.setRefToShape = this.setRefToShape.bind(this);
         this.onAddPage = this.onAddPage.bind(this);
         this.onRemovePage = this.onRemovePage.bind(this);
+        this.setActivePage = this.setActivePage.bind(this);
     }
 
     /**
@@ -123,12 +125,18 @@ class App extends Component {
      
     onAddPage() {
         let id = crypto.randomUUID();
-        let page = <PageButton id={id} name="Page 1" />
-        this.setState(previousState => ({ pages : [...previousState.pages, page] }), ()=>{console.log(this.state.pages)})
+        let page = { id: id }
+        /*let page = <PageButton key={id} id={id} name="Page 1" activePageId={this.state.activePageId} onChange={this.setActivePage} />*/
+        this.setState(previousState => ({ pages : [...previousState.pages, page] }))
+        console.log(page)
     }
     
     onRemovePage() {
         
+    }
+    
+    setActivePage(id) {
+        this.setState({ activePageId: id });
     }
 
     componentDidMount() {
@@ -160,6 +168,8 @@ class App extends Component {
                             onAddPage={this.onAddPage}
                             onRemovePage={this.onRemovePage}
                             pages={this.state.pages}
+                            setActivePage={this.setActivePage}
+                            activePageId={this.state.activePageId}
                         />
                     </div>
                 </div>
