@@ -72,6 +72,7 @@ class CanvasBar extends Component {
                     onRemovePage={this.props.onRemovePage}
                     setActivePage={this.props.setActivePage}
                     activePageId={this.props.activePageId}
+                    canNotRemovePage={this.props.canNotRemovePage}
                 />
             </div>
         );

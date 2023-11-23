@@ -37,6 +37,7 @@ class App extends Component {
             widthRect: 0,
             heightRect:  0,
             activePageId: null,
+            canNotRemovePage: true
         }
 
         this.onAddShape = this.onAddShape.bind(this);
@@ -118,24 +119,41 @@ class App extends Component {
         this.setState(previousState => ({ pages : [...previousState.pages, page] }), () => {
             if (this.state.pages.length === 1) {
                 this.setActivePage(id);
+                this.setState({ canNotRemovePage: true });
+            }
+            else {
+                this.setState({ canNotRemovePage: false });
             }
         })
     }
     
+    onRemovePage() {
+        this.setState(
+            previousState => ({ shapes: previousState.shapes.filter(shape => shape.page !== this.state.activePageId) }),
+            ()=> {
+            this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) })
+        });
+        this.setState(
+            previousState => ({ pages: previousState.pages.filter(page => page.id !== this.state.activePageId) }), ()=> {
+                if (this.state.pages.length === 1) {
+                    this.setState({ canNotRemovePage: true });
+                }
+                else {
+                    this.setState({ canNotRemovePage: false });
+                }
+            });
+    }
+
     setNewPropsShape(id, props) {
         let shape = this.state.shapes.filter(shape => shape.id === id)[0]
         let newShape = shape;
         newShape.x = props.X;
         newShape.y = props.Y;
         newShape.rotate = props.rotate;
-        
+
         let newShapes = this.state.shapes.filter(shape => shape.id !== id)
         newShapes = [...newShapes, newShape];
         this.setState({ shapes: newShapes }, () => console.log(this.state.shapes));
-    }
-    
-    onRemovePage() {
-        
     }
     
     setActivePage(id) {
@@ -173,6 +191,7 @@ class App extends Component {
                             setActivePage={this.setActivePage}
                             activePageId={this.state.activePageId}
                             setNewPropsShape={this.setNewPropsShape}
+                            canNotRemovePage={this.state.canNotRemovePage}
                         />
                     </div>
                 </div>
