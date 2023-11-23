@@ -13,7 +13,7 @@ class PageButton extends Component {
     
     render() {
         return (
-            <div>
+            <div style={{display: 'inline-block'}}>
                 <input type='radio' value={this.props.id} name='pages-group' id={this.props.id} checked={this.props.activePageId === this.props.id} onChange={this.onChange} />
                 <label htmlFor={this.props.id}>{this.props.name}</label>
             </div>

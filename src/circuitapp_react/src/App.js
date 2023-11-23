@@ -37,7 +37,8 @@ class App extends Component {
             widthRect: 0,
             heightRect:  0,
             activePageId: null,
-            canNotRemovePage: true
+            canNotRemovePage: true,
+            countPages: 1
         }
 
         this.onAddShape = this.onAddShape.bind(this);
@@ -114,8 +115,7 @@ class App extends Component {
      
     onAddPage() {
         let id = crypto.randomUUID();
-        let page = { id: id }
-        /*let page = <PageButton key={id} id={id} name="Page 1" activePageId={this.state.activePageId} onChange={this.setActivePage} />*/
+        let page = { id: id, name: `Page ${this.state.countPages}` };
         this.setState(previousState => ({ pages : [...previousState.pages, page] }), () => {
             if (this.state.pages.length === 1) {
                 this.setActivePage(id);
@@ -124,7 +124,8 @@ class App extends Component {
             else {
                 this.setState({ canNotRemovePage: false });
             }
-        })
+        });
+        this.setState(previousState => ({ countPages: previousState.countPages + 1 }));
     }
     
     onRemovePage() {
