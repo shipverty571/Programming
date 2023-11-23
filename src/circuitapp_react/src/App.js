@@ -31,6 +31,7 @@ class App extends Component {
             ],
             shapes: [],
             refsShapes: [],
+            shapesOfPage: [],
             pages: [],
             selectedPage: null,
             widthRect: 0,
@@ -98,10 +99,13 @@ class App extends Component {
             element.x = X;
             element.y = Y;
             element.page = this.state.activePageId;
-            
+            console.log(this.state.shapes)
             this.setState( previousState => ({ 
                 shapes : [...previousState.shapes, element] 
-            }));
+            }), ()=> {
+                this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) });
+            });
+            
         }
     }
 
@@ -131,7 +135,9 @@ class App extends Component {
     }
     
     setActivePage(id) {
-        this.setState({ activePageId: id });
+        this.setState({ activePageId: id }, () => {
+            this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === id) });
+        });
     }
 
     componentDidMount() {
@@ -155,7 +161,7 @@ class App extends Component {
                     <div className='container-column'>
                         <CanvasBar
                             patterns={this.state.patterns}
-                            shapes={this.state.shapes}
+                            shapes={this.state.shapesOfPage}
                             widthRect={this.state.widthRect}
                             heightRect={this.state.heightRect}
                             refs={this.state.refsShapes}
