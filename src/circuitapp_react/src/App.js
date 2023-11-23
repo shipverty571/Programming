@@ -67,6 +67,11 @@ class App extends Component {
         
         switch (shape) {
             case 'Resistor':
+                element = {
+                    href: "#ResistorSymbol",
+                    width: 250,
+                    height: 150
+                }
                 element = <UseResistor 
                     href="#ResistorSymbol" 
                     x={X} 
@@ -75,10 +80,16 @@ class App extends Component {
                     key={id}
                     width={250}
                     height={150}
+                    page={this.state.activePageId}
                     ref={this.setRefToShape} 
                 />
                 break;
             case 'Capacitor':
+                element = {
+                    href: "#CapacitorSymbol",
+                    width: 150,
+                    height: 150
+                }
                 element = <UseCapacitor 
                     href="#CapacitorSymbol" 
                     x={X} 
@@ -87,10 +98,16 @@ class App extends Component {
                     key={id}
                     width={150}
                     height={150}
+                    page={this.state.activePageId}
                     ref={this.setRefToShape} 
                 />
                 break;
             case 'Inductor':
+                element = {
+                    href: "#InductorSymbol",
+                    width: 300,
+                    height: 100
+                }
                 element = <UseInductor 
                     href="#InductorSymbol" 
                     x={X} 
@@ -99,6 +116,7 @@ class App extends Component {
                     key={id}
                     width={300}
                     height={100}
+                    page={this.state.activePageId}
                     ref={this.setRefToShape}
                 />
                 break;
@@ -127,8 +145,11 @@ class App extends Component {
         let id = crypto.randomUUID();
         let page = { id: id }
         /*let page = <PageButton key={id} id={id} name="Page 1" activePageId={this.state.activePageId} onChange={this.setActivePage} />*/
-        this.setState(previousState => ({ pages : [...previousState.pages, page] }))
-        console.log(page)
+        this.setState(previousState => ({ pages : [...previousState.pages, page] }), () => {
+            if (this.state.pages.length === 1) {
+                this.setActivePage(id);
+            }
+        })
     }
     
     onRemovePage() {
