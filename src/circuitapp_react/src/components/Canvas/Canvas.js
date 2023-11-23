@@ -434,7 +434,9 @@ class Canvas extends Component {
                     key={shape.id}
                     width={shape.width}
                     height={shape.height}
+                    rotate={shape.rotate}
                     ref={this.setRefToShape}
+                    setNewPropsShape={this.props.setNewPropsShape}
                 />);
             case "#CapacitorSymbol":
                 return <UseCapacitor
@@ -445,7 +447,9 @@ class Canvas extends Component {
                     key={shape.id}
                     width={shape.width}
                     height={shape.height}
+                    rotate={shape.rotate}
                     ref={this.setRefToShape}
+                    setNewPropsShape={this.props.setNewPropsShape}
                 />
             case "#InductorSymbol":
                 return <UseInductor
@@ -456,7 +460,9 @@ class Canvas extends Component {
                     key={shape.id}
                     width={shape.width}
                     height={shape.height}
+                    rotate={shape.rotate}
                     ref={this.setRefToShape}
+                    setNewPropsShape={this.props.setNewPropsShape}
                 />
             default:
                 return 'Element not found';
@@ -475,7 +481,7 @@ class Canvas extends Component {
         
         let canvas = $('#canvas-panel');
         this.setState(
-            { widthRect : canvas.width(), heightRect:  canvas.height() }, 
+            { widthRect: canvas.width(), heightRect: canvas.height() }, 
             () => {
                 this.setState({ viewBoxWidth: this.state.widthRect*2, viewBoxHeight: this.state.heightRect*2 })
             });

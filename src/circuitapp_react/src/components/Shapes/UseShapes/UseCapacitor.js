@@ -14,7 +14,7 @@ class UseCapacitor extends Component {
             Y: this.props.y,
             width: this.props.width,
             height: this.props.height,
-            rotate: 0,
+            rotate: this.props.rotate,
             strokeColor: StaticColor,
             strokeWidth: 0,
             strokeDashArray: null
@@ -38,7 +38,9 @@ class UseCapacitor extends Component {
      */
     rotate(){
         let oldRotate = this.state.rotate;
-        this.setState({ rotate: (oldRotate + 90) % 360})
+        this.setState(
+            { rotate: (oldRotate + 90) % 360}, 
+            () => this.props.setNewPropsShape(this.props.id, this.state));
     }
 
     /**

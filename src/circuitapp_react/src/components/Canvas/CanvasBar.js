@@ -49,9 +49,8 @@ class CanvasBar extends Component {
         if (!this.state.element) return;
         
         this.state.element.rotate();
-        
     }
-    
+
     render() {
         return (
             <div style={{ display: 'flex', flexGrow: 1, flexDirection: 'column' }}>

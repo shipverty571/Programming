@@ -14,7 +14,7 @@ class UseResistor extends Component {
             Y: this.props.y,
             width: this.props.width,
             height: this.props.height,
-            rotate: 0,
+            rotate: this.props.rotate,
             strokeColor: StaticColor,
             strokeWidth: 0,
             strokeDashArray: 0
@@ -38,7 +38,9 @@ class UseResistor extends Component {
      */
     rotate(){
         let oldRotate = this.state.rotate;
-        this.setState({ rotate: (oldRotate + 90) % 360})
+        this.setState(
+            { rotate: (oldRotate + 90) % 360},
+            () => this.props.setNewPropsShape(this.props.id, this.state));
     }
 
     /**
@@ -64,7 +66,7 @@ class UseResistor extends Component {
             this.setState({ strokeWidth: 0, strokeDashArray: null })
         }
     }
-    
+
     render() {
         return (
             <use

@@ -41,7 +41,6 @@ class App extends Component {
 
         this.onAddShape = this.onAddShape.bind(this);
         this.onRemoveShape = this.onRemoveShape.bind(this);
-        this.setRefToShape = this.setRefToShape.bind(this);
         this.onAddPage = this.onAddPage.bind(this);
         this.onRemovePage = this.onRemovePage.bind(this);
         this.setActivePage = this.setActivePage.bind(this);
@@ -88,6 +87,7 @@ class App extends Component {
             element.id = id;
             element.x = X;
             element.y = Y;
+            element.rotate = 0;
             element.page = this.state.activePageId;
             console.log(this.state.shapes)
             this.setState( previousState => ({ 
@@ -123,10 +123,11 @@ class App extends Component {
     }
     
     setNewPropsShape(id, props) {
-        let shape = this.state.shapes.filter(shape => shape.id === id )[0]
+        let shape = this.state.shapes.filter(shape => shape.id === id)[0]
         let newShape = shape;
         newShape.x = props.X;
         newShape.y = props.Y;
+        newShape.rotate = props.rotate;
         
         let newShapes = this.state.shapes.filter(shape => shape.id !== id)
         newShapes = [...newShapes, newShape];
