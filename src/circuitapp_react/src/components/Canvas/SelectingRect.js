@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from "prop-types";
 
 /**
  * Компонент прямоугольника для фокуса множества элементов.
@@ -16,7 +15,14 @@ class SelectingRect extends Component {
         
         this.setSize = this.setSize.bind(this);
     }
-    
+
+    /**
+     * Устанавливает размеры прямоугольника.
+     * @param x Координата X.
+     * @param y Координата Y.
+     * @param width Ширина.
+     * @param height Высота.
+     */
     setSize(x, y, width, height) {
         this.setState({ x: x, y: y, width: width, height: height });
     }

@@ -4,14 +4,9 @@ import CanvasBar from './components/Canvas/CanvasBar';
 import Header from './components/Header/Header';
 import React, {Component} from 'react';
 import Resistor from './components/Shapes/Patterns/Resistor';
-import UseResistor from './components/Shapes/UseShapes/UseResistor';
 import Capacitor from './components/Shapes/Patterns/Capacitor';
 import Inductor from './components/Shapes/Patterns/Inductor';
-import UseCapacitor from './components/Shapes/UseShapes/UseCapacitor';
-import UseInductor from './components/Shapes/UseShapes/UseInductor';
 import {CapacitorSize, InductorSize, ResistorSize} from "./Resources/ShapesSizes";
-import $ from 'jquery';
-import PageButton from "./components/Canvas/PageButton";
 
 /**
  * Главный компонент.
@@ -30,7 +25,6 @@ class App extends Component {
                 <Inductor id="InductorSymbol" />
             ],
             shapes: [],
-            refsShapes: [],
             shapesOfPage: [],
             pages: [],
             selectedPage: null,
@@ -91,7 +85,6 @@ class App extends Component {
             element.y = Y;
             element.rotate = 0;
             element.page = this.state.activePageId;
-            console.log(this.state.shapes)
             this.setState( previousState => ({ 
                 shapes : [...previousState.shapes, element] 
             }), ()=> {
@@ -108,11 +101,16 @@ class App extends Component {
     onRemoveShape(id) {
         if (!id) return;
         
-        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.id !== id) }), () => {
-            this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) });
+        this.setState(
+            previousState => ({ shapes: previousState.shapes.filter(shape => shape.id !== id) }),
+            () => {
+                this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) });
         });
     }
-     
+
+    /**
+     * Добавляет страницу.
+     */
     onAddPage() {
         let id = crypto.randomUUID();
         let page = { id: id, name: `Page ${this.state.countPages}` };
@@ -127,7 +125,10 @@ class App extends Component {
         });
         this.setState(previousState => ({ countPages: previousState.countPages + 1 }));
     }
-    
+
+    /**
+     * Удаляет страницу.
+     */
     onRemovePage() {
         this.setState(
             previousState => ({ shapes: previousState.shapes.filter(shape => shape.page !== this.state.activePageId) }),
@@ -135,7 +136,8 @@ class App extends Component {
             this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) })
         });
         this.setState(
-            previousState => ({ pages: previousState.pages.filter(page => page.id !== this.state.activePageId) }), ()=> {
+            previousState => ({ pages: previousState.pages.filter(page => page.id !== this.state.activePageId) }), 
+            ()=> {
                 if (this.state.pages.length === 1) {
                     this.setState({ canNotRemovePage: true });
                 }
@@ -145,6 +147,11 @@ class App extends Component {
             });
     }
 
+    /**
+     * Устанавливает новые свойства в коллекцию.
+     * @param id Уникальный идентификатор элемента, чьи свойства надо обновить.
+     * @param props Новые свойства.
+     */
     setNewPropsShape(id, props) {
         let shape = this.state.shapes.filter(shape => shape.id === id)[0]
         let newShape = shape;
@@ -156,7 +163,11 @@ class App extends Component {
         newShapes = [...newShapes, newShape];
         this.setState({ shapes: newShapes }, () => console.log(this.state.shapes));
     }
-    
+
+    /**
+     * Определяет активную страницу.
+     * @param id Уникальный идентификатор страницы.
+     */
     setActivePage(id) {
         this.setState({ activePageId: id }, () => {
             this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === id) });

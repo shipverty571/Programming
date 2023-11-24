@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import SelectingRect from './SelectingRect';
 import PropTypes from "prop-types";
 import $ from "jquery";
-import {scryRenderedComponentsWithType} from "react-dom/test-utils";
 import UseResistor from "../Shapes/UseShapes/UseResistor";
 import UseCapacitor from "../Shapes/UseShapes/UseCapacitor";
 import UseInductor from "../Shapes/UseShapes/UseInductor";
@@ -422,7 +421,12 @@ class Canvas extends Component {
             refs : [...previousState.refs, ref]
         }));
     }
-    
+
+    /**
+     * Создает компоненты фигур.
+     * @param shape Имя фигуры.
+     * @returns {JSX.Element|string} Возвращает компонент фигуры.
+     */
     getUseComponent(shape) {
         switch(shape.href) {
             case "#ResistorSymbol":

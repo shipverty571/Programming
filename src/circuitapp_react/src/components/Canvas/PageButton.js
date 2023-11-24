@@ -6,7 +6,10 @@ class PageButton extends Component {
         
         this.onChange = this.onChange.bind(this);
     }
-    
+
+    /**
+     * Обработчик события изменения свойств у переключателя.
+     */
     onChange() {
         this.props.setActivePage(this.props.id);
     }
