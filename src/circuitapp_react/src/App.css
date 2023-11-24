@@ -157,10 +157,27 @@ select, h4, h3, h2, h1, p, input {
   color: white;
 }
 
+#canvas-pages {
+  justify-content: space-between;
+  background-color: #F3F3F3;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+#page-block {
+  display: inline-block;
+  width: 100px;
+}
+
 #pages-group {
   padding: 0;
   border: 0;
   margin: 0;
+  max-width: 800px;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 #pages-group input {
@@ -168,11 +185,15 @@ select, h4, h3, h2, h1, p, input {
 }
 
 #pages-group label {
-  padding: 5px;
   background-color: transparent;
   height: 20px;
-  display: flex;
+  width: 100%;
+  display: block;
   align-items: center;
+  padding: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
 }
 
 #pages-group label:hover {
@@ -191,6 +212,10 @@ select, h4, h3, h2, h1, p, input {
 
 #edit-pages-count-div {
   height: 30px;
+  white-space: nowrap;
+  display: inline;
+  width: 65px;
+  margin-right: 5px;
 }
 
 #edit-pages-count-div > button {
