@@ -144,6 +144,7 @@ class App extends Component {
                 else {
                     this.setState({ canNotRemovePage: false });
                 }
+                this.setActivePage(this.state.pages[0].id);
             });
     }
 
