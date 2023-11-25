@@ -49,9 +49,8 @@ class CanvasBar extends Component {
         if (!this.state.element) return;
         
         this.state.element.rotate();
-        
     }
-    
+
     render() {
         return (
             <div style={{ display: 'flex', flexGrow: 1, flexDirection: 'column' }}>
@@ -64,18 +63,24 @@ class CanvasBar extends Component {
                     widthRect={this.props.widthRect} 
                     heightRect={this.props.heightRect}
                     setSelectedElementInState={this.setSelectedElementInState}
-                    refs={this.props.refs}
+                    setNewPropsShape={this.props.setNewPropsShape}
+                    activePageId={this.props.activePageId}
                 />
-                <CanvasPages />
+                <CanvasPages 
+                    pages={this.props.pages} 
+                    onAddPage={this.props.onAddPage} 
+                    onRemovePage={this.props.onRemovePage}
+                    setActivePage={this.props.setActivePage}
+                    activePageId={this.props.activePageId}
+                    canNotRemovePage={this.props.canNotRemovePage}
+                />
             </div>
         );
     }
 }
 CanvasBar.propTypes = {
     patterns: PropTypes.array.isRequired,
-    shapes: PropTypes.array.isRequired,
-    widthRect: PropTypes.number.isRequired,
-    heightRect: PropTypes.number.isRequired
+    shapes: PropTypes.array.isRequired
 }
 
 export default CanvasBar;

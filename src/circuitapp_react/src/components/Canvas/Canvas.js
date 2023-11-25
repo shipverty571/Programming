@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import SelectingRect from './SelectingRect';
 import PropTypes from "prop-types";
+import $ from "jquery";
+import UseResistor from "../Shapes/UseShapes/UseResistor";
+import UseCapacitor from "../Shapes/UseShapes/UseCapacitor";
+import UseInductor from "../Shapes/UseShapes/UseInductor";
 
 /**
  * Компонент канваса.
@@ -152,7 +156,8 @@ class Canvas extends Component {
             viewBoxX: 0,
             viewBoxY: 0,
             viewBoxWidth: 0,
-            viewBoxHeight: 0
+            viewBoxHeight: 0,
+            refs: []
         }
         this.canvasRef = React.createRef();
         this.selectingRectRef = React.createRef();
@@ -232,6 +237,8 @@ class Canvas extends Component {
         this.down = false;
         this.isPanning = false;
         if (this.selectedElement) {
+            console.log(this.selectedElement.state)
+            this.props.setNewPropsShape(this.selectedElement.props.id, this.selectedElement.state);
             this.selectedElement.isDragging(false);
         }
         if (this.selectedElements.length > 0) {
@@ -281,13 +288,13 @@ class Canvas extends Component {
      */
     getRefElement(id) {
         let element;
-        for (var i = 0; i < this.props.refs.length; i++) {
-            let ref = this.props.refs[i];
+        for (var i = 0; i < this.state.refs.length; i++) {
+            let ref = this.state.refs[i];
             if (!ref) {
                 continue;
             }
             if (ref.props.id === id) {
-                element = this.props.refs[i];
+                element = this.state.refs[i];
                 return element;
             }
         }
@@ -306,7 +313,7 @@ class Canvas extends Component {
         let rectY2 = rectY1 + this.selectingRectRef.current.state.height;
 
         let elements = []
-        for (let elem of this.props.refs) {
+        for (let elem of this.state.refs) {
             if (!elem) {
                 continue;
             }
@@ -367,7 +374,7 @@ class Canvas extends Component {
                 viewBoxWidth: previousState.viewBoxWidth * (1 + this.ScaleFactor),
                 viewBoxHeight: previousState.viewBoxHeight * (1 + this.ScaleFactor)}));
         } else {
-            if (this.state.viewBoxWidth < this.props.widthRect || this.state.viewBoxHeight < this.props.heightRect) {
+            if (this.state.viewBoxWidth < this.state.widthRect || this.state.viewBoxHeight < this.state.heightRect) {
                 return;
             }
             this.setState(previousState => ({
@@ -405,6 +412,67 @@ class Canvas extends Component {
         };
     }
 
+    /**
+     * Добавляет ссылку на элемент в коллекцию.
+     * @param ref Ссылка.
+     */
+    setRefToShape = (ref) => {
+        this.setState( previousState => ({
+            refs : [...previousState.refs, ref]
+        }));
+    }
+
+    /**
+     * Создает компоненты фигур.
+     * @param shape Имя фигуры.
+     * @returns {JSX.Element|string} Возвращает компонент фигуры.
+     */
+    getUseComponent(shape) {
+        switch(shape.href) {
+            case "#ResistorSymbol":
+                return (<UseResistor
+                    href={shape.href}
+                    x={shape.x}
+                    y={shape.y}
+                    id={shape.id}
+                    key={shape.id}
+                    width={shape.width}
+                    height={shape.height}
+                    rotate={shape.rotate}
+                    ref={this.setRefToShape}
+                    setNewPropsShape={this.props.setNewPropsShape}
+                />);
+            case "#CapacitorSymbol":
+                return <UseCapacitor
+                    href={shape.href}
+                    x={shape.x}
+                    y={shape.y}
+                    id={shape.id}
+                    key={shape.id}
+                    width={shape.width}
+                    height={shape.height}
+                    rotate={shape.rotate}
+                    ref={this.setRefToShape}
+                    setNewPropsShape={this.props.setNewPropsShape}
+                />
+            case "#InductorSymbol":
+                return <UseInductor
+                    href={shape.href}
+                    x={shape.x}
+                    y={shape.y}
+                    id={shape.id}
+                    key={shape.id}
+                    width={shape.width}
+                    height={shape.height}
+                    rotate={shape.rotate}
+                    ref={this.setRefToShape}
+                    setNewPropsShape={this.props.setNewPropsShape}
+                />
+            default:
+                return 'Element not found';
+        }
+    }
+
     componentDidMount() {
         this.canvasRef.current.addEventListener('mousedown', this.onStartDrag);
         this.canvasRef.current.addEventListener('mousemove', this.onDrag);
@@ -414,14 +482,21 @@ class Canvas extends Component {
 
         this.canvasSVG = document.getElementById('canvas-panel');
         this.canvasRect = document.getElementById('canvas-rect');
+        
+        let canvas = $('#canvas-panel');
+        this.setState(
+            { widthRect: canvas.width(), heightRect: canvas.height() }, 
+            () => {
+                this.setState({ viewBoxWidth: this.state.widthRect*2, viewBoxHeight: this.state.heightRect*2 })
+            });
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
-            this.setNoFocusAllElements(this.props.refs);
+            this.setNoFocusAllElements(this.state.refs);
         }
-        if (prevProps.widthRect !== this.props.widthRect) {
-            this.setState({ viewBoxWidth: this.props.widthRect*2, viewBoxHeight: this.props.heightRect*2 })
+        if (prevProps.activePageId !== this.props.activePageId) {
+            this.setState({ refs: [] })
         }
     }
     
@@ -449,7 +524,7 @@ class Canvas extends Component {
                 <SelectingRect ref={this.selectingRectRef} />
                 
                 {this.props.patterns.map(pattern => pattern)}
-                {this.props.shapes.map(shape => shape)}
+                {this.props.shapes.map(shape => this.getUseComponent(shape))}
                 
                 <defs>
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>

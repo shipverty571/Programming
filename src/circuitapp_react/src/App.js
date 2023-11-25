@@ -4,12 +4,8 @@ import CanvasBar from './components/Canvas/CanvasBar';
 import Header from './components/Header/Header';
 import React, {Component} from 'react';
 import Resistor from './components/Shapes/Patterns/Resistor';
-import UseResistor from './components/Shapes/UseShapes/UseResistor';
 import Capacitor from './components/Shapes/Patterns/Capacitor';
 import Inductor from './components/Shapes/Patterns/Inductor';
-import UseCapacitor from './components/Shapes/UseShapes/UseCapacitor';
-import UseInductor from './components/Shapes/UseShapes/UseInductor';
-import $ from 'jquery';
 import {CapacitorSize, InductorSize, ResistorSize} from "./Resources/ShapesSizes";
 
 /**
@@ -29,24 +25,22 @@ class App extends Component {
                 <Inductor id="InductorSymbol" />
             ],
             shapes: [],
-            refsShapes: [],
+            shapesOfPage: [],
+            pages: [],
+            selectedPage: null,
             widthRect: 0,
-            heightRect:  0
+            heightRect:  0,
+            activePageId: null,
+            canNotRemovePage: true,
+            countPages: 1
         }
 
         this.onAddShape = this.onAddShape.bind(this);
         this.onRemoveShape = this.onRemoveShape.bind(this);
-        this.setRefToShape = this.setRefToShape.bind(this);
-    }
-
-    /**
-     * Добавляет ссылку на элемент в коллекцию.
-     * @param ref Ссылка.
-     */
-    setRefToShape = (ref) => {
-        this.setState( previousState => ({
-            refsShapes : [...previousState.refsShapes, ref]
-        }));
+        this.onAddPage = this.onAddPage.bind(this);
+        this.onRemovePage = this.onRemovePage.bind(this);
+        this.setActivePage = this.setActivePage.bind(this);
+        this.setNewPropsShape = this.setNewPropsShape.bind(this);
     }
 
     /**
@@ -55,55 +49,48 @@ class App extends Component {
      */
     onAddShape(shape) {
         let element = null;
-        const X = 100;
-        const Y = 100;
-        const id = crypto.randomUUID();
-        
         switch (shape) {
             case 'Resistor':
-                element = <UseResistor 
-                    href="#ResistorSymbol" 
-                    x={X} 
-                    y={Y} 
-                    id={id} 
-                    key={id}
-                    width={ResistorSize.width}
-                    height={ResistorSize.height}
-                    ref={this.setRefToShape} 
-                />
+                element = {
+                    href: "#ResistorSymbol",
+                    width: ResistorSize.width,
+                    height: ResistorSize.height
+                }
                 break;
             case 'Capacitor':
-                element = <UseCapacitor 
-                    href="#CapacitorSymbol" 
-                    x={X} 
-                    y={Y} 
-                    id={id}
-                    key={id}
-                    width={CapacitorSize.width}
-                    height={CapacitorSize.height}
-                    ref={this.setRefToShape} 
-                />
+                element = {
+                    href: "#CapacitorSymbol",
+                    width: CapacitorSize.width,
+                    height: CapacitorSize.height
+                }
                 break;
             case 'Inductor':
-                element = <UseInductor 
-                    href="#InductorSymbol" 
-                    x={X} 
-                    y={Y}
-                    id={id}
-                    key={id}
-                    width={InductorSize.width}
-                    height={InductorSize.height}
-                    ref={this.setRefToShape}
-                />
+                element = {
+                    href: "#InductorSymbol",
+                    width: InductorSize.width,
+                    height: InductorSize.height
+                }
                 break;
             default:
                 break;
         }
         
         if (element) {
+            const X = 100;
+            const Y = 100;
+            const id = crypto.randomUUID();
+            
+            element.id = id;
+            element.x = X;
+            element.y = Y;
+            element.rotate = 0;
+            element.page = this.state.activePageId;
             this.setState( previousState => ({ 
                 shapes : [...previousState.shapes, element] 
-            }));
+            }), ()=> {
+                this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) });
+            });
+            
         }
     }
 
@@ -114,13 +101,84 @@ class App extends Component {
     onRemoveShape(id) {
         if (!id) return;
         
-        this.setState(previousState => ({ shapes: previousState.shapes.filter(shape => shape.props.id !== id) }));
-     }
+        this.setState(
+            previousState => ({ shapes: previousState.shapes.filter(shape => shape.id !== id) }),
+            () => {
+                this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) });
+        });
+    }
+
+    /**
+     * Добавляет страницу.
+     */
+    onAddPage() {
+        let id = crypto.randomUUID();
+        let page = { id: id, name: `Page ${this.state.countPages}` };
+        this.setState(previousState => ({ pages : [...previousState.pages, page] }), () => {
+            if (this.state.pages.length === 1) {
+                this.setActivePage(id);
+                this.setState({ canNotRemovePage: true });
+            }
+            else {
+                this.setState({ canNotRemovePage: false });
+            }
+        });
+        this.setState(previousState => ({ countPages: previousState.countPages + 1 }));
+    }
+
+    /**
+     * Удаляет страницу.
+     */
+    onRemovePage() {
+        this.setState(
+            previousState => ({ shapes: previousState.shapes.filter(shape => shape.page !== this.state.activePageId) }),
+            ()=> {
+            this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) })
+        });
+        this.setState(
+            previousState => ({ pages: previousState.pages.filter(page => page.id !== this.state.activePageId) }), 
+            ()=> {
+                if (this.state.pages.length === 1) {
+                    this.setState({ canNotRemovePage: true });
+                }
+                else {
+                    this.setState({ canNotRemovePage: false });
+                }
+                this.setActivePage(this.state.pages[0].id);
+            });
+    }
+
+    /**
+     * Устанавливает новые свойства в коллекцию.
+     * @param id Уникальный идентификатор элемента, чьи свойства надо обновить.
+     * @param props Новые свойства.
+     */
+    setNewPropsShape(id, props) {
+        let shape = this.state.shapes.filter(shape => shape.id === id)[0]
+        let newShape = shape;
+        newShape.x = props.X;
+        newShape.y = props.Y;
+        newShape.rotate = props.rotate;
+
+        let newShapes = this.state.shapes.filter(shape => shape.id !== id)
+        newShapes = [...newShapes, newShape];
+        this.setState({ shapes: newShapes }, () => console.log(this.state.shapes));
+    }
+
+    /**
+     * Определяет активную страницу.
+     * @param id Уникальный идентификатор страницы.
+     */
+    setActivePage(id) {
+        this.setState({ activePageId: id }, () => {
+            this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === id) });
+        });
+    }
 
     componentDidMount() {
-        let canvas = $('#canvas-panel');
-        this.setState({ widthRect : canvas.width() });
-        this.setState({ heightRect:  canvas.height() });
+        if (this.state.pages.length === 0) {
+            this.onAddPage();
+        }
     }
 
     render() {
@@ -138,11 +196,15 @@ class App extends Component {
                     <div className='container-column'>
                         <CanvasBar
                             patterns={this.state.patterns}
-                            shapes={this.state.shapes}
-                            widthRect={this.state.widthRect}
-                            heightRect={this.state.heightRect}
-                            refs={this.state.refsShapes}
+                            shapes={this.state.shapesOfPage}
                             onRemoveShape={this.onRemoveShape}
+                            onAddPage={this.onAddPage}
+                            onRemovePage={this.onRemovePage}
+                            pages={this.state.pages}
+                            setActivePage={this.setActivePage}
+                            activePageId={this.state.activePageId}
+                            setNewPropsShape={this.setNewPropsShape}
+                            canNotRemovePage={this.state.canNotRemovePage}
                         />
                     </div>
                 </div>
