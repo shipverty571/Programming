@@ -162,7 +162,7 @@ class App extends Component {
 
         let newShapes = this.state.shapes.filter(shape => shape.id !== id)
         newShapes = [...newShapes, newShape];
-        this.setState({ shapes: newShapes }, () => console.log(this.state.shapes));
+        this.setState({ shapes: newShapes });
     }
 
     /**
