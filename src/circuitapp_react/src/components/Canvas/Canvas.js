@@ -86,7 +86,7 @@ class Canvas extends Component {
     selectingRectY;
 
     /**
-     * Хранит true, если выбрано много элементов, иначе false.
+     * Хранит true, если выбирается много элементов, иначе false.
      * @type {boolean}
      * @private
      */
@@ -185,6 +185,13 @@ class Canvas extends Component {
             this.startYPanning = coord.y;
         } else if (event.target.classList.contains('draggable')) {
             this.down = true;
+            this.offset = this.getMousePosition(event);
+            if (this.selectedElements.length > 0) {
+                for (let element of this.selectedElements) {
+                    element.isDragging(true);
+                }
+                return;
+            }
             if (this.selectedElement)
             {
                 this.setFocus(this.selectedElement, false);
@@ -195,7 +202,6 @@ class Canvas extends Component {
 
             let id = event.target.getAttribute('id');
             this.selectedElement = this.getRefElement(id);
-            this.offset = this.getMousePosition(event);
             this.offset.x -= this.selectedElement.state.X;
             this.offset.y -= this.selectedElement.state.Y;
             this.selectedElement.isDragging(true);
@@ -211,6 +217,7 @@ class Canvas extends Component {
                 this.isAllSelecting = true;
             }
             this.setFocus(this.selectedElement, false);
+            this.setNoFocusAllElements(this.selectedElements);
         }
     }
 
@@ -227,6 +234,9 @@ class Canvas extends Component {
             this.changeCoordinateMovingElement();
         } else if (this.isAllSelecting && this.down) {
             this.onMultiSelecting();
+        } else if (this.selectedElements.length > 0 && this.down) {
+            event.preventDefault();
+            this.onMultiMoving();
         }
     }
 
@@ -237,13 +247,14 @@ class Canvas extends Component {
         this.down = false;
         this.isPanning = false;
         if (this.selectedElement) {
-            console.log(this.selectedElement.state)
             this.props.setNewPropsShape(this.selectedElement.props.id, this.selectedElement.state);
             this.selectedElement.isDragging(false);
         }
         if (this.selectedElements.length > 0) {
-            this.setNoFocusAllElements(this.selectedElements);
-            this.selectedElements = [];
+            for (let element of this.selectedElements) {
+                this.props.setNewPropsShape(element.props.id, element.state);
+                element.isDragging(false);
+            }
         }
         if (this.isAllSelecting) {
             this.selectedElements = this.getSelectedElements();
@@ -253,6 +264,24 @@ class Canvas extends Component {
         this.isAllSelecting = false;
         this.selectingRectX = null;
         this.selectingRectY = null;
+    }
+
+    /**
+     * Перемещает множество элементов.
+     */
+    onMultiMoving() {
+        let x = Math.floor((this.mouseCoordinate.x - this.offset.x) / this.X) * this.X;
+        let y = Math.floor((this.mouseCoordinate.y - this.offset.y) / this.Y) * this.Y;
+        if (Math.abs(x) !== this.X && Math.abs(y) !== this.Y) {
+            return;
+        }
+        for (let element of this.selectedElements) {
+            let xState = element.state.X;
+            let yState = element.state.Y;
+            element.setCoordinate(xState + x, yState + y);
+        }
+        this.offset.x += x;
+        this.offset.y += y;
     }
 
     /**
@@ -397,6 +426,8 @@ class Canvas extends Component {
             }
             this.setFocus(element, false);
         }
+        this.selectedElements = [];
+        this.selectedElementsDOM = [];
     }
 
     /**
