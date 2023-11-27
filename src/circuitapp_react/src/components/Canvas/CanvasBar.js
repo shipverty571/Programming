@@ -38,9 +38,18 @@ class CanvasBar extends Component {
     removeElement() {
         if (!this.state.element) return;
 
-        const id = this.state.element.props.id;
-        this.props.onRemoveShape(id);
+        let length = this.state.element.length;
+        if (!length) {
+            const id = this.state.element.props.id;
+            this.props.onRemoveShape(id);
+        } else {
+            for (let element of this.state.element) {
+                const id = element.props.id;
+                this.props.onRemoveShape(id);
+            }
+        }
         this.setSelectedElementInState(null);
+        
     }
 
     /**
@@ -52,8 +61,7 @@ class CanvasBar extends Component {
         let length = this.state.element.length;
         if (!length) {
             this.state.element.rotate();
-        }
-        else {
+        } else {
             for (let element of this.state.element) {
                 element.rotate()
             }
