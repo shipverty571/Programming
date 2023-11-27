@@ -258,6 +258,9 @@ class Canvas extends Component {
         }
         if (this.isAllSelecting) {
             this.selectedElements = this.getSelectedElements();
+            if (this.selectedElements.length > 0) {
+                this.props.setSelectedElementInState(this.selectedElements);
+            }
         }
         
         this.selectingRectRef.current.setSize(0, 0, 0, 0);

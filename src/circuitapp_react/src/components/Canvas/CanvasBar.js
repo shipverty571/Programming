@@ -3,6 +3,7 @@ import CanvasPages from './CanvasPages';
 import Canvas from './Canvas'
 import PropTypes from "prop-types";
 import MenuOperations from "./MenuOperations";
+import {type} from "@testing-library/user-event/dist/type";
 
 /**
  * Компонент правой колонки для работы с канвасом.
@@ -48,7 +49,15 @@ class CanvasBar extends Component {
     rotateElement() {
         if (!this.state.element) return;
         
-        this.state.element.rotate();
+        let length = this.state.element.length;
+        if (!length) {
+            this.state.element.rotate();
+        }
+        else {
+            for (let element of this.state.element) {
+                element.rotate()
+            }
+        }
     }
 
     render() {
