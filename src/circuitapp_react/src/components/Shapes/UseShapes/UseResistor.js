@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import {DraggableColor, StaticColor} from "../../../Resources/Colors";
-import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/ApplicationConstants";
+import {rightAngle, SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/ApplicationConstants";
 
 /**
  * Компонент для использования шаблона резистора.
  */
 class UseResistor extends Component {
-    Angle = 90;
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -45,7 +43,7 @@ class UseResistor extends Component {
         if (x && y) {
             let centerX = this.state.X + this.state.width / 2;
             let centerY = (this.state.Y + this.state.height / 2);
-            let radians = this.Angle * Math.PI / 180;
+            let radians = rightAngle * Math.PI / 180;
             let newX =
                 (x - centerX) * Math.cos(radians) +
                 (y - centerY) * Math.sin(radians) +
