@@ -294,7 +294,11 @@ class Canvas extends Component {
         this.selectingRectX = null;
         this.selectingRectY = null;
     }
-    
+
+    /**
+     * Высчитывает центр среди выбранных элементов.
+     * @returns {{centerY: number, centerX: number}} Возвращает координаты центра.
+     */
     getMultiSelectingCenter() {
         let xMin = this.selectedElements[0].state.X;
         let xMax = this.selectedElements[0].state.X;
