@@ -16,12 +16,15 @@ class CanvasBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            element: null
+            element: null,
+            centerX: null,
+            centerY: null
         }
         
         this.setSelectedElementInState = this.setSelectedElementInState.bind(this);
         this.removeElement = this.removeElement.bind(this);
         this.rotateElement = this.rotateElement.bind(this);
+        this.setCenterRotate = this.setCenterRotate.bind(this);
     }
 
     /**
@@ -30,6 +33,10 @@ class CanvasBar extends Component {
      */
     setSelectedElementInState(elem) {
         this.setState({ element: elem });
+    }
+
+    setCenterRotate(x, y) {
+        this.setState({ centerX: x, centerY: y });
     }
 
     /**
@@ -63,7 +70,7 @@ class CanvasBar extends Component {
             this.state.element.rotate();
         } else {
             for (let element of this.state.element) {
-                element.rotate()
+                element.rotate(this.state.centerX, this.state.centerY);
             }
         }
     }
@@ -82,6 +89,7 @@ class CanvasBar extends Component {
                     setSelectedElementInState={this.setSelectedElementInState}
                     setNewPropsShape={this.props.setNewPropsShape}
                     activePageId={this.props.activePageId}
+                    setCenterRotate={this.setCenterRotate}
                 />
                 <CanvasPages 
                     pages={this.props.pages} 

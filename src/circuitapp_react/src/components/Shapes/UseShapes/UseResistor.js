@@ -7,6 +7,8 @@ import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/A
  * Компонент для использования шаблона резистора.
  */
 class UseResistor extends Component {
+    Angle = 90;
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -35,11 +37,30 @@ class UseResistor extends Component {
 
     /**
      * Поворачивает элемент на 90 градусов по часовой.
+     * @param x Координата X центра вращения.
+     * @param y Координата Y центра вращения.
      */
-    rotate(){
-        let oldRotate = this.state.rotate;
+    rotate(x, y){
+        let newRotate = (this.state.rotate + 90) % 360;
+        if (x && y) {
+            let centerX = this.state.X + this.state.width / 2;
+            let centerY = (this.state.Y + this.state.height / 2);
+            let radians = this.Angle * Math.PI / 180;
+            let newX =
+                (x - centerX) * Math.cos(radians) +
+                (y - centerY) * Math.sin(radians) +
+                x;
+            let newY =
+                (-1) *
+                (x - centerX) * Math.sin(radians) +
+                (y - centerY) * Math.cos(radians) +
+                y;
+            newX = newX - this.state.width / 2;
+            newY = newY - this.state.height / 2;
+            this.setCoordinate(newX, newY);
+        }
         this.setState(
-            { rotate: (oldRotate + 90) % 360},
+            { rotate: newRotate},
             () => this.props.setNewPropsShape(this.props.id, this.state));
     }
 

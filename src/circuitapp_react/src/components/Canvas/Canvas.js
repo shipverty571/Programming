@@ -157,6 +157,8 @@ class Canvas extends Component {
             viewBoxY: 0,
             viewBoxWidth: 0,
             viewBoxHeight: 0,
+            MultiSelectingX: null,
+            MultiSelectingY: null,
             refs: []
         }
         this.canvasRef = React.createRef();
@@ -186,11 +188,18 @@ class Canvas extends Component {
         } else if (event.target.classList.contains('draggable')) {
             this.down = true;
             this.offset = this.getMousePosition(event);
+            let id = event.target.getAttribute('id');
             if (this.selectedElements.length > 0) {
-                for (let element of this.selectedElements) {
-                    element.isDragging(true);
+                let hasSelect = this.selectedElements.filter(element => element.props.id === id);
+                if (hasSelect.length !== 0) {
+                    for (let element of this.selectedElements) {
+                        element.isDragging(true);
+                    }
+                    return;
+                } else {
+                    this.setState({ MultiSelectingX: null, MultiSelectingY: null });
+                    this.props.setCenterRotate(null, null);
                 }
-                return;
             }
             if (this.selectedElement)
             {
@@ -200,13 +209,12 @@ class Canvas extends Component {
                 this.setNoFocusAllElements(this.selectedElements);
             }
 
-            let id = event.target.getAttribute('id');
+           
             this.selectedElement = this.getRefElement(id);
             this.offset.x -= this.selectedElement.state.X;
             this.offset.y -= this.selectedElement.state.Y;
             this.selectedElement.isDragging(true);
             this.setFocus(this.selectedElement, true);
-            
         } else {
             this.down = true;
             this.mouseCoordinate = this.getMousePosition(event);
@@ -218,6 +226,8 @@ class Canvas extends Component {
             }
             this.setFocus(this.selectedElement, false);
             this.setNoFocusAllElements(this.selectedElements);
+            this.setState({ MultiSelectingX: null, MultiSelectingY: null });
+            this.props.setCenterRotate(null, null);
         }
     }
 
@@ -250,23 +260,64 @@ class Canvas extends Component {
             this.props.setNewPropsShape(this.selectedElement.props.id, this.selectedElement.state);
             this.selectedElement.isDragging(false);
         }
-        if (this.selectedElements.length > 0) {
+        if (this.isAllSelecting) {
+            this.selectedElements = this.getSelectedElements();
+            if (this.selectedElements.length === 1) {
+                console.log("MDA 0")
+                this.selectedElement = this.selectedElements[0];
+                this.setFocus(this.selectedElement, true);
+                this.selectedElements = [];
+            } else if (this.selectedElements.length !== 0) {
+                this.props.setSelectedElementInState(this.selectedElements);
+                let coord = this.getMultiSelectingCenter();
+                this.setState({ MultiSelectingX: coord.centerX, MultiSelectingY: coord.centerY });
+                this.props.setCenterRotate(coord.centerX, coord.centerY);
+            }
+        }
+        if (this.selectedElements.length > 0 && this.selectedElements.length !== 1) {
+            console.log("MDA")
             for (let element of this.selectedElements) {
                 this.props.setNewPropsShape(element.props.id, element.state);
                 element.isDragging(false);
             }
+            let coord = this.getMultiSelectingCenter();
+            this.setState({ MultiSelectingX: coord.centerX, MultiSelectingY: coord.centerY });
+            this.props.setCenterRotate(coord.centerX, coord.centerY);
         }
-        if (this.isAllSelecting) {
-            this.selectedElements = this.getSelectedElements();
-            if (this.selectedElements.length > 0) {
-                this.props.setSelectedElementInState(this.selectedElements);
-            }
-        }
-        
         this.selectingRectRef.current.setSize(0, 0, 0, 0);
         this.isAllSelecting = false;
         this.selectingRectX = null;
         this.selectingRectY = null;
+    }
+    
+    getMultiSelectingCenter() {
+        let xMin = this.selectedElements[0].state.X;
+        let xMax = this.selectedElements[0].state.X;
+        let yMin = this.selectedElements[0].state.Y;
+        let yMax = this.selectedElements[0].state.Y;
+
+        for (let element of this.selectedElements) {
+            if (xMin > element.state.X) {
+                xMin = element.state.X;
+            }
+            if (xMax <= (element.state.X + element.state.width)) {
+                xMax = element.state.X + element.state.width;
+            }
+
+            if (yMin > element.state.Y) {
+                yMin = element.state.Y;
+            }
+            if (yMax <= element.state.Y + element.state.height) {
+                yMax = element.state.Y + element.state.height;
+            }
+        }
+        let centerX = (xMax + xMin) / 2;
+        let centerY = (yMax + yMin) / 2;
+        
+        return ({
+            centerX: centerX,
+            centerY: centerY
+        })
     }
 
     /**
@@ -430,7 +481,6 @@ class Canvas extends Component {
             this.setFocus(element, false);
         }
         this.selectedElements = [];
-        this.selectedElementsDOM = [];
     }
 
     /**
@@ -528,6 +578,8 @@ class Canvas extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
             this.setNoFocusAllElements(this.state.refs);
+            this.setState({ MultiSelectingX: null, MultiSelectingY: null });
+            this.props.setCenterRotate(null, null);
         }
         if (prevProps.activePageId !== this.props.activePageId) {
             this.setState({ refs: [] })
@@ -556,10 +608,11 @@ class Canvas extends Component {
                     height={this.state.viewBoxHeight} 
                 />
                 <SelectingRect ref={this.selectingRectRef} />
-                
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => this.getUseComponent(shape))}
-                
+                {(this.state.MultiSelectingX && this.state.MultiSelectingY) && (
+                    <circle cx={this.state.MultiSelectingX} cy={this.state.MultiSelectingY} r='10' fill='#66CD79' />
+                )}
                 <defs>
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>
                         <rect width='50' height='50' fill='#DADADA' />
