@@ -145,6 +145,11 @@ class Canvas extends Component {
     selectingRectRef;
 
     /**
+     * Хранит ссылки на элементы.
+     */
+    refs = [];
+
+    /**
      * Создает экземпляр класса Canvas.
      * @param props Свойства.
      */
@@ -159,7 +164,6 @@ class Canvas extends Component {
             viewBoxHeight: 0,
             MultiSelectingX: null,
             MultiSelectingY: null,
-            refs: []
         }
         this.canvasRef = React.createRef();
         this.selectingRectRef = React.createRef();
@@ -260,10 +264,10 @@ class Canvas extends Component {
             this.props.setNewPropsShape(this.selectedElement.props.id, this.selectedElement.state);
             this.selectedElement.isDragging(false);
         }
+        
         if (this.isAllSelecting) {
             this.selectedElements = this.getSelectedElements();
             if (this.selectedElements.length === 1) {
-                console.log("MDA 0")
                 this.selectedElement = this.selectedElements[0];
                 this.setFocus(this.selectedElement, true);
                 this.selectedElements = [];
@@ -274,8 +278,8 @@ class Canvas extends Component {
                 this.props.setCenterRotate(coord.centerX, coord.centerY);
             }
         }
+        
         if (this.selectedElements.length > 0 && this.selectedElements.length !== 1) {
-            console.log("MDA")
             for (let element of this.selectedElements) {
                 this.props.setNewPropsShape(element.props.id, element.state);
                 element.isDragging(false);
@@ -284,6 +288,7 @@ class Canvas extends Component {
             this.setState({ MultiSelectingX: coord.centerX, MultiSelectingY: coord.centerY });
             this.props.setCenterRotate(coord.centerX, coord.centerY);
         }
+        
         this.selectingRectRef.current.setSize(0, 0, 0, 0);
         this.isAllSelecting = false;
         this.selectingRectX = null;
@@ -371,13 +376,13 @@ class Canvas extends Component {
      */
     getRefElement(id) {
         let element;
-        for (var i = 0; i < this.state.refs.length; i++) {
-            let ref = this.state.refs[i];
+        for (var i = 0; i < this.refs.length; i++) {
+            let ref = this.refs[i];
             if (!ref) {
                 continue;
             }
             if (ref.props.id === id) {
-                element = this.state.refs[i];
+                element = this.refs[i];
                 return element;
             }
         }
@@ -396,7 +401,7 @@ class Canvas extends Component {
         let rectY2 = rectY1 + this.selectingRectRef.current.state.height;
 
         let elements = []
-        for (let elem of this.state.refs) {
+        for (let elem of this.refs) {
             if (!elem) {
                 continue;
             }
@@ -473,7 +478,6 @@ class Canvas extends Component {
         if (this.selectedElement) {
             this.setFocus(this.selectedElement, false);
         }
-        
         for (let element of elements) {
             if (!element) {
                 continue;
@@ -501,9 +505,7 @@ class Canvas extends Component {
      * @param ref Ссылка.
      */
     setRefToShape = (ref) => {
-        this.setState( previousState => ({
-            refs : [...previousState.refs, ref]
-        }));
+        this.refs = [...this.refs, ref];
     }
 
     /**
@@ -577,12 +579,26 @@ class Canvas extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
-            this.setNoFocusAllElements(this.state.refs);
+            this.setNoFocusAllElements(this.refs);
             this.setState({ MultiSelectingX: null, MultiSelectingY: null });
             this.props.setCenterRotate(null, null);
+            
+            let newRefs = []
+            for (let ref of this.refs) {
+                if (!ref) {
+                    continue;
+                } 
+                if (this.props.shapes.filter(shape => shape.id === ref.props.id).length !== 0) {
+                    newRefs.push(ref);
+                }
+            }
+            if (newRefs.length !== 0) {
+                this.refs = newRefs;
+            }
         }
+        
         if (prevProps.activePageId !== this.props.activePageId) {
-            this.setState({ refs: [] })
+            this.refs = []
         }
     }
     

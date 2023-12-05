@@ -154,7 +154,8 @@ class App extends Component {
      * @param props Новые свойства.
      */
     setNewPropsShape(id, props) {
-        let shape = this.state.shapes.filter(shape => shape.id === id)[0]
+        let shape = this.state.shapes.filter(shape => shape.id === id)[0];
+        if (!shape) return;
         let newShape = shape;
         newShape.x = props.X;
         newShape.y = props.Y;
