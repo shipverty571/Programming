@@ -631,7 +631,7 @@ class Canvas extends Component {
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => this.getUseComponent(shape))}
                 {(this.state.MultiSelectingX && this.state.MultiSelectingY) && (
-                    <circle cx={this.state.MultiSelectingX} cy={this.state.MultiSelectingY} r='10' fill='#66CD79' />
+                    <circle cx={this.state.MultiSelectingX} cy={this.state.MultiSelectingY} r='5' fill='#66CD79' />
                 )}
                 <defs>
                     <pattern id='grid' patternUnits='userSpaceOnUse' width='50' height='50'>
