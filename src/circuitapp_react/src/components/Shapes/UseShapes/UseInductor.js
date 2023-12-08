@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import {DraggableColor, StaticColor} from "../../../Resources/Colors";
 import {rightAngle, SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/ApplicationConstants";
+import MultiRotate from "../../../Services/MultiRotateService";
 
 /**
  * Компонент для использования шаблона катушки индуктивности.
@@ -39,24 +40,17 @@ class UseInductor extends Component {
      * @param y Координата Y центра вращения.
      */
     rotate(x, y){
-        let newRotate = (this.state.rotate + 90) % 360;
         if (x && y) {
-            let centerX = this.state.X + this.state.width / 2;
-            let centerY = (this.state.Y + this.state.height / 2);
-            let radians = rightAngle * Math.PI / 180;
-            let newX =
-                (x - centerX) * Math.cos(radians) +
-                (y - centerY) * Math.sin(radians) +
-                x;
-            let newY =
-                (-1) *
-                (x - centerX) * Math.sin(radians) +
-                (y - centerY) * Math.cos(radians) +
-                y;
-            newX = newX - this.state.width / 2;
-            newY = newY - this.state.height / 2;
-            this.setCoordinate(newX, newY);
+            let coord = MultiRotate(
+                x,
+                y,
+                this.state.X,
+                this.state.Y,
+                this.state.width,
+                this.state.height);
+            this.setCoordinate(coord.x, coord.y);
         }
+        let newRotate = (this.state.rotate + rightAngle) % 360;
         this.setState(
             { rotate: newRotate},
             () => this.props.setNewPropsShape(this.props.id, this.state));
