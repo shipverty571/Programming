@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import {DraggableColor, StaticColor} from "../../../Resources/Colors";
-import {SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/ApplicationConstants";
+import {rightAngle, SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/ApplicationConstants";
+import MultiRotate from "../../../Services/ShapeMathService";
 
 /**
  * Компонент для использования шаблона резистора.
@@ -35,11 +36,23 @@ class UseResistor extends Component {
 
     /**
      * Поворачивает элемент на 90 градусов по часовой.
+     * @param x Координата X центра вращения.
+     * @param y Координата Y центра вращения.
      */
-    rotate(){
-        let oldRotate = this.state.rotate;
+    rotate(x, y){
+        if (x && y) {
+            let coord = MultiRotate(
+                x, 
+                y, 
+                this.state.X, 
+                this.state.Y, 
+                this.state.width, 
+                this.state.height);
+            this.setCoordinate(coord.x, coord.y);
+        }
+        let newRotate = (this.state.rotate + rightAngle) % 360;
         this.setState(
-            { rotate: (oldRotate + 90) % 360},
+            { rotate: newRotate},
             () => this.props.setNewPropsShape(this.props.id, this.state));
     }
 

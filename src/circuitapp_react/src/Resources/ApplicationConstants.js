@@ -11,3 +11,10 @@ export const SelectedStrokeWidth = 2;
  * @const
  */
 export const SelectedStrokeDashArray = 8;
+
+/**
+ * Угол 90 градусов.
+ * @type {number}
+ * @const
+ */
+export const rightAngle = 90;
