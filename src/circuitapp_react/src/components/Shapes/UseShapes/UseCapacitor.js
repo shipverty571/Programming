@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import {DraggableColor, StaticColor} from "../../../Resources/Colors";
 import {rightAngle, SelectedStrokeDashArray, SelectedStrokeWidth} from "../../../Resources/ApplicationConstants";
-import MultiRotate from "../../../Services/MultiRotateService";
+import MultiRotate from "../../../Services/ShapeMathService";
 
 /**
  * Компонент для использования шаблона конденсатора.
