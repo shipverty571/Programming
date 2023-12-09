@@ -184,7 +184,8 @@ class App extends Component {
 
     render() {
         return (
-            <div className='container-column'>
+            <div className='container-column' style={{ flexGrow: 2 }}>
+                {/*<svg style={{ zIndex: 1000, backgroundColor: "black", position: "fixed", width: '100%', height: '100%'}}></svg>*/}
                 <div className='container-row' style={{ justifyContent: 'left' }}>
                     <div className='container-column'>
                         <Header />
