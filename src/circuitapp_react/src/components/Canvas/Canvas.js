@@ -584,6 +584,7 @@ class Canvas extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
             this.setNoFocusAllElements(this.refs);
+            this.props.setSelectedElementInState(null);
             this.setState({ MultiSelectingX: null, MultiSelectingY: null });
             this.props.setCenterRotate(null, null);
             
