@@ -286,9 +286,6 @@ class Canvas extends Component {
      */
     onEndDrag() {
         if (this.state.newShapeDrag) {
-            /*console.log( this.props.newShapeDragName,
-                this.newShapeDragRef.current.state.X,
-                this.newShapeDragRef.current.state.Y)*/
             this.props.onAddShape(
                 this.state.newShapeDragName, 
                 this.newShapeDragRef.current.state.X, 

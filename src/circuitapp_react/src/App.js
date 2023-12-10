@@ -254,7 +254,6 @@ class App extends Component {
             let CTM = dragSvg.getScreenCTM();
             let x = (event.clientX - CTM.e) / CTM.a;
             let y = (event.clientY - CTM.f) / CTM.d;
-            console.log(this.state.refDragShape)
             this.state.refDragShape.setCoordinate(x, y);
         }
     }
