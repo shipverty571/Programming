@@ -282,6 +282,7 @@ class Canvas extends Component {
                 this.newShapeDragRef.current.state.Y);
             this.setState({ newShapeDrag: null });
             this.newShapeDragRef = null;
+            return;
         }
         
         this.down = false;
