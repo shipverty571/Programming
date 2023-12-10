@@ -93,8 +93,8 @@ class App extends Component {
         
         if (element) {
             if (!X && !Y) {
-                const X = 100;
-                const Y = 100;
+                X = 100;
+                Y = 100;
             }
             const id = crypto.randomUUID();
             element.id = id;
