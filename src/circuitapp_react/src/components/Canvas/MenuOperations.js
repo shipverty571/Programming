@@ -6,7 +6,7 @@
 class MenuOperations extends Component {
     render() {
         return (
-            <div className="horizontal-content menu-operations">
+            <div className="horizontal-content menu-operations" style={{ zIndex: 3000 }}>
                 <button id='rotate-element-button' onClick={() => this.props.rotateElement()} />
                 <button id='delete-element-button' onClick={() => this.props.removeElement()} />
             </div>
