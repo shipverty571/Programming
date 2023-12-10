@@ -9,6 +9,8 @@ import Inductor from './components/Shapes/Patterns/Inductor';
 import {CapacitorSize, InductorSize, ResistorSize} from "./Resources/ShapesSizes";
 import UseResistor from "./components/Shapes/UseShapes/UseResistor";
 import $ from "jquery";
+import UseCapacitor from "./components/Shapes/UseShapes/UseCapacitor";
+import UseInductor from "./components/Shapes/UseShapes/UseInductor";
 
 /**
  * Главный компонент.
@@ -200,30 +202,21 @@ class App extends Component {
     }
     
     getNewShapeForDrop(event) {
-        
         let x = event.screenX;
         let y = event.screenY;
         let element = null;
         switch (this.state.addShapeName) {
             case 'Resistor':
-                element = <UseResistor ref={this.setRefDragShape} href="#ResistorSymbol" x={x} y={y} rotate={0} />
+                element = <UseResistor ref={this.setRefDragShape} href="#ResistorSymbol" x={x} y={y} />
                 break;
-            /*case 'Capacitor':
-                element = {
-                    href: "#CapacitorSymbol",
-                    width: CapacitorSize.width,
-                    height: CapacitorSize.height
-                }
+            case 'Capacitor':
+                element = <UseCapacitor ref={this.setRefDragShape} href="#CapacitorSymbol" x={x} y={y} />
                 break;
             case 'Inductor':
-                element = {
-                    href: "#InductorSymbol",
-                    width: InductorSize.width,
-                    height: InductorSize.height
-                }
+                element = <UseInductor ref={this.setRefDragShape} href="#InductorSymbol" x={x} y={y} />
                 break;
             default:
-                break;*/
+                break;
         }
         if (element) {
             this.setState({ newShapeDrag: element });
@@ -262,10 +255,6 @@ class App extends Component {
         if (this.state.pages.length === 0) {
             this.onAddPage();
         }
-        /*console.log(document.getElementById('dragShapesToCanvasSvg'))*/
-        /*let svg = $('#dragShapesToCanvasSvg');
-        console.log(svg.width())
-        this.setState({ widthDragSvg: svg.width(), heightDragSvg: svg.height() });*/
     }
     
     componentDidUpdate(prevProps, prevState, snapshot) {

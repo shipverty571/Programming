@@ -252,7 +252,18 @@ class Canvas extends Component {
             this.newShapeDragRef = React.createRef();
             let x = Math.floor(this.mouseCoordinate.x / this.X) * this.X;
             let y = Math.floor(this.mouseCoordinate.y  / this.Y) * this.Y;
-            let element = <UseResistor ref={this.newShapeDragRef} href={this.props.newShapeDrag.props.href} x={x} y={y} />
+            let element;
+            switch (this.props.newShapeDragName) {
+                case "Resistor":
+                    element = <UseResistor ref={this.newShapeDragRef} href={this.props.newShapeDrag.props.href} x={x} y={y} />;
+                    break;
+                case "Capacitor":
+                    element = <UseCapacitor ref={this.newShapeDragRef} href={this.props.newShapeDrag.props.href} x={x} y={y} />;
+                    break;
+                case "Inductor":
+                    element = <UseInductor ref={this.newShapeDragRef} href={this.props.newShapeDrag.props.href} x={x} y={y} />;
+                    break;
+            }
             this.setState({ newShapeDrag: element, newShapeDragName: this.props.newShapeDragName });
         } else if (this.state.newShapeDrag) {
             let x = Math.floor(this.mouseCoordinate.x / this.X) * this.X;

@@ -37,8 +37,8 @@ class ShapesGroup extends Component {
                 return (
                     <div className='shapes-container' hidden={this.state.isHidden}>
                         <Shape name="Resistor" onAddShape={this.props.onAddShape} setIsMove={this.props.setIsMove} />
-                        <Shape name="Capacitor" onAddShape={this.props.onAddShape} />
-                        <Shape name="Inductor" onAddShape={this.props.onAddShape} /> 
+                        <Shape name="Capacitor" onAddShape={this.props.onAddShape} setIsMove={this.props.setIsMove} />
+                        <Shape name="Inductor" onAddShape={this.props.onAddShape} setIsMove={this.props.setIsMove} /> 
                     </div>
                 );
             case 'Custom Items':
