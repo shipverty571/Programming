@@ -27,6 +27,8 @@ class Shape extends Component {
      * @const
      */
     HeightElement = 50;
+    
+    isDown = false;
 
     /**
      * Рендерит изображение элемента.
@@ -87,10 +89,27 @@ class Shape extends Component {
                 return 'Element not found';
         }
     }
+
+    onMouseDownShape(event) {
+        console.log("DOWN");
+        this.isDown = true;
+    }
+    
+    onMouseLeaveShape(event) {
+        if (this.isDown) {
+            console.log("LEAVE");
+            this.isDown = false;
+            this.props.setIsMove(true, this.props.name);
+        }
+    }
     
     render() {
         return (
-            <button className='horizontal-content shape-button' onClick={() => this.props.onAddShape(this.props.name)}>
+            <button 
+                className='horizontal-content shape-button' 
+                onClick={() => this.props.onAddShape(this.props.name)} 
+                onMouseDown={() => this.onMouseDownShape()}
+                onMouseLeave={() => this.onMouseLeaveShape()}>
                 {this.renderElements(this.props.name)}
                 <p className='shape-name'>{this.props.name}</p>
             </button>

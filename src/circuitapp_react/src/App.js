@@ -7,11 +7,15 @@ import Resistor from './components/Shapes/Patterns/Resistor';
 import Capacitor from './components/Shapes/Patterns/Capacitor';
 import Inductor from './components/Shapes/Patterns/Inductor';
 import {CapacitorSize, InductorSize, ResistorSize} from "./Resources/ShapesSizes";
+import UseResistor from "./components/Shapes/UseShapes/UseResistor";
+import $ from "jquery";
 
 /**
  * Главный компонент.
  */
 class App extends Component {
+    addShapeName = null;
+    
     /**
      * Создает экземпляр класса App.
      * @param props Свойства.
@@ -32,7 +36,12 @@ class App extends Component {
             heightRect:  0,
             activePageId: null,
             canNotRemovePage: true,
-            countPages: 1
+            countPages: 1,
+            newShapeDrag: null,
+            widthDragSvg: 0,
+            heightDragSvg: 0,
+            isMoveShape: false,
+            refDragShape: null
         }
 
         this.onAddShape = this.onAddShape.bind(this);
@@ -41,6 +50,9 @@ class App extends Component {
         this.onRemovePage = this.onRemovePage.bind(this);
         this.setActivePage = this.setActivePage.bind(this);
         this.setNewPropsShape = this.setNewPropsShape.bind(this);
+        this.setIsMove = this.setIsMove.bind(this);
+        this.onMouseMoveShape = this.onMouseMoveShape.bind(this);
+        this.setRefDragShape = this.setRefDragShape.bind(this);
     }
 
     /**
@@ -175,17 +187,100 @@ class App extends Component {
             this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === id) });
         });
     }
+    
+    setIsMove(flag, nameShape) {
+        this.setState({ isMoveShape: flag });
+        this.addShapeName = nameShape;
+    }
+    
+    setRefDragShape(ref) {
+        this.setState({ refDragShape: ref });
+    }
+    
+    getNewShapeForDrop(event) {
+        
+        let x = event.screenX;
+        let y = event.screenY;
+        let element = null;
+        switch (this.addShapeName) {
+            case 'Resistor':
+                element = <UseResistor ref={this.setRefDragShape} href="#ResistorSymbol" x={x} y={y} width={10} height={50} rotate={0} />
+                break;
+            /*case 'Capacitor':
+                element = {
+                    href: "#CapacitorSymbol",
+                    width: CapacitorSize.width,
+                    height: CapacitorSize.height
+                }
+                break;
+            case 'Inductor':
+                element = {
+                    href: "#InductorSymbol",
+                    width: InductorSize.width,
+                    height: InductorSize.height
+                }
+                break;
+            default:
+                break;*/
+        }
+        if (element) {
+            this.setState({ newShapeDrag: element });
+        }
+    }
+    
+    onMouseMoveShape(event) {
+        if (!this.state.isMoveShape) {
+            return;
+        }
+        
+        if (!this.state.newShapeDrag) {
+            this.getNewShapeForDrop(event);
+            return;
+        } 
+        if (this.state.refDragShape) {
+            /*let x = event.screenX;
+            let y = event.screenY;*/
+            let dragSvg = document.getElementById('dragShapesToCanvasSvg');
+            let CTM = dragSvg.getScreenCTM();
+            let x = (event.clientX - CTM.e) / CTM.a;
+            let y = (event.clientY - CTM.f) / CTM.d;
+            console.log(this.state.refDragShape)
+            this.state.refDragShape.setCoordinate(x, y);
+        }
+
+        
+    }
 
     componentDidMount() {
         if (this.state.pages.length === 0) {
             this.onAddPage();
+        }
+        /*console.log(document.getElementById('dragShapesToCanvasSvg'))*/
+        /*let svg = $('#dragShapesToCanvasSvg');
+        console.log(svg.width())
+        this.setState({ widthDragSvg: svg.width(), heightDragSvg: svg.height() });*/
+    }
+    
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.newShapeDrag !== prevState.newShapeDrag) {
+            let svg = $('#dragShapesToCanvasSvg');
+            this.setState({ widthDragSvg: svg.width(), heightDragSvg: svg.height() });
         }
     }
 
     render() {
         return (
             <div className='container-column' style={{ flexGrow: 2 }}>
-                {/*<svg style={{ zIndex: 1000, backgroundColor: "black", position: "fixed", width: '100%', height: '100%'}}></svg>*/}
+                {this.state.isMoveShape && (
+                    <svg 
+                        id='dragShapesToCanvasSvg' 
+                        style={{ zIndex: 1000, position: "fixed", width: '100%', height: '100%'}}
+                        viewBox={[0, 0, this.state.widthDragSvg * 2, this.state.heightDragSvg * 2].join(' ')}
+                        onMouseMove={(event) => this.onMouseMoveShape(event)}>
+                        {this.state.newShapeDrag}
+                        {this.state.patterns.map(pattern => pattern)};
+                    </svg>
+                )}
                 <div className='container-row' style={{ justifyContent: 'left' }}>
                     <div className='container-column'>
                         <Header />
@@ -193,7 +288,7 @@ class App extends Component {
                 </div>
                 <div className='App container-row' style={{ flexGrow: 2 }}>
                     <div className='container-column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
-                        <SideBar onAddShape={this.onAddShape} />
+                        <SideBar onAddShape={this.onAddShape} setIsMove={this.setIsMove} />
                     </div>
                     <div className='container-column'>
                         <CanvasBar
