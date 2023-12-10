@@ -188,6 +188,9 @@ class Canvas extends Component {
      * @param event Объект события.
      */
     onStartDrag(event) {
+        if (this.state.newShapeDrag) {
+            return;
+        }
         if (event.button === 2){
             this.isPanning = true;
             let coord = this.getMousePosition(event);
