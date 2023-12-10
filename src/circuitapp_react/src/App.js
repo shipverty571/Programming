@@ -41,6 +41,7 @@ class App extends Component {
             widthDragSvg: 0,
             heightDragSvg: 0,
             isMoveShape: false,
+            addShapeName: null,
             refDragShape: null
         }
 
@@ -52,6 +53,7 @@ class App extends Component {
         this.setNewPropsShape = this.setNewPropsShape.bind(this);
         this.setIsMove = this.setIsMove.bind(this);
         this.onMouseMoveShape = this.onMouseMoveShape.bind(this);
+        this.onMouseUpShape = this.onMouseUpShape.bind(this);
         this.setRefDragShape = this.setRefDragShape.bind(this);
     }
 
@@ -59,7 +61,7 @@ class App extends Component {
      * Добавляет элемент в канвас.
      * @param shape Имя элемента, который нужно добавить.
      */
-    onAddShape(shape) {
+    onAddShape(shape, X, Y) {
         let element = null;
         switch (shape) {
             case 'Resistor':
@@ -88,10 +90,11 @@ class App extends Component {
         }
         
         if (element) {
-            const X = 100;
-            const Y = 100;
+            if (!X && !Y) {
+                const X = 100;
+                const Y = 100;
+            }
             const id = crypto.randomUUID();
-            
             element.id = id;
             element.x = X;
             element.y = Y;
@@ -189,8 +192,7 @@ class App extends Component {
     }
     
     setIsMove(flag, nameShape) {
-        this.setState({ isMoveShape: flag });
-        this.addShapeName = nameShape;
+        this.setState({ isMoveShape: flag, addShapeName: nameShape });
     }
     
     setRefDragShape(ref) {
@@ -202,9 +204,9 @@ class App extends Component {
         let x = event.screenX;
         let y = event.screenY;
         let element = null;
-        switch (this.addShapeName) {
+        switch (this.state.addShapeName) {
             case 'Resistor':
-                element = <UseResistor ref={this.setRefDragShape} href="#ResistorSymbol" x={x} y={y} width={10} height={50} rotate={0} />
+                element = <UseResistor ref={this.setRefDragShape} href="#ResistorSymbol" x={x} y={y} rotate={0} />
                 break;
             /*case 'Capacitor':
                 element = {
@@ -238,8 +240,7 @@ class App extends Component {
             return;
         } 
         if (this.state.refDragShape) {
-            /*let x = event.screenX;
-            let y = event.screenY;*/
+            
             let dragSvg = document.getElementById('dragShapesToCanvasSvg');
             let CTM = dragSvg.getScreenCTM();
             let x = (event.clientX - CTM.e) / CTM.a;
@@ -247,8 +248,14 @@ class App extends Component {
             console.log(this.state.refDragShape)
             this.state.refDragShape.setCoordinate(x, y);
         }
-
-        
+    }
+    
+    onMouseUpShape() {
+        if (!this.state.isMoveShape) {
+            return;
+        }
+        this.setIsMove(false, null);
+        this.setState({ newShapeDrag: null, refDragShape: null });
     }
 
     componentDidMount() {
@@ -276,7 +283,9 @@ class App extends Component {
                         id='dragShapesToCanvasSvg' 
                         style={{ zIndex: 1000, position: "fixed", width: '100%', height: '100%'}}
                         viewBox={[0, 0, this.state.widthDragSvg * 2, this.state.heightDragSvg * 2].join(' ')}
-                        onMouseMove={(event) => this.onMouseMoveShape(event)}>
+                        onMouseMove={(event) => this.onMouseMoveShape(event)}
+                        onMouseUp={() => this.onMouseUpShape()}
+                        onMouseLeave={() => this.onMouseUpShape()}>
                         {this.state.newShapeDrag}
                         {this.state.patterns.map(pattern => pattern)};
                     </svg>
@@ -302,6 +311,9 @@ class App extends Component {
                             activePageId={this.state.activePageId}
                             setNewPropsShape={this.setNewPropsShape}
                             canNotRemovePage={this.state.canNotRemovePage}
+                            newShapeDrag={this.state.newShapeDrag}
+                            newShapeDragName={this.state.addShapeName}
+                            onAddShape={this.onAddShape}
                         />
                     </div>
                 </div>

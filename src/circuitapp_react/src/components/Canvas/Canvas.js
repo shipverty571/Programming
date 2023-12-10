@@ -149,6 +149,8 @@ class Canvas extends Component {
      */
     refs = [];
 
+    newShapeDragRef = null;
+
     /**
      * Создает экземпляр класса Canvas.
      * @param props Свойства.
@@ -164,6 +166,8 @@ class Canvas extends Component {
             viewBoxHeight: 0,
             MultiSelectingX: null,
             MultiSelectingY: null,
+            newShapeDrag: null,
+            newShapeDragName: null
         }
         this.canvasRef = React.createRef();
         this.selectingRectRef = React.createRef();
@@ -241,7 +245,17 @@ class Canvas extends Component {
      */
     onDrag(event) {
         this.mouseCoordinate = this.getMousePosition(event);
-        if (this.isPanning) {
+        if (this.props.newShapeDrag && !this.state.newShapeDrag) {
+            this.newShapeDragRef = React.createRef();
+            let x = Math.floor(this.mouseCoordinate.x / this.X) * this.X;
+            let y = Math.floor(this.mouseCoordinate.y  / this.Y) * this.Y;
+            let element = <UseResistor ref={this.newShapeDragRef} href={this.props.newShapeDrag.props.href} x={x} y={y} />
+            this.setState({ newShapeDrag: element, newShapeDragName: this.props.newShapeDragName });
+        } else if (this.state.newShapeDrag) {
+            let x = Math.floor(this.mouseCoordinate.x / this.X) * this.X;
+            let y = Math.floor(this.mouseCoordinate.y  / this.Y) * this.Y;
+            this.newShapeDragRef.current.setCoordinate(x, y);
+        } else if (this.isPanning) {
             this.onPanning();
         } else if (this.selectedElement && this.down) {
             event.preventDefault();
@@ -258,6 +272,18 @@ class Canvas extends Component {
      * Обработчик завершения передвижения.
      */
     onEndDrag() {
+        if (this.state.newShapeDrag) {
+            /*console.log( this.props.newShapeDragName,
+                this.newShapeDragRef.current.state.X,
+                this.newShapeDragRef.current.state.Y)*/
+            this.props.onAddShape(
+                this.state.newShapeDragName, 
+                this.newShapeDragRef.current.state.X, 
+                this.newShapeDragRef.current.state.Y);
+            this.setState({ newShapeDrag: null });
+            this.newShapeDragRef = null;
+        }
+        
         this.down = false;
         this.isPanning = false;
         if (this.selectedElement) {
@@ -615,7 +641,7 @@ class Canvas extends Component {
                 preserveAspectRatio='xMinYMin'
                 id='canvas-panel'
                 ref={this.canvasRef}
-                style={{flexGrow: 2}}
+                style={{flexGrow: 2, zIndex: 2000}}
                 viewBox={[this.state.viewBoxX, this.state.viewBoxY, this.state.viewBoxWidth, this.state.viewBoxHeight].join(' ')}>
                 <rect 
                     fill='url(#grid)' 
@@ -631,6 +657,7 @@ class Canvas extends Component {
                 <SelectingRect ref={this.selectingRectRef} />
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => this.getUseComponent(shape))}
+                {this.state.newShapeDrag}
                 {(this.state.MultiSelectingX && this.state.MultiSelectingY) && (
                     <circle cx={this.state.MultiSelectingX} cy={this.state.MultiSelectingY} r='5' fill='#66CD79' />
                 )}
