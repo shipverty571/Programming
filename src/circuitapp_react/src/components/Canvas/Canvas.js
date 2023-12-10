@@ -219,8 +219,7 @@ class Canvas extends Component {
             if (this.selectedElements) {
                 this.setNoFocusAllElements(this.selectedElements);
             }
-
-           
+            
             this.selectedElement = this.getRefElement(id);
             this.offset.x -= this.selectedElement.state.X;
             this.offset.y -= this.selectedElement.state.Y;

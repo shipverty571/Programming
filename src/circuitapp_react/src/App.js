@@ -16,8 +16,6 @@ import UseInductor from "./components/Shapes/UseShapes/UseInductor";
  * Главный компонент.
  */
 class App extends Component {
-    addShapeName = null;
-    
     /**
      * Создает экземпляр класса App.
      * @param props Свойства.
@@ -62,6 +60,8 @@ class App extends Component {
     /**
      * Добавляет элемент в канвас.
      * @param shape Имя элемента, который нужно добавить.
+     * @param X Координата X.
+     * @param Y Координата Y.
      */
     onAddShape(shape, X, Y) {
         let element = null;
@@ -192,16 +192,29 @@ class App extends Component {
             this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === id) });
         });
     }
-    
+
+    /**
+     * Устанавливает значение, указывающее, что происходит перенос объекта на канву.
+     * @param flag Если true, то объект переносится на канву, иначе false.
+     * @param nameShape Имя объекта.
+     */
     setIsMove(flag, nameShape) {
         this.setState({ isMoveShape: flag, addShapeName: nameShape });
     }
-    
+
+    /**
+     * Устанавливает ссылку на элемент.
+     * @param ref Ссылка.
+     */
     setRefDragShape(ref) {
         this.setState({ refDragShape: ref });
     }
-    
-    getNewShapeForDrop(event) {
+
+    /**
+     * Устанавливает в состояние объект, который будет перемещаться в канву.
+     * @param event Объект события.
+     */
+    setNewShapeDrag(event) {
         let x = event.screenX;
         let y = event.screenY;
         let element = null;
@@ -222,18 +235,21 @@ class App extends Component {
             this.setState({ newShapeDrag: element });
         }
     }
-    
+
+    /**
+     * Срабатывает при переносе элементов с меню в канву.
+     * @param event Объект события.
+     */
     onMouseMoveShape(event) {
         if (!this.state.isMoveShape) {
             return;
         }
         
         if (!this.state.newShapeDrag) {
-            this.getNewShapeForDrop(event);
+            this.setNewShapeDrag(event);
             return;
         } 
         if (this.state.refDragShape) {
-            
             let dragSvg = document.getElementById('dragShapesToCanvasSvg');
             let CTM = dragSvg.getScreenCTM();
             let x = (event.clientX - CTM.e) / CTM.a;
@@ -242,7 +258,10 @@ class App extends Component {
             this.state.refDragShape.setCoordinate(x, y);
         }
     }
-    
+
+    /**
+     * Срабатывает, когда левая кнопка мыши отпускается
+     */
     onMouseUpShape() {
         if (!this.state.isMoveShape) {
             return;

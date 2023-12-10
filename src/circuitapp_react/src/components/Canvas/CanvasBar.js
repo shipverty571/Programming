@@ -35,6 +35,11 @@ class CanvasBar extends Component {
         this.setState({ element: elem });
     }
 
+    /**
+     * Устанавливает координаты центра для поворота.
+     * @param x Координата X.
+     * @param y Координата Y.
+     */
     setCenterRotate(x, y) {
         this.setState({ centerX: x, centerY: y });
     }

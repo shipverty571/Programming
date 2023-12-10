@@ -27,7 +27,11 @@ class Shape extends Component {
      * @const
      */
     HeightElement = 50;
-    
+
+    /**
+     * Хранит True, если на элемент нажали, инача False.
+     * @type {boolean}
+     */
     isDown = false;
 
     /**
@@ -90,10 +94,16 @@ class Shape extends Component {
         }
     }
 
+    /**
+     * Срабатывает при нажатии на элемент.
+     */
     onMouseDownShape() {
         this.isDown = true;
     }
-    
+
+    /**
+     * Срабатывает при выходе мыши из области элемента.
+     */
     onMouseLeaveShape() {
         if (this.isDown) {
             this.isDown = false;
