@@ -90,14 +90,12 @@ class Shape extends Component {
         }
     }
 
-    onMouseDownShape(event) {
-        console.log("DOWN");
+    onMouseDownShape() {
         this.isDown = true;
     }
     
-    onMouseLeaveShape(event) {
+    onMouseLeaveShape() {
         if (this.isDown) {
-            console.log("LEAVE");
             this.isDown = false;
             this.props.setIsMove(true, this.props.name);
         }
@@ -107,7 +105,10 @@ class Shape extends Component {
         return (
             <button 
                 className='horizontal-content shape-button' 
-                onClick={() => this.props.onAddShape(this.props.name)} 
+                onClick={() => {
+                    this.isDown = false;
+                    this.props.onAddShape(this.props.name);
+                }} 
                 onMouseDown={() => this.onMouseDownShape()}
                 onMouseLeave={() => this.onMouseLeaveShape()}>
                 {this.renderElements(this.props.name)}
