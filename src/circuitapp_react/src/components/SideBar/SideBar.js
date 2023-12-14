@@ -16,6 +16,7 @@ class SideBar extends Component {
                     groupName="Fundamental Items" 
                     onAddShape={this.props.onAddShape}
                     setIsMove={this.props.setIsMove}
+                    setAddShapeName={this.props.setAddShapeName}
                 />
                 <ShapesGroup groupName="Custom Items" />
             </div>

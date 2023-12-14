@@ -95,7 +95,6 @@ class CanvasBar extends Component {
                     setNewPropsShape={this.props.setNewPropsShape}
                     activePageId={this.props.activePageId}
                     setCenterRotate={this.setCenterRotate}
-                    newShapeDrag={this.props.newShapeDrag}
                     newShapeDragName={this.props.newShapeDragName}
                     onAddShape={this.props.onAddShape}
                 />

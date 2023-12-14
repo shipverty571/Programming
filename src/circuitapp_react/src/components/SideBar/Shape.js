@@ -107,7 +107,8 @@ class Shape extends Component {
     onMouseLeaveShape() {
         if (this.isDown) {
             this.isDown = false;
-            this.props.setIsMove(true, this.props.name);
+            this.props.setIsMove(true);
+            this.props.setAddShapeName(this.props.name);
         }
     }
     
