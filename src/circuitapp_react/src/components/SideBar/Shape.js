@@ -105,11 +105,12 @@ class Shape extends Component {
      * Срабатывает при выходе мыши из области элемента.
      */
     onMouseLeaveShape() {
-        if (this.isDown) {
-            this.isDown = false;
-            this.props.setIsMove(true);
-            this.props.setAddShapeName(this.props.name);
+        if (!this.isDown) {
+            return;
         }
+        this.isDown = false;
+        this.props.setIsMove(true);
+        this.props.setAddShapeName(this.props.name);
     }
     
     render() {
