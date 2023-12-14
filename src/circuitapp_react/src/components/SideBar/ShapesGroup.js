@@ -36,9 +36,24 @@ class ShapesGroup extends Component {
             case 'Fundamental Items':
                 return (
                     <div className='shapes-container' hidden={this.state.isHidden}>
-                        <Shape name="Resistor" onAddShape={this.props.onAddShape} setIsMove={this.props.setIsMove} setAddShapeName={this.props.setAddShapeName} />
-                        <Shape name="Capacitor" onAddShape={this.props.onAddShape} setIsMove={this.props.setIsMove} setAddShapeName={this.props.setAddShapeName} />
-                        <Shape name="Inductor" onAddShape={this.props.onAddShape} setIsMove={this.props.setIsMove} setAddShapeName={this.props.setAddShapeName} /> 
+                        <Shape 
+                            name="Resistor"
+                            onAddShape={this.props.onAddShape} 
+                            setIsMove={this.props.setIsMove} 
+                            setAddShapeName={this.props.setAddShapeName}
+                        />
+                        <Shape 
+                            name="Capacitor" 
+                            onAddShape={this.props.onAddShape} 
+                            setIsMove={this.props.setIsMove} 
+                            setAddShapeName={this.props.setAddShapeName}
+                        />
+                        <Shape 
+                            name="Inductor" 
+                            onAddShape={this.props.onAddShape} 
+                            setIsMove={this.props.setIsMove} 
+                            setAddShapeName={this.props.setAddShapeName}
+                        /> 
                     </div>
                 );
             case 'Custom Items':

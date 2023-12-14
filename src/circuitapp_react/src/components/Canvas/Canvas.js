@@ -566,6 +566,10 @@ class Canvas extends Component {
         }
     }
 
+    /**
+     * Срабатывает при вхождении мыши в компонент.
+     * @param event Объект события.
+     */
     onMouseEnter(event) {
         if (!this.props.newShapeDragName) {
             return;

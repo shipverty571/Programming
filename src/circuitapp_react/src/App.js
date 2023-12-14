@@ -195,14 +195,17 @@ class App extends Component {
     }
 
     /**
-     * Устанавливает значение, указывающее, что происходит перенос объекта на канву.
+     * Устанавливает значение в состояние, указывающее, что происходит перенос объекта на канву.
      * @param flag Если true, то объект переносится на канву, иначе false.
-     * @param nameShape Имя объекта.
      */
     setIsMove(flag) {
         this.setState({ isMoveShape: flag });
     }
-    
+
+    /**
+     * Устанавливает имя добавляемого объекта в состояние.
+     * @param name Имя добавляемого объекта.
+     */
     setAddShapeName(name) {
         this.setState({ addShapeName: name });
     }
