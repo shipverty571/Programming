@@ -1,4 +1,5 @@
-﻿/**
+﻿// TODO Переделать с использованием УГО
+/**
  * Размеры конденсатора.
  * @type {{width: number, height: number}} Ширина и высота соответственно.
  * @const
@@ -8,6 +9,7 @@ export const CapacitorSize = {
     height: 150
 }
 
+// TODO Переделать с использованием УГО
 /**
  * Размеры резистора.
  * @type {{width: number, height: number}} Ширина и высота соответственно.
@@ -18,6 +20,7 @@ export const ResistorSize = {
     height: 150
 }
 
+// TODO Переделать с использованием УГО
 /**
  * Размеры катушки индуктивности.
  * @type {{width: number, height: number}} Ширина и высота соответственно.

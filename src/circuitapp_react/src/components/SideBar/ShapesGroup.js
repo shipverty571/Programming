@@ -31,6 +31,7 @@ class ShapesGroup extends Component {
      * @param name Имя группы.
      * @returns {JSX.Element|string} Возвращает блок с элементами.
      */
+    // TODO Переделать с использованием УГО
     renderGroup(name) {
         switch (name) {
             case 'Fundamental Items':

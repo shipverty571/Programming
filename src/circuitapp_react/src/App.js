@@ -23,6 +23,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            // TODO Переделать с использованием УГО
             patterns: [
                 <Resistor id="ResistorSymbol" />,
                 <Capacitor id="CapacitorSymbol" />,
@@ -64,6 +65,7 @@ class App extends Component {
      * @param X Координата X.
      * @param Y Координата Y.
      */
+    // TODO Переделать с использованием УГО
     onAddShape(shape, X, Y) {
         let element = null;
         switch (shape) {
@@ -222,6 +224,7 @@ class App extends Component {
      * Устанавливает в состояние объект, который будет перемещаться в канву.
      * @param event Объект события.
      */
+    // TODO Переделать с использованием УГО
     setNewShapeDrag(event) {
         let x = event.screenX;
         let y = event.screenY;

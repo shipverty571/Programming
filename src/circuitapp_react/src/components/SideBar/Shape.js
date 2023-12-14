@@ -39,6 +39,7 @@ class Shape extends Component {
      * @param param Имя элемента.
      * @returns {JSX.Element|string} Возвращает svg-элемент.
      */
+    // TODO Переделать с использованием УГО
     renderElements(param) {
         switch(param) {
             case 'Resistor':

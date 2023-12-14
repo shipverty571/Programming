@@ -520,6 +520,7 @@ class Canvas extends Component {
      * @param shape Имя фигуры.
      * @returns {JSX.Element|string} Возвращает компонент фигуры.
      */
+    // TODO Переделать с использованием УГО
     getUseComponent(shape) {
         switch(shape.href) {
             case "#ResistorSymbol":
