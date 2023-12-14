@@ -52,6 +52,7 @@ class App extends Component {
         this.setActivePage = this.setActivePage.bind(this);
         this.setNewPropsShape = this.setNewPropsShape.bind(this);
         this.setIsMove = this.setIsMove.bind(this);
+        this.setAddShapeName = this.setAddShapeName.bind(this);
         this.onMouseMoveShape = this.onMouseMoveShape.bind(this);
         this.onMouseUpShape = this.onMouseUpShape.bind(this);
         this.setRefDragShape = this.setRefDragShape.bind(this);
@@ -198,8 +199,12 @@ class App extends Component {
      * @param flag Если true, то объект переносится на канву, иначе false.
      * @param nameShape Имя объекта.
      */
-    setIsMove(flag, nameShape) {
-        this.setState({ isMoveShape: flag, addShapeName: nameShape });
+    setIsMove(flag) {
+        this.setState({ isMoveShape: flag });
+    }
+    
+    setAddShapeName(name) {
+        this.setState({ addShapeName: name });
     }
 
     /**
@@ -244,7 +249,6 @@ class App extends Component {
         if (!this.state.isMoveShape) {
             return;
         }
-        
         if (!this.state.newShapeDrag) {
             this.setNewShapeDrag(event);
             return;
@@ -265,8 +269,16 @@ class App extends Component {
         if (!this.state.isMoveShape) {
             return;
         }
-        this.setIsMove(false, null);
+        this.setIsMove(false);
+    }
+    
+    onMouseEnter() {
+        if (!this.state.newShapeDrag) {
+            return;
+        }
         this.setState({ newShapeDrag: null, refDragShape: null });
+        this.setIsMove(false);
+        this.setAddShapeName(null);
     }
 
     componentDidMount() {
@@ -297,31 +309,32 @@ class App extends Component {
                         {this.state.patterns.map(pattern => pattern)};
                     </svg>
                 )}
-                <div className='container-row' style={{ justifyContent: 'left' }}>
-                    <div className='container-column'>
-                        <Header />
+                <div className='container-column' style={{ flexGrow: 2 }} onMouseEnter={() => this.onMouseEnter()}>
+                    <div className='container-row' style={{ justifyContent: 'left' }}>
+                        <div className='container-column'>
+                            <Header />
+                        </div>
                     </div>
-                </div>
-                <div className='App container-row' style={{ flexGrow: 2 }}>
-                    <div className='container-column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
-                        <SideBar onAddShape={this.onAddShape} setIsMove={this.setIsMove} />
-                    </div>
-                    <div className='container-column'>
-                        <CanvasBar
-                            patterns={this.state.patterns}
-                            shapes={this.state.shapesOfPage}
-                            onRemoveShape={this.onRemoveShape}
-                            onAddPage={this.onAddPage}
-                            onRemovePage={this.onRemovePage}
-                            pages={this.state.pages}
-                            setActivePage={this.setActivePage}
-                            activePageId={this.state.activePageId}
-                            setNewPropsShape={this.setNewPropsShape}
-                            canNotRemovePage={this.state.canNotRemovePage}
-                            newShapeDrag={this.state.newShapeDrag}
-                            newShapeDragName={this.state.addShapeName}
-                            onAddShape={this.onAddShape}
-                        />
+                    <div className='App container-row' style={{ flexGrow: 2 }}>
+                        <div className='container-column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
+                            <SideBar onAddShape={this.onAddShape} setIsMove={this.setIsMove} setAddShapeName={this.setAddShapeName} />
+                        </div>
+                        <div className='container-column'>
+                            <CanvasBar
+                                patterns={this.state.patterns}
+                                shapes={this.state.shapesOfPage}
+                                onRemoveShape={this.onRemoveShape}
+                                onAddPage={this.onAddPage}
+                                onRemovePage={this.onRemovePage}
+                                pages={this.state.pages}
+                                setActivePage={this.setActivePage}
+                                activePageId={this.state.activePageId}
+                                setNewPropsShape={this.setNewPropsShape}
+                                canNotRemovePage={this.state.canNotRemovePage}
+                                newShapeDragName={this.state.addShapeName}
+                                onAddShape={this.onAddShape}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

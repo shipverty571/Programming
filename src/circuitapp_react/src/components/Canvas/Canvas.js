@@ -149,8 +149,6 @@ class Canvas extends Component {
      */
     refs = [];
 
-    newShapeDragRef = null;
-
     /**
      * Создает экземпляр класса Canvas.
      * @param props Свойства.
@@ -165,9 +163,7 @@ class Canvas extends Component {
             viewBoxWidth: 0,
             viewBoxHeight: 0,
             MultiSelectingX: null,
-            MultiSelectingY: null,
-            newShapeDrag: null,
-            newShapeDragName: null
+            MultiSelectingY: null
         }
         this.canvasRef = React.createRef();
         this.selectingRectRef = React.createRef();
@@ -176,6 +172,7 @@ class Canvas extends Component {
         this.onDrag = this.onDrag.bind(this);
         this.onEndDrag = this.onEndDrag.bind(this);
         this.onPanning = this.onPanning.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
         this.getMousePosition = this.getMousePosition.bind(this);
         this.onSetZoom = this.onSetZoom.bind(this);
         this.setFocus = this.setFocus.bind(this);
@@ -247,28 +244,7 @@ class Canvas extends Component {
      */
     onDrag(event) {
         this.mouseCoordinate = this.getMousePosition(event);
-        if (this.props.newShapeDrag && !this.state.newShapeDrag) {
-            this.newShapeDragRef = React.createRef();
-            let x = Math.floor(this.mouseCoordinate.x / this.X) * this.X;
-            let y = Math.floor(this.mouseCoordinate.y  / this.Y) * this.Y;
-            let element;
-            switch (this.props.newShapeDragName) {
-                case "Resistor":
-                    element = <UseResistor ref={this.newShapeDragRef} href={this.props.newShapeDrag.props.href} x={x} y={y} />;
-                    break;
-                case "Capacitor":
-                    element = <UseCapacitor ref={this.newShapeDragRef} href={this.props.newShapeDrag.props.href} x={x} y={y} />;
-                    break;
-                case "Inductor":
-                    element = <UseInductor ref={this.newShapeDragRef} href={this.props.newShapeDrag.props.href} x={x} y={y} />;
-                    break;
-            }
-            this.setState({ newShapeDrag: element, newShapeDragName: this.props.newShapeDragName });
-        } else if (this.state.newShapeDrag) {
-            let x = Math.floor(this.mouseCoordinate.x / this.X) * this.X;
-            let y = Math.floor(this.mouseCoordinate.y  / this.Y) * this.Y;
-            this.newShapeDragRef.current.setCoordinate(x, y);
-        } else if (this.isPanning) {
+        if (this.isPanning) {
             this.onPanning();
         } else if (this.selectedElement && this.down) {
             event.preventDefault();
@@ -285,16 +261,6 @@ class Canvas extends Component {
      * Обработчик завершения передвижения.
      */
     onEndDrag() {
-        if (this.state.newShapeDrag) {
-            this.props.onAddShape(
-                this.state.newShapeDragName, 
-                this.newShapeDragRef.current.state.X, 
-                this.newShapeDragRef.current.state.Y);
-            this.setState({ newShapeDrag: null });
-            this.newShapeDragRef = null;
-            return;
-        }
-        
         this.down = false;
         this.isPanning = false;
         if (this.selectedElement) {
@@ -600,10 +566,22 @@ class Canvas extends Component {
         }
     }
 
+    onMouseEnter(event) {
+        if (!this.props.newShapeDragName) {
+            return;
+        }
+
+        let coord = this.getMousePosition(event);
+        let x = Math.floor(coord.x / this.X) * this.X;
+        let y = Math.floor(coord.y / this.Y) * this.Y;
+        this.props.onAddShape(this.props.newShapeDragName, x, y);
+    }
+
     componentDidMount() {
         this.canvasRef.current.addEventListener('mousedown', this.onStartDrag);
         this.canvasRef.current.addEventListener('mousemove', this.onDrag);
         this.canvasRef.current.addEventListener('mouseup', this.onEndDrag);
+        this.canvasRef.current.addEventListener('mouseenter', this.onMouseEnter);
         this.canvasRef.current.addEventListener('wheel', this.onSetZoom);
         this.canvasRef.current.addEventListener('contextmenu', e => e.preventDefault());
 
@@ -652,7 +630,7 @@ class Canvas extends Component {
                 preserveAspectRatio='xMinYMin'
                 id='canvas-panel'
                 ref={this.canvasRef}
-                style={{flexGrow: 2, zIndex: 2000}}
+                style={{ flexGrow: 2 }}
                 viewBox={[this.state.viewBoxX, this.state.viewBoxY, this.state.viewBoxWidth, this.state.viewBoxHeight].join(' ')}>
                 <rect 
                     fill='url(#grid)' 
@@ -668,7 +646,6 @@ class Canvas extends Component {
                 <SelectingRect ref={this.selectingRectRef} />
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => this.getUseComponent(shape))}
-                {this.state.newShapeDrag}
                 {(this.state.MultiSelectingX && this.state.MultiSelectingY) && (
                     <circle cx={this.state.MultiSelectingX} cy={this.state.MultiSelectingY} r='5' fill='#66CD79' />
                 )}
