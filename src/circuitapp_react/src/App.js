@@ -296,7 +296,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className='container-column' style={{ flexGrow: 2 }}>
+            <div className='container-column' style={{ flexGrow: 2, margin: 0 }}>
                 {this.state.isMoveShape && (
                     <svg 
                         id='dragShapesToCanvasSvg' 
@@ -309,7 +309,10 @@ class App extends Component {
                         {this.state.patterns.map(pattern => pattern)};
                     </svg>
                 )}
-                <div className='container-column' style={{ flexGrow: 2 }} onMouseEnter={() => this.onMouseEnter()}>
+                <div 
+                    className='container-column' 
+                    style={{ flexGrow: 2, margin: '10px' }} 
+                    onMouseEnter={() => this.onMouseEnter()}>
                     <div className='container-row' style={{ justifyContent: 'left' }}>
                         <div className='container-column'>
                             <Header />
@@ -317,7 +320,11 @@ class App extends Component {
                     </div>
                     <div className='App container-row' style={{ flexGrow: 2 }}>
                         <div className='container-column' style={{ width: '400px', backgroundColor: '#F3F3F3' }}>
-                            <SideBar onAddShape={this.onAddShape} setIsMove={this.setIsMove} setAddShapeName={this.setAddShapeName} />
+                            <SideBar 
+                                onAddShape={this.onAddShape} 
+                                setIsMove={this.setIsMove} 
+                                setAddShapeName={this.setAddShapeName}
+                            />
                         </div>
                         <div className='container-column'>
                             <CanvasBar
