@@ -500,10 +500,10 @@ class Canvas extends Component {
      * @returns {{x: number, y: number}} Возвращает координаты.
      */
     getMousePosition(event) {
-        let CTM = this.canvasSVG.getScreenCTM();
+        let ctm = this.canvasSVG.getScreenCTM();
         return {
-            x: (event.clientX - CTM.e) / CTM.a,
-            y: (event.clientY - CTM.f) / CTM.d
+            x: (event.clientX - ctm.e) / ctm.a,
+            y: (event.clientY - ctm.f) / ctm.d
         };
     }
 

@@ -255,9 +255,9 @@ class App extends Component {
         } 
         if (this.state.refDragShape) {
             let dragSvg = document.getElementById('dragShapesToCanvasSvg');
-            let CTM = dragSvg.getScreenCTM();
-            let x = (event.clientX - CTM.e) / CTM.a;
-            let y = (event.clientY - CTM.f) / CTM.d;
+            let ctm = dragSvg.getScreenCTM();
+            let x = (event.clientX - ctm.e) / ctm.a;
+            let y = (event.clientY - ctm.f) / ctm.d;
             this.state.refDragShape.setCoordinate(x, y);
         }
     }
