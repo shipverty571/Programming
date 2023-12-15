@@ -57,6 +57,29 @@ select, h4, h3, h2, h1, p, input {
   cursor: move;
 }
 
+#download-button {
+  text-align: center;
+  background: url('../public/Images/download_100x100_black.png') no-repeat;
+  background-position: center center;
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  margin-right: 5px;
+  padding: 0;
+}
+
+#download-button:hover {
+  background-color: #EBEBEB;
+}
+
+#download-button:active {
+  background: url('../public/Images/download_100x100_white.png') no-repeat;
+  background-size: 30px 30px;
+  background-color: #4DC462;
+  background-position: center center;
+}
+
 #folder-button {
   text-align: center;
   background: url('../public/Images/folder_100x100_black.png') no-repeat;

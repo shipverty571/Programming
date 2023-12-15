@@ -10,8 +10,7 @@ class MenuBar extends Component {
                 className='horizontal-content' 
                 style={{ justifyContent : 'right', height: '100%', flexDirection: 'row', alignItems: 'flex-end' }}>
                 <label id='time-saved-label'>saved at 15:08</label>
-                <button id='folder-button' />
-                <button id='save-button' />
+                <button id='download-button' />
             </div>
         );
     }
