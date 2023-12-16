@@ -11,6 +11,8 @@ import UseResistor from "./components/Shapes/UseShapes/UseResistor";
 import $ from "jquery";
 import UseCapacitor from "./components/Shapes/UseShapes/UseCapacitor";
 import UseInductor from "./components/Shapes/UseShapes/UseInductor";
+import {Shapes} from "./components/Shapes/FundamentalShapes";
+import Shape from "./components/Shapes/Shape";
 
 /**
  * Главный компонент.
@@ -229,9 +231,14 @@ class App extends Component {
         let x = event.screenX;
         let y = event.screenY;
         let element = null;
-        switch (this.state.addShapeName) {
+        let shape = Shapes.filter(shape => shape.name === this.state.addShapeName);
+        if (shape.length === 0) {
+            return;
+        }
+        element = <Shape x={x} y={y} ref={this.setRefDragShape} html={shape[0].html} />
+        /*switch (this.state.addShapeName) {
             case 'Resistor':
-                element = <UseResistor ref={this.setRefDragShape} href="#ResistorSymbol" x={x} y={y} />
+                element = 
                 break;
             case 'Capacitor':
                 element = <UseCapacitor ref={this.setRefDragShape} href="#CapacitorSymbol" x={x} y={y} />
@@ -241,7 +248,7 @@ class App extends Component {
                 break;
             default:
                 break;
-        }
+        }*/
         if (element) {
             this.setState({ newShapeDrag: element });
         }
@@ -264,6 +271,7 @@ class App extends Component {
             let ctm = dragSvg.getScreenCTM();
             let x = (event.clientX - ctm.e) / ctm.a;
             let y = (event.clientY - ctm.f) / ctm.d;
+            console.log(this.state.refDragShape)
             this.state.refDragShape.setCoordinate(x, y);
         }
     }
@@ -277,7 +285,10 @@ class App extends Component {
         }
         this.setIsMove(false);
     }
-    
+
+    /**
+     * Срабатывает при вхождении мыши в элемент.
+     */
     onMouseEnter() {
         if (!this.state.newShapeDrag) {
             return;
