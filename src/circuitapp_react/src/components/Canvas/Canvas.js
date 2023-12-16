@@ -5,6 +5,7 @@ import $ from "jquery";
 import UseResistor from "../Shapes/UseShapes/UseResistor";
 import UseCapacitor from "../Shapes/UseShapes/UseCapacitor";
 import UseInductor from "../Shapes/UseShapes/UseInductor";
+import Shape from "../Shapes/Shape";
 
 /**
  * Компонент канваса.
@@ -651,6 +652,22 @@ class Canvas extends Component {
                 <SelectingRect ref={this.selectingRectRef} />
                 {this.props.patterns.map(pattern => pattern)}
                 {this.props.shapes.map(shape => this.getUseComponent(shape))}
+                {this.props.shapes.map(shape => (
+                    <Shape
+                        x={shape.x}
+                        y={shape.y}
+                        id={shape.id}
+                        key={shape.id}
+                        width={shape.width}
+                        height={shape.height}
+                        rotate={shape.rotate}
+                        widthElement={shape.width}
+                        heightElement={shape.height}
+                        html={shape.html}
+                        ref={this.setRefToShape}
+                        setNewPropsShape={this.props.setNewPropsShape}
+                    />
+                ))}
                 {(this.state.MultiSelectingX && this.state.MultiSelectingY) && (
                     <circle cx={this.state.MultiSelectingX} cy={this.state.MultiSelectingY} r='5' fill='#66CD79' />
                 )}

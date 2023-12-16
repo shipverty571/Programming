@@ -63,14 +63,38 @@ class App extends Component {
 
     /**
      * Добавляет элемент в канвас.
-     * @param shape Имя элемента, который нужно добавить.
+     * @param shapeName Имя элемента, который нужно добавить.
      * @param X Координата X.
      * @param Y Координата Y.
      */
     // TODO Переделать с использованием УГО
-    onAddShape(shape, X, Y) {
-        let element = null;
-        switch (shape) {
+    onAddShape(shapeName, X, Y) {
+        let element = {};
+        let shape = Shapes.filter(shape => shape.name === shapeName);
+        if (shape.length === 0) {
+            return;
+        }
+        if (!X && !Y) {
+            X = 100;
+            Y = 100;
+        }
+        const id = crypto.randomUUID();
+        console.log(shape[0].html)
+        element.width = shape[0].width;
+        element.height = shape[0].height;
+        element.name = shape[0].name;
+        element.html = shape[0].html;
+        element.id = id;
+        element.x = X;
+        element.y = Y;
+        element.rotate = 0;
+        element.page = this.state.activePageId;
+        this.setState( previousState => ({
+            shapes : [...previousState.shapes, element]
+        }), ()=> {
+            this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) });
+        });
+        /*switch (shape) {
             case 'Resistor':
                 element = {
                     href: "#ResistorSymbol",
@@ -94,9 +118,9 @@ class App extends Component {
                 break;
             default:
                 break;
-        }
+        }*/
         
-        if (element) {
+        /*if (element) {
             if (!X && !Y) {
                 X = 100;
                 Y = 100;
@@ -113,7 +137,7 @@ class App extends Component {
                 this.setState({ shapesOfPage: this.state.shapes.filter(shape => shape.page === this.state.activePageId) });
             });
             
-        }
+        }*/
     }
 
     /**

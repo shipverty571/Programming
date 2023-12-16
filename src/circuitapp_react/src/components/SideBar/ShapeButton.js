@@ -132,7 +132,13 @@ class ShapeButton extends Component {
                     height={this.HeightElement} >
                     
                 </svg>*/}
-                <Shape width={this.props.shape.width} height={this.props.shape.height} html={this.props.shape.html} />
+                <Shape 
+                    widthElement={this.WidthElement} 
+                    heightElement={this.HeightElement} 
+                    width={this.props.shape.width} 
+                    height={this.props.shape.height} 
+                    html={this.props.shape.html}
+                />
                 
                 {/*{this.renderElements(this.props.name)}*/}
                 <p className='shape-name'>{this.props.shape.name}</p>
