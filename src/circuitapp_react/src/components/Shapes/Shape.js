@@ -88,6 +88,11 @@ class Shape extends Component {
                 strokeWidth={this.state.strokeWidth}
                 strokeDasharray={this.state.strokeDashArray}
                 id={this.props.id}
+                viewBox={[0, 0, this.state.width, this.state.height - 50].join(' ')}
+                
+                /*width={this.state.WidthElement}
+                height={this.state.HeightElement}*/
+                
                 transform=
                     {`rotate(${this.state.rotate} ${this.state.X+this.state.width/2} ${this.state.Y+this.state.height/2})`}
                 dangerouslySetInnerHTML={{__html: this.props.html}}>

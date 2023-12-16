@@ -125,13 +125,14 @@ class ShapeButton extends Component {
                 }} 
                 onMouseDown={() => this.onMouseDownShape()}
                 onMouseLeave={() => this.onMouseLeaveShape()}>
-                <svg
+                {/*<svg
                     className='shape-image'
                     viewBox={[0, 0, this.props.shape.width, this.props.shape.height - 50].join(' ')}
                     width={this.WidthElement}
                     height={this.HeightElement} >
-                    <Shape html={this.props.shape.html} />
-                </svg>
+                    
+                </svg>*/}
+                <Shape width={this.props.shape.width} height={this.props.shape.height} html={this.props.shape.html} />
                 
                 {/*{this.renderElements(this.props.name)}*/}
                 <p className='shape-name'>{this.props.shape.name}</p>

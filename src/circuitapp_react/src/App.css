@@ -145,6 +145,7 @@ select, h4, h3, h2, h1, p, input {
 .shape-button {
   border: 1px solid transparent;
   background-color: transparent;
+  height: 50px;
 }
 
 .shape-button:hover {
