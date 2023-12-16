@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import Shape from './Shape';
+import ShapeButton from './ShapeButton';
 import PropTypes from "prop-types";
+import {shapes} from "../Shapes/FundamentalShapes";
 
 /**
  * Компонент группы кнопок элементов.
@@ -37,7 +38,15 @@ class ShapesGroup extends Component {
             case 'Fundamental Items':
                 return (
                     <div className='shapes-container' hidden={this.state.isHidden}>
-                        <Shape 
+                        {shapes.map(shape => (
+                            <ShapeButton 
+                                shape={shape}
+                                onAddShape={this.props.onAddShape}
+                                setIsMove={this.props.setIsMove}
+                                setAddShapeName={this.props.setAddShapeName}
+                            />
+                        ))}
+                        {/*<Shape 
                             name="Resistor"
                             onAddShape={this.props.onAddShape} 
                             setIsMove={this.props.setIsMove} 
@@ -54,7 +63,7 @@ class ShapesGroup extends Component {
                             onAddShape={this.props.onAddShape} 
                             setIsMove={this.props.setIsMove} 
                             setAddShapeName={this.props.setAddShapeName}
-                        /> 
+                        /> */}
                     </div>
                 );
             case 'Custom Items':
