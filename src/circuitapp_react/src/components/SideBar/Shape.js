@@ -29,10 +29,17 @@ class Shape extends Component {
     HeightElement = 50;
 
     /**
+     * Хранит True, если на элемент нажали, инача False.
+     * @type {boolean}
+     */
+    isDown = false;
+
+    /**
      * Рендерит изображение элемента.
      * @param param Имя элемента.
      * @returns {JSX.Element|string} Возвращает svg-элемент.
      */
+    // TODO Переделать с использованием УГО
     renderElements(param) {
         switch(param) {
             case 'Resistor':
@@ -87,10 +94,36 @@ class Shape extends Component {
                 return 'Element not found';
         }
     }
+
+    /**
+     * Срабатывает при нажатии на элемент.
+     */
+    onMouseDownShape() {
+        this.isDown = true;
+    }
+
+    /**
+     * Срабатывает при выходе мыши из области элемента.
+     */
+    onMouseLeaveShape() {
+        if (!this.isDown) {
+            return;
+        }
+        this.isDown = false;
+        this.props.setIsMove(true);
+        this.props.setAddShapeName(this.props.name);
+    }
     
     render() {
         return (
-            <button className='horizontal-content shape-button' onClick={() => this.props.onAddShape(this.props.name)}>
+            <button 
+                className='horizontal-content shape-button' 
+                onClick={() => {
+                    this.isDown = false;
+                    this.props.onAddShape(this.props.name);
+                }} 
+                onMouseDown={() => this.onMouseDownShape()}
+                onMouseLeave={() => this.onMouseLeaveShape()}>
                 {this.renderElements(this.props.name)}
                 <p className='shape-name'>{this.props.name}</p>
             </button>

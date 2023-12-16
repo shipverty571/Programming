@@ -35,6 +35,11 @@ class CanvasBar extends Component {
         this.setState({ element: elem });
     }
 
+    /**
+     * Устанавливает координаты центра для поворота.
+     * @param x Координата X.
+     * @param y Координата Y.
+     */
     setCenterRotate(x, y) {
         this.setState({ centerX: x, centerY: y });
     }
@@ -90,6 +95,8 @@ class CanvasBar extends Component {
                     setNewPropsShape={this.props.setNewPropsShape}
                     activePageId={this.props.activePageId}
                     setCenterRotate={this.setCenterRotate}
+                    newShapeDragName={this.props.newShapeDragName}
+                    onAddShape={this.props.onAddShape}
                 />
                 <CanvasPages 
                     pages={this.props.pages} 

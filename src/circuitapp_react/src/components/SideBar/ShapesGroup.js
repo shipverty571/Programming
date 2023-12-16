@@ -31,14 +31,30 @@ class ShapesGroup extends Component {
      * @param name Имя группы.
      * @returns {JSX.Element|string} Возвращает блок с элементами.
      */
+    // TODO Переделать с использованием УГО
     renderGroup(name) {
         switch (name) {
             case 'Fundamental Items':
                 return (
                     <div className='shapes-container' hidden={this.state.isHidden}>
-                        <Shape name="Resistor" onAddShape={this.props.onAddShape} />
-                        <Shape name="Capacitor" onAddShape={this.props.onAddShape} />
-                        <Shape name="Inductor" onAddShape={this.props.onAddShape} /> 
+                        <Shape 
+                            name="Resistor"
+                            onAddShape={this.props.onAddShape} 
+                            setIsMove={this.props.setIsMove} 
+                            setAddShapeName={this.props.setAddShapeName}
+                        />
+                        <Shape 
+                            name="Capacitor" 
+                            onAddShape={this.props.onAddShape} 
+                            setIsMove={this.props.setIsMove} 
+                            setAddShapeName={this.props.setAddShapeName}
+                        />
+                        <Shape 
+                            name="Inductor" 
+                            onAddShape={this.props.onAddShape} 
+                            setIsMove={this.props.setIsMove} 
+                            setAddShapeName={this.props.setAddShapeName}
+                        /> 
                     </div>
                 );
             case 'Custom Items':

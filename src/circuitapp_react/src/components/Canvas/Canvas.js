@@ -163,7 +163,7 @@ class Canvas extends Component {
             viewBoxWidth: 0,
             viewBoxHeight: 0,
             MultiSelectingX: null,
-            MultiSelectingY: null,
+            MultiSelectingY: null
         }
         this.canvasRef = React.createRef();
         this.selectingRectRef = React.createRef();
@@ -172,6 +172,7 @@ class Canvas extends Component {
         this.onDrag = this.onDrag.bind(this);
         this.onEndDrag = this.onEndDrag.bind(this);
         this.onPanning = this.onPanning.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
         this.getMousePosition = this.getMousePosition.bind(this);
         this.onSetZoom = this.onSetZoom.bind(this);
         this.setFocus = this.setFocus.bind(this);
@@ -184,6 +185,9 @@ class Canvas extends Component {
      * @param event Объект события.
      */
     onStartDrag(event) {
+        if (this.state.newShapeDrag) {
+            return;
+        }
         if (event.button === 2){
             this.isPanning = true;
             let coord = this.getMousePosition(event);
@@ -212,8 +216,7 @@ class Canvas extends Component {
             if (this.selectedElements) {
                 this.setNoFocusAllElements(this.selectedElements);
             }
-
-           
+            
             this.selectedElement = this.getRefElement(id);
             this.offset.x -= this.selectedElement.state.X;
             this.offset.y -= this.selectedElement.state.Y;
@@ -497,10 +500,10 @@ class Canvas extends Component {
      * @returns {{x: number, y: number}} Возвращает координаты.
      */
     getMousePosition(event) {
-        let CTM = this.canvasSVG.getScreenCTM();
+        let ctm = this.canvasSVG.getScreenCTM();
         return {
-            x: (event.clientX - CTM.e) / CTM.a,
-            y: (event.clientY - CTM.f) / CTM.d
+            x: (event.clientX - ctm.e) / ctm.a,
+            y: (event.clientY - ctm.f) / ctm.d
         };
     }
 
@@ -517,6 +520,7 @@ class Canvas extends Component {
      * @param shape Имя фигуры.
      * @returns {JSX.Element|string} Возвращает компонент фигуры.
      */
+    // TODO Переделать с использованием УГО
     getUseComponent(shape) {
         switch(shape.href) {
             case "#ResistorSymbol":
@@ -563,10 +567,26 @@ class Canvas extends Component {
         }
     }
 
+    /**
+     * Срабатывает при вхождении мыши в компонент.
+     * @param event Объект события.
+     */
+    onMouseEnter(event) {
+        if (!this.props.newShapeDragName) {
+            return;
+        }
+
+        let coord = this.getMousePosition(event);
+        let x = Math.floor(coord.x / this.X) * this.X;
+        let y = Math.floor(coord.y / this.Y) * this.Y;
+        this.props.onAddShape(this.props.newShapeDragName, x, y);
+    }
+
     componentDidMount() {
         this.canvasRef.current.addEventListener('mousedown', this.onStartDrag);
         this.canvasRef.current.addEventListener('mousemove', this.onDrag);
         this.canvasRef.current.addEventListener('mouseup', this.onEndDrag);
+        this.canvasRef.current.addEventListener('mouseenter', this.onMouseEnter);
         this.canvasRef.current.addEventListener('wheel', this.onSetZoom);
         this.canvasRef.current.addEventListener('contextmenu', e => e.preventDefault());
 
@@ -584,6 +604,7 @@ class Canvas extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.shapes !== this.props.shapes) {
             this.setNoFocusAllElements(this.refs);
+            this.props.setSelectedElementInState(null);
             this.setState({ MultiSelectingX: null, MultiSelectingY: null });
             this.props.setCenterRotate(null, null);
             
@@ -614,7 +635,7 @@ class Canvas extends Component {
                 preserveAspectRatio='xMinYMin'
                 id='canvas-panel'
                 ref={this.canvasRef}
-                style={{flexGrow: 2}}
+                style={{ flexGrow: 2 }}
                 viewBox={[this.state.viewBoxX, this.state.viewBoxY, this.state.viewBoxWidth, this.state.viewBoxHeight].join(' ')}>
                 <rect 
                     fill='url(#grid)' 

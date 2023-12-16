@@ -51,7 +51,6 @@ select, h4, h3, h2, h1, p, input {
 #root {
   height: 95vh;
   width: 98vw;
-  margin: 10px;
 }
 
 .draggable {
