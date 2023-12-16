@@ -78,7 +78,7 @@ class Shape extends Component {
     
     render() {
         return (
-            <g
+            <svg
                 x={this.state.X}
                 y={this.state.Y}
                 href={this.props.href}
@@ -91,7 +91,7 @@ class Shape extends Component {
                 transform=
                     {`rotate(${this.state.rotate} ${this.state.X+this.state.width/2} ${this.state.Y+this.state.height/2})`}
                 dangerouslySetInnerHTML={{__html: this.props.html}}>
-            </g>
+            </svg>
         );
     }
 }
