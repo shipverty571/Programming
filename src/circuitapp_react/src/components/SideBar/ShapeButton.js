@@ -5,13 +5,14 @@ import Inductor from '../Shapes/Patterns/Inductor';
 import UseResistor from '../Shapes/UseShapes/UseResistor';
 import UseCapacitor from '../Shapes/UseShapes/UseResistor';
 import UseInductor from '../Shapes/UseShapes/UseResistor';
+import Shape from "../Shapes/Shape";
 import PropTypes from "prop-types";
 import {CapacitorSize, InductorSize, ResistorSize} from "../../Resources/ShapesSizes";
 
 /**
  * Компонент кнопки для создания элемента.
  */
-class Shape extends Component {
+class ShapeButton extends Component {
     /**
      * Ширина элемента.
      * @type {number}
@@ -111,7 +112,7 @@ class Shape extends Component {
         }
         this.isDown = false;
         this.props.setIsMove(true);
-        this.props.setAddShapeName(this.props.name);
+        this.props.setAddShapeName(this.props.shape.name);
     }
     
     render() {
@@ -120,12 +121,20 @@ class Shape extends Component {
                 className='horizontal-content shape-button' 
                 onClick={() => {
                     this.isDown = false;
-                    this.props.onAddShape(this.props.name);
+                    this.props.onAddShape(this.props.shape.name);
                 }} 
                 onMouseDown={() => this.onMouseDownShape()}
                 onMouseLeave={() => this.onMouseLeaveShape()}>
-                {this.renderElements(this.props.name)}
-                <p className='shape-name'>{this.props.name}</p>
+                <svg
+                    className='shape-image'
+                    viewBox={[0, 0, this.props.shape.width, this.props.shape.height - 50].join(' ')}
+                    width={this.WidthElement}
+                    height={this.HeightElement} >
+                    <Shape html={this.props.shape.html} />
+                </svg>
+                
+                {/*{this.renderElements(this.props.name)}*/}
+                <p className='shape-name'>{this.props.shape.name}</p>
             </button>
         );
     }
@@ -135,4 +144,4 @@ Shape.propTypes = {
     name: PropTypes.string.isRequired,
 }
 
-export default Shape;
+export default ShapeButton;
