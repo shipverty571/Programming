@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ShapeButton from './ShapeButton';
 import PropTypes from "prop-types";
-import {shapes} from "../Shapes/FundamentalShapes";
+import {Shapes} from "../Shapes/FundamentalShapes";
 
 /**
  * Компонент группы кнопок элементов.
@@ -38,7 +38,7 @@ class ShapesGroup extends Component {
             case 'Fundamental Items':
                 return (
                     <div className='shapes-container' hidden={this.state.isHidden}>
-                        {shapes.map(shape => (
+                        {Shapes.map(shape => (
                             <ShapeButton 
                                 shape={shape}
                                 onAddShape={this.props.onAddShape}
@@ -73,6 +73,7 @@ class ShapesGroup extends Component {
         }
     }
     
+    // TODO нужно убрать
     componentDidUpdate(prevProps, prevState, snapshot) {
         var elements = document
             .getElementById('shapes-group')

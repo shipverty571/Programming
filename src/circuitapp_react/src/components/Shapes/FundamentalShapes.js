@@ -1,7 +1,6 @@
 ﻿import React from "react";
-import {InductorSize} from "../../Resources/ShapesSizes";
 
-export const shapes = [
+export const Shapes = [
     {
         name: 'Capacitor',
         html: `<rect 
